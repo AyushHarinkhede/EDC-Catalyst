@@ -203,7 +203,17 @@ header {
   }
   .search-wrap:focus-within,
   .search-wrap.focused {
-    max-width: calc(100% - 10px) !important;
+    max-width: min(720px, calc(100% - 24px)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-wrap,
+  .search-wrap:focus-within,
+  .search-wrap.focused {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto 20px !important;
   }
 }
 
@@ -1734,14 +1744,226 @@ button {
 @keyframes f4 { 0%,100%{transform:translateX(-50%) translateY(-3px) rotate(-1.5deg)}50%{transform:translateX(-50%) translateY(-12px) rotate(1deg)} }
 @keyframes f5 { 0%,100%{transform:translateX(-50%) translateY(0px) rotate(1.2deg)}50%{transform:translateX(-50%) translateY(-18px) rotate(-1.5deg)} }
 
-/* ─── RESPONSIVE ───────────────────────────────── */
-@media (max-width: 600px) {
-  .panel { padding: 110px 22px 38px; border-radius: 24px; }
-  .panel-title { font-size: 1.6rem; }
-  .travel-grid { grid-template-columns: repeat(3, 1fr); }
-  .price-box { min-width: 80px; }
-  .header-title { letter-spacing: -0.5px; }
+/* ═══════════════════════════════════════════════════════════════
+   SMART ADAPTIVE VERTICAL / MOBILE SCREEN ENGINE (<= 768px)
+   (Desktop, Laptop, TV & Tablets > 768px remain 100% untouched)
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* 1. Page Wrapper & Padding */
+  .wrap {
+    padding: 0 16px 80px !important;
+  }
+
+  /* 2. Header & Branding */
+  header {
+    padding: 24px 0 16px !important;
+  }
+  header > br {
+    display: none !important; /* Hide wide-screen desktop spacing br tags on mobile */
+  }
+  .header-badge {
+    padding: 5px 14px !important;
+    margin-bottom: 14px !important;
+  }
+  .header-badge span {
+    font-size: 9.5px !important;
+    letter-spacing: 2px !important;
+  }
+  .header-title {
+    font-size: clamp(2.3rem, 8.5vw, 3.2rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 8px !important;
+  }
+  .header-sub {
+    font-size: 10.5px !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 18px !important;
+  }
+  .header-stats {
+    gap: 8px !important;
+  }
+  .stat-pill {
+    padding: 5px 12px !important;
+    font-size: 11px !important;
+    border-radius: 99px !important;
+  }
+
+  /* 3. Floating Fullscreen Toggle (Clean & Compact on Mobile) */
+  .fullscreen-toggle-btn {
+    top: 12px !important;
+    right: 14px !important;
+    padding: 6px 10px !important;
+    font-size: 11.5px !important;
+    gap: 5px !important;
+  }
+  .fullscreen-toggle-btn .badge-f11 {
+    display: none !important; /* No F11 key on mobile */
+  }
+
+  /* 4. Search Bar - Smooth, Stable, Responsive Mobile Physics */
+  .search-box-container {
+    height: 52px !important;
+  }
+  .search-wrap:focus-within .search-box-container,
+  .search-wrap.focused .search-box-container {
+    transform: none !important; /* Prevents blurry font rendering and layout shifts on mobile */
+  }
+  .search-icon {
+    left: 16px !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .search-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  .search-animated-text,
+  .search-placeholder,
+  #searchInput {
+    padding: 0 68px 0 44px !important;
+    font-size: 15px !important;
+    line-height: 50px !important;
+  }
+  .search-clear {
+    right: 12px !important;
+    font-size: 11px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* 5. Categories Strip */
+  .cats-section {
+    margin-bottom: 18px !important;
+  }
+  .cats-wrap {
+    padding: 8px 4px 10px 4px !important;
+    gap: 6px !important;
+  }
+  .cat-btn {
+    padding: 7px 13px !important;
+    font-size: 12px !important;
+    border-radius: 99px !important;
+  }
+
+  /* 6. Brand Buttons Grid (Clean 3-Column on Vertical Screens) */
+  .brands-section {
+    margin-bottom: 24px !important;
+  }
+  .brands-header {
+    font-size: 10.5px !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 12px !important;
+  }
+  .brands-wrap {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+  .brand-btn {
+    min-height: 58px !important;
+    height: 58px !important;
+    border-radius: 12px !important;
+    padding: 4px 6px !important;
+  }
+  .brand-btn svg {
+    max-width: 82% !important;
+    max-height: 38px !important;
+  }
+
+  /* 7. Filter Bar */
+  .filter-bar {
+    margin-bottom: 20px !important;
+    gap: 8px !important;
+  }
+  .result-count {
+    font-size: 12.5px !important;
+  }
+
+  /* 8. Catalysts Grid (Polished Vertical Mobile Feed) */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+  }
+  .card {
+    margin-top: 38px !important;
+    padding: 96px 18px 20px !important;
+    border-radius: 22px !important;
+  }
+  .card-brand-stage {
+    height: 84px !important;
+  }
+  .card-brand-logo {
+    height: 76px !important;
+    width: 155px !important;
+    top: -8px !important;
+  }
+  .card-title {
+    font-size: 18px !important;
+  }
+  .card-specs {
+    gap: 6px !important;
+  }
+  .spec-chip {
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+  }
+  .travel-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .price-box {
+    min-width: 80px !important;
+  }
+
+  /* 9. Detail Modal Panel */
+  .panel {
+    width: calc(100% - 20px) !important;
+    margin: 16px auto !important;
+    padding: 94px 18px 28px !important;
+    border-radius: 22px !important;
+  }
+  .panel-brand-stage {
+    height: 82px !important;
+  }
+  .panel-brand-logo {
+    top: -10px !important;
+  }
+  .panel-brand-logo svg {
+    max-width: 220px !important;
+    max-height: 72px !important;
+  }
+  .panel-title {
+    font-size: 1.5rem !important;
+  }
+  .panel-close {
+    top: 14px !important;
+    right: 14px !important;
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  /* 10. Scroll to Top Floating Button (Fluid Spring Touch Physics) */
+  .scroll-top-btn {
+    bottom: max(18px, env(safe-area-inset-bottom, 18px)) !important;
+    right: max(16px, env(safe-area-inset-right, 16px)) !important;
+    width: 48px !important;
+    height: 48px !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45) !important;
+  }
+  .scroll-top-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
 }
+
+/* Extra Compact Screens (<= 380px) */
+@media (max-width: 380px) {
+  .brands-wrap {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .header-title {
+    font-size: 2.1rem !important;
+  }
+}
+
 
 
 /* ═══════════════════════════════════════════════
@@ -2199,7 +2421,7 @@ html[data-scale="large"] {
 @media (hover: none) {
   /* On touchscreens, completely disable any sticky hover transforms */
   .card:hover, .cat-btn:hover, .brand-btn:hover,
-  .scroll-top-btn:hover, .panel-close:hover {
+  .panel-close:hover {
     transform: none !important;
   }
 }
@@ -6259,6 +6481,14 @@ const SEARCH_PROMPTS = [
   "Search Dyson, Cartier, Spigen, Ember…"
 ];
 
+const SEARCH_PROMPTS_MOBILE = [
+  "Search Rolex, Apple, Nike…",
+  "Search G-Shock, Ray-Ban…",
+  "Search Titanium EDC, Audio…",
+  "Search Dyson, Cartier, Ember…",
+  "Search 170+ curated items…"
+];
+
 let currentPromptIndex = 0;
 let placeholderTimer = null;
 let isPlaceholderTyping = false;
@@ -6309,7 +6539,9 @@ function initAnimatedPlaceholder() {
     }
 
     placeholderEl.classList.remove('hidden');
-    const prompt = SEARCH_PROMPTS[currentPromptIndex];
+    const isMobile = window.innerWidth <= 768;
+    const promptList = isMobile ? SEARCH_PROMPTS_MOBILE : SEARCH_PROMPTS;
+    const prompt = promptList[currentPromptIndex % promptList.length];
 
     typePrompt(prompt, () => {
       // Stay visible for 4.2 seconds before cycling to next prompt with slide-up
@@ -6652,7 +6884,9 @@ function handleScroll() {
   updateScrollProgress();
   const scrollTopBtn = document.getElementById('scrollTopBtn');
   if (!scrollTopBtn) return;
-  const shouldShow = window.scrollY > 280;
+  const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  const threshold = window.innerWidth <= 768 ? 200 : 280;
+  const shouldShow = scrollY > threshold;
 
   if (shouldShow && !isScrollBtnVisible) {
     isScrollBtnVisible = true;
@@ -6665,7 +6899,21 @@ function handleScroll() {
   }
 }
 
-window.addEventListener('scroll', handleScroll, { passive: true });
+['scroll', 'touchmove', 'touchend'].forEach(evt => {
+  window.addEventListener(evt, handleScroll, { passive: true });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   SMART ADAPTIVE SCREEN & MOBILE VIEWPORT CONTROLLER
+═══════════════════════════════════════════════════════════════ */
+function applySmartScreenAdaptation() {
+  const isVerticalOrMobile = window.innerWidth <= 768 || (window.innerHeight > window.innerWidth && window.innerWidth < 900);
+  document.documentElement.classList.toggle('is-mobile-screen', isVerticalOrMobile);
+  document.body.classList.toggle('is-mobile-screen', isVerticalOrMobile);
+}
+window.addEventListener('resize', applySmartScreenAdaptation, { passive: true });
+window.addEventListener('orientationchange', applySmartScreenAdaptation, { passive: true });
+applySmartScreenAdaptation();
 
 // ESC to close settings as well
 document.addEventListener('keydown', e => {
