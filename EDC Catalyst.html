@@ -6868,10 +6868,14 @@ function handleScroll() {
     isScrollBtnVisible = true;
     scrollTopBtn.classList.remove('hiding');
     scrollTopBtn.classList.add('visible');
+    // Bouncy Toss-Up Haptic Pattern synchronized with tossUpBounce keyframes (0ms pop, 240ms rebound, 380ms settle)
+    triggerFeedback('bounce_appear');
   } else if (!shouldShow && isScrollBtnVisible) {
     isScrollBtnVisible = false;
     scrollTopBtn.classList.remove('visible');
     scrollTopBtn.classList.add('hiding');
+    // Elastic Yank Haptic Pattern synchronized with yankedDownExit keyframes (0ms tug, 180ms stretch snap)
+    triggerFeedback('bounce_exit');
   }
 }
 
@@ -7068,7 +7072,7 @@ function playTapSound(type = 'tap') {
     osc.start(now);
     osc.stop(now + 0.033);
   } else if (type === 'switch') {
-    // Snappy switch click for brands & categories
+    // Snappy switch click for brands & categories with subtle spring
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.type = 'sine';
@@ -7083,21 +7087,66 @@ function playTapSound(type = 'tap') {
     gain.connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.021);
+  } else if (type === 'bounce_appear') {
+    // Elastic spring toss-up acoustic rise (low to high spring overtone)
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(280, now);
+    osc.frequency.exponentialRampToValueAtTime(560, now + 0.045);
+    osc.frequency.exponentialRampToValueAtTime(420, now + 0.08);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.15, now + 0.006);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.085);
+  } else if (type === 'bounce_exit') {
+    // Subtle snappy downward zip for vanishing
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(480, now);
+    osc.frequency.exponentialRampToValueAtTime(140, now + 0.035);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.14, now + 0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.038);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.04);
   }
 }
 
-// Precision Haptic Vibration Feedback
+// Precision Haptic Vibration Feedback with Real-Time Bounciness Synchronization
 function triggerHaptic(type = 'light') {
   if (hapticSoundMode === 'mute' || document.hidden || !navigator.vibrate) return;
   try {
     if (type === 'tap' || type === 'light') {
       navigator.vibrate(8);
     } else if (type === 'switch' || type === 'medium') {
-      navigator.vibrate(14);
+      // Bouncy spring response for Brand & Category pills [press, spring rebound, settle]
+      navigator.vibrate([10, 24, 7]);
     } else if (type === 'open') {
-      navigator.vibrate([10, 30, 16]);
+      // Multi-phase elastic expansion: initial lift -> overshoot peak (340ms) -> settle bounce (440ms)
+      navigator.vibrate([12, 140, 16, 90, 8]);
     } else if (type === 'close') {
-      navigator.vibrate(12);
+      // Elastic snap recoil: initial pop back -> shrink into card
+      navigator.vibrate([14, 80, 9]);
+    } else if (type === 'bounce_appear') {
+      // Synchronized with tossUpBounce keyframes (0ms pop -> 240ms rebound -> 380ms settle)
+      navigator.vibrate([10, 150, 12, 90, 7]);
+    } else if (type === 'bounce_exit') {
+      // Synchronized with yankedDownExit keyframes (0ms tension -> 220ms snap)
+      navigator.vibrate([9, 100, 14]);
+    } else if (type === 'search_bounce') {
+      // Search input spring focus expansion
+      navigator.vibrate([8, 30, 6]);
     }
   } catch (e) {}
 }
@@ -7163,7 +7212,7 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-// Global delegated tap listener for all interactive elements
+// Global delegated tap listener for all interactive elements with real-time bouncy feedback
 document.addEventListener('pointerdown', (e) => {
   unlockAudio();
   const target = e.target.closest(
@@ -7171,12 +7220,16 @@ document.addEventListener('pointerdown', (e) => {
   );
   if (!target) return;
 
-  if (target.classList.contains('card')) {
+  if (target.id === 'scrollTopBtn') {
+    triggerFeedback('bounce_appear');
+  } else if (target.classList.contains('card')) {
     triggerFeedback('open');
   } else if (target.classList.contains('brand-btn') || target.classList.contains('cat-btn')) {
     triggerFeedback('switch');
   } else if (target.classList.contains('panel-close') || target.classList.contains('search-clear')) {
     triggerFeedback('close');
+  } else if (target.classList.contains('search-box-container')) {
+    triggerFeedback('search_bounce');
   } else {
     triggerFeedback('tap');
   }
