@@ -2564,12 +2564,78 @@ img, svg, picture, canvas {
   fill: none;
   flex-shrink: 0;
 }
+
+/* ══ SOUND & HAPTIC DEVICE SYNC PILL ══════════════ */
+.haptic-sound-pill {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 9990;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  color: var(--text, #1E293B);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+.haptic-sound-pill:hover {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.16);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+.haptic-sound-pill:active {
+  transform: translateY(0.5px) scale(0.96);
+}
+.haptic-sound-pill svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--accent, #6366F1);
+  stroke-width: 2.2;
+  fill: none;
+  transition: transform 0.2s ease;
+}
+[data-theme="dark"] .haptic-sound-pill {
+  background: rgba(30, 41, 59, 0.88);
+  color: #F8FAFC;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+@media (max-width: 768px) {
+  .haptic-sound-pill {
+    top: 12px !important;
+    right: 14px !important;
+    padding: 6px 11px !important;
+    font-size: 11px !important;
+    gap: 5px !important;
+  }
+}
 </style>
 </head>
 <body>
 
-
-
+<!-- ══ SOUND & HAPTIC DEVICE SYNC PILL ══════════════ -->
+<button id="hapticSoundBtn" class="haptic-sound-pill" onclick="cycleHapticSoundMode()" aria-label="Toggle Sound and Haptics" title="Sound & Haptic Mode (Synced with device)">
+  <svg id="hapticSoundIcon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+  </svg>
+  <span id="hapticSoundText">Synced</span>
+</button>
 <!-- ══ SECURITY ALERT TOAST ═══════════════════════ -->
 <div id="securityToast" class="security-toast" role="status" aria-live="polite">
   <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -6913,7 +6979,214 @@ const triggerAutoFullscreenOnGesture = () => {
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   2. SECURITY RESTRICTIONS: COPY, CUT, PASTE, SELECTION & DRAG
+   2. HAPTICS & SOUND EFFECT ENGINE (DEVICE SYNC & TACTILE AUDIO)
+═══════════════════════════════════════════════════════════════ */
+let audioCtx = null;
+let hapticSoundMode = localStorage.getItem('edc_haptic_sound_mode') || 'auto'; // 'auto' | 'vibrate' | 'mute'
+
+// Enable ambient audio session on iOS Safari to automatically respect hardware silent switch
+if (typeof navigator !== 'undefined' && 'audioSession' in navigator) {
+  try {
+    navigator.audioSession.type = 'ambient';
+  } catch (e) {}
+}
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+  return audioCtx;
+}
+
+function unlockAudio() {
+  const ctx = getAudioContext();
+  if (ctx && ctx.state === 'suspended') {
+    ctx.resume().catch(() => {});
+  }
+}
+
+// Synthesize high-definition tactile click audio (Apple UI click acoustic curve)
+function playTapSound(type = 'tap') {
+  if (hapticSoundMode === 'mute' || hapticSoundMode === 'vibrate' || document.hidden) return;
+  const ctx = getAudioContext();
+  if (!ctx || ctx.state !== 'running') return;
+
+  const now = ctx.currentTime;
+
+  if (type === 'tap') {
+    // Crisp high-frequency tactile tick
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(1250, now);
+    osc.frequency.exponentialRampToValueAtTime(220, now + 0.022);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.24, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.022);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.023);
+  } else if (type === 'open') {
+    // Warm acoustic pop for opening details
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(320, now);
+    osc.frequency.exponentialRampToValueAtTime(640, now + 0.038);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.22, now + 0.003);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.042);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.043);
+  } else if (type === 'close') {
+    // Soft descending tone for closing
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(520, now);
+    osc.frequency.exponentialRampToValueAtTime(220, now + 0.03);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.18, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.032);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.033);
+  } else if (type === 'switch') {
+    // Snappy switch click for brands & categories
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, now);
+    osc.frequency.exponentialRampToValueAtTime(340, now + 0.018);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.22, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.02);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.021);
+  }
+}
+
+// Precision Haptic Vibration Feedback
+function triggerHaptic(type = 'light') {
+  if (hapticSoundMode === 'mute' || document.hidden || !navigator.vibrate) return;
+  try {
+    if (type === 'tap' || type === 'light') {
+      navigator.vibrate(8);
+    } else if (type === 'switch' || type === 'medium') {
+      navigator.vibrate(14);
+    } else if (type === 'open') {
+      navigator.vibrate([10, 30, 16]);
+    } else if (type === 'close') {
+      navigator.vibrate(12);
+    }
+  } catch (e) {}
+}
+
+// Unified Feedback Dispatcher
+function triggerFeedback(type = 'tap') {
+  playTapSound(type);
+  triggerHaptic(type);
+}
+
+// Cycle Modes: auto (synced) -> vibrate (silent) -> mute
+function cycleHapticSoundMode() {
+  if (hapticSoundMode === 'auto') {
+    hapticSoundMode = 'vibrate';
+  } else if (hapticSoundMode === 'vibrate') {
+    hapticSoundMode = 'mute';
+  } else {
+    hapticSoundMode = 'auto';
+  }
+  localStorage.setItem('edc_haptic_sound_mode', hapticSoundMode);
+  updateHapticSoundUI();
+  triggerFeedback('switch');
+  showSecurityToast(`Feedback: ${getModeLabel(hapticSoundMode)}`);
+}
+
+function getModeLabel(mode) {
+  if (mode === 'auto') return 'Synced (Sound & Haptics)';
+  if (mode === 'vibrate') return 'Silent Mode (Vibrate Only)';
+  return 'Muted (Off)';
+}
+
+function updateHapticSoundUI() {
+  const icon = document.getElementById('hapticSoundIcon');
+  const text = document.getElementById('hapticSoundText');
+  const btn = document.getElementById('hapticSoundBtn');
+  if (!icon || !text || !btn) return;
+
+  if (hapticSoundMode === 'auto') {
+    icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+    text.textContent = 'Synced';
+    btn.title = 'Device Synced (Sound & Haptics)';
+  } else if (hapticSoundMode === 'vibrate') {
+    icon.innerHTML = '<rect x="6" y="2" width="12" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/><path d="M21 8v8M3 8v8"/>';
+    text.textContent = 'Vibrate';
+    btn.title = 'Silent Mode (Vibrate Only)';
+  } else {
+    icon.innerHTML = '<path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+    text.textContent = 'Muted';
+    btn.title = 'Feedback Muted';
+  }
+}
+
+// Background & Visibility Change - Suspend sound/haptics when tab is backgrounded
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (audioCtx && audioCtx.state === 'running') {
+      audioCtx.suspend().catch(() => {});
+    }
+  } else {
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => {});
+    }
+  }
+});
+
+// Global delegated tap listener for all interactive elements
+document.addEventListener('pointerdown', (e) => {
+  unlockAudio();
+  const target = e.target.closest(
+    '.card, .brand-btn, .cat-btn, button, .spec-chip, .search-box-container, .search-clear, #scrollTopBtn, a, [role="button"], .tag, .stat-pill'
+  );
+  if (!target) return;
+
+  if (target.classList.contains('card')) {
+    triggerFeedback('open');
+  } else if (target.classList.contains('brand-btn') || target.classList.contains('cat-btn')) {
+    triggerFeedback('switch');
+  } else if (target.classList.contains('panel-close') || target.classList.contains('search-clear')) {
+    triggerFeedback('close');
+  } else {
+    triggerFeedback('tap');
+  }
+}, { passive: true });
+
+// Initialize UI on load
+setTimeout(updateHapticSoundUI, 50);
+
+/* ═══════════════════════════════════════════════════════════════
+   3. SECURITY RESTRICTIONS: COPY, CUT, PASTE, SELECTION & DRAG
 ═══════════════════════════════════════════════════════════════ */
 let toastTimeout = null;
 function showSecurityToast(msg) {
