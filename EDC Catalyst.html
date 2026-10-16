@@ -2384,89 +2384,6 @@ img, svg, picture, canvas {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* 4. Security Shield Overlay (Anti-Snipping & Background Screen Capture) */
-.security-shield {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  background: rgba(15, 23, 42, 0.94);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.2s;
-}
-.security-shield.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-.security-shield-card {
-  max-width: 440px;
-  width: 100%;
-  background: rgba(30, 41, 59, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 20px;
-  padding: 32px 28px;
-  text-align: center;
-  color: #FFFFFF;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(99, 102, 241, 0.2);
-  transform: scale(0.94);
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.security-shield.active .security-shield-card {
-  transform: scale(1);
-}
-.security-shield-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 16px;
-  border-radius: 50%;
-  background: rgba(239, 68, 68, 0.15);
-  border: 1.5px solid rgba(239, 68, 68, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #EF4444;
-}
-.security-shield-title {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: 8px;
-  color: #F8FAFC;
-}
-.security-shield-desc {
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: #94A3B8;
-  margin-bottom: 22px;
-}
-.security-shield-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 22px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-  color: #FFFFFF;
-  font-size: 13.5px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-.security-shield-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.55);
-}
 
 /* 5. Security Toast Notification */
 .security-toast {
@@ -2517,28 +2434,6 @@ img, svg, picture, canvas {
   <span class="badge-f11">F11</span>
 </button>
 
-<!-- ══ SCREENSHOT & RECORDING SECURITY SHIELD ══════ -->
-<div id="securityShield" class="security-shield" onclick="dismissSecurityShield()" aria-modal="true" role="dialog">
-  <div class="security-shield-card" onclick="event.stopPropagation()">
-    <div class="security-shield-icon">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <line x1="12" y1="8" x2="12"/>
-        <line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
-    </div>
-    <div class="security-shield-title">EDC Catalyst Protected View</div>
-    <p class="security-shield-desc">
-      Screen capture, recording, snipping tool, and content copying are restricted to protect platform data and brand assets.
-    </p>
-    <button class="security-shield-btn" onclick="dismissSecurityShield()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-      Resume Secure Session
-    </button>
-  </div>
-</div>
 
 <!-- ══ SECURITY ALERT TOAST ═══════════════════════ -->
 <div id="securityToast" class="security-toast" role="status" aria-live="polite">
@@ -6918,16 +6813,14 @@ document.addEventListener('selectstart', e => {
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   3. ANTI-SCREENSHOT & SCREEN RECORDING RESTRICTIONS
+   3. ANTI-SCREENSHOT & CONTENT RESTRICTIONS (SILENT PROTECTION)
 ═══════════════════════════════════════════════════════════════ */
 function activateSecurityShield() {
-  const shield = document.getElementById('securityShield');
-  if (shield) shield.classList.add('active');
+  // Silent protection active: Warning overlay page removed per request
 }
 
 function dismissSecurityShield() {
-  const shield = document.getElementById('securityShield');
-  if (shield) shield.classList.remove('active');
+  // No-op
 }
 
 // Keyboard shortcuts defense & interception
@@ -6945,7 +6838,6 @@ document.addEventListener('keydown', e => {
   // PrintScreen / Snapshot interception
   if (key === 'PrintScreen' || key === 'Snapshot' || e.keyCode === 44) {
     e.preventDefault();
-    activateSecurityShield();
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText('⚠️ Protected Content: Screenshots and recordings are restricted on EDC Catalyst.').catch(() => {});
     }
@@ -7009,29 +6901,10 @@ document.addEventListener('keydown', e => {
 // Intercept keyup for PrintScreen
 window.addEventListener('keyup', e => {
   if (e.key === 'PrintScreen' || e.key === 'Snapshot' || e.keyCode === 44) {
-    activateSecurityShield();
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText('⚠️ Protected Content: Screenshots and recordings are restricted on EDC Catalyst.').catch(() => {});
     }
     showSecurityToast('⚠️ Screenshot attempt detected & blocked!');
-  }
-});
-
-// Window blur & visibility change protection (Anti-Snipping Win+Shift+S & External Recording Overlays)
-let blurSecurityTimer = null;
-window.addEventListener('blur', () => {
-  blurSecurityTimer = setTimeout(() => {
-    activateSecurityShield();
-  }, 120);
-});
-
-window.addEventListener('focus', () => {
-  clearTimeout(blurSecurityTimer);
-});
-
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    activateSecurityShield();
   }
 });
 
