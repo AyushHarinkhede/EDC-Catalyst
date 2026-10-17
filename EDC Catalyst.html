@@ -2725,7 +2725,6 @@ img, svg, picture, canvas {
   <!-- ══ FILTER BAR ════════════════════════════════ -->
   <div class="filter-bar scroll-reveal">
     <div class="result-count" id="resultCount">103 items</div>
-    <div id="brandHeritageBannerContainer" style="width: 100%;"></div>
   </div>
 
   <!-- ══ GRID ═════════════════════════════════════ -->
@@ -2736,6 +2735,9 @@ img, svg, picture, canvas {
     <p>Try a different search term or category</p>
     <button onclick="resetAll()">Clear All Filters</button>
   </div>
+
+  <!-- ══ BRAND SPECIALTY & HERITAGE GUIDE (SHOWN AT END OF CATALOG) ══ -->
+  <div id="brandHeritageBannerContainer" style="width: 100%; margin-top: 36px;"></div>
 
 </div><!-- /wrap -->
 
@@ -2797,6 +2799,7 @@ const BRANDS = [
   { id:"oura",         label:"Oura"           },
   { id:"larq",         label:"LARQ"           },
   { id:"ember",        label:"Ember"          },
+  { id:"beretta",      label:"Beretta"        },
 ];
 
 const CATS = [
@@ -3506,7 +3509,7 @@ const ITEMS = [
     whereUsed:"Security Research, Dev, Maker Projects, Education (Restricted in Canada/Brazil)"
   },
   {
-    id:44, name:"Beretta M9A3 Airsoft", category:"tools", icon:"",
+    id:44, name:"Beretta M9A3 Airsoft", category:"beretta", icon:"",
     inr:"₹8,000 – ₹22,000", usd:"$80 – $220", launch:"Various",
     useCase:"Airsoft sport shooting, tactical training, display collection piece",
     desc:"Full-metal CO2 or green-gas blowback replica of the Beretta M9A3. 1:1 scale and weight. Metal slide, walnut grip panels, accessory rail, decocker. Hop-up for range. 0.20–0.25g BB compatible. The most authentic airsoft sidearm in the world.",
@@ -5556,6 +5559,26 @@ uspa: `<svg viewBox="70 24 236 424" xmlns="http://www.w3.org/2000/svg" aria-labe
   <path fill="#FF661D" d="M170,2h2v1h-2z M169,3h15v1h-15z M169,4h15v1h-15z M169,5h15v1h-15z M169,6h15v1h-15z M169,7h15v1h-15z M169,8h15v1h-15z M169,9h15v1h-15z M169,10h15v1h-15z M169,11h15v1h-15z M169,12h15v1h-15z M169,13h15v1h-15z M169,14h15v1h-15z M169,15h15v1h-15z M169,16h15v1h-15z M169,17h15v1h-15z M169,18h15v1h-15z M169,19h15v1h-15z M169,20h15v1h-15z M169,21h15v1h-15z M169,22h15v1h-15z M169,23h15v1h-15z M169,24h15v1h-15z M169,25h15v1h-15z M169,26h15v1h-15z M27,27h15v1h-15z M90,27h14v1h-14z M131,27h14v1h-14z M169,27h15v1h-15z M196,27h14v1h-14z M263,27h16v1h-16z M326,27h17v1h-17z M23,28h23v1h-23z M87,28h20v1h-20z M128,28h21v1h-21z M169,28h15v1h-15z M193,28h21v1h-21z M259,28h23v1h-23z M324,28h22v1h-22z M20,29h28v1h-28z M84,29h25v1h-25z M125,29h26v1h-26z M169,29h15v1h-15z M192,29h24v1h-24z M256,29h28v1h-28z M321,29h27v1h-27z M18,30h32v1h-32z M83,30h28v1h-28z M124,30h28v1h-28z M169,30h15v1h-15z M189,30h29v1h-29z M254,30h33v1h-33z M319,30h31v1h-31z M17,31h34v1h-34z M81,31h31v1h-31z M123,31h30v1h-30z M169,31h15v1h-15z M188,31h31v1h-31z M253,31h35v1h-35z M318,31h34v1h-34z M14,32h40v1h-40z M80,32h34v1h-34z M121,32h34v1h-34z M169,32h15v1h-15z M187,32h34v1h-34z M251,32h39v1h-39z M316,32h37v1h-37z M13,33h42v1h-42z M79,33h36v1h-36z M120,33h36v1h-36z M169,33h15v1h-15z M186,33h36v1h-36z M250,33h41v1h-41z M316,33h38v1h-38z M12,34h44v1h-44z M78,34h38v1h-38z M119,34h38v1h-38z M169,34h15v1h-15z M185,34h39v1h-39z M249,34h44v1h-44z M315,34h40v1h-40z M11,35h46v1h-46z M77,35h39v1h-39z M118,35h40v1h-40z M169,35h56v1h-56z M247,35h47v1h-47z M314,35h42v1h-42z M10,36h48v1h-48z M77,36h81v1h-81z M169,36h56v1h-56z M247,36h47v1h-47z M313,36h43v1h-43z M9,37h50v1h-50z M76,37h83v1h-83z M169,37h57v1h-57z M246,37h49v1h-49z M312,37h45v1h-45z M8,38h52v1h-52z M75,38h85v1h-85z M169,38h58v1h-58z M245,38h51v1h-51z M312,38h45v1h-45z M8,39h52v1h-52z M75,39h85v1h-85z M169,39h58v1h-58z M244,39h53v1h-53z M311,39h47v1h-47z M7,40h23v1h-23z M39,40h22v1h-22z M75,40h21v1h-21z M100,40h35v1h-35z M139,40h21v1h-21z M169,40h29v1h-29z M204,40h24v1h-24z M244,40h22v1h-22z M275,40h23v1h-23z M311,40h20v1h-20z M337,40h22v1h-22z M6,41h21v1h-21z M42,41h20v1h-20z M74,41h19v1h-19z M104,41h28v1h-28z M142,41h19v1h-19z M169,41h25v1h-25z M207,41h22v1h-22z M243,41h21v1h-21z M278,41h20v1h-20z M311,41h18v1h-18z M340,41h19v1h-19z M6,42h19v1h-19z M44,42h18v1h-18z M74,42h18v1h-18z M105,42h24v1h-24z M143,42h18v1h-18z M169,42h23v1h-23z M209,42h20v1h-20z M242,42h19v1h-19z M280,42h18v1h-18z M310,42h18v1h-18z M342,42h17v1h-17z M6,43h18v1h-18z M45,43h18v1h-18z M74,43h16v1h-16z M107,43h21v1h-21z M145,43h16v1h-16z M169,43h21v1h-21z M211,43h19v1h-19z M242,43h18v1h-18z M281,43h18v1h-18z M310,43h16v1h-16z M343,43h17v1h-17z M5,44h17v1h-17z M46,44h17v1h-17z M73,44h16v1h-16z M108,44h20v1h-20z M145,44h17v1h-17z M169,44h21v1h-21z M212,44h18v1h-18z M242,44h17v1h-17z M283,44h17v1h-17z M310,44h16v1h-16z M344,44h16v1h-16z M4,45h17v1h-17z M47,45h17v1h-17z M73,45h16v1h-16z M108,45h19v1h-19z M146,45h16v1h-16z M169,45h19v1h-19z M213,45h17v1h-17z M241,45h17v1h-17z M283,45h17v1h-17z M309,45h16v1h-16z M345,45h15v1h-15z M4,46h16v1h-16z M48,46h16v1h-16z M73,46h15v1h-15z M109,46h17v1h-17z M147,46h15v1h-15z M169,46h18v1h-18z M214,46h17v1h-17z M241,46h16v1h-16z M284,46h16v1h-16z M309,46h15v1h-15z M345,46h15v1h-15z M4,47h16v1h-16z M49,47h15v1h-15z M73,47h15v1h-15z M109,47h17v1h-17z M147,47h15v1h-15z M169,47h18v1h-18z M215,47h16v1h-16z M240,47h16v1h-16z M285,47h16v1h-16z M309,47h15v1h-15z M345,47h15v1h-15z M4,48h15v1h-15z M49,48h16v1h-16z M72,48h15v1h-15z M110,48h15v1h-15z M148,48h14v1h-14z M169,48h17v1h-17z M216,48h16v1h-16z M240,48h16v1h-16z M286,48h15v1h-15z M309,48h15v1h-15z M346,48h14v1h-14z M3,49h16v1h-16z M50,49h15v1h-15z M72,49h15v1h-15z M110,49h15v1h-15z M148,49h14v1h-14z M169,49h17v1h-17z M216,49h16v1h-16z M240,49h15v1h-15z M286,49h15v1h-15z M309,49h15v1h-15z M346,49h14v1h-14z M3,50h16v1h-16z M50,50h15v1h-15z M72,50h15v1h-15z M110,50h15v1h-15z M148,50h14v1h-14z M169,50h16v1h-16z M216,50h16v1h-16z M240,50h15v1h-15z M286,50h15v1h-15z M309,50h15v1h-15z M346,50h15v1h-15z M3,51h62v1h-62z M72,51h15v1h-15z M110,51h15v1h-15z M148,51h14v1h-14z M169,51h16v1h-16z M217,51h15v1h-15z M239,51h63v1h-63z M309,51h15v1h-15z M346,51h15v1h-15z M3,52h62v1h-62z M72,52h15v1h-15z M110,52h15v1h-15z M148,52h14v1h-14z M169,52h15v1h-15z M217,52h15v1h-15z M239,52h63v1h-63z M309,52h14v1h-14z M346,52h15v1h-15z M2,53h64v1h-64z M72,53h15v1h-15z M110,53h15v1h-15z M148,53h14v1h-14z M169,53h15v1h-15z M217,53h15v1h-15z M239,53h63v1h-63z M309,53h14v1h-14z M347,53h13v1h-13z M2,54h64v1h-64z M72,54h15v1h-15z M110,54h15v1h-15z M148,54h14v1h-14z M169,54h15v1h-15z M218,54h14v1h-14z M239,54h63v1h-63z M309,54h14v1h-14z M2,55h64v1h-64z M72,55h15v1h-15z M110,55h15v1h-15z M148,55h14v1h-14z M169,55h15v1h-15z M218,55h14v1h-14z M239,55h63v1h-63z M309,55h14v1h-14z M2,56h64v1h-64z M72,56h15v1h-15z M110,56h15v1h-15z M148,56h14v1h-14z M169,56h15v1h-15z M218,56h15v1h-15z M239,56h63v1h-63z M309,56h14v1h-14z M2,57h64v1h-64z M72,57h15v1h-15z M110,57h15v1h-15z M148,57h14v1h-14z M169,57h15v1h-15z M218,57h15v1h-15z M239,57h63v1h-63z M309,57h14v1h-14z M2,58h64v1h-64z M72,58h15v1h-15z M110,58h15v1h-15z M148,58h14v1h-14z M169,58h15v1h-15z M218,58h15v1h-15z M239,58h63v1h-63z M309,58h14v1h-14z M2,59h64v1h-64z M72,59h15v1h-15z M110,59h15v1h-15z M148,59h14v1h-14z M169,59h15v1h-15z M218,59h15v1h-15z M239,59h63v1h-63z M309,59h14v1h-14z M2,60h64v1h-64z M72,60h15v1h-15z M110,60h15v1h-15z M148,60h14v1h-14z M169,60h15v1h-15z M218,60h15v1h-15z M239,60h63v1h-63z M309,60h14v1h-14z M2,61h64v1h-64z M72,61h15v1h-15z M110,61h15v1h-15z M148,61h14v1h-14z M169,61h15v1h-15z M218,61h14v1h-14z M239,61h63v1h-63z M309,61h14v1h-14z M2,62h63v1h-63z M72,62h15v1h-15z M110,62h15v1h-15z M148,62h14v1h-14z M169,62h15v1h-15z M217,62h15v1h-15z M239,62h63v1h-63z M309,62h14v1h-14z M2,63h16v1h-16z M72,63h15v1h-15z M110,63h15v1h-15z M148,63h14v1h-14z M169,63h15v1h-15z M217,63h15v1h-15z M239,63h15v1h-15z M309,63h14v1h-14z M3,64h15v1h-15z M72,64h15v1h-15z M110,64h15v1h-15z M148,64h14v1h-14z M170,64h15v1h-15z M217,64h15v1h-15z M240,64h14v1h-14z M309,64h14v1h-14z M3,65h15v1h-15z M72,65h15v1h-15z M110,65h15v1h-15z M148,65h14v1h-14z M170,65h15v1h-15z M216,65h16v1h-16z M240,65h15v1h-15z M309,65h14v1h-14z M3,66h16v1h-16z M72,66h15v1h-15z M110,66h15v1h-15z M148,66h14v1h-14z M170,66h16v1h-16z M216,66h16v1h-16z M240,66h16v1h-16z M309,66h14v1h-14z M4,67h15v1h-15z M72,67h15v1h-15z M110,67h15v1h-15z M148,67h14v1h-14z M170,67h17v1h-17z M215,67h16v1h-16z M240,67h16v1h-16z M309,67h14v1h-14z M4,68h16v1h-16z M72,68h15v1h-15z M110,68h15v1h-15z M148,68h14v1h-14z M171,68h16v1h-16z M215,68h16v1h-16z M241,68h15v1h-15z M309,68h14v1h-14z M4,69h17v1h-17z M72,69h15v1h-15z M110,69h15v1h-15z M148,69h14v1h-14z M171,69h17v1h-17z M214,69h16v1h-16z M241,69h16v1h-16z M309,69h14v1h-14z M5,70h16v1h-16z M48,70h14v1h-14z M72,70h15v1h-15z M110,70h15v1h-15z M148,70h14v1h-14z M172,70h16v1h-16z M213,70h17v1h-17z M241,70h17v1h-17z M284,70h15v1h-15z M309,70h14v1h-14z M5,71h17v1h-17z M46,71h17v1h-17z M72,71h15v1h-15z M110,71h15v1h-15z M148,71h14v1h-14z M172,71h17v1h-17z M212,71h18v1h-18z M241,71h18v1h-18z M283,71h17v1h-17z M309,71h14v1h-14z M6,72h18v1h-18z M46,72h16v1h-16z M72,72h15v1h-15z M110,72h15v1h-15z M148,72h14v1h-14z M172,72h19v1h-19z M210,72h19v1h-19z M242,72h18v1h-18z M282,72h17v1h-17z M309,72h14v1h-14z M6,73h19v1h-19z M44,73h18v1h-18z M72,73h15v1h-15z M110,73h15v1h-15z M148,73h14v1h-14z M173,73h20v1h-20z M209,73h20v1h-20z M242,73h20v1h-20z M280,73h19v1h-19z M309,73h14v1h-14z M7,74h20v1h-20z M42,74h19v1h-19z M72,74h15v1h-15z M110,74h15v1h-15z M148,74h14v1h-14z M174,74h21v1h-21z M206,74h22v1h-22z M243,74h21v1h-21z M278,74h20v1h-20z M309,74h14v1h-14z M7,75h25v1h-25z M38,75h23v1h-23z M72,75h15v1h-15z M110,75h15v1h-15z M148,75h14v1h-14z M174,75h53v1h-53z M244,75h24v1h-24z M274,75h23v1h-23z M309,75h14v1h-14z M8,76h52v1h-52z M72,76h15v1h-15z M110,76h15v1h-15z M148,76h14v1h-14z M175,76h52v1h-52z M245,76h52v1h-52z M309,76h14v1h-14z M9,77h50v1h-50z M72,77h15v1h-15z M110,77h15v1h-15z M148,77h14v1h-14z M175,77h51v1h-51z M245,77h51v1h-51z M309,77h14v1h-14z M10,78h48v1h-48z M72,78h15v1h-15z M110,78h15v1h-15z M148,78h14v1h-14z M176,78h49v1h-49z M246,78h49v1h-49z M309,78h14v1h-14z M10,79h48v1h-48z M72,79h15v1h-15z M110,79h15v1h-15z M148,79h14v1h-14z M177,79h47v1h-47z M247,79h47v1h-47z M309,79h14v1h-14z M12,80h44v1h-44z M72,80h15v1h-15z M110,80h15v1h-15z M148,80h15v1h-15z M178,80h45v1h-45z M248,80h46v1h-46z M309,80h14v1h-14z M12,81h44v1h-44z M72,81h15v1h-15z M110,81h15v1h-15z M148,81h15v1h-15z M179,81h43v1h-43z M249,81h43v1h-43z M309,81h14v1h-14z M14,82h40v1h-40z M72,82h15v1h-15z M110,82h15v1h-15z M148,82h15v1h-15z M180,82h41v1h-41z M250,82h41v1h-41z M309,82h14v1h-14z M15,83h38v1h-38z M72,83h15v1h-15z M110,83h15v1h-15z M148,83h15v1h-15z M182,83h38v1h-38z M252,83h37v1h-37z M309,83h14v1h-14z M17,84h34v1h-34z M72,84h15v1h-15z M110,84h15v1h-15z M148,84h15v1h-15z M183,84h35v1h-35z M253,84h35v1h-35z M309,84h15v1h-15z M18,85h32v1h-32z M72,85h15v1h-15z M110,85h15v1h-15z M148,85h15v1h-15z M185,85h31v1h-31z M255,85h31v1h-31z M309,85h15v1h-15z M21,86h27v1h-27z M72,86h15v1h-15z M110,86h15v1h-15z M148,86h14v1h-14z M188,86h26v1h-26z M258,86h26v1h-26z M309,86h14v1h-14z M24,87h21v1h-21z M73,87h5v1h-5z M82,87h3v1h-3z M112,87h3v1h-3z M123,87h1v1h-1z M149,87h1v1h-1z M161,87h1v1h-1z M190,87h22v1h-22z M260,87h22v1h-22z M309,87h1v1h-1z M318,87h2v1h-2z M30,88h10v1h-10z M195,88h11v1h-11z M266,88h9v1h-9z"/>
 </svg>`,
   larq: `<svg viewBox="0 0 85 20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M74.7998 16.9523C71.0144 16.9523 67.8164 13.6743 67.8164 9.79426C67.8164 5.91404 71.0144 2.63602 74.7998 2.63602C78.5852 2.63602 81.7831 5.91404 81.7831 9.79426C81.7831 11.2661 81.3218 12.6507 80.5439 13.8033L78.4165 11.642L76.6477 13.4391L78.7948 15.6206C77.654 16.4549 76.272 16.9523 74.7998 16.9523ZM84.7023 18.0283L82.5766 15.8685C83.9015 14.2143 84.6865 12.1116 84.6865 9.79426C84.6865 4.33536 80.3436 0.0597534 74.7998 0.0597534C69.2556 0.0597534 64.9127 4.33536 64.9127 9.79426C64.9127 15.2529 69.2556 19.5288 74.7998 19.5288C77.0548 19.5288 79.1111 18.8211 80.7572 17.6143L82.9335 19.8255L84.7023 18.0283Z" fill="#153A5B"></path><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M0.669189 19.1244V0.462435H3.3895V16.5479H14.4834V19.1244H0.669189Z" fill="#153A5B"></path><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M46.914 10.3998H52.6442C55.633 10.3998 56.6933 8.41762 56.6933 6.7196C56.6933 5.0218 55.633 3.0396 52.6442 3.0396H46.914V10.3998ZM55.8915 19.1244L51.8878 12.977H46.914V19.1244H44.1937V0.462457H52.9192C56.8037 0.462457 59.4137 2.97674 59.4137 6.7196C59.4137 9.23828 57.7643 11.3851 55.2114 12.188L54.6711 12.3583L59.339 19.1244H55.8915Z" fill="#153A5B"></path><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M23.5083 19.1244L29.222 4.86485L34.8847 19.1244H37.9185L30.7063 1.82419C30.3621 0.998699 29.5655 0.462435 28.6831 0.462435H22.8782V0.945072C22.8782 1.99892 23.719 2.8532 24.7565 2.8532H27.4969L20.4986 19.1244H23.5083Z" fill="#153A5B"></path></svg>`,
+  beretta: `<svg viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg" aria-label="Beretta Official Trident Logo">
+  <g fill="#0B2341">
+    <!-- Iconic Beretta 3 Arrows & Circles Trident Emblem (Est. 1526) -->
+    <g transform="translate(18, 12)">
+      <!-- Central Arrow -->
+      <path d="M42 4 L48 18 L44 18 L44 56 L40 56 L40 18 L36 18 Z"/>
+      <!-- Left Angled Arrow -->
+      <path d="M16 12 L30 20 L27 22 L41 54 L37 56 L23 24 L20 26 Z"/>
+      <!-- Right Angled Arrow -->
+      <path d="M68 12 L64 26 L61 24 L47 56 L43 54 L57 22 L54 20 Z"/>
+      <!-- Three Encircling Concentric Dynamic Rings -->
+      <circle cx="42" cy="18" r="9.5" fill="none" stroke="#0B2341" stroke-width="2.6"/>
+      <circle cx="25" cy="24" r="8" fill="none" stroke="#0B2341" stroke-width="2.4"/>
+      <circle cx="59" cy="24" r="8" fill="none" stroke="#0B2341" stroke-width="2.4"/>
+    </g>
+    <!-- Beretta Classic Italian Military Wordmark Typography -->
+    <text x="106" y="52" font-family="'Cinzel', 'Times New Roman', Georgia, serif" font-size="28" font-weight="800" letter-spacing="4.5" fill="#0B2341">BERETTA</text>
+    <text x="108" y="66" font-family="'DM Mono', monospace" font-size="7.5" font-weight="700" letter-spacing="2.8" fill="#4A5568">FABBRICA D'ARMI · EST. 1526</text>
+  </g>
+</svg>`,
 };
 
 const BRAND_COLORS = {
@@ -5616,6 +5639,7 @@ const BRAND_COLORS = {
   marshall: '#111111',
   beats: '#e01234',
   moondrop: '#111111',
+  beretta: '#0B2341',
   all: '#4f46e5'
 };
 
@@ -5793,8 +5817,8 @@ function isItemInCat(item, catId) {
   }
 
   if (catId === "tools") {
-    return ["tools", "flipper", "remarkable", "dyson"].includes(c) ||
-      /\b(tool|flipper|airsoft|vacuum|purifier|airwrap|airstrait|washer|washing|dryer|washtower|dresser|oven|refrigerator|dishwasher|ac|cleaner|lock|door lock|superdrive|iphone|galaxy|macbook|mac studio|studio display|vision pro)\b/i.test(name);
+    return ["tools", "beretta", "flipper", "remarkable", "dyson"].includes(c) ||
+      /\b(tool|flipper|beretta|airsoft|vacuum|purifier|airwrap|airstrait|washer|washing|dryer|washtower|dresser|oven|refrigerator|dishwasher|ac|cleaner|lock|door lock|superdrive|iphone|galaxy|macbook|mac studio|studio display|vision pro)\b/i.test(name);
   }
 
   if (catId === "accessories") {
@@ -5869,6 +5893,7 @@ function isItemInBrand(item, brandId) {
   if (brandId === "bvlgari") return item.category === "bvlgari" || /\b(bvlgari|bulgari)\b/i.test(name);
   if (brandId === "7rings") return item.category === "7rings" || /\b(7 ring|7-ring|7ring)\b/i.test(name);
   if (brandId === "grams") return item.category === "grams" || /\b(grams\(28\)|grams 28|grams28)\b/i.test(name);
+  if (brandId === "beretta") return item.category === "beretta" || /\bberetta\b/i.test(name);
 
   return false;
 }
@@ -5973,7 +5998,7 @@ function renderGrid() {
       ${item.banNotice ? `<div class="card-ban-badge">🚫 BANNED / RESTRICTED DEVICE</div>` : ""}
       ${heritage ? `
       <div class="card-heritage-pill" title="Customer Consensus: Best for ${heritage.bestFor}">
-        <span class="pill-icon">✨</span>
+        <span class="pill-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);vertical-align:middle;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg></span>
         <span class="pill-label">Best for:</span>
         <span class="pill-text">${heritage.bestForShort}</span>
       </div>` : ""}
@@ -6000,16 +6025,16 @@ function renderGrid() {
         <div class="brand-heritage-banner">
           <div class="brand-banner-header">
             <div class="brand-banner-title">
-              <span class="banner-sparkle">👑</span>
+              <span class="banner-sparkle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);vertical-align:middle;"><polygon points="6 2 18 2 18 6 6 6 6 2"/><polygon points="3 6 21 6 18 16 6 16 3 6"/><polygon points="6 16 18 16 15 22 9 22 6 16"/></svg></span>
               <span><strong>${activeHeritage.brandName}</strong> Specialty: ${activeHeritage.bestForShort}</span>
             </div>
             <span class="brand-banner-pill">Brand Specialty Guide</span>
           </div>
           <div class="brand-banner-body">
-            <p><strong>🏆 What It's Best For (Customer Consensus):</strong> ${activeHeritage.bestFor}</p>
-            <p><strong>🔬 Technology & Invention:</strong> ${activeHeritage.techInvention}</p>
-            <p><strong>🧶 Fabric & Silhouette:</strong> ${activeHeritage.fabricComposition} · ${activeHeritage.designSilhouette}</p>
-            <p><strong>🌐 Market Standing:</strong> ${activeHeritage.marketStanding}</p>
+            <p><strong><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#f59e0b;vertical-align:-2px;margin-right:5px;"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>What It's Best For (Customer Consensus):</strong> ${activeHeritage.bestFor}</p>
+            <p><strong><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#06b6d4;vertical-align:-2px;margin-right:5px;"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-4-12"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg>Technology & Invention:</strong> ${activeHeritage.techInvention}</p>
+            <p><strong><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#8b5cf6;vertical-align:-2px;margin-right:5px;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>Fabric & Silhouette:</strong> ${activeHeritage.fabricComposition} · ${activeHeritage.designSilhouette}</p>
+            <p><strong><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#10b981;vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Market Standing:</strong> ${activeHeritage.marketStanding}</p>
           </div>
         </div>`;
     } else {
@@ -6120,55 +6145,6 @@ function openPanel(id) {
 
       <p class="panel-desc">${item.desc}</p>
 
-      ${heritage ? `
-      <div class="panel-section panel-heritage-card">
-        <div class="panel-heritage-header">
-          <div class="heritage-header-left">
-            <span class="heritage-header-badge">🧵 Brand Signature & Textile Intelligence</span>
-            <h3 class="heritage-header-title">Customer Consensus & Craftsmanship</h3>
-          </div>
-          <div class="heritage-header-tag">Customer Consensus</div>
-        </div>
-
-        <div class="heritage-grid">
-          <div class="heritage-item highlight">
-            <div class="heritage-item-label">
-              <span class="icon">👑</span> <strong>Best Known For (Customer Consensus)</strong>
-            </div>
-            <div class="heritage-item-val prominent">${heritage.bestFor}</div>
-            <div class="heritage-item-sub">💬 <em>Customer Feedback & Internet Consensus:</em> ${heritage.customerConsensus}</div>
-          </div>
-
-          <div class="heritage-item">
-            <div class="heritage-item-label">
-              <span class="icon">🔬</span> <strong>Technology & Inventions</strong>
-            </div>
-            <div class="heritage-item-val">${heritage.techInvention}</div>
-          </div>
-
-          <div class="heritage-item">
-            <div class="heritage-item-label">
-              <span class="icon">✂️</span> <strong>Silhouette, Cut & Design DNA</strong>
-            </div>
-            <div class="heritage-item-val">${heritage.designSilhouette}</div>
-          </div>
-
-          <div class="heritage-item">
-            <div class="heritage-item-label">
-              <span class="icon">🧶</span> <strong>Signature Fabric & Weave</strong>
-            </div>
-            <div class="heritage-item-val">${heritage.fabricComposition}</div>
-          </div>
-
-          <div class="heritage-item full-width">
-            <div class="heritage-item-label">
-              <span class="icon">🌐</span> <strong>Market Standing & Real-World Longevity</strong>
-            </div>
-            <div class="heritage-item-val">${heritage.marketStanding}</div>
-          </div>
-        </div>
-      </div>` : ""}
-
       <div class="panel-section">
         <div class="panel-section-title">Use Case</div>
         <p>${item.useCase}</p>
@@ -6188,6 +6164,55 @@ function openPanel(id) {
         <div class="panel-section-title">Cons</div>
         <div class="tag-row">${consHTML}</div>
       </div>
+
+      ${heritage ? `
+      <div class="panel-section panel-heritage-card">
+        <div class="panel-heritage-header">
+          <div class="heritage-header-left">
+            <span class="heritage-header-badge"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>Brand Signature & Textile Intelligence</span>
+            <h3 class="heritage-header-title">Customer Consensus & Craftsmanship</h3>
+          </div>
+          <div class="heritage-header-tag">Customer Consensus</div>
+        </div>
+
+        <div class="heritage-grid">
+          <div class="heritage-item highlight">
+            <div class="heritage-item-label">
+              <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#f59e0b;"><polygon points="6 2 18 2 18 6 6 6 6 2"/><polygon points="3 6 21 6 18 16 6 16 3 6"/><polygon points="6 16 18 16 15 22 9 22 6 16"/></svg></span> <strong>Best Known For (Customer Consensus)</strong>
+            </div>
+            <div class="heritage-item-val prominent">${heritage.bestFor}</div>
+            <div class="heritage-item-sub"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;color:var(--text3);"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><em>Customer Feedback & Internet Consensus:</em> ${heritage.customerConsensus}</div>
+          </div>
+
+          <div class="heritage-item">
+            <div class="heritage-item-label">
+              <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#06b6d4;"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0-4-12"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></svg></span> <strong>Technology & Inventions</strong>
+            </div>
+            <div class="heritage-item-val">${heritage.techInvention}</div>
+          </div>
+
+          <div class="heritage-item">
+            <div class="heritage-item-label">
+              <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#8b5cf6;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span> <strong>Silhouette, Cut & Design DNA</strong>
+            </div>
+            <div class="heritage-item-val">${heritage.designSilhouette}</div>
+          </div>
+
+          <div class="heritage-item">
+            <div class="heritage-item-label">
+              <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#ec4899;"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/></svg></span> <strong>Signature Fabric & Weave</strong>
+            </div>
+            <div class="heritage-item-val">${heritage.fabricComposition}</div>
+          </div>
+
+          <div class="heritage-item full-width">
+            <div class="heritage-item-label">
+              <span class="icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="color:#10b981;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> <strong>Market Standing & Real-World Longevity</strong>
+            </div>
+            <div class="heritage-item-val">${heritage.marketStanding}</div>
+          </div>
+        </div>
+      </div>` : ""}
     </div>
   `;
 
