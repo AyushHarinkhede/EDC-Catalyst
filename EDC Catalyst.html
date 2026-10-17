@@ -2869,6 +2869,8 @@ const BRANDS = [
   { id:"larq",         label:"LARQ"           },
   { id:"ember",        label:"Ember"          },
   { id:"beretta",      label:"Beretta"        },
+  { id:"anki",         label:"Anki"           },
+  { id:"livingai",     label:"Living.ai"      },
 ];
 
 const CATS = [
@@ -5709,6 +5711,8 @@ const BRAND_COLORS = {
   beats: '#e01234',
   moondrop: '#111111',
   beretta: '#0B2341',
+  anki: '#80C2EE',
+  livingai: '#00F2FE',
   all: '#4f46e5'
 };
 
@@ -5876,7 +5880,7 @@ function isItemInCat(item, catId) {
   }
 
   if (catId === "robots") {
-    return ["robots"].includes(c) ||
+    return ["robots", "anki", "livingai"].includes(c) ||
       /\b(robot|cozmo|emo|vis nav|jet bot|cordzero robot)\b/i.test(name);
   }
 
@@ -5963,6 +5967,8 @@ function isItemInBrand(item, brandId) {
   if (brandId === "7rings") return item.category === "7rings" || /\b(7 ring|7-ring|7ring)\b/i.test(name);
   if (brandId === "grams") return item.category === "grams" || /\b(grams\(28\)|grams 28|grams28)\b/i.test(name);
   if (brandId === "beretta") return item.category === "beretta" || /\bberetta\b/i.test(name);
+  if (brandId === "anki") return item.category === "anki" || /\b(anki|cozmo)\b/i.test(name);
+  if (brandId === "livingai") return item.category === "livingai" || /\b(living\.ai|livingai|emo)\b/i.test(name);
 
   return false;
 }
