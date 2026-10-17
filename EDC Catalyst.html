@@ -2279,7 +2279,76 @@ html[data-scale="large"] {
   stroke: currentColor;
   stroke-width: 2.6;
   fill: none;
-  transition: transform 0.25s ease;
+  transform-origin: center center;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+/* Button & Arrow Tap Launch / Rebound Animation */
+.scroll-top-btn.tapping {
+  animation: scrollBtnTapSquish 0.52s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.scroll-top-btn.tapping svg {
+  animation: arrowRocketLaunch 0.58s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes scrollBtnTapSquish {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  20% {
+    /* Compress downwards on tap */
+    transform: scale3d(1.18, 0.82, 1) translateY(5px);
+  }
+  48% {
+    /* Upward pop & overshoot */
+    transform: scale3d(0.92, 1.15, 1) translateY(-6px);
+  }
+  75% {
+    /* Spring rebound */
+    transform: scale3d(1.05, 0.96, 1) translateY(1.5px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes arrowRocketLaunch {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  20% {
+    /* Pre-launch squish/coil downwards */
+    transform: translateY(4px) scale(0.85, 1.15);
+    opacity: 1;
+  }
+  45% {
+    /* Blast off upwards out through top edge */
+    transform: translateY(-26px) scale(0.65, 1.35);
+    opacity: 0;
+  }
+  46% {
+    /* Teleport silently below the button bottom */
+    transform: translateY(24px) scale(0.7, 1.25);
+    opacity: 0;
+  }
+  74% {
+    /* Fly in from bottom with spring overshoot past center */
+    transform: translateY(-3px) scale(1.1, 0.92);
+    opacity: 1;
+  }
+  88% {
+    /* Counter bounce downwards */
+    transform: translateY(1px) scale(0.98, 1.02);
+    opacity: 1;
+  }
+  100% {
+    /* Rest stabilized in original center */
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 /* Enhanced Spring Toss-Up Bounce (Appear) */
@@ -2355,7 +2424,7 @@ html[data-scale="large"] {
   }
 }
 
-.scroll-top-btn:active {
+.scroll-top-btn:active:not(.tapping) {
   transform: translateY(2px) scale(0.94) !important;
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
@@ -6968,6 +7037,21 @@ function setupScrollAnimations() {
 let isScrollBtnVisible = false;
 
 function scrollToTop() {
+  const btn = document.getElementById('scrollTopBtn');
+  if (btn) {
+    // Re-trigger animation cleanly even if rapidly tapped
+    btn.classList.remove('tapping');
+    void btn.offsetWidth; // Force CSS reflow
+    btn.classList.add('tapping');
+
+    // Trigger dedicated rocket launch audio and bouncy haptic pattern
+    triggerFeedback('scroll_tap');
+
+    setTimeout(() => {
+      btn.classList.remove('tapping');
+    }, 600);
+  }
+
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -7374,6 +7458,23 @@ function playTapSound(type = 'tap') {
     gain.connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.035);
+  } else if (type === 'scroll_tap') {
+    // Satisfying two-tone rocket launch & spring snap acoustic
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(320, now);
+    osc.frequency.exponentialRampToValueAtTime(780, now + 0.05);
+    osc.frequency.exponentialRampToValueAtTime(520, now + 0.09);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.22, now + 0.005);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.095);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
   }
 }
 
@@ -7398,6 +7499,9 @@ function triggerHaptic(type = 'light') {
     } else if (type === 'bounce_exit') {
       // Synchronized with yankedDownExit keyframes (0ms tension -> 220ms snap)
       navigator.vibrate([9, 100, 14]);
+    } else if (type === 'scroll_tap') {
+      // Synchronized with arrow rocket launch & rebound (initial coil press -> rocket blast -> re-entry settle)
+      navigator.vibrate([14, 85, 18, 120, 8]);
     } else if (type === 'search_bounce' || type === 'search_open') {
       // Search input spring focus expansion: tap -> overshoot stretch -> elastic settle
       navigator.vibrate([12, 45, 9, 30, 6]);
@@ -7478,7 +7582,7 @@ document.addEventListener('pointerdown', (e) => {
   if (!target) return;
 
   if (target.id === 'scrollTopBtn') {
-    triggerFeedback('bounce_appear');
+    triggerFeedback('scroll_tap');
   } else if (target.classList.contains('card')) {
     triggerFeedback('open');
   } else if (target.classList.contains('brand-btn') || target.classList.contains('cat-btn')) {
