@@ -5455,9 +5455,16 @@ function selectBrandFilter(brandId, scrollToGrid = true) {
   }
 
   if (scrollToGrid) {
-    const target = document.getElementById("brandsSection") || document.querySelector(".filter-bar");
+    const target = document.querySelector(".filter-bar") || document.getElementById("grid");
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        const yOffset = -18;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: 'smooth'
+        });
+      }, 60);
     }
   }
 }
