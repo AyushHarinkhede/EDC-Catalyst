@@ -3923,18 +3923,6 @@ const ITEMS = [
     whereUsed:"Everywhere across all Apple devices"
   },
   {
-    id:70, name:"Notion (Personal + AI)", category:"apps", icon:"",
-    inr:"Free / ₹660/month Pro / ₹5,300/yr", usd:"Free / $8/month / $96/yr", launch:"2016",
-    useCase:"Personal life OS — notes, projects, tasks, wiki, journal, databases",
-    desc:"The all-in-one workspace that replaces Evernote, Trello, Airtable, Confluence, and Google Docs. Infinite nested pages, rich databases, Kanban boards, calendar views, linked databases. Notion AI writes, summarizes, and autofills your notes. The best personal knowledge management tool.",
-    specs:["Infinite Nested Pages","Relational Databases","Notion AI (writing / summarize)","Kanban / Gallery / Table / Calendar","PDF Export","Offline Mode","Team Collaboration","500+ Templates","Web Clipper","iOS + Android + Web + Desktop"],
-    pros:["Replaces 5 apps","Notion AI powerful","Beautiful UI","Infinite flexibility","Offline works"],
-    cons:["Learning curve","Can be over-engineered","Mobile app slower than web","AI costs extra"],
-    travel:{plane:true,train:true,moto:true,car:true,cycle:true},
-    rating:"10/10",
-    whereUsed:"Study, Work, Personal Planning, Travel Journal"
-  },
-  {
     id:71, name:"Anki Flashcard App", category:"apps", icon:"",
     inr:"Free (Android + Web) / ₹2,499 (iOS one-time)", usd:"Free / $24.99 iOS", launch:"2006",
     useCase:"Mastering memorization — language learning, medical studies, exams, skills",
@@ -5913,7 +5901,7 @@ function isItemInCat(item, catId) {
 
   if (catId === "apps") {
     return ["apps"].includes(c) ||
-      /\b(app|notion|anki|apple one|software|subscription)\b/i.test(name);
+      /\b(app|anki|apple one|software|subscription)\b/i.test(name);
   }
 
   return false;
