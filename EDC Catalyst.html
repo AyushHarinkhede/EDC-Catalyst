@@ -144,12 +144,24 @@ header {
   font-size: clamp(3.5rem, 9vw, 7rem);
   font-weight: 700; line-height: 0.95;
   letter-spacing: -1px;
-  color: var(--blush);
+  color: var(--accent);
   animation: fadeDown 0.7s 0.1s ease both;
   margin-bottom: 10px;
   user-select: none;
 }
-.header-title span { color: var(--accent); }
+.header-title .title-edc {
+  color: var(--accent);
+}
+.header-title .title-catalyst {
+  color: #1a1a1c;
+}
+[data-theme="dark"] .header-title .title-edc {
+  color: var(--accent);
+}
+[data-theme="dark"] .header-title .title-catalyst {
+  color: #11141a;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.08);
+}
 
 /* Scroll-Driven Dynamic Letter Scatter & Dispersion */
 .scatter-line {
@@ -2760,7 +2772,7 @@ img, svg, picture, canvas {
 <div class="wrap">
 
   <header><br><br><br><br><br><br>
-    <h1 class="header-title" id="mainHeaderTitle">EDC<br/><span>Catalyst</span></h1> <br>
+    <h1 class="header-title" id="mainHeaderTitle"><span class="title-edc">EDC</span><br/><span class="title-catalyst">Catalyst</span></h1> <br>
     <p class="header-sub">Explore · Decipher · category</p>
   </header>
 
@@ -7104,15 +7116,15 @@ function initHeaderScatter() {
   const title = document.getElementById('mainHeaderTitle');
   if (!title) return;
 
-  // Render individual animated letter spans
+  // Render individual animated letter spans (EDC in vibrant Blue, Catalyst in soft off-black)
   title.innerHTML = `
-    <span class="scatter-line">
+    <span class="scatter-line title-edc">
       <span class="scatter-word">
         <span class="scatter-char">E</span><span class="scatter-char">D</span><span class="scatter-char">C</span>
       </span>
     </span>
-    <span class="scatter-line">
-      <span>
+    <span class="scatter-line title-catalyst">
+      <span class="scatter-word">
         <span class="scatter-char">C</span><span class="scatter-char">a</span><span class="scatter-char">t</span><span class="scatter-char">a</span><span class="scatter-char">l</span><span class="scatter-char">y</span><span class="scatter-char">s</span><span class="scatter-char">t</span>
       </span>
     </span>
