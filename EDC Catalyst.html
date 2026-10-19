@@ -3922,18 +3922,6 @@ const ITEMS = [
     rating:"10/10",
     whereUsed:"Everywhere across all Apple devices"
   },
-  {
-    id:71, name:"Anki Flashcard App", category:"apps", icon:"",
-    inr:"Free (Android + Web) / ₹2,499 (iOS one-time)", usd:"Free / $24.99 iOS", launch:"2006",
-    useCase:"Mastering memorization — language learning, medical studies, exams, skills",
-    desc:"Science-backed Spaced Repetition System (SRS) that schedules your review cards at the optimal forgetting-curve moment. Used by nearly every medical student in the world. Japanese, Spanish, UPSC prep — any memorization task becomes effortless with consistent Anki.",
-    specs:["Spaced Repetition Algorithm","AnkiWeb Cloud Sync","Custom Card Templates","Image + Audio + LaTeX Cards","Add-on Ecosystem","AnkiDroid (Free Android)","Cross-Platform Sync","Shared Deck Library","Statistics Tracking","Offline Available"],
-    pros:["Best SRS algorithm","Free (except iOS)","Medical school proven","Infinite card types","Community decks"],
-    cons:["iOS pricing expensive","Steep learning curve","Default UI ugly (add-ons help)","Time commitment daily"],
-    travel:{plane:true,train:true,moto:true,car:true,cycle:true},
-    rating:"10/10",
-    whereUsed:"Study, Commute, Language Learning, Everywhere"
-  },
   /* ═══ APPLE ACCESSORIES ═════════════════════════ */
     {
     id:172, name:"Apple 90W USB-C Power Adapter", category:"apple", icon:"",
@@ -5901,7 +5889,7 @@ function isItemInCat(item, catId) {
 
   if (catId === "apps") {
     return ["apps"].includes(c) ||
-      /\b(app|anki|apple one|software|subscription)\b/i.test(name);
+      /\b(app|apple one|software|subscription)\b/i.test(name);
   }
 
   return false;
