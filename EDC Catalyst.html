@@ -147,8 +147,28 @@ header {
   color: var(--blush);
   animation: fadeDown 0.7s 0.1s ease both;
   margin-bottom: 10px;
+  user-select: none;
 }
 .header-title span { color: var(--accent); }
+
+/* Scroll-Driven Dynamic Letter Scatter & Dispersion */
+.scatter-line {
+  display: block;
+}
+.scatter-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.scatter-char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+  transform-origin: center center;
+  transition: transform 0.08s ease-out, opacity 0.08s ease-out, filter 0.08s ease-out;
+}
+.scatter-space {
+  display: inline-block;
+  width: 0.28em;
+}
 .header-sub {
   font-family: 'DM Mono', monospace;
   font-size: 12px; letter-spacing: 4px;
@@ -800,7 +820,7 @@ header {
 
 .card-brand-logo {
   position: absolute;
-  top: -9px; /* Exactly 10% (~9px) outside container top edge, 90% (~75px) inside container */
+  top: 4px; /* Perfectly balanced and centered vertically within the card hero header */
   left: 50%;
   transform: translateX(-50%);
   height: 84px;
@@ -1365,7 +1385,7 @@ header {
 /* Significantly Larger Brand Logo */
 .panel-brand-logo {
   position: absolute;
-  top: -14px;
+  top: 5px; /* Cleanly centered within panel top stage */
   left: 36px;
   height: 110px;
   max-width: 330px;
@@ -1874,7 +1894,7 @@ button {
   .card-brand-logo {
     height: 76px !important;
     width: 155px !important;
-    top: -8px !important;
+    top: 4px !important;
   }
   .card-title {
     font-size: 18px !important;
@@ -1904,7 +1924,7 @@ button {
     height: 82px !important;
   }
   .panel-brand-logo {
-    top: -10px !important;
+    top: 4px !important;
   }
   .panel-brand-logo svg {
     max-width: 220px !important;
@@ -2671,7 +2691,7 @@ img, svg, picture, canvas {
 <div class="wrap">
 
   <header><br><br><br><br><br><br>
-    <h1 class="header-title">EDC<br/><span>Catalyst</span></h1> <br>
+    <h1 class="header-title" id="mainHeaderTitle">EDC<br/><span>Catalyst</span></h1> <br>
     <p class="header-sub">Explore · Decipher · category</p>
   </header>
 
@@ -6856,11 +6876,114 @@ function scrollToTop() {
   });
 }
 
+/* ─────────────────────────────────────────────
+   DYNAMIC SCROLL-DRIVEN HEADER SCATTER & DISPERSION ENGINE
+   (Scroll down = letters fly & scatter unpredictably upward;
+    Scroll up   = smoothly regroup back into original position)
+───────────────────────────────────────────── */
+let scatterLetters = [];
+let hasScatteredOnce = false;
+let scatterSeeds = [];
+
+function generateRandomScatterTrajectory() {
+  return [
+    // 'E'
+    { dx: -38 + (Math.random() * 16 - 8), dy: -75 - Math.random() * 30, rot: -28 + (Math.random() * 16 - 8), scale: 0.82 },
+    // 'D'
+    { dx: -12 + (Math.random() * 14 - 7), dy: -95 - Math.random() * 35, rot: 18 + (Math.random() * 14 - 7),  scale: 0.78 },
+    // 'C'
+    { dx: 32 + (Math.random() * 18 - 9),  dy: -80 - Math.random() * 30, rot: 34 + (Math.random() * 18 - 9),  scale: 0.85 },
+    // 'C' (Catalyst)
+    { dx: -60 + (Math.random() * 20 - 10), dy: -60 - Math.random() * 30, rot: -32 + (Math.random() * 16 - 8), scale: 0.80 },
+    // 'a'
+    { dx: -40 + (Math.random() * 16 - 8),  dy: -85 - Math.random() * 30, rot: 22 + (Math.random() * 14 - 7),  scale: 0.76 },
+    // 't'
+    { dx: -22 + (Math.random() * 14 - 7),  dy: -105 - Math.random() * 35, rot: -18 + (Math.random() * 14 - 7), scale: 0.72 },
+    // 'a'
+    { dx: -4 + (Math.random() * 14 - 7),   dy: -70 - Math.random() * 25, rot: 15 + (Math.random() * 12 - 6),  scale: 0.84 },
+    // 'l'
+    { dx: 16 + (Math.random() * 14 - 7),   dy: -110 - Math.random() * 35, rot: -24 + (Math.random() * 16 - 8), scale: 0.74 },
+    // 'y'
+    { dx: 36 + (Math.random() * 16 - 8),   dy: -82 - Math.random() * 30, rot: 28 + (Math.random() * 16 - 8),  scale: 0.79 },
+    // 's'
+    { dx: 54 + (Math.random() * 18 - 9),   dy: -98 - Math.random() * 35, rot: -30 + (Math.random() * 16 - 8), scale: 0.75 },
+    // 't'
+    { dx: 72 + (Math.random() * 22 - 11),  dy: -68 - Math.random() * 28, rot: 36 + (Math.random() * 18 - 9),  scale: 0.82 }
+  ];
+}
+
+function initHeaderScatter() {
+  const title = document.getElementById('mainHeaderTitle');
+  if (!title) return;
+
+  // Render individual animated letter spans
+  title.innerHTML = `
+    <span class="scatter-line">
+      <span class="scatter-word">
+        <span class="scatter-char">E</span><span class="scatter-char">D</span><span class="scatter-char">C</span>
+      </span>
+    </span>
+    <span class="scatter-line">
+      <span>
+        <span class="scatter-char">C</span><span class="scatter-char">a</span><span class="scatter-char">t</span><span class="scatter-char">a</span><span class="scatter-char">l</span><span class="scatter-char">y</span><span class="scatter-char">s</span><span class="scatter-char">t</span>
+      </span>
+    </span>
+  `;
+
+  scatterLetters = Array.from(title.querySelectorAll('.scatter-char'));
+  scatterSeeds = generateRandomScatterTrajectory();
+}
+
+function updateHeaderScatter(scrollY) {
+  if (!scatterLetters.length) return;
+
+  // Max scattering distance reached at 320px scroll
+  const maxScroll = 320;
+  const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+  // If user scrolled back to top completely, re-randomize next flight positions!
+  if (progress === 0) {
+    if (hasScatteredOnce) {
+      scatterSeeds = generateRandomScatterTrajectory();
+      hasScatteredOnce = false;
+    }
+    scatterLetters.forEach(el => {
+      el.style.transform = 'none';
+      el.style.opacity = '1';
+      el.style.filter = 'none';
+    });
+    return;
+  }
+
+  hasScatteredOnce = true;
+
+  // Physics curve for natural gentle release (ease-out cubic dispersion)
+  const easeProgress = 1 - Math.pow(1 - progress, 2.4);
+
+  scatterLetters.forEach((el, index) => {
+    const seed = scatterSeeds[index] || { dx: 0, dy: -80, rot: 0, scale: 0.8 };
+    const curDx = seed.dx * easeProgress;
+    const curDy = seed.dy * easeProgress;
+    const curRot = seed.rot * easeProgress;
+    const curScale = 1 - (1 - seed.scale) * easeProgress;
+    const curOpacity = Math.max(0.12, 1 - (easeProgress * 0.78));
+    const curBlur = easeProgress * 1.8;
+
+    el.style.transform = `translate3d(${curDx}px, ${curDy}px, 0) rotate(${curRot}deg) scale(${curScale})`;
+    el.style.opacity = curOpacity.toFixed(3);
+    el.style.filter = curBlur > 0.1 ? `blur(${curBlur.toFixed(1)}px)` : 'none';
+  });
+}
+
 function handleScroll() {
   updateScrollProgress();
   const scrollTopBtn = document.getElementById('scrollTopBtn');
-  if (!scrollTopBtn) return;
   const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  
+  // Real-time dynamic header letter scattering and reverse re-assembly
+  updateHeaderScatter(scrollY);
+
+  if (!scrollTopBtn) return;
   const threshold = window.innerWidth <= 768 ? 200 : 280;
   const shouldShow = scrollY > threshold;
 
@@ -7404,6 +7527,7 @@ window.addEventListener('keyup', e => {
 ───────────────────────────────────────────── */
 init();
 applyAllSettings();
+initHeaderScatter();
 handleScroll();
 </script>
 
