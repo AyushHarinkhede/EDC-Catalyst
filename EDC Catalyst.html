@@ -199,20 +199,20 @@ header {
   max-width: 540px;
   margin: 0 auto 24px;
   position: relative;
-  /* Smooth bouncy return / shrink transition on close */
-  transition: max-width 0.48s cubic-bezier(0.34, 1.38, 0.64, 1),
-              transform 0.48s cubic-bezier(0.34, 1.38, 0.64, 1),
-              opacity 0.22s ease-out !important;
+  /* Super-responsive elastic bounciness on close / shrink */
+  transition: max-width 0.58s cubic-bezier(0.34, 1.58, 0.64, 1),
+              transform 0.58s cubic-bezier(0.34, 1.58, 0.64, 1),
+              opacity 0.25s ease-out !important;
   animation: fadeDown 0.6s 0.3s ease both;
   will-change: max-width, transform;
 }
 
-/* Expansion on tap / focus: smoothly wide with elastic bounciness */
+/* Expansion on tap / focus: fluid elastic spring overshoot & bounce */
 .search-wrap:focus-within,
 .search-wrap.focused {
-  max-width: 800px !important;
-  transition: max-width 0.52s cubic-bezier(0.34, 1.48, 0.64, 1),
-              transform 0.52s cubic-bezier(0.34, 1.48, 0.64, 1) !important;
+  max-width: 820px !important;
+  transition: max-width 0.62s cubic-bezier(0.34, 1.68, 0.64, 1),
+              transform 0.62s cubic-bezier(0.34, 1.68, 0.64, 1) !important;
 }
 
 @media (max-width: 840px) {
@@ -223,7 +223,7 @@ header {
   }
   .search-wrap:focus-within,
   .search-wrap.focused {
-    max-width: min(720px, calc(100% - 24px)) !important;
+    max-width: min(740px, calc(100% - 24px)) !important;
   }
 }
 
@@ -245,11 +245,11 @@ header {
   border: 2px solid #E5E7EB;
   border-radius: var(--r2);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
-  /* Smooth bouncy contraction on close */
+  /* Physical spring recoil and bounce on close */
   transition: border-color 0.35s ease, 
               box-shadow 0.45s ease, 
               background 0.35s ease,
-              transform 0.48s cubic-bezier(0.34, 1.38, 0.64, 1);
+              transform 0.56s cubic-bezier(0.34, 1.58, 0.64, 1);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -260,12 +260,12 @@ header {
 .search-wrap:focus-within .search-box-container,
 .search-wrap.focused .search-box-container {
   border-color: var(--accent);
-  box-shadow: 0 12px 36px rgba(79, 70, 229, 0.16), 0 3px 10px rgba(0, 0, 0, 0.04);
-  transform: scale(1.015);
+  box-shadow: 0 14px 40px rgba(79, 70, 229, 0.20), 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: scale(1.025);
   transition: border-color 0.35s ease, 
-              box-shadow 0.52s ease, 
+              box-shadow 0.58s ease, 
               background 0.35s ease,
-              transform 0.52s cubic-bezier(0.34, 1.48, 0.64, 1);
+              transform 0.62s cubic-bezier(0.34, 1.68, 0.64, 1);
 }
 
 /* Single clean search icon - bouncy responsive spring */
@@ -6470,11 +6470,18 @@ function syncSearchAnimatedText(newText) {
 }
 
 const SEARCH_PROMPTS = [
-  "Search items, brands, specs, use cases…",
   "Search Rolex, Apple, Garmin, Nike…",
   "Search Mexico 66, G-Shock, Ray-Ban…",
   "Search Titanium EDC, Leather, Audio…",
-  "Search Dyson, Cartier, Spigen, Ember…"
+  "Search Dyson, Cartier, Spigen, Ember…",
+  "Search Flipper Zero, reMarkable, Marshall…",
+  "Search PlayStation, Omega, Tissot, BMW…",
+  "Search Royal Enfield, Onitsuka Tiger…",
+  "Search Lamy 2000, Oura Ring, Moondrop…",
+  "Search AirPods Max, Galaxy S25 Ultra…",
+  "Search Minimalist Wallet, Tactical Gear…",
+  "Search Casio Oak, Blancpain, Bvlgari…",
+  "Search Uniqlo Airism, Levi's 501, Zara…"
 ];
 
 const SEARCH_PROMPTS_MOBILE = [
@@ -6482,12 +6489,69 @@ const SEARCH_PROMPTS_MOBILE = [
   "Search G-Shock, Ray-Ban…",
   "Search Titanium EDC, Audio…",
   "Search Dyson, Cartier, Ember…",
+  "Search Flipper, reMarkable…",
+  "Search Omega, Tissot, BMW…",
+  "Search Mexico 66, G-Shock…",
   "Search 170+ curated items…"
 ];
 
 let currentPromptIndex = 0;
+let currentActivePromptRaw = SEARCH_PROMPTS[0];
 let placeholderTimer = null;
 let isPlaceholderTyping = false;
+
+// Clean prompt text into usable search term (strip 'Search ' and trailing ellipsis '…' or '.')
+function cleanPromptForSearch(rawPrompt) {
+  if (!rawPrompt) return "Rolex";
+  let cleaned = rawPrompt.replace(/^Search\s+/i, '').replace(/[…\.\s]+$/, '').trim();
+  // If prompt has multiple items like "Rolex, Apple, Garmin, Nike", take the first high-value item or full phrase
+  const firstComma = cleaned.indexOf(',');
+  if (firstComma !== -1) {
+    const firstWord = cleaned.substring(0, firstComma).trim();
+    return firstWord || cleaned;
+  }
+  return cleaned;
+}
+
+// Easter Egg Function: Triggered via CTRL+E
+function triggerSearchEasterEgg() {
+  const inp = document.getElementById("searchInput");
+  const wrap = document.querySelector(".search-wrap");
+  const clr = document.getElementById("clearBtn");
+  const placeholderEl = document.getElementById("searchPlaceholder");
+  if (!inp) return;
+
+  const wordToFill = cleanPromptForSearch(currentActivePromptRaw);
+
+  inp.value = wordToFill;
+  searchQuery = wordToFill;
+
+  if (placeholderEl) {
+    placeholderEl.classList.add("hidden");
+  }
+
+  if (typeof syncSearchAnimatedText === 'function') {
+    syncSearchAnimatedText(wordToFill);
+  }
+
+  if (clr) clr.style.display = "block";
+  if (wrap) {
+    wrap.classList.add("searching");
+    wrap.classList.add("focused");
+  }
+
+  renderGrid();
+  if (wrap) {
+    wrap.classList.toggle("has-results", getFiltered().length > 0);
+  }
+
+  inp.focus();
+  inp.setSelectionRange(wordToFill.length, wordToFill.length);
+
+  // Easter Egg Bouncy Feedback & Toast
+  triggerFeedback('open');
+  showSecurityToast(`✨ Easter Egg Activated: Auto-filled "${wordToFill}" (Ctrl+E)`);
+}
 
 function initAnimatedPlaceholder() {
   const placeholderEl = document.getElementById('searchPlaceholder');
@@ -6538,6 +6602,7 @@ function initAnimatedPlaceholder() {
     const isMobile = window.innerWidth <= 768;
     const promptList = isMobile ? SEARCH_PROMPTS_MOBILE : SEARCH_PROMPTS;
     const prompt = promptList[currentPromptIndex % promptList.length];
+    currentActivePromptRaw = prompt;
 
     typePrompt(prompt, () => {
       // Stay visible for 4.2 seconds before cycling to next prompt with slide-up
@@ -6547,7 +6612,7 @@ function initAnimatedPlaceholder() {
         placeholderEl.classList.add('hidden');
         placeholderTimer = setTimeout(() => {
           if (inputEl.value.trim().length > 0) return;
-          currentPromptIndex = (currentPromptIndex + 1) % SEARCH_PROMPTS.length;
+          currentPromptIndex = (currentPromptIndex + 1) % promptList.length;
           placeholderEl.classList.remove('hidden');
           startCycle();
         }, 320);
@@ -6607,10 +6672,12 @@ function bindSearch() {
   
   inp.addEventListener("focus", () => {
     wrap.classList.add("focused");
+    triggerFeedback('search_open');
   });
   
   inp.addEventListener("blur", () => {
     wrap.classList.remove("focused");
+    triggerFeedback('search_close');
   });
 
   document.addEventListener("pointerdown", e => {
@@ -6623,6 +6690,12 @@ function bindSearch() {
     if (e.key === "Escape") {
       clearSearch();
       inp.blur();
+    }
+    // Easter Egg: Ctrl+E / Cmd+E fills the currently suggested prompt
+    if ((e.ctrlKey || e.metaKey) && (e.key === "e" || e.key === "E")) {
+      e.preventDefault();
+      triggerSearchEasterEgg();
+      return;
     }
     if (e.key === "Enter" && e.ctrlKey) {
       e.preventDefault();
@@ -7243,6 +7316,39 @@ function playTapSound(type = 'tap') {
     gain.connect(ctx.destination);
     osc.start(now);
     osc.stop(now + 0.04);
+  } else if (type === 'search_open') {
+    // Satisfying elastic expansion whoosh & pop
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(260, now);
+    osc.frequency.exponentialRampToValueAtTime(620, now + 0.042);
+    osc.frequency.exponentialRampToValueAtTime(480, now + 0.065);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.20, now + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.068);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.07);
+  } else if (type === 'search_close') {
+    // Elastic spring snap-back contraction
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(540, now);
+    osc.frequency.exponentialRampToValueAtTime(240, now + 0.032);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(0.16, now + 0.002);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.034);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.035);
   }
 }
 
@@ -7267,9 +7373,12 @@ function triggerHaptic(type = 'light') {
     } else if (type === 'bounce_exit') {
       // Synchronized with yankedDownExit keyframes (0ms tension -> 220ms snap)
       navigator.vibrate([9, 100, 14]);
-    } else if (type === 'search_bounce') {
-      // Search input spring focus expansion
-      navigator.vibrate([8, 30, 6]);
+    } else if (type === 'search_bounce' || type === 'search_open') {
+      // Search input spring focus expansion: tap -> overshoot stretch -> elastic settle
+      navigator.vibrate([12, 45, 9, 30, 6]);
+    } else if (type === 'search_close') {
+      // Search contraction snap recoil
+      navigator.vibrate([10, 35, 7]);
     }
   } catch (e) {}
 }
@@ -7446,6 +7555,15 @@ document.addEventListener('keydown', e => {
   if (key === 'F11') {
     e.preventDefault();
     toggleAppFullscreen();
+    return false;
+  }
+
+  // Ctrl+E / Cmd+E: Search Suggestion Easter Egg (Anywhere on the page)
+  if (isCtrl && (key === 'e' || key === 'E')) {
+    e.preventDefault();
+    if (typeof triggerSearchEasterEgg === 'function') {
+      triggerSearchEasterEgg();
+    }
     return false;
   }
 
