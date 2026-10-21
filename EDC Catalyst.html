@@ -2252,6 +2252,26 @@ button {
   stroke: #FFFFFF !important;
 }
 
+[data-theme="dark"] .brand-btn[title*="AirFly"] svg .airfly-wordmark,
+[data-theme="dark"] .brand-btn[aria-label*="AirFly"] svg .airfly-wordmark,
+[data-theme="dark"] .card-brand-logo svg .airfly-wordmark,
+[data-theme="dark"] .panel-brand-logo svg .airfly-wordmark {
+  fill: #FFFFFF !important;
+}
+[data-theme="dark"] .brand-btn[title*="AirFly"] svg .airfly-accent,
+[data-theme="dark"] .brand-btn[aria-label*="AirFly"] svg .airfly-accent,
+[data-theme="dark"] .card-brand-logo svg .airfly-accent,
+[data-theme="dark"] .panel-brand-logo svg .airfly-accent {
+  fill: #38BDF8 !important;
+  stroke: #38BDF8 !important;
+}
+[data-theme="dark"] .brand-btn[title*="AirFly"] svg .airfly-sub,
+[data-theme="dark"] .brand-btn[aria-label*="AirFly"] svg .airfly-sub,
+[data-theme="dark"] .card-brand-logo svg .airfly-sub,
+[data-theme="dark"] .panel-brand-logo svg .airfly-sub {
+  fill: #94A3B8 !important;
+}
+
 /* ═══════════════════════════════════════════════
    UI SCALE STYLES
 ═══════════════════════════════════════════════ */
@@ -2802,6 +2822,7 @@ const BRANDS = [
   { id:"westside",    label:"Westside"    },
   { id:"allansolly",  label:"Allen Solly" },
   { id:"spigen",      label:"Spigen"      },
+  { id:"airfly",      label:"AirFly"      },
   { id:"meta",        label:"Meta"        },
   { id:"7rings",      label:"7 Ring"      },
   { id:"grams",       label:"GRAMS(28)"   },
@@ -3495,7 +3516,7 @@ const ITEMS = [
     whereUsed:"Travel, Hiking, Office, Gym, Anywhere"
   },
   {
-    id:39, name:"AirFly Pro Bluetooth Dongle", category:"accessories", icon:"",
+    id:39, name:"AirFly Pro Bluetooth Dongle", category:"accessories", brand:"airfly", icon:"",
     inr:"₹3,500 – ₹5,000", usd:"$44.95", launch:"2019",
     useCase:"Use wireless headphones on planes, trains, gym equipment — any 3.5mm device",
     desc:"Plug into any 3.5mm headphone output and transmit wirelessly to two pairs of Bluetooth headphones simultaneously. aptX audio for better quality. 16-hour battery. The essential airplane accessory for AirPods users. Works on any in-flight entertainment system.",
@@ -5334,6 +5355,30 @@ const BRAND_LOGOS = {
   </g>
   <path class="meta-wordmark" fill="#111111" d="m347.94,6.04h35.93l61.09,110.52 61.1-110.52h35.15v181.6h-29.31v-139.18l-53.58,96.38h-27.5l-53.57-96.38v139.18h-29.31z m285.11,67.71c-21.02,0-33.68,15.82-36.71,35.41h71.34c-1.47-20.18-13.11-35.41-34.63-35.41z m-65.77,46.57c0-41.22 26.64-71.22 66.28-71.22 38.99,0 62.27,29.62 62.27,73.42v8.05h-99.49c3.53,21.31 17.67,35.67 40.47,35.67 18.19,0 29.56-5.55 40.34-15.7l15.57,19.07c-14.67,13.49-33.33,21.27-56.95,21.27-42.91,0-68.49-31.29-68.49-70.56z m164.09-43.97h-26.98v-24h26.98v-39.69h28.28v39.69h40.99v24h-40.99v60.83c0,20.77 6.64,28.15 22.96,28.15 7.45,0 11.72-.64 18.03-1.69v23.74c-7.86,2.22-15.36,3.24-23.48,3.24-30.53,0-45.79-16.68-45.79-50.07z m188.35,23.34c-5.68-14.34-18.35-24.9-36.97-24.9-24.2,0-39.69,17.17-39.69,45.14 0,27.27 14.26,45.27 38.53,45.27 19.08,0 32.7-11.1 38.13-24.91z m28.28,87.95h-27.76v-18.94c-7.76,11.15-21.88,22.18-44.75,22.18-36.78,0-61.36-30.79-61.36-70.95 0-40.54 25.17-70.83 62.92-70.83 18.66,0 33.3,7.46 43.19,20.63v-17.38h27.76z"/>
 </svg>`,
+  airfly: `<svg viewBox="0 0 260 70" xmlns="http://www.w3.org/2000/svg" aria-label="AirFly Official Logo">
+  <defs>
+    <linearGradient id="airflyBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0071E3"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <!-- Left Icon: Wireless Audio In-Flight Dongle & Airplane Symbol -->
+  <g transform="translate(12, 8)">
+    <!-- Radiating Dual Bluetooth Sound Waves (Two-Pair Audio Sharing) -->
+    <path class="airfly-accent" d="M 44,14 A 23,23 0 0,1 44,46" fill="none" stroke="#0071E3" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+    <path class="airfly-accent" d="M 37,19 A 15,15 0 0,1 37,41" fill="none" stroke="#0071E3" stroke-width="3.2" stroke-linecap="round" opacity="0.85"/>
+    <!-- Aerodynamic Jet / Airplane Taking Flight Through Transmission Waves -->
+    <path class="airfly-accent" fill="url(#airflyBlueGrad)" d="M 34,13 L 8,35 L 18,32 L 18,47 L 24,37 L 38,42 Z"/>
+    <!-- 3.5mm Gold Transmitter Audio Jack Node -->
+    <circle cx="8" cy="35" r="2.8" fill="#F59E0B" stroke="#0071E3" stroke-width="1.2"/>
+  </g>
+  <!-- Official 'AirFly' Wordmark -->
+  <text x="76" y="40" font-family="'Montserrat', 'Inter', -apple-system, sans-serif" font-size="33" font-weight="700" letter-spacing="-0.5" fill="#0F172A" class="airfly-wordmark">Air<tspan font-weight="900" fill="#0071E3" class="airfly-accent">Fly</tspan></text>
+  <!-- Subtitle: BY TWELVE SOUTH -->
+  <text x="77.5" y="55" font-family="'DM Mono', 'SF Pro Text', monospace, sans-serif" font-size="8" font-weight="700" letter-spacing="3" fill="#64748B" class="airfly-sub">BY TWELVE SOUTH</text>
+  <!-- Registered Trademark (R) -->
+  <text x="210" y="24" font-family="'Montserrat', sans-serif" font-size="8" font-weight="800" fill="#0071E3" class="airfly-accent">®</text>
+</svg>`,
   spigen: `<svg viewBox="0 0 260 155" xmlns="http://www.w3.org/2000/svg" aria-label="Spigen Original Logo">
   <g fill="#000000">
     <path d="
@@ -5698,6 +5743,7 @@ const BRAND_COLORS = {
   allansolly: '#00173d',
   allensolly: '#00173d',
   spigen: '#ff5900',
+  airfly: '#0071e3',
   audio: '#9333ea',
   watches: '#22c55e',
   accessories: '#f97316',
@@ -5862,7 +5908,7 @@ function isItemInCat(item, catId) {
   const c = item.category || "";
 
   if (catId === "audio") {
-    return ["audio", "marshall", "beats", "moondrop"].includes(c) ||
+    return ["audio", "marshall", "beats", "moondrop", "airfly"].includes(c) ||
       /\b(airpods?|earpods?|homepod|buds\d*|sound\s*bar|soundbar|speaker|xboom|audio|headphone|earphone|ipod)\b/i.test(name);
   }
 
@@ -5913,7 +5959,7 @@ function isItemInCat(item, catId) {
   }
 
   if (catId === "accessories") {
-    return ["accessories", "spigen", "meta", "oura", "larq", "7rings", "grams", "ember"].includes(c) ||
+    return ["accessories", "spigen", "meta", "oura", "larq", "7rings", "grams", "ember", "airfly"].includes(c) ||
       /\b(case|charger|magsafe|airtag|smarttag\d*|ring|wallet|dongle|adapter|cable|cloth|stanbyme|display|freestyle|tv|power adapter|t7|ssd|mouse|keyboard|trackpad|steel|hidratespark)\b/i.test(name);
   }
 
@@ -5936,6 +5982,7 @@ function isItemInBrand(item, brandId) {
   if (brandId === "casio") return item.category === "casio" || /\b(casio|g-shock|edifice)\b/i.test(name);
   if (brandId === "garmin") return item.category === "garmin" || /\bgarmin\b/i.test(name);
   if (brandId === "spigen") return item.category === "spigen" || /\bspigen\b/i.test(name);
+  if (brandId === "airfly") return item.category === "airfly" || item.brand === "airfly" || /\b(airfly|twelve\s*south)\b/i.test(name);
   if (brandId === "meta") return item.category === "meta" || /\b(meta|ray-ban|rayban)\b/i.test(name);
   if (brandId === "samsung") return item.category === "samsung" || /\b(samsung|galaxy)\b/i.test(name);
   if (brandId === "sony") return item.category === "sony" || /\b(sony|bravia|playstation)\b/i.test(name);
