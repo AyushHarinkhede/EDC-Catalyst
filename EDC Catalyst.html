@@ -5805,6 +5805,30 @@ function init() {
    BRAND & CATEGORY FILTER ACTIONS
 ───────────────────────────────────────────── */
 function selectBrandFilter(brandId, scrollToGrid = true) {
+  // If panel is open or animating, close and reset immediately
+  if (selectedId || activeCardElement || isAnimatingPanel) {
+    isAnimatingPanel = false;
+    selectedId = null;
+    if (activeCardElement) {
+      activeCardElement.style.opacity = "";
+      activeCardElement = null;
+    }
+    document.body.style.overflow = "";
+    const overlay = document.getElementById("overlay");
+    const panel = document.getElementById("expandedPanel");
+    if (overlay) {
+      overlay.classList.remove("active");
+      overlay.style.display = "none";
+      overlay.style.opacity = "";
+    }
+    if (panel) {
+      panel.style.transform = "";
+      panel.style.transformOrigin = "";
+      panel.innerHTML = "";
+    }
+    document.querySelectorAll(".card.shrunk").forEach(c => c.classList.remove("shrunk"));
+  }
+
   if (activeBrand === brandId && brandId !== "all") {
     activeBrand = "all";
   } else {
@@ -5834,17 +5858,21 @@ function selectBrandFilter(brandId, scrollToGrid = true) {
   }
 
   if (scrollToGrid) {
-    const target = document.querySelector(".filter-bar") || document.getElementById("grid");
-    if (target) {
-      setTimeout(() => {
+    setTimeout(() => {
+      const activeBrandBtn = document.querySelector(".brand-btn.active");
+      if (activeBrandBtn) {
+        activeBrandBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+      const target = document.querySelector(".filter-bar") || document.getElementById("grid");
+      if (target) {
         const yOffset = -18;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({
           top: Math.max(0, targetPosition),
-          behavior: 'smooth'
+          behavior: "smooth"
         });
-      }, 60);
-    }
+      }
+    }, 60);
   }
 }
 
@@ -6183,12 +6211,8 @@ function renderGrid() {
     }
   }
 
-  // shrink non-selected
-  if (selectedId) {
-    document.querySelectorAll(".card").forEach(c => {
-      if (parseInt(c.dataset.id) !== selectedId) c.classList.add("shrunk");
-    });
-  }
+  // Ensure all cards are clean and un-shrunk
+  document.querySelectorAll(".card.shrunk").forEach(c => c.classList.remove("shrunk"));
 
   // Trigger smooth scroll reveal observation for newly rendered cards
   setupScrollAnimations();
@@ -6202,6 +6226,77 @@ function renderGrid() {
 ───────────────────────────────────────────── */
 let activeCardElement = null;
 let isAnimatingPanel = false;
+
+function viewBrandCatalogFromPanel(brandId) {
+  // 1. Immediately dismiss modal overlay and reset all panel states
+  isAnimatingPanel = false;
+  const overlay = document.getElementById("overlay");
+  const panel = document.getElementById("expandedPanel");
+  if (overlay) {
+    overlay.classList.remove("active");
+    overlay.style.display = "none";
+    overlay.style.opacity = "";
+  }
+  if (panel) {
+    panel.style.transform = "";
+    panel.style.transformOrigin = "";
+    panel.innerHTML = "";
+  }
+  if (activeCardElement) {
+    activeCardElement.style.opacity = "";
+    activeCardElement = null;
+  }
+  document.body.style.overflow = "";
+  selectedId = null;
+
+  // 2. Remove any lingering shrunk classes from cards
+  document.querySelectorAll(".card.shrunk").forEach(c => c.classList.remove("shrunk"));
+
+  // 3. Set active brand explicitly (do not toggle to "all")
+  activeBrand = brandId;
+  activeCat = "all";
+  searchQuery = "";
+
+  const sInput = document.getElementById("searchInput");
+  if (sInput) sInput.value = "";
+  if (typeof syncSearchAnimatedText === "function") syncSearchAnimatedText("");
+  const pEl = document.getElementById("searchPlaceholder");
+  if (pEl) pEl.classList.remove("hidden");
+  const clr = document.getElementById("clearBtn");
+  if (clr) clr.style.display = "none";
+  const wrap = document.querySelector(".search-wrap");
+  if (wrap) wrap.classList.remove("searching", "has-results");
+
+  // 4. Rebuild brands buttons, categories, and fresh catalog grid
+  buildBrands();
+  buildCats();
+  renderGrid();
+
+  const brandObj = BRANDS.find(b => b.id === brandId);
+  const brandName = brandObj ? brandObj.label : "Brand";
+  if (brandId !== "all") {
+    showSecurityToast(`Showing ${brandName} Catalog`);
+  }
+
+  // 5. Scroll active brand button into view & scroll page to filter bar
+  setTimeout(() => {
+    const activeBrandBtn = document.querySelector(".brand-btn.active");
+    if (activeBrandBtn) {
+      activeBrandBtn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+    const target = document.querySelector(".filter-bar") || document.getElementById("grid");
+    if (target) {
+      const yOffset = -18;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({
+        top: Math.max(0, targetPosition),
+        behavior: "smooth"
+      });
+    }
+  }, 80);
+
+  if (typeof triggerFeedback === "function") triggerFeedback("switch");
+}
 
 function openPanel(id) {
   if (isAnimatingPanel) return;
@@ -6226,7 +6321,7 @@ function openPanel(id) {
   const panel = document.getElementById("expandedPanel");
   panel.innerHTML = `
     <div class="panel-brand-stage" 
-         onclick="closePanel(); selectBrandFilter('${brandKey}', true);" 
+         onclick="viewBrandCatalogFromPanel('${brandKey}');" 
          title="View all ${brandLabel} products" 
          role="button"
          style="cursor:pointer;">
@@ -6241,7 +6336,7 @@ function openPanel(id) {
     <div class="panel-body">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
         <span class="panel-badge" style="margin-bottom:0;">${item.category}</span>
-        <button class="panel-brand-catalog-chip" onclick="closePanel(); selectBrandFilter('${brandKey}', true);" title="Explore ${brandLabel} Catalog">
+        <button class="panel-brand-catalog-chip" onclick="viewBrandCatalogFromPanel('${brandKey}');" title="Explore ${brandLabel} Catalog">
           View all ${brandLabel} products (${brandCount}) →
         </button>
       </div>
@@ -6543,6 +6638,7 @@ function closePanel() {
     selectedId = null;
     activeCardElement = null;
     isAnimatingPanel = false;
+    document.querySelectorAll(".card.shrunk").forEach(c => c.classList.remove("shrunk"));
   };
 }
 
