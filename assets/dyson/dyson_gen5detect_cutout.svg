@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 450" width="100%" height="100%">
+  <defs>
+    <filter id="gen5Shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.38" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="dysonCopper" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="50%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#9a3412"/>
+    </linearGradient>
+    <linearGradient id="dysonPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="50%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#581c87"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#gen5Shadow)">
+    <!-- Right Motor / Battery & Trigger Assembly -->
+    <!-- Ergonomic Pistol Grip Handle with Red Power Button -->
+    <path d="M 460,180 L 490,130 C 510,130 540,150 540,180 L 530,260 C 530,290 500,310 480,310 L 440,310 C 430,310 430,280 445,260 L 460,220 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    
+    <!-- Red Push Button Power Switch (No Trigger on Gen5) -->
+    <circle cx="510" cy="155" r="12" fill="#ef4444" stroke="#b91c1c" stroke-width="2"/>
+
+    <!-- Rear HEPA Filter Cone (Dyson Purple Ribbed Casing) -->
+    <path d="M 525,145 L 590,130 C 605,130 615,145 615,165 L 615,195 C 615,215 605,230 590,230 L 525,215 Z" fill="url(#dysonPurple)" stroke="#3b0764" stroke-width="2"/>
+    <!-- Round LCD Display on Rear Filter Cap (Shows Particle Graph & Runtime) -->
+    <circle cx="605" cy="180" r="22" fill="#020617" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="605" y="184" font-family="'Courier New', monospace" font-size="8.5" font-weight="900" fill="#22c55e" text-anchor="middle">60m</text>
+
+    <!-- Center Cyclone Assembly: 14 Radial Root Cyclones (Gold/Copper) -->
+    <path d="M 360,140 L 460,140 L 460,220 L 360,220 Z" fill="url(#dysonCopper)" stroke="#c2410c" stroke-width="2"/>
+    <!-- Individual Cyclone Cones -->
+    <g fill="#9a3412">
+      <ellipse cx="380" cy="150" rx="8" ry="14"/><ellipse cx="405" cy="150" rx="8" ry="14"/>
+      <ellipse cx="430" cy="150" rx="8" ry="14"/><ellipse cx="380" cy="210" rx="8" ry="14"/>
+      <ellipse cx="405" cy="210" rx="8" ry="14"/><ellipse cx="430" cy="210" rx="8" ry="14"/>
+    </g>
+
+    <!-- Transparent Clear Dustbin -->
+    <rect x="250" y="145" width="115" height="70" rx="10" fill="#f8fafc" opacity="0.3" stroke="#94a3b8" stroke-width="2"/>
+    <!-- Red Ejection Lever Collar -->
+    <rect x="350" y="148" width="14" height="64" rx="3" fill="#ef4444"/>
+
+    <!-- Extension Wand (Long Satin Purple Stem) -->
+    <path d="M 250,180 L 110,180" stroke="url(#dysonPurple)" stroke-width="18" stroke-linecap="round"/>
+    
+    <!-- Front Fluffy Optic Cleaner Head with Green Laser Dust Detection -->
+    <g transform="translate(45, 145)">
+      <rect x="0" y="0" width="70" height="70" rx="10" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+      <!-- Soft Woven Fluffy Roller (Yellow & Green Stripes) -->
+      <ellipse cx="20" cy="35" rx="14" ry="24" fill="#eab308" stroke="#ca8a04" stroke-width="1.5"/>
+      <rect x="22" y="11" width="40" height="48" rx="4" fill="#020617"/>
+      <line x1="28" y1="15" x2="28" y2="55" stroke="#22c55e" stroke-width="3"/>
+      <line x1="38" y1="15" x2="38" y2="55" stroke="#eab308" stroke-width="3"/>
+      <line x1="48" y1="15" x2="48" y2="55" stroke="#22c55e" stroke-width="3"/>
+      
+      <!-- Green Laser Diode Angled Blade Glow -->
+      <polygon points="0,50 -25,40 -25,60" fill="#22c55e" opacity="0.85" filter="drop-shadow(0 0 8px #4ade80)"/>
+    </g>
+  </g>
+</svg>

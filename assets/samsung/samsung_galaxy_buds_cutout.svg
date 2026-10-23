@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="100%" height="100%">
+  <defs>
+    <filter id="budsShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity="0.3" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="budsWhite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#budsShadow)">
+    <!-- Pill-Shaped Clamshell Charging Case (Open) -->
+    <ellipse cx="250" cy="220" rx="140" ry="85" fill="url(#budsWhite)" stroke="#cbd5e1" stroke-width="2"/>
+    <ellipse cx="250" cy="215" rx="125" ry="70" fill="#f1f5f9"/>
+
+    <!-- Left & Right Earbud Magnetic Charging Wells -->
+    <ellipse cx="190" cy="210" rx="36" ry="46" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+    <ellipse cx="310" cy="210" rx="36" ry="46" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- Left Pearl-White Earbud Nestled in Well -->
+    <circle cx="190" cy="205" r="28" fill="url(#budsWhite)" stroke="#cbd5e1" stroke-width="2"/>
+    <path d="M 175,195 Q 190,180 205,195 Q 210,215 190,225 Z" fill="#e0e7ff" opacity="0.6"/> <!-- Pearlescent touchpad -->
+
+    <!-- Right Earbud Nestled in Well -->
+    <circle cx="310" cy="205" r="28" fill="url(#budsWhite)" stroke="#cbd5e1" stroke-width="2"/>
+    <path d="M 295,195 Q 310,180 325,195 Q 330,215 310,225 Z" fill="#e0e7ff" opacity="0.6"/>
+
+    <!-- Center Battery Status LED -->
+    <circle cx="250" cy="245" r="3.5" fill="#22c55e"/>
+    
+    <!-- Sound by AKG inscription on lid rim -->
+    <text x="250" y="165" font-family="'Helvetica Neue', Arial, sans-serif" font-size="9" font-weight="700" fill="#64748b" text-anchor="middle" letter-spacing="1">Sound by AKG</text>
+  </g>
+</svg>

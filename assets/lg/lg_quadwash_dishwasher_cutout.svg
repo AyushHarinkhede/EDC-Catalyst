@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 550" width="100%" height="100%">
+  <defs>
+    <filter id="dwShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.35" flood-color="#000000"/>
+    </filter>
+  </defs>
+  <g filter="url(#dwShadow)">
+    <!-- Dishwasher Stainless Enclosure -->
+    <rect x="110" y="60" width="280" height="430" rx="14" fill="#334155" stroke="#64748b" stroke-width="2"/>
+
+    <!-- Top Concealed Touch Control Bar -->
+    <rect x="120" y="70" width="260" height="35" rx="4" fill="#0f172a"/>
+    <circle cx="140" cy="87" r="4" fill="#38bdf8"/>
+    <circle cx="160" cy="87" r="4" fill="#38bdf8"/>
+    <circle cx="180" cy="87" r="4" fill="#38bdf8"/>
+    <text x="340" y="92" font-family="'Courier New', monospace" font-size="11" font-weight="900" fill="#22c55e">TrueSteam</text>
+
+    <!-- Pocket Recessed Door Handle with Indicator Light -->
+    <rect x="190" y="120" width="120" height="14" rx="4" fill="#0f172a"/>
+    <line x1="210" y1="127" x2="290" y2="127" stroke="#38bdf8" stroke-width="2"/>
+
+    <!-- Lower Kickplate -->
+    <rect x="110" y="445" width="280" height="45" rx="2" fill="#1e293b"/>
+    <text x="250" y="280" font-family="'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="900" fill="#64748b" letter-spacing="3" text-anchor="middle">QuadWash™</text>
+  </g>
+</svg>

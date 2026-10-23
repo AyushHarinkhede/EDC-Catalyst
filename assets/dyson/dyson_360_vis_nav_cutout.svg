@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 420" width="100%" height="100%">
+  <defs>
+    <filter id="visNavShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.38" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="dysonBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="40%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="dysonPurpleAcc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9333ea"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#visNavShadow)">
+    <!-- Signature D-Shape Chassis (Square Front for Edge Cleaning, Rounded Rear) -->
+    <path d="M 120,110 L 380,110 C 400,110 430,130 435,165 C 445,240 430,340 360,375 C 290,400 210,400 140,375 C 70,340 55,240 65,165 C 70,130 100,110 120,110 Z" fill="url(#dysonBlue)" stroke="#1e40af" stroke-width="3"/>
+
+    <!-- Front Edge Full-Width Triple-Action Brush Roller -->
+    <rect x="110" y="95" width="280" height="25" rx="6" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+    <!-- Red/Blue Carbon Fiber & Nylon Filaments -->
+    <g fill="#ef4444">
+      <rect x="130" y="99" width="30" height="17" rx="3"/>
+      <rect x="190" y="99" width="30" height="17" rx="3"/>
+      <rect x="250" y="99" width="30" height="17" rx="3"/>
+      <rect x="310" y="99" width="30" height="17" rx="3"/>
+    </g>
+
+    <!-- Side-Extending Soft Corner Ducts -->
+    <rect x="95" y="102" width="16" height="12" rx="2" fill="#cbd5e1"/>
+    <rect x="389" y="102" width="16" height="12" rx="2" fill="#cbd5e1"/>
+
+    <!-- Top Center: 360° Vision Panoramic Fish-Eye Camera Ring with 26 LEDs -->
+    <circle cx="250" cy="245" r="46" fill="#0f172a" stroke="#334155" stroke-width="3"/>
+    <circle cx="250" cy="245" r="36" fill="#1e293b"/>
+    <!-- 8 High-Power LED Lights -->
+    <g fill="#f8fafc">
+      <circle cx="250" cy="216" r="3"/><circle cx="271" cy="225" r="3"/><circle cx="279" cy="245" r="3"/>
+      <circle cx="271" cy="265" r="3"/><circle cx="250" cy="274" r="3"/><circle cx="229" cy="265" r="3"/>
+      <circle cx="221" cy="245" r="3"/><circle cx="229" cy="225" r="3"/>
+    </g>
+    <!-- Panoramic Optical Lens Center -->
+    <circle cx="250" cy="245" r="18" fill="#020617" stroke="#38bdf8" stroke-width="2"/>
+    <circle cx="250" cy="245" r="7" fill="#38bdf8" opacity="0.6"/>
+
+    <!-- Cyclonic Air Ducts and Bin Release Button -->
+    <rect x="225" y="325" width="50" height="32" rx="6" fill="#020617" stroke="#334155" stroke-width="1.5"/>
+    <rect x="238" y="334" width="24" height="14" rx="3" fill="#ef4444"/>
+
+    <!-- Dual Suspension Drive Wheels (Treads partially visible on sides) -->
+    <rect x="62" y="210" width="10" height="60" rx="4" fill="#0f172a"/>
+    <rect x="428" y="210" width="10" height="60" rx="4" fill="#0f172a"/>
+  </g>
+</svg>

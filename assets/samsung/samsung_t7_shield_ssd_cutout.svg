@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" width="100%" height="100%">
+  <defs>
+    <filter id="t7ShieldShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity="0.35" flood-color="#000000"/>
+    </filter>
+  </defs>
+  <g filter="url(#t7ShieldShadow)">
+    <!-- Heavy-Duty Elastomer Bumper Body in Rugged Beige/Black -->
+    <rect x="85" y="80" width="330" height="190" rx="24" fill="#d6d3d1" stroke="#a8a29e" stroke-width="2.5"/>
+
+    <!-- Grippy Ribbed Bumper Ridges (Horizontal Ridges) -->
+    <rect x="110" y="105" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+    <rect x="110" y="130" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+    <rect x="110" y="155" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+    <rect x="110" y="180" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+    <rect x="110" y="205" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+    <rect x="110" y="230" width="280" height="14" rx="4" fill="#e7e5e4" stroke="#a8a29e" stroke-width="1"/>
+
+    <!-- Reinforced Rubber Corner Bumpers -->
+    <rect x="75" y="155" width="14" height="40" rx="4" fill="#0f172a"/>
+    <ellipse cx="82" cy="175" rx="3" ry="12" fill="#020617"/>
+
+    <!-- Inscriptions on Center Ridge -->
+    <rect x="160" y="160" width="180" height="30" rx="6" fill="#1c1917"/>
+    <text x="250" y="180" font-family="'Helvetica Neue', Arial, sans-serif" font-size="12" font-weight="900" fill="#fafaf9" text-anchor="middle" letter-spacing="1">T7 SHIELD · IP65 · 4TB</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 650" width="100%" height="100%">
+  <defs>
+    <filter id="lockShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.35" flood-color="#000000"/>
+    </filter>
+  </defs>
+  <g filter="url(#lockShadow)">
+    <!-- Escutcheon Body (Long Sleek Charcoal Body) -->
+    <rect x="110" y="50" width="130" height="520" rx="20" fill="#0f172a" stroke="#334155" stroke-width="2.5"/>
+
+    <!-- Top Biometric Fingerprint Sensor with Auto-Cover Door -->
+    <rect x="135" y="75" width="80" height="55" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="175" cy="102" rx="18" ry="12" fill="#020617" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="175" cy="102" r="6" fill="#38bdf8" opacity="0.8"/>
+
+    <!-- Touchscreen Keypad (Wake-on-Approach LEDs) -->
+    <g fill="#ffffff" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+      <text x="145" y="165">1</text><text x="175" y="165">2</text><text x="205" y="165">3</text>
+      <text x="145" y="195">4</text><text x="175" y="195">5</text><text x="205" y="195">6</text>
+      <text x="145" y="225">7</text><text x="175" y="225">8</text><text x="205" y="225">9</text>
+      <text x="145" y="255">*</text><text x="175" y="255">0</text><text x="205" y="255">#</text>
+    </g>
+
+    <!-- RFID Keycard Reader Icon -->
+    <rect x="150" y="275" width="50" height="20" rx="4" fill="#1e293b"/>
+    <text x="175" y="289" font-family="'Courier New', monospace" font-size="8" font-weight="900" fill="#38bdf8" text-anchor="middle">CARD</text>
+
+    <!-- Ergonomic Push-Pull Handle (Solid Metallic Lever) -->
+    <rect x="130" y="320" width="90" height="200" rx="14" fill="#334155" stroke="#cbd5e1" stroke-width="2"/>
+    <rect x="140" y="335" width="70" height="170" rx="8" fill="#1e293b"/>
+    <text x="175" y="425" font-family="'Helvetica Neue', Arial, sans-serif" font-size="11" font-weight="900" fill="#64748b" letter-spacing="2" text-anchor="middle">PULL</text>
+  </g>
+</svg>

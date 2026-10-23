@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 550" width="100%" height="100%">
+  <defs>
+    <filter id="sDwShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.32" flood-color="#000000"/>
+    </filter>
+  </defs>
+  <g filter="url(#sDwShadow)">
+    <rect x="110" y="60" width="280" height="430" rx="14" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+    <!-- Top Concealed Touch Controls -->
+    <rect x="120" y="70" width="260" height="30" rx="4" fill="#020617"/>
+    <text x="250" y="90" font-family="'Courier New', monospace" font-size="10" font-weight="900" fill="#38bdf8" text-anchor="middle">AUTO WASH · STERILIZE</text>
+
+    <!-- Pocket Recessed Door Handle with LED Beam on floor -->
+    <rect x="180" y="115" width="140" height="12" rx="3" fill="#020617"/>
+    <circle cx="250" cy="121" r="2.5" fill="#38bdf8"/>
+
+    <!-- Bespoke Linear Wash Inscription -->
+    <text x="250" y="270" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" fill="#64748b" letter-spacing="2" text-anchor="middle">Linear Wash</text>
+  </g>
+</svg>

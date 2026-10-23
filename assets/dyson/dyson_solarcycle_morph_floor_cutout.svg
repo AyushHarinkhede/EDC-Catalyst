@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="100%" height="100%">
+  <defs>
+    <filter id="dysonShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity="0.35" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="dysonNickel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#cbd5e1"/>
+      <stop offset="80%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+    <linearGradient id="warmAmberLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#dysonShadow)">
+    <!-- Heavy Circular Weighted Base -->
+    <ellipse cx="250" cy="650" rx="90" ry="24" fill="url(#dysonNickel)" stroke="#64748b" stroke-width="2"/>
+    <ellipse cx="250" cy="646" rx="82" ry="19" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+    <circle cx="250" cy="646" r="16" fill="#334155"/>
+
+    <!-- Vertical Stem / Ambient Perforated Column -->
+    <rect x="242" y="180" width="16" height="465" rx="8" fill="url(#dysonNickel)" stroke="#64748b" stroke-width="1.5"/>
+    <!-- Perforated Micro-hole glow when docked -->
+    <line x1="250" y1="210" x2="250" y2="620" stroke="#f59e0b" stroke-width="6" stroke-dasharray="2,6" opacity="0.65"/>
+
+    <!-- Central 3-Point Revolving Articulated Arm Hub -->
+    <circle cx="250" cy="180" r="18" fill="url(#dysonNickel)" stroke="#475569" stroke-width="2"/>
+    <circle cx="250" cy="180" r="8" fill="#1e293b"/>
+
+    <!-- Horizontal Cantilever Arm -->
+    <path d="M 250,180 L 110,130" stroke="url(#dysonNickel)" stroke-width="14" stroke-linecap="round"/>
+    <!-- Articulated Optical Head Stem -->
+    <circle cx="110" cy="130" r="14" fill="#334155" stroke="#64748b" stroke-width="1.5"/>
+    
+    <!-- Rotatable Optical Light Engine Head -->
+    <rect x="70" y="115" width="45" height="30" rx="6" fill="url(#dysonNickel)" stroke="#475569" stroke-width="1.5"/>
+    <ellipse cx="92" cy="145" rx="18" ry="7" fill="#fef08a" stroke="#f59e0b" stroke-width="1.5"/>
+    
+    <!-- Downward Warm Circadian Light Cone -->
+    <polygon points="74,145 110,145 145,280 40,280" fill="url(#warmAmberLight)"/>
+    
+    <!-- Touch Slider Controls on Head -->
+    <line x1="78" y1="122" x2="106" y2="122" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
