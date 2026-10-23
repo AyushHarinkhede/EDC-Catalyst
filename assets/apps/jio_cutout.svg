@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="jioBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0054A6" />
+      <stop offset="50%" stop-color="#0A2885" />
+      <stop offset="100%" stop-color="#001C66" />
+    </linearGradient>
+    <linearGradient id="jioRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3366" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+    <linearGradient id="chipGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="50%" stop-color="#EAB308" />
+      <stop offset="100%" stop-color="#CA8A04" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#0A2885" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- 3D Slanted Premium Jio True 5G SIM Card -->
+  <g filter="url(#cardShadow)">
+    <!-- Main SIM Body -->
+    <rect x="160" y="140" width="480" height="520" rx="44" fill="url(#jioBg)" stroke="rgba(255,255,255,0.18)" stroke-width="3"/>
+    
+    <!-- Cutout corner (classic SIM card shape) -->
+    <path d="M 580 140 L 640 200 L 640 616 A 44 44 0 0 1 596 660 L 204 660 A 44 44 0 0 1 160 616 L 160 184 A 44 44 0 0 1 204 140 Z" fill="url(#jioBg)"/>
+    
+    <!-- Top Decorative Red Accent Wave -->
+    <path d="M 160 220 Q 340 180 500 240 T 640 200 L 640 140 L 580 140 L 204 140 A 44 44 0 0 0 160 184 Z" fill="url(#jioRed)" opacity="0.9"/>
+    
+    <!-- True 5G Speed Pill -->
+    <rect x="200" y="172" width="168" height="42" rx="21" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+    <text x="284" y="200" font-family="'Inter',-apple-system,sans-serif" font-size="19" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.2">TRUE 5G</text>
+
+    <!-- Metallic Gold Chip -->
+    <g transform="translate(210, 270)">
+      <rect x="0" y="0" width="130" height="106" rx="14" fill="url(#chipGold)" stroke="#A16207" stroke-width="2"/>
+      <!-- Chip circuits -->
+      <line x1="0" y1="36" x2="130" y2="36" stroke="#854D0E" stroke-width="2"/>
+      <line x1="0" y1="70" x2="130" y2="70" stroke="#854D0E" stroke-width="2"/>
+      <line x1="44" y1="0" x2="44" y2="106" stroke="#854D0E" stroke-width="2"/>
+      <line x1="86" y1="0" x2="86" y2="106" stroke="#854D0E" stroke-width="2"/>
+      <circle cx="65" cy="53" r="14" fill="none" stroke="#854D0E" stroke-width="2"/>
+    </g>
+
+    <!-- Big Iconic Jio Circle Badge -->
+    <g transform="translate(420, 390)">
+      <circle cx="90" cy="90" r="88" fill="#E11D48"/>
+      <circle cx="90" cy="90" r="80" fill="#0A2885"/>
+      <text x="90" y="112" font-family="'Inter',-apple-system,sans-serif" font-size="78" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-3">Jio</text>
+    </g>
+
+    <!-- Bottom Features Watermark -->
+    <text x="210" y="580" font-family="'Inter',-apple-system,sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">UNLIMITED 5G</text>
+    <text x="210" y="618" font-family="'Inter',-apple-system,sans-serif" font-size="19" font-weight="600" fill="rgba(255,255,255,0.72)" letter-spacing="0.2">365 Days · 2.5GB/Day · Voice</text>
+  </g>
+</svg>

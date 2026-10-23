@@ -846,6 +846,256 @@ header {
   to   { left: 180%; }
 }
 
+/* ─── DIGITAL ESSENTIAL ECOSYSTEM SUITE STYLES ─── */
+.card-bundle-strip {
+  margin: 10px 0 14px 0;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.03) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.16);
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+.card:hover .card-bundle-strip {
+  border-color: rgba(99, 102, 241, 0.3);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.05) 100%);
+}
+.bundle-strip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+.bundle-pill-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent, #6366F1);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+.bundle-grand-chip {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text, #111827);
+}
+.bundle-grand-chip strong {
+  color: #10B981;
+  font-weight: 800;
+}
+.bundle-services-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.bs-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text2, #4B5563);
+  background: #FFFFFF;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  padding: 2px 7px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.bs-tag.active-role {
+  background: var(--accent, #6366F1);
+  color: #FFFFFF;
+  border-color: transparent;
+  font-weight: 700;
+}
+[data-theme="dark"] .card-bundle-strip {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.06) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .bundle-grand-chip {
+  color: #F8FAFC;
+}
+[data-theme="dark"] .bundle-grand-chip strong {
+  color: #34D399;
+}
+[data-theme="dark"] .bs-tag {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #94A3B8;
+}
+[data-theme="dark"] .bs-tag.active-role {
+  background: #6366F1;
+  color: #FFFFFF;
+}
+
+/* Modal Suite Section */
+.panel-bundle-suite-section {
+  margin-top: 18px;
+}
+.bundle-suite-card {
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.7) 100%);
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+.bundle-suite-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.bundle-suite-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text, #0F172A);
+  margin: 0 0 3px 0;
+  letter-spacing: -0.02em;
+}
+.bundle-suite-subtitle {
+  font-size: 12.5px;
+  color: var(--text3, #64748B);
+  margin: 0;
+}
+.bundle-grand-total-box {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: 14px;
+  text-align: right;
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.25);
+  min-width: 150px;
+}
+.bgt-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+.bgt-val {
+  display: block;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.bgt-val small {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+.bgt-sub {
+  display: block;
+  font-size: 10.5px;
+  opacity: 0.85;
+}
+.bundle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) {
+  .bundle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.bundle-card-item {
+  background: #FFFFFF;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 14px;
+  padding: 14px;
+  transition: all 0.22s ease;
+}
+.bundle-card-item.is-current {
+  border-color: var(--accent, #6366F1);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.03);
+}
+.bci-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.bci-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent, #6366F1);
+  background: rgba(99, 102, 241, 0.08);
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+.bci-brand {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text, #1E293B);
+}
+.bci-desc {
+  font-size: 11.5px;
+  color: var(--text3, #64748B);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.bci-price-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #10B981;
+}
+.bci-price-val span {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text3, #64748B);
+}
+.bci-price-val small {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3, #64748B);
+  margin-left: 4px;
+}
+.bundle-math-note {
+  font-size: 12px;
+  color: var(--text2, #334155);
+  background: rgba(99, 102, 241, 0.06);
+  border: 1px dashed rgba(99, 102, 241, 0.25);
+  border-radius: 10px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+[data-theme="dark"] .bundle-suite-card {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(19, 27, 46, 0.85) 100%);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+[data-theme="dark"] .bundle-suite-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .bundle-suite-title {
+  color: #F8FAFC;
+}
+[data-theme="dark"] .bundle-card-item {
+  background: #1E293B;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .bundle-card-item.is-current {
+  background: rgba(99, 102, 241, 0.12);
+}
+[data-theme="dark"] .bci-brand {
+  color: #F1F5F9;
+}
+[data-theme="dark"] .bci-desc {
+  color: #94A3B8;
+}
+[data-theme="dark"] .bundle-math-note {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #E2E8F0;
+}
+
 /* ─── CARD BRAND STAGE & FLOATING LOGO (LARGE 90/10) ── */
 .card-brand-stage {
   position: absolute;
@@ -4036,8 +4286,17 @@ const PRODUCT_CUTOUTS = {
     "https://pngimg.com/uploads/suit/suit_PNG93251.png"
   ],
   "69": [
-    "https://pngimg.com/uploads/laptop/laptop_PNG101830.png",
-    "https://pngimg.com/uploads/laptop/laptop_PNG101829.png"
+    "assets/apps/apple_one_cutout.svg",
+    "assets/apps/icloud_cutout.png"
+  ],
+  "191": [
+    "assets/apps/netflix_cutout.png"
+  ],
+  "192": [
+    "assets/apps/jio_cutout.svg"
+  ],
+  "193": [
+    "assets/apps/icloud_cutout.png"
   ],
   "72": [
     "https://upload.wikimedia.org/wikipedia/commons/1/18/Galaxy_S20.png",
@@ -8328,35 +8587,38 @@ const ITEMS = [
   },
   {
     "id": 69,
-    "name": "Apple One Premier",
+    "name": "Apple One Family (with Apple Intelligence)",
     "category": "apps",
+    "brand": "apple",
+    "isBundleItem": true,
+    "bundleRole": "apple",
     "icon": "",
-    "inr": "₹1,295/month (Family)",
-    "usd": "$37.95/month (Premier)",
-    "launch": "2020",
-    "useCase": "All Apple subscriptions bundled — maximum value for full ecosystem living",
-    "desc": "Bundles Apple Music (100M songs), TV+ (originals + sport), Arcade (200+ games), 2TB iCloud+, Fitness+, and News+. Individual cost would be ₹3,000+/month. Share with up to 6 family members. If you're in the Apple ecosystem, this is non-negotiable value.",
+    "inr": "₹365/month (₹4,380/year)",
+    "usd": "$25.95/month (Family)",
+    "launch": "2020 (Updated 2024)",
+    "useCase": "All Apple services unified with Apple Intelligence — full 6-member family ecosystem",
+    "desc": "The ultimate Apple digital foundation. Bundles Apple Music (100M songs, Lossless & Spatial Audio), Apple TV+ (4K HDR originals), Apple Arcade (200+ ad-free premium games), and 200GB iCloud+ secure storage. Built to power Apple Intelligence across MacBook, iPhone, iPad, Apple Watch, and Apple TV. Shareable with up to 6 family members with 100% private personal accounts.",
     "specs": [
-      "Apple Music: 100M songs, Lossless",
-      "Apple TV+: Original shows + MLS",
-      "Arcade: 200+ premium games",
-      "2TB iCloud+: Family sharing",
-      "Fitness+: Studio workouts",
-      "News+: 300+ publications",
-      "Family Sharing (6 members)",
-      "Individual + Family plans"
+      "₹365/month · ₹4,380/year Family Plan",
+      "Apple Music: 100M songs, Lossless & Spatial Audio",
+      "Apple TV+: 4K HDR & Dolby Atmos Originals",
+      "Apple Arcade: 200+ Games with Zero Ads or IAPs",
+      "200GB iCloud+ Shared Family Cloud Storage",
+      "Apple Intelligence & Enhanced Siri Integration",
+      "Compatible with all Apple Ecosystem (MacBook, Watch, TV)",
+      "Family Sharing: Up to 6 Private Accounts"
     ],
     "pros": [
-      "Huge value bundle",
-      "Family sharing",
-      "Everything Apple",
-      "iCloud+ privacy",
-      "Fitness+ workouts"
+      "Unbeatable family value at ₹365/month (₹4,380/yr)",
+      "Up to 6 family members with separate private accounts",
+      "Apple Intelligence integrated across devices",
+      "Lossless Apple Music & 4K HDR TV+",
+      "Zero ad interruptions across all services"
     ],
     "cons": [
-      "Apple lock-in",
-      "Android Music only",
-      "News+ limited in India"
+      "Requires Apple ecosystem hardware for best features",
+      "Storage pooled at 200GB across 6 members",
+      "Android supports Apple Music only"
     ],
     "travel": {
       "plane": true,
@@ -8366,7 +8628,142 @@ const ITEMS = [
       "cycle": true
     },
     "rating": "10/10",
-    "whereUsed": "Everywhere across all Apple devices"
+    "whereUsed": "Everywhere across all Apple ecosystem hardware"
+  },
+  {
+    "id": 191,
+    "name": "Netflix Premium 4K HDR",
+    "category": "apps",
+    "brand": "netflix",
+    "isBundleItem": true,
+    "bundleRole": "netflix",
+    "icon": "",
+    "inr": "₹650/year",
+    "usd": "$7.99/year (Slot/Family)",
+    "launch": "2024",
+    "useCase": "Cinema-grade 4K HDR streaming across Phone, Tablet, Computer, and TV",
+    "desc": "The gold standard for cinema and binge-worthy entertainment. Stream thousands of award-winning movies, global TV series, anime, and live events in crystal-clear 4K Ultra HD with Dolby Vision and Dolby Atmos spatial audio. Fully compatible and accessible on Phone, Tablet, Computer, and Smart TV with simultaneous streaming and smart offline downloads.",
+    "specs": [
+      "₹650/year Annual Shared/Family Slot Plan",
+      "4K Ultra HD + HDR10 + Dolby Vision Support",
+      "Available in Phone, Tablet, Computer, and TV",
+      "Dolby Atmos Spatial Audio Integration",
+      "Simultaneous Multi-Screen Streaming",
+      "Smart Offline Downloads for Travel & Flights",
+      "Personalized User Profiles & Watch Histories",
+      "Zero Commercials / Ad-Free Binging"
+    ],
+    "pros": [
+      "Super economical annual rate (₹650/year)",
+      "Crisp 4K HDR picture & spatial audio quality",
+      "Works on Phone, Tablet, Laptop, and TV seamlessly",
+      "Smart downloads for offline travel",
+      "Industry-leading recommendation algorithm"
+    ],
+    "cons": [
+      "Requires 25Mbps+ connection for 4K Dolby Vision",
+      "Household sharing verification required for smart TVs",
+      "Licensed third-party titles rotate periodically"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.8/10",
+    "whereUsed": "Phone, Tablet, Laptop, Bedroom TV & Home Theater"
+  },
+  {
+    "id": 192,
+    "name": "Jio True 5G Annual Plan",
+    "category": "apps",
+    "brand": "jio",
+    "isBundleItem": true,
+    "bundleRole": "jio",
+    "icon": "",
+    "inr": "₹3,600/year (365 Days)",
+    "usd": "$43.20/year (365 Days)",
+    "launch": "2024",
+    "useCase": "Zero-worry annual mobile connectivity: True Unlimited 5G + 2.5GB/day + Voice & Digital Suite",
+    "desc": "A powerhouse 365-day all-in-one connectivity pack for power users. Delivers 2.5GB/day high-speed 4G data plus Unlimited True 5G data with zero speed caps in 5G coverage zones. Includes unlimited local, STD, and roaming voice calls, 100 SMS/day, and full complimentary access to JioTV, JioCinema Premium entertainment, and JioCloud with 50GB secure cloud storage backup.",
+    "specs": [
+      "₹3,600/year (Full 365 Days Validity)",
+      "2.5GB/Day High-Speed Daily Data",
+      "Unlimited True 5G Data (Uncapped Speed)",
+      "Unlimited Voice Calling (Local, STD & Roaming)",
+      "100 Free SMS / Day",
+      "JioTV Live Television (1000+ Channels)",
+      "JioCinema Premium Streaming & Live Sports",
+      "JioCloud 50GB Automated Secure Cloud Backup"
+    ],
+    "pros": [
+      "Single annual recharge for 365 days of peace of mind",
+      "Uncapped True 5G speeds (often 500Mbps - 1Gbps)",
+      "High 2.5GB/day fallback data buffer",
+      "Free JioTV, JioCinema & 50GB JioCloud backup",
+      "Effectively ₹300/month for comprehensive connectivity"
+    ],
+    "cons": [
+      "5G radios increase smartphone battery consumption",
+      "Indoor 5G speeds depend on building penetration",
+      "Upfront annual commitment required"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.7/10",
+    "whereUsed": "Everyday smartphone connectivity, high-speed mobile hotspot, and pan-India travel"
+  },
+  {
+    "id": 193,
+    "name": "iCloud+ 200GB Storage Plan",
+    "category": "apps",
+    "brand": "icloud",
+    "isBundleItem": true,
+    "bundleRole": "icloud",
+    "icon": "",
+    "inr": "₹219/month (₹2,619/year)",
+    "usd": "$2.99/month ($35.88/year)",
+    "launch": "2024",
+    "useCase": "Independent 200GB Apple cloud storage, automated device backup & advanced privacy protection",
+    "desc": "The standalone 200GB Apple cloud plan for users who want dedicated high-speed backup and privacy features. Includes 200GB secure storage for full device backup, 4K iCloud Photos, and iCloud Drive, plus iCloud Private Relay (Safari VPN), Hide My Email disposable addresses, Custom Email Domain, and HomeKit Secure Video for up to 5 cameras. Sharable with up to 5 family members.",
+    "specs": [
+      "₹219/month · ₹2,619/year Standalone Plan",
+      "200GB Secure Apple Cloud Storage",
+      "iCloud Private Relay (Encrypted Safari Browsing)",
+      "Hide My Email (Unlimited Disposable Addresses)",
+      "Custom Email Domain for iCloud Mail",
+      "HomeKit Secure Video (Up to 5 Smart Cameras)",
+      "Family Sharing (Share with up to 5 other people)",
+      "Automated iPhone/iPad/Mac Backup & 4K Photo Sync"
+    ],
+    "pros": [
+      "Affordable standalone cloud storage (₹219/mo · ₹2,619/yr)",
+      "Private Relay protects browsing privacy from ISP and trackers",
+      "Hide My Email prevents spam and personal email leaks",
+      "Shareable with 5 family members (zero access to each other's data)",
+      "Seamless automatic background device backups"
+    ],
+    "cons": [
+      "Does not include Apple Music, TV+, or Arcade",
+      "Storage cap of 200GB can fill up fast with heavy 4K ProRes videos",
+      "Primarily beneficial for Apple devices"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.6/10",
+    "whereUsed": "Every Apple device (iPhone, iPad, Mac, Apple Watch)"
   },
   {
     "id": 72,
@@ -12555,6 +12952,9 @@ const ITEMS = [
    BRAND LOGOS
 ───────────────────────────────────────────── */
 const BRAND_LOGOS = {
+  netflix: `<svg viewBox="0 0 111 30" fill="#E50914" xmlns="http://www.w3.org/2000/svg"><path d="M105.062 14.28L111 30c-1.75-.25-3.5-.375-5.25-.375-3.375 0-5.125.625-6.875 1.375L93.75 16.5 88.5 30.75c-1.625.375-3.375.625-5.125.625-1.75 0-3.5-.125-5.25-.375l5.875-15.625L78.25 1.25c1.625.375 3.375.625 5.125.625 1.75 0 3.5-.125 5.25-.375L93.75 14.25 99 0c1.75.25 3.5.375 5.25.375 1.75 0 3.5-.125 5.25-.375l-4.438 14.28zM0 0h6.75l10.5 24.375V0h6.75v30h-6l-11.25-25.5V30H0V0zm30 0h19.5v5.25H36.75v7.125h11.25v5.25H36.75v7.125h12.75V30H30V0zm24 0h18.75v5.25h-6v24.75h-6.75V5.25H54V0z"/></svg>`,
+  jio: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" fill="#0A2885"/><circle cx="50" cy="50" r="42" fill="#0054A6"/><text x="50" y="64" font-family="'Inter',-apple-system,sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">Jio</text></svg>`,
+  icloud: `<svg viewBox="0 0 24 24" fill="#0284C7" xmlns="http://www.w3.org/2000/svg"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>`,
   apple: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`,
   samsung: `<svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
   <ellipse cx="150" cy="50" rx="138" ry="43" transform="rotate(-8 150 50)" fill="#1428A0"/>
@@ -13098,6 +13498,9 @@ uspa: `<svg viewBox="70 24 236 424" xmlns="http://www.w3.org/2000/svg" aria-labe
 };
 
 const BRAND_COLORS = {
+  netflix: '#E50914',
+  jio: '#0054A6',
+  icloud: '#0284C7',
   ultraviolette: '#8B5CF6',
   royalenfield: '#E43516',
   flipper: '#FF8200',
@@ -13483,7 +13886,7 @@ function isItemInBrand(item, brandId) {
 }
 
 function getBrandForItem(item) {
-  if (item.brand && BRANDS.some(b => b.id === item.brand)) {
+  if (item.brand && (BRANDS.some(b => b.id === item.brand) || BRAND_LOGOS[item.brand])) {
     return item.brand;
   }
   for (const b of BRANDS) {
@@ -13594,6 +13997,19 @@ function renderGrid() {
         <span class="pill-text">${heritage.bestForShort}</span>
       </div>` : ""}
       <p class="card-usecase">${item.useCase}</p>
+      ${item.isBundleItem ? `
+      <div class="card-bundle-strip" title="Digital Essential Ecosystem Suite: Netflix + Jio + Apple One + iCloud = Total: ₹11,249/yr">
+        <div class="bundle-strip-head">
+          <span class="bundle-pill-badge">Essential Digital Suite</span>
+          <span class="bundle-grand-chip">Total: <strong>₹11,249/yr</strong></span>
+        </div>
+        <div class="bundle-services-row">
+          <span class="bs-tag ${item.bundleRole === 'netflix' ? 'active-role' : ''}">Netflix: ₹650/yr</span>
+          <span class="bs-tag ${item.bundleRole === 'jio' ? 'active-role' : ''}">Jio: ₹3,600/yr</span>
+          <span class="bs-tag ${item.bundleRole === 'apple' ? 'active-role' : ''}">Apple One: ₹4,380/yr</span>
+          <span class="bs-tag ${item.bundleRole === 'icloud' ? 'active-role' : ''}">iCloud: ₹2,619/yr</span>
+        </div>
+      </div>` : ''}
       <div class="card-bottom">
         <div>
           <div class="card-price-inr">${item.inr}</div>
@@ -13852,6 +14268,63 @@ function openPanel(id, clickedEl, isSwitch = false) {
 
       <p class="panel-desc">${item.desc}</p>
 
+      ${item.isBundleItem ? `
+      <div class="panel-section panel-bundle-suite-section">
+        <div class="panel-section-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);vertical-align:-2px;margin-right:6px;"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          Digital Essential Ecosystem Suite (4-Pillar Life Stack)
+        </div>
+        <div class="bundle-suite-card">
+          <div class="bundle-suite-header">
+            <div>
+              <h4 class="bundle-suite-title">4-Pillar Digital Life Stack (Annual Breakdown)</h4>
+              <p class="bundle-suite-subtitle">Complete Entertainment, High-Speed Connectivity, Cloud Storage &amp; Apple Intelligence</p>
+            </div>
+            <div class="bundle-grand-total-box">
+              <span class="bgt-label">Total Annual Suite</span>
+              <span class="bgt-val">₹11,249 <small>/ year</small></span>
+              <span class="bgt-sub">(Effective ~₹937/month)</span>
+            </div>
+          </div>
+          <div class="bundle-grid">
+            <div class="bundle-card-item ${item.id === 191 ? 'is-current' : ''}">
+              <div class="bci-top">
+                <span class="bci-badge">Entertainment</span>
+                <span class="bci-brand">Netflix 4K HDR</span>
+              </div>
+              <div class="bci-desc">Phone, Tablet, Computer, 4K TV · Dolby Atmos</div>
+              <div class="bci-price-val">₹650 <span>/ year</span></div>
+            </div>
+            <div class="bundle-card-item ${item.id === 192 ? 'is-current' : ''}">
+              <div class="bci-top">
+                <span class="bci-badge">Connectivity</span>
+                <span class="bci-brand">Jio True 5G</span>
+              </div>
+              <div class="bci-desc">Unlimited 5G + 2.5GB/d + Voice + JioTV (365d)</div>
+              <div class="bci-price-val">₹3,600 <span>/ year</span></div>
+            </div>
+            <div class="bundle-card-item ${item.id === 69 ? 'is-current' : ''}">
+              <div class="bci-top">
+                <span class="bci-badge">Apple Ecosystem</span>
+                <span class="bci-brand">Apple One Family</span>
+              </div>
+              <div class="bci-desc">Music, TV+, Arcade, 200GB, AI · 6 Members</div>
+              <div class="bci-price-val">₹4,380 <span>/ year</span> <small>(₹365/mo)</small></div>
+            </div>
+            <div class="bundle-card-item ${item.id === 193 ? 'is-current' : ''}">
+              <div class="bci-top">
+                <span class="bci-badge">Cloud &amp; Privacy</span>
+                <span class="bci-brand">iCloud+ 200GB</span>
+              </div>
+              <div class="bci-desc">200GB Storage, Private Relay, Backup (6 Members)</div>
+              <div class="bci-price-val">₹2,619 <span>/ year</span> <small>(₹219/mo)</small></div>
+            </div>
+          </div>
+          <div class="bundle-math-note">
+            <span>💡 <strong>Ecosystem Value Math:</strong> Netflix (₹650) + Jio (₹3,600) + Apple One (₹4,380) + iCloud+ (₹2,619) = <strong>Total: ₹11,249/year</strong>. Single consolidated digital stack for power users.</span>
+          </div>
+        </div>
+      </div>` : ''}
       <div class="panel-section">
         <div class="panel-section-title">Use Case</div>
         <p>${item.useCase}</p>
