@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <filter id="l2kShadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="6" dy="14" stdDeviation="10" flood-opacity="0.38" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="makrolon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#383838"/>
+      <stop offset="35%" stop-color="#242424"/>
+      <stop offset="70%" stop-color="#181818"/>
+      <stop offset="100%" stop-color="#101010"/>
+    </linearGradient>
+    <linearGradient id="brushedSteel" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a8a8a8"/>
+      <stop offset="25%" stop-color="#e4e4e4"/>
+      <stop offset="50%" stop-color="#d1d1d1"/>
+      <stop offset="75%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#9c9c9c"/>
+    </linearGradient>
+    <linearGradient id="goldNib" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff1c2"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="rotate(-38 300 300)" filter="url(#l2kShadow)">
+    <!-- Tapered Cigar Body (Brushed Makrolon Fiberglass) -->
+    <path d="M286,220 C285,320 287,410 292,460 L308,460 C313,410 315,320 314,220 Z" fill="url(#makrolon)"/>
+    <line x1="289" y1="420" x2="311" y2="420" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+    <!-- 4 Small Ink Windows -->
+    <rect x="287" y="225" width="4" height="8" rx="1" fill="#38bdf8" opacity="0.75"/>
+    <rect x="294" y="225" width="4" height="8" rx="1" fill="#38bdf8" opacity="0.75"/>
+    <rect x="302" y="225" width="4" height="8" rx="1" fill="#38bdf8" opacity="0.75"/>
+    <rect x="309" y="225" width="4" height="8" rx="1" fill="#38bdf8" opacity="0.75"/>
+
+    <!-- Brushed Stainless Steel Front Section -->
+    <path d="M286,220 L293,150 L307,150 L314,220 Z" fill="url(#brushedSteel)"/>
+    <circle cx="286" cy="214" r="1.5" fill="#ffffff"/>
+    <circle cx="314" cy="214" r="1.5" fill="#ffffff"/>
+
+    <!-- Semi-hooded 14K Platinum Plated Gold Nib -->
+    <path d="M295,150 L298,135 Q300,131 302,135 L305,150 Z" fill="url(#goldNib)" stroke="#94a3b8" stroke-width="0.6"/>
+    <line x1="300" y1="132" x2="300" y2="142" stroke="#111111" stroke-width="0.8"/>
+
+    <!-- Lamy 2000 Cap -->
+    <g transform="translate(-80, -25)">
+      <path d="M368,145 C367,200 367,260 368,295 L398,295 C399,260 399,200 398,145 Z" fill="url(#makrolon)"/>
+      <path d="M368,145 Q383,141 398,145 Z" fill="url(#brushedSteel)"/>
+      <rect x="380" y="150" width="6" height="80" rx="2" fill="url(#brushedSteel)" filter="url(#l2kShadow)"/>
+      <text x="383" y="162" font-family="sans-serif" font-size="4" font-weight="bold" text-anchor="middle" fill="#444">LAMY</text>
+      <line x1="368" y1="292" x2="398" y2="292" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

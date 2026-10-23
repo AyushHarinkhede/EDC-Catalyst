@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" width="100%" height="100%">
+  <defs>
+    <filter id="mShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.45" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="tolexWrap" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="15%" stop-color="#181818"/>
+      <stop offset="85%" stop-color="#121212"/>
+      <stop offset="100%" stop-color="#090909"/>
+    </linearGradient>
+    <linearGradient id="brassGleam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#92621f"/>
+      <stop offset="25%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#fce289"/>
+      <stop offset="75%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#7a5015"/>
+    </linearGradient>
+    <pattern id="fretGrille" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#171717"/>
+      <line x1="0" y1="0" x2="8" y2="8" stroke="#333333" stroke-width="1.2"/>
+      <line x1="8" y1="0" x2="0" y2="8" stroke="#222222" stroke-width="1.2"/>
+      <circle cx="4" cy="4" r="1" fill="#bfa15f" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <g filter="url(#mShadow)">
+    <!-- Main Cabinet Wooden Chassis wrapped in Black Tolex Vinyl -->
+    <rect x="60" y="50" width="520" height="340" rx="20" fill="url(#tolexWrap)" stroke="#383838" stroke-width="2"/>
+
+    <!-- Brass Corner Protectors -->
+    <path d="M60,80 Q60,50 90,50 L80,68 Q72,72 68,80 Z" fill="url(#brassGleam)"/>
+    <path d="M580,80 Q580,50 550,50 L560,68 Q568,72 572,80 Z" fill="url(#brassGleam)"/>
+    <path d="M60,360 Q60,390 90,390 L80,372 Q72,368 68,360 Z" fill="url(#brassGleam)"/>
+    <path d="M580,360 Q580,390 550,390 L560,372 Q568,368 572,360 Z" fill="url(#brassGleam)"/>
+
+    <!-- Inset Amp Grille Frame with White/Gold Piping -->
+    <rect x="82" y="72" width="476" height="296" rx="10" fill="#141414" stroke="url(#brassGleam)" stroke-width="2"/>
+    <!-- Authentic Woven Fret Cloth -->
+    <rect x="85" y="75" width="470" height="290" rx="8" fill="url(#fretGrille)"/>
+
+    <!-- Bottom Brass Etched Threshold Strip "EST. 1962" -->
+    <rect x="85" y="342" width="470" height="23" rx="2" fill="url(#brassGleam)"/>
+    <text x="320" y="357" font-family="'Montserrat', sans-serif" font-size="9" font-weight="800" text-anchor="middle" fill="#181818" letter-spacing="3">EST. 1962</text>
+
+    <!-- Legendary Marshall Script Logo (Center) -->
+    <g transform="translate(195, 175) scale(0.55)">
+      <path fill="#ffffff" filter="drop-shadow(2px 4px 6px rgba(0,0,0,0.8))" d="M 57.45,107.44 C 55.56,106.06 55.6,105.7 59.32,91.02 C 61.41,82.76 63.34,73.39 63.61,70.18 L 64.09,64.35 L 59.11,74.02 C 50.23,91.24 43.7,99.6 35.24,104.55 C 29.94,107.66 20.12,108.71 13.54,106.86 C 0.13,103.11 -4.64,85.17 5.3,75.99 C 11.3,70.46 28.46,72.67 26.54,78.73 C 25.9,80.72 25.38,80.88 21.47,80.3 C 17.66,79.72 16.79,79.96 14.55,82.2 C 12.57,84.18 12,85.77 12,89.22 C 12,92.97 12.48,94.08 15.07,96.26 C 20.38,100.73 28.53,99.26 35.1,92.66 C 39.64,88.1 47.45,73.75 57.45,51.59 C 67.84,28.57 74.09,16.14 79.52,7.72 C 84.45,0.09 85.23,-0.55 88.54,0.27 C 92.28,1.21 92.48,4.59 89.21,11.89 C 83.05,25.65 78.61,41.84 77.44,54.85 L 76.77,62.35 L 86.54,48.35 C 98.95,30.58 106.12,21.69 117.38,10.1 C 124.56,2.7 126.93,0.85 129.21,0.85 C 132.79,0.85 133.86,3.32 131.78,6.77 C 130.92,8.19 125.85,16.55 120.51,25.35 C 100.74,57.97 91.78,81.91 94.95,93.7 C 96.32,98.77 98.62,99.58 104.22,96.97 C 110.32,94.13 113.41,90.94 117.02,83.8 C 123.62,70.73 136.71,60.85 147.43,60.85 C 150.25,60.85 153.45,61.48 154.55,62.25 C 156.26,63.45 156.82,63.45 158.46,62.25 C 160.96,60.43 165.43,60.46 166.97,62.31 C 167.95,63.5 167.14,65.8 162.66,74.56 C 159.63,80.5 156.11,87.23 154.84,89.53 C 153.56,91.83 152.83,94.02 153.21,94.4 C 155.5,96.68 165.83,85.69 176.36,69.78 C 180,64.28 180.02,64.16 178.52,60.56 C 176.56,55.88 176.56,46.59 178.51,42.82 C 180.15,39.65 184.61,36.85 188.02,36.85 C 189.19,36.85 191.46,38.17 193.07,39.77 C 195.46,42.16 196,43.54 196,47.31 C 196,49.96 195.14,53.61 194,55.85 C 191.36,61.01 191.42,61.21 195.39,60.56 C 199.49,59.9 203,62.01 203,65.16 C 203,66.38 199.82,71.4 195.91,76.36 C 182.67,93.15 180.54,101.58 190.57,97.38 C 197.12,94.65 200.43,91.39 216,72.35 C 227.34,58.48 231.68,53.85 233.34,53.85 C 235.89,53.85 240,56.45 240,58.07 C 240,58.67 238.12,61.65 235.83,64.68 L 231.67,70.19 L 233,74.77 C 233.73,77.29 234.52,81.26 234.76,83.6 C 235,85.94 235.42,87.85 235.69,87.85 C 235.96,87.85 238.77,86.03 241.93,83.81 C 246.53,80.59 248.21,78.62 250.26,74.06 C 261.47,49.14 270.36,29.99 271.58,28.1 C 273.31,25.44 279.03,24.98 281,27.35 C 282.32,28.95 282.3,29.02 271.63,54.13 L 267.05,64.9 L 271.36,62.38 C 276.09,59.61 279.77,59.17 282.18,61.1 C 284.45,62.92 286.02,68.46 285.31,72.15 C 284.67,75.49 279.96,85.31 275.49,92.6 C 273.93,95.14 273.37,96.85 274.09,96.85 C 276.78,96.85 283.84,89.68 286.51,84.24 C 290.01,77.08 300.83,66.01 307.5,62.78 C 313.81,59.71 321.81,59.46 324.87,62.24 C 326.68,63.88 327.03,63.92 327.55,62.58 C 328.81,59.29 338,59.83 338,63.18 C 338,63.94 334.85,70.64 331,78.07 C 327.15,85.5 324,92.56 324,93.75 C 324,97.57 326.74,97.25 332.04,92.82 C 336.11,89.41 338.05,86.59 341.97,78.46 C 351.7,58.24 366.48,39.61 379.98,30.54 C 387.84,25.26 395,25.8 395,31.69 C 395,34.81 388.52,48.78 384.07,55.24 C 379.53,61.84 369.36,71.35 359.92,77 Z"/>
+    </g>
+
+    <!-- Top Recessed Brass Analog Control Panel -->
+    <rect x="180" y="52" width="280" height="15" rx="3" fill="url(#brassGleam)"/>
+    <!-- Knobs peeking from top panel -->
+    <circle cx="230" cy="59" r="6" fill="#1a1a1a" stroke="url(#brassGleam)" stroke-width="1.5"/>
+    <circle cx="280" cy="59" r="6" fill="#1a1a1a" stroke="url(#brassGleam)" stroke-width="1.5"/>
+    <circle cx="330" cy="59" r="6" fill="#1a1a1a" stroke="url(#brassGleam)" stroke-width="1.5"/>
+    <circle cx="380" cy="59" r="6" fill="#1a1a1a" stroke="url(#brassGleam)" stroke-width="1.5"/>
+    <!-- Power Toggle Switch -->
+    <rect x="420" y="54" width="14" height="10" rx="2" fill="#d4af37" stroke="#111" stroke-width="1"/>
+
+    <!-- Rubber Feet -->
+    <rect x="100" y="390" width="45" height="12" rx="4" fill="#111111"/>
+    <rect x="495" y="390" width="45" height="12" rx="4" fill="#111111"/>
+  </g>
+</svg>

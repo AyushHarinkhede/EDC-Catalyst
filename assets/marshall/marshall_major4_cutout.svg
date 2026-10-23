@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 540" width="100%" height="100%">
+  <defs>
+    <filter id="majShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.45" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="headbandLeather" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#333333"/>
+      <stop offset="40%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="brassAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#ca8a04"/>
+      <stop offset="100%" stop-color="#854d0e"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#majShadow)">
+    <!-- Textured Leather Headband Arch -->
+    <path d="M140,290 C140,110 380,110 380,290" fill="none" stroke="url(#headbandLeather)" stroke-width="36" stroke-linecap="round"/>
+    <!-- Headband inner cushion -->
+    <path d="M152,275 C152,130 368,130 368,275" fill="none" stroke="#121212" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- Steel Sliding Arms / Hinges -->
+    <path d="M136,270 L136,330" stroke="#71717a" stroke-width="7" stroke-linecap="round"/>
+    <path d="M384,270 L384,330" stroke="#71717a" stroke-width="7" stroke-linecap="round"/>
+
+    <!-- Brass Hinge Caps -->
+    <circle cx="136" cy="285" r="6" fill="url(#brassAccent)"/>
+    <circle cx="384" cy="285" r="6" fill="url(#brassAccent)"/>
+
+    <!-- LEFT EAR CUP (Iconic Square Rounded Marshall Earcups) -->
+    <g transform="translate(85, 305)">
+      <!-- Cushion -->
+      <rect x="0" y="0" width="102" height="110" rx="28" fill="#171717" stroke="#090909" stroke-width="2"/>
+      <rect x="8" y="8" width="86" height="94" rx="22" fill="#242424"/>
+      <!-- Textured Tolex Cap -->
+      <rect x="14" y="14" width="74" height="82" rx="18" fill="url(#headbandLeather)" stroke="#383838" stroke-width="1"/>
+      <text x="51" y="60" font-family="'Brush Script MT', cursive, sans-serif" font-style="italic" font-size="20" font-weight="900" text-anchor="middle" fill="#f4f4f5">Marshall</text>
+    </g>
+
+    <!-- RIGHT EAR CUP -->
+    <g transform="translate(333, 305)">
+      <!-- Cushion -->
+      <rect x="0" y="0" width="102" height="110" rx="28" fill="#171717" stroke="#090909" stroke-width="2"/>
+      <rect x="8" y="8" width="86" height="94" rx="22" fill="#242424"/>
+      <!-- Textured Tolex Cap -->
+      <rect x="14" y="14" width="74" height="82" rx="18" fill="url(#headbandLeather)" stroke="#383838" stroke-width="1"/>
+      <text x="51" y="60" font-family="'Brush Script MT', cursive, sans-serif" font-style="italic" font-size="20" font-weight="900" text-anchor="middle" fill="#f4f4f5">Marshall</text>
+
+      <!-- Famous Multi-Directional Brass Control Knob on right cup -->
+      <circle cx="85" cy="85" r="10" fill="url(#brassAccent)" stroke="#111" stroke-width="1"/>
+      <circle cx="85" cy="85" r="6" fill="#181818"/>
+      <circle cx="85" cy="85" r="2" fill="url(#brassAccent)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 400" width="100%" height="100%">
+  <defs>
+    <filter id="embShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity="0.4" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="embSilicone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#333333"/>
+      <stop offset="25%" stop-color="#1f1f1f"/>
+      <stop offset="75%" stop-color="#141414"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <linearGradient id="embBrass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#ca8a04"/>
+      <stop offset="100%" stop-color="#854d0e"/>
+    </linearGradient>
+    <pattern id="metalMesh" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#151515"/>
+      <circle cx="3" cy="3" r="1.8" fill="#2d2d2d"/>
+    </pattern>
+  </defs>
+
+  <g filter="url(#embShadow)">
+    <!-- Tough Rugged Silicone Bumper Body -->
+    <rect x="80" y="90" width="380" height="220" rx="32" fill="url(#embSilicone)" stroke="#3a3a3a" stroke-width="2"/>
+
+    <!-- Front Steel Speaker Grille Inset -->
+    <rect x="104" y="114" width="332" height="172" rx="20" fill="url(#metalMesh)" stroke="#222" stroke-width="2"/>
+
+    <!-- Marshall Signature White/Silver Script Logo -->
+    <text x="270" y="210" font-family="'Brush Script MT', 'Great Vibes', cursive, sans-serif" font-style="italic" font-size="52" font-weight="900" text-anchor="middle" fill="#f8fafc" letter-spacing="2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.9))">Marshall</text>
+
+    <!-- Top Iconic Multi-Directional Brass Control Knob -->
+    <circle cx="270" cy="90" r="18" fill="url(#embBrass)" stroke="#1a1a1a" stroke-width="2" filter="url(#embShadow)"/>
+    <circle cx="270" cy="90" r="13" fill="#1a1a1a"/>
+    <!-- 4 directional tactile brass arrows -->
+    <path d="M270,79 L272,83 L268,83 Z" fill="url(#embBrass)"/>
+    <path d="M270,101 L272,97 L268,97 Z" fill="url(#embBrass)"/>
+    <path d="M259,90 L263,88 L263,92 Z" fill="url(#embBrass)"/>
+    <path d="M281,90 L277,88 L277,92 Z" fill="url(#embBrass)"/>
+    <circle cx="270" cy="90" r="3.5" fill="url(#embBrass)"/>
+
+    <!-- Bluetooth Button & Red LED Battery Level Meter -->
+    <circle cx="160" cy="92" r="7" fill="#1a1a1a" stroke="#444" stroke-width="1.5"/>
+    <path d="M159,88 L162,91 L158,94 L158,88 L162,91 L159,94" fill="none" stroke="#60a5fa" stroke-width="1.2"/>
+
+    <!-- 10-bar Battery LED Meter -->
+    <g transform="translate(350, 89)">
+      <rect x="0" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="5" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="10" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="15" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="20" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="25" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="30" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+      <rect x="35" y="0" width="3" height="7" rx="1" fill="#ef4444"/>
+    </g>
+  </g>
+</svg>
