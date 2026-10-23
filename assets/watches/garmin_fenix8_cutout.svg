@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <filter id="fxShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-opacity="0.45" flood-color="#000000"/>
+    </filter>
+    <linearGradient id="dlcTitanium" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3f3f46"/>
+      <stop offset="35%" stop-color="#27272a"/>
+      <stop offset="70%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#fxShadow)">
+    <path d="M190,40 L310,40 L300,130 L200,130 Z" fill="#18181b" stroke="#09090b" stroke-width="2"/>
+    <path d="M200,370 L300,370 L310,460 L190,460 Z" fill="#18181b" stroke="#09090b" stroke-width="2"/>
+
+    <circle cx="250" cy="250" r="130" fill="#18181b" stroke="#09090b" stroke-width="2"/>
+
+    <rect x="120" y="175" width="6" height="24" rx="2" fill="#52525b"/>
+    <rect x="120" y="238" width="6" height="24" rx="2" fill="#52525b"/>
+    <rect x="120" y="300" width="6" height="24" rx="2" fill="#52525b"/>
+    <rect x="374" y="185" width="6" height="28" rx="2" fill="#ea580c"/>
+    <rect x="374" y="285" width="6" height="24" rx="2" fill="#52525b"/>
+
+    <circle cx="250" cy="250" r="124" fill="url(#dlcTitanium)" stroke="#52525b" stroke-width="1.5"/>
+    <circle cx="250" cy="136" r="3" fill="#71717a"/>
+    <circle cx="346" cy="188" r="3" fill="#71717a"/>
+    <circle cx="324" cy="328" r="3" fill="#71717a"/>
+    <circle cx="176" cy="328" r="3" fill="#71717a"/>
+    <circle cx="154" cy="188" r="3" fill="#71717a"/>
+
+    <circle cx="250" cy="250" r="112" fill="#000000"/>
+
+    <circle cx="250" cy="250" r="108" fill="none" stroke="#ea580c" stroke-width="2"/>
+    <circle cx="250" cy="250" r="102" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="1.5, 4"/>
+
+    <text x="250" y="172" font-family="sans-serif" font-size="10" font-weight="900" fill="#38bdf8" text-anchor="middle">▲ 2,450 M · GPS 3D</text>
+
+    <text x="250" y="236" font-family="'Impact', 'Arial Black', sans-serif" font-size="52" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-1">08:34</text>
+    <text x="312" y="206" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ea580c">52</text>
+
+    <g transform="translate(180, 252)">
+      <text x="20" y="16" font-family="sans-serif" font-size="13" font-weight="bold" fill="#4ade80">16 DAYS</text>
+      <text x="100" y="16" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ef4444">♥ 68</text>
+    </g>
+
+    <text x="250" y="302" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24" text-anchor="middle">TRAINING: PRODUCTIVE (88)</text>
+    <text x="250" y="322" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">VO2 MAX 58 · EXCELLENT</text>
+  </g>
+</svg>
