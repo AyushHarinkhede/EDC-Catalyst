@@ -1561,6 +1561,31 @@ header {
   margin: 4px 0;
 }
 
+.panel-banned-countries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.ban-country-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 12.5px;
+  background: rgba(239, 68, 68, 0.12);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  box-shadow: 0 1px 3px rgba(239, 68, 68, 0.08);
+}
+[data-theme="dark"] .ban-country-pill {
+  background: rgba(239, 68, 68, 0.22);
+  color: #FCA5A5;
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
 .panel-ban-alert-legal {
   font-size: 11.5px;
   margin-top: 10px !important;
@@ -4155,8 +4180,7 @@ const PRODUCT_CUTOUTS = {
     "https://pngimg.com/uploads/laptop/laptop_PNG101831.png"
   ],
   "43": [
-    "https://pngimg.com/uploads/wireless_speaker/wireless_speaker_PNG13.png",
-    "https://pngimg.com/uploads/wireless_speaker/wireless_speaker_PNG12.png"
+    "assets/tools/flipper_zero_cutout.svg"
   ],
   "44": [
     "https://pngimg.com/uploads/wireless_speaker/wireless_speaker_PNG11.png",
@@ -7592,47 +7616,55 @@ const ITEMS = [
   },
   {
     "id": 43,
-    "name": "Flipper Zero + Accessories",
+    "name": "Flipper Zero",
     "category": "flipper",
     "icon": "",
-    "inr": "₹12,000 – ₹18,000",
-    "usd": "$169 + accessories",
+    "inr": "₹14,999 – ₹18,999",
+    "usd": "$169",
     "launch": "2021",
     "isBanned": true,
+    "bannedCountries": [
+      "Canada",
+      "Brazil",
+      "United States",
+      "India"
+    ],
     "banNotice": {
-      "title": "OFFICIALLY BANNED & RESTRICTED DEVICE",
-      "reason": "Wireless packet sniffing, RFID/NFC card cloning, and Sub-GHz RF replay capabilities that can be misused for keyless car theft (relay attacks), garage door/gate opening, and hotel/office access card cloning.",
-      "regions": "Canada (ISED ban & CBSA customs import prohibition), Brazil (ANATEL regulatory ban & customs seizures), Amazon Worldwide (banned from marketplace globally), United States (CBP customs shipment seizures & PayPal funds freeze), India & Global (DGFT/WPC wireless import restrictions)."
+      "title": "Banned / Import-Restricted Countries",
+      "countries": [
+        "Canada",
+        "Brazil",
+        "United States",
+        "India"
+      ]
     },
-    "useCase": "Security research, RFID/NFC/IR analysis, radio pen testing, hacking education [BANNED / RESTRICTED]",
-    "desc": "A multi-tool for hardware hackers and security researchers. Sub-1GHz radio, NFC, RFID 125kHz, IR transceiver, iButton, Bluetooth, GPIO, USB. Runs Dolphin OS. Infinitely extensible with official accessories: Video Game Module, Wi-Fi devboard, Protector case. NOTE: Officially banned and heavily restricted across multiple countries due to car theft and cloning risks.",
+    "useCase": "Multi-tool for hardware research, radio & RFID/NFC protocols, firmware testing",
+    "desc": "The Flipper Zero is a portable multi-tool device designed for hardware exploration, wireless protocol analysis, and penetration testing research. Equipped with a Sub-1GHz transceiver, 125kHz RFID, 13.56MHz NFC, Infrared transceiver, iButton 1-Wire, Bluetooth Low Energy, 18-pin GPIO header, and a 1.4-inch monochrome LCD display running Dolphin OS.",
     "specs": [
-      "Sub-GHz Radio (300–928MHz)",
-      "NFC (13.56MHz)",
-      "RFID (125kHz)",
-      "IR Transceiver",
-      "iButton / 1-Wire",
-      "Bluetooth 5.4",
-      "GPIO 8-pin",
-      "USB-C",
-      "microSD Slot",
-      "2000mAh Battery",
-      "128×64 Monochrome LCD",
-      "128KB RAM + 256 flash"
+      "Sub-GHz Radio (300–928 MHz)",
+      "13.56 MHz NFC Reader/Writer",
+      "125 kHz RFID Reader/Writer",
+      "Infrared Transceiver (800–950 nm)",
+      "iButton / 1-Wire Probe",
+      "Bluetooth 5.4 Low Energy",
+      "18-Pin GPIO Header (3.3V)",
+      "USB-C (HID, Virtual COM, DFU)",
+      "MicroSD Slot (FAT32, up to 128GB)",
+      "2,000 mAh LiPo Battery (Up to 7 days)",
+      "1.4\" Monochrome LCD (128×64)",
+      "STM32WB55 Dual-Core MCU"
     ],
     "pros": [
-      "Multi-radio tool",
-      "Open source hardware",
-      "Community firmware",
-      "Infinitely hackable",
-      "Educational tool"
+      "Compact all-in-one wireless research multi-tool",
+      "Extensive open-source firmware ecosystem",
+      "Full hardware GPIO pin header for expansion",
+      "Long battery endurance with rechargeable LiPo cell",
+      "Intuitive navigation and Dolphin OS interface"
     ],
     "cons": [
-      "🚫 OFFICIALLY BANNED in Canada & Brazil",
-      "🚫 Banned from sale on Amazon globally",
-      "High car theft & keyless relay attack risk",
-      "Customs import seizure risk worldwide",
-      "Requires deep technical knowledge"
+      "Restricted or banned in Canada, Brazil, United States & India",
+      "Requires technical wireless protocol knowledge",
+      "Requires external microSD card for full storage"
     ],
     "travel": {
       "plane": false,
@@ -7642,7 +7674,7 @@ const ITEMS = [
       "cycle": true
     },
     "rating": "9/10",
-    "whereUsed": "Security Research, Dev, Maker Projects, Education (Restricted in Canada/Brazil)"
+    "whereUsed": "Hardware Lab, Maker Projects, Radio Protocol Research, Security Auditing"
   },
   {
     "id": 44,
@@ -14482,7 +14514,7 @@ function renderGrid() {
         })()}
       </div>
       <h3 class="card-name">${item.name}</h3>
-      ${item.banNotice ? `<div class="card-ban-badge">🚫 BANNED / RESTRICTED DEVICE</div>` : ""}
+      ${(item.banNotice || item.bannedCountries) ? `<div class="card-ban-badge">⚠️ BANNED / RESTRICTED DEVICE</div>` : ""}
       ${heritage ? `
       <div class="card-heritage-pill" title="Customer Consensus: Best for ${heritage.bestFor}">
         <span class="pill-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);vertical-align:middle;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg></span>
@@ -14739,24 +14771,21 @@ function openPanel(id, clickedEl, isSwitch = false) {
         ${item.rating ? `<div class="price-box"><label>EDC Rating</label><div class="val" style="color:#f0c4e4">${item.rating}</div></div>` : ""}
       </div>
 
-      ${item.banNotice ? `
+      ${(item.banNotice || item.bannedCountries) ? `
       <div class="panel-ban-alert">
         <div class="panel-ban-alert-header">
-          <span>🚫</span>
-          <strong>${item.banNotice.title}</strong>
+          <span>⚠️</span>
+          <strong>${(item.banNotice && item.banNotice.title) || "Banned / Import-Restricted Countries"}</strong>
         </div>
         <div class="panel-ban-alert-body">
-          <p><strong>⚠️ Status:</strong> Yeh product officially banned & import-restricted hai multiple international jurisdictions me.</p>
-          <p><strong>❓ Kyu Ban Hai (Reason):</strong> ${item.banNotice.reason}</p>
-          <p><strong>🌍 Kis Region Me Ban Hai (Banned / Restricted Regions):</strong></p>
-          <ul class="panel-ban-list">
-            <li><strong>Canada:</strong> ISED federal ban & CBSA customs import prohibition (vehicle theft aur wireless keyless relay cloning rokne ke liye).</li>
-            <li><strong>Brazil:</strong> ANATEL regulatory ban & customs seizures (classified as illicit cybercrime hardware).</li>
-            <li><strong>Amazon Worldwide:</strong> Amazon ne global marketplace se permanently ban kar diya hai (classified as card skimming tool).</li>
-            <li><strong>United States:</strong> CBP customs border seizures; PayPal payment processors ne funds freeze kiye the.</li>
-            <li><strong>India & Global:</strong> WPC / DGFT wireless equipment certification ke bina import prohibited hai; unauthorized systems par use karna strictly illegal hai.</li>
-          </ul>
-          <p class="panel-ban-alert-legal">⚖️ <em>Legal Disclaimer: Is device ko kisi aur ki car, RFID/NFC gate pass, ya wireless frequency par unauthorized use karna cybercrime ke antargat criminal offense hai.</em></p>
+          <div class="panel-banned-countries">
+            ${((item.banNotice && item.banNotice.countries) || item.bannedCountries || ["Canada", "Brazil", "United States", "India"]).map(c => `
+              <span class="ban-country-pill">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                ${c}
+              </span>
+            `).join('')}
+          </div>
         </div>
       </div>` : ""}
 
