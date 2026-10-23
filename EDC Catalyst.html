@@ -3630,6 +3630,444 @@ img, svg, picture, canvas {
 }
 
 
+
+/* ═══════════════════════════════════════════════
+   EDC CATALYST FOOTER & LIVE WAVE DIVIDER
+═══════════════════════════════════════════════ */
+:root {
+  --footer-bg-top: #101426;
+  --footer-bg-bottom: #080A12;
+  --footer-text: #F8FAFC;
+  --footer-text-muted: #94A3B8;
+  --footer-card-bg: rgba(255, 255, 255, 0.035);
+  --footer-card-border: rgba(255, 255, 255, 0.08);
+  --footer-card-hover: rgba(99, 102, 241, 0.12);
+}
+
+[data-theme="dark"] {
+  --footer-bg-top: #0B0E19;
+  --footer-bg-bottom: #040508;
+  --footer-text: #F1F5F9;
+  --footer-text-muted: #64748B;
+  --footer-card-bg: rgba(255, 255, 255, 0.025);
+  --footer-card-border: rgba(255, 255, 255, 0.05);
+  --footer-card-hover: rgba(99, 102, 241, 0.16);
+}
+
+.footer-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 30px;
+  z-index: 10;
+  background: transparent;
+}
+
+/* ─── LIVE WAVE DIVIDER ──────────────────────── */
+.wave-divider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
+.wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 84px;
+}
+
+@media (max-width: 768px) {
+  .wave-divider svg {
+    height: 52px;
+  }
+}
+
+/* Background animated secondary ambient wave */
+.wave-divider .shape-fill-bg {
+  fill: rgba(79, 70, 229, 0.28);
+  animation: waveFloatBg 11s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+/* Main primary wave */
+.wave-divider .shape-fill {
+  fill: var(--footer-bg-top);
+  animation: waveFloatMain 8s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  transition: fill 0.3s ease;
+}
+
+/* Luminous animated glow sweep along the wave ridge */
+.wave-glow-line {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 65%);
+  animation: waveGlowSweep 12s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes waveFloatMain {
+  0% {
+    transform: scaleY(1) translateY(0);
+  }
+  50% {
+    transform: scaleY(1.05) translateY(-3px);
+  }
+  100% {
+    transform: scaleY(0.97) translateY(2px);
+  }
+}
+
+@keyframes waveFloatBg {
+  0% {
+    transform: scaleY(0.95) scaleX(1) translateY(3px);
+  }
+  50% {
+    transform: scaleY(1.1) scaleX(1.02) translateY(-4px);
+  }
+  100% {
+    transform: scaleY(0.98) scaleX(0.99) translateY(1px);
+  }
+}
+
+@keyframes waveGlowSweep {
+  0% {
+    transform: translateX(-15%);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(15%);
+    opacity: 0.85;
+  }
+}
+
+/* ─── FOOTER BODY ────────────────────────────── */
+.footer-content {
+  background: linear-gradient(180deg, var(--footer-bg-top) 0%, var(--footer-bg-bottom) 100%);
+  color: var(--footer-text);
+  padding: 55px 24px 38px;
+  position: relative;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1.15fr 1.15fr 1.6fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 1100px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* Brand block */
+.footer-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.footer-brand-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 55%, #312E81 100%);
+  border: 1.5px solid rgba(129, 140, 248, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+  flex-shrink: 0;
+}
+
+.footer-brand-logo:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 14px 32px rgba(79, 70, 229, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.footer-brand-logo svg {
+  width: 28px;
+  height: 28px;
+}
+
+.footer-title-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  user-select: none;
+  margin: 0;
+}
+
+.footer-title .title-edc {
+  color: var(--accent);
+}
+
+.footer-title .title-catalyst {
+  color: #FFFFFF;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.12);
+}
+
+.footer-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  color: var(--footer-text-muted);
+  text-transform: uppercase;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.footer-bio {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--footer-text-muted);
+  margin-bottom: 22px;
+  max-width: 440px;
+}
+
+.footer-live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34D399;
+  font-size: 12px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.live-dot-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: liveDotPulse 2s infinite;
+  display: inline-block;
+}
+
+@keyframes liveDotPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Column titles */
+.footer-col-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin-bottom: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-col-title::after {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.footer-links li a {
+  color: var(--footer-text-muted);
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.footer-links li a:hover {
+  color: #FFFFFF;
+  transform: translateX(4px);
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+/* Stats boxes in footer */
+.footer-stats-boxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.footer-stat-item {
+  background: var(--footer-card-bg);
+  border: 1px solid var(--footer-card-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.footer-stat-item:hover {
+  background: var(--footer-card-hover);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.fstat-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.fstat-label {
+  font-size: 11px;
+  color: var(--footer-text-muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Digital suite mini card in footer */
+.footer-digital-suite-callout {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.fdsc-label {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #A5B4FC;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.fdsc-details {
+  font-size: 11.5px;
+  color: var(--footer-text-muted);
+  line-height: 1.45;
+  margin-bottom: 6px;
+}
+
+.fdsc-price {
+  font-size: 13px;
+  color: #FFFFFF;
+}
+
+.fdsc-price strong {
+  color: #818CF8;
+}
+
+/* Footer bottom strip */
+.footer-bottom-strip {
+  padding-top: 28px;
+  border-top: 1px solid var(--footer-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 12.5px;
+  color: var(--footer-text-muted);
+}
+
+.footer-copy strong {
+  color: #FFFFFF;
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--footer-card-bg);
+  border: 1px solid var(--footer-card-border);
+  color: var(--footer-text);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-action-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
 </style>
 </head>
 <body>
@@ -3719,6 +4157,118 @@ img, svg, picture, canvas {
   <div id="brandHeritageBannerContainer" style="width: 100%; margin-top: 36px;"></div>
 
 </div><!-- /wrap -->
+
+<!-- ══ FOOTER SECTION WITH LIVE WAVE DIVIDER ═══════════════ -->
+<div class="footer-wrapper">
+  <div class="wave-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="wave-svg">
+      <path d="M0,0 C150,60 350,0 500,40 C650,80 900,10 1200,50 L1200,120 L0,120 Z" class="shape-fill-bg"></path>
+      <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+    </svg>
+    <div class="wave-glow-line"></div>
+  </div>
+
+  <footer class="footer-content">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- Column 1: Brand, Logo & Mission -->
+        <div class="footer-col footer-col-brand">
+          <div class="footer-brand-header">
+            <div class="footer-brand-logo" onclick="scrollToTop()" title="EDC Catalyst - Back to Top">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+              </svg>
+            </div>
+            <div class="footer-title-text">
+              <h2 class="footer-title"><span class="title-edc">EDC</span> <span class="title-catalyst">Catalyst</span></h2>
+              <p class="footer-sub">Explore · Decipher · Category</p>
+            </div>
+          </div>
+          <p class="footer-bio">
+            The ultimate curated catalog of modern Everyday Carry gear, tactical tools, luxury horology, fine writing instruments, audiophile acoustics, and digital life ecosystems. Handcrafted for explorers, makers, and carry minimalists.
+          </p>
+          <div class="footer-live-status-pill">
+            <span class="live-dot-pulse"></span>
+            <span>Catalog Engine: <strong>Live &amp; Synced</strong></span>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Categories -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Categories</h4>
+          <ul class="footer-links">
+            <li><a onclick="selectCategoryFilter('tools', true)">🛠️ Multi-Tools &amp; Tech</a></li>
+            <li><a onclick="selectCategoryFilter('watches', true)">⏱️ Watches &amp; Horology</a></li>
+            <li><a onclick="selectCategoryFilter('pens', true)">✍️ Fine Writing &amp; Pens</a></li>
+            <li><a onclick="selectCategoryFilter('audio', true)">🎧 Audiophile Acoustics</a></li>
+            <li><a onclick="selectCategoryFilter('tech', true)">💻 Mobile Tech &amp; Laptops</a></li>
+            <li><a onclick="selectCategoryFilter('app', true)">📱 Digital Life Suite</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Featured Brands -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Top Brands</h4>
+          <ul class="footer-links">
+            <li><a onclick="selectBrandFilter('apple', true)"> Apple Ecosystem</a></li>
+            <li><a onclick="selectBrandFilter('lamy', true)">🖋️ LAMY Germany</a></li>
+            <li><a onclick="selectBrandFilter('marshall', true)">⚡ Marshall Acoustics</a></li>
+            <li><a onclick="selectBrandFilter('rolex', true)">👑 Rolex Horology</a></li>
+            <li><a onclick="selectBrandFilter('omega', true)">Ω Omega Precision</a></li>
+            <li><a onclick="selectBrandFilter('flipper', true)">🐬 Flipper Security Tech</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Stats & Digital Suite -->
+        <div class="footer-col footer-col-stats">
+          <h4 class="footer-col-title">Catalog Stats</h4>
+          <div class="footer-stats-boxes">
+            <div class="footer-stat-item">
+              <span class="fstat-val" id="footerTotalItems">172</span>
+              <span class="fstat-label">Curated Gear</span>
+            </div>
+            <div class="footer-stat-item">
+              <span class="fstat-val" id="footerTotalBrands">38+</span>
+              <span class="fstat-label">Elite Brands</span>
+            </div>
+            <div class="footer-stat-item">
+              <span class="fstat-val">5-Pillar</span>
+              <span class="fstat-label">Digital Stack</span>
+            </div>
+            <div class="footer-stat-item">
+              <span class="fstat-val">100%</span>
+              <span class="fstat-label">Verified Specs</span>
+            </div>
+          </div>
+
+          <div class="footer-digital-suite-callout">
+            <div class="fdsc-label">Digital Essential Suite</div>
+            <div class="fdsc-details">Netflix + Jio + Apple One + iCloud + Duolingo</div>
+            <div class="fdsc-price">Total: <strong>₹12,998 / year</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom Strip -->
+      <div class="footer-bottom-strip">
+        <div class="footer-copy">
+          © <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
+        </div>
+        <div class="footer-actions">
+          <button class="footer-action-btn" onclick="resetAll(); scrollToCatalog();" title="Reset all catalog filters">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Reset Filters</span>
+          </button>
+          <button class="footer-action-btn" onclick="scrollToTop()" title="Scroll to top">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            <span>Back to Top</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
 
 <script>
 /* ─────────────────────────────────────────────
@@ -16444,6 +16994,7 @@ updateNetworkStatus(typeof navigator !== "undefined" ? navigator.onLine : true, 
 applyAllSettings();
 initHeaderScatter();
 handleScroll();
+updateFooterStats();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
