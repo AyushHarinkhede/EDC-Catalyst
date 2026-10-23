@@ -854,18 +854,18 @@ header {
   height: 92px;
   border-top-left-radius: var(--r2);
   border-top-right-radius: var(--r2);
-  background: linear-gradient(180deg, rgba(243, 244, 246, 0.82) 0%, rgba(249, 250, 251, 0.35) 75%, transparent 100%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
-  pointer-events: none;
-  cursor: default;
+  background: linear-gradient(180deg, rgba(243, 244, 246, 0.72) 0%, rgba(249, 250, 251, 0.32) 65%, rgba(255, 255, 255, 0) 100%);
+  border-bottom: none;
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.03);
+  pointer-events: auto;
+  cursor: pointer;
   overflow: visible;
   z-index: 10;
-  transition: background 0.25s ease;
+  transition: background 0.28s ease, box-shadow 0.28s ease;
 }
 .card-brand-stage:hover {
-  background: linear-gradient(180deg, rgba(238, 242, 255, 0.95) 0%, rgba(245, 247, 255, 0.6) 80%, transparent 100%);
+  background: linear-gradient(180deg, rgba(238, 242, 255, 0.88) 0%, rgba(245, 247, 255, 0.45) 70%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 6px 20px -4px rgba(99, 102, 241, 0.07);
 }
 
 .card-brand-logo {
@@ -880,7 +880,7 @@ header {
   align-items: center;
   justify-content: center;
   z-index: 11;
-  pointer-events: none;
+  pointer-events: auto;
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
   filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.08));
@@ -891,29 +891,45 @@ header {
   filter: drop-shadow(0 6px 14px rgba(79, 70, 229, 0.18));
 }
 
-/* Subtle Smooth Catalog Pill beside Logo */
+/* Subtle Smooth Catalog Pill beside Logo - revealed on cursor hover near brand logo */
 .card-brand-badge {
   position: absolute;
-  bottom: 9px;
+  top: 50%;
   right: 14px;
+  transform: translateY(-50%) translateX(6px) scale(0.94);
   font-size: 9.5px;
   font-weight: 600;
   color: var(--accent, #6366F1);
-  background: rgba(99, 102, 241, 0.06);
-  border: 1px solid rgba(99, 102, 241, 0.14);
-  padding: 2px 7px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  padding: 3px 8px;
   border-radius: 99px;
   opacity: 0;
-  transform: translateY(3px);
-  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   letter-spacing: 0.03em;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.2s ease,
+              color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  z-index: 12;
+  user-select: none;
 }
-.card:hover .card-brand-badge,
-.card-brand-stage:hover .card-brand-badge {
+.card-brand-stage:hover .card-brand-badge,
+.card-brand-logo:hover ~ .card-brand-badge,
+.card-brand-badge:hover {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+.card-brand-badge:hover {
+  background: var(--accent, #6366F1);
+  color: #FFFFFF;
+  border-color: var(--accent, #6366F1);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.32);
+  transform: translateY(-50%) scale(1.06);
 }
 
 /* logo hover movement removed */
@@ -2369,13 +2385,25 @@ button {
 }
 [data-theme="dark"] .card-brand-badge {
   color: #A5B4FC;
-  background: rgba(99, 102, 241, 0.12);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(99, 102, 241, 0.14);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .card-brand-badge:hover {
+  background: #6366F1;
+  color: #FFFFFF;
+  border-color: #6366F1;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
 }
 
 [data-theme="dark"] .card-brand-stage {
-  background: linear-gradient(180deg, rgba(30, 41, 59, 0.85) 0%, rgba(19, 27, 46, 0.45) 75%, transparent 100%);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.75) 0%, rgba(19, 27, 46, 0.35) 65%, rgba(19, 27, 46, 0) 100%);
+  border-bottom: none;
+  box-shadow: 0 4px 18px -4px rgba(0, 0, 0, 0.3);
+}
+[data-theme="dark"] .card-brand-stage:hover {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.9) 0%, rgba(37, 48, 71, 0.45) 70%, rgba(19, 27, 46, 0) 100%);
+  box-shadow: 0 6px 22px -4px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .card-cat {
@@ -13532,9 +13560,9 @@ function renderGrid() {
     <div class="card" 
          onclick="openPanel(${item.id}, this)"
          data-id="${item.id}">
-      <div class="card-brand-stage">
+      <div class="card-brand-stage" onclick="event.stopPropagation(); selectBrandFilter('${brandKey}')" title="Explore ${brandLabel} Catalog">
         <div class="card-brand-logo" style="color: ${color}">${logo}</div>
-        <span class="card-brand-badge">Catalog</span>
+        <span class="card-brand-badge" title="Explore ${brandLabel} Catalog">Catalog</span>
       </div>
       <div class="card-top-row">
         <span class="card-cat">${item.category}</span>
