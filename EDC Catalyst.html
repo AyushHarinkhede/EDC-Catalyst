@@ -2330,27 +2330,151 @@ button {
   text-shadow: 0 0 10px rgba(239, 68, 68, 0.65);
 }
 
-/* Product Cutout Gallery in Detail Container */
+/* Product Cutout Gallery in Detail Container (Clean, Minimal, Edge-to-Edge Upper Stage) */
 .panel-gallery-container {
   position: relative;
   width: 100%;
   height: 250px;
   margin: 4px 0 20px 0;
   border-radius: 24px;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(243, 244, 246, 0.7) 100%);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(0, 0, 0, 0.04);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.98) 0%, rgba(246, 247, 249, 0.6) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Smooth automatic spring expansion when image arrives */
+  transition: height 0.46s cubic-bezier(0.34, 1.35, 0.64, 1),
+              margin 0.35s ease,
+              border-radius 0.35s ease,
+              background 0.35s ease,
+              border-color 0.35s ease;
 }
 
 [data-theme="dark"] .panel-gallery-container {
-  background: radial-gradient(circle at 50% 50%, #172138 0%, #0F172A 100%);
-  border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: none !important;
+}
+
+/* Compact Loading State: Light minimal space showing themed loader only */
+.panel-gallery-container.is-loading {
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 4px 0 14px 0 !important;
+  border-radius: 16px !important;
+  background: #F8F9FA !important;
+  border-color: rgba(79, 70, 229, 0.2) !important;
+}
+
+[data-theme="dark"] .panel-gallery-container.is-loading {
+  background: #172138 !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+/* UI Theme Off-White to Royal Blue Shimmer Loading Animation */
+.gallery-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.28s ease;
+}
+
+.gallery-loader-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg, 
+    rgba(243, 244, 246, 0.5) 0%, 
+    rgba(79, 70, 229, 0.08) 30%, 
+    rgba(79, 70, 229, 0.75) 50%, 
+    rgba(79, 70, 229, 0.08) 70%, 
+    rgba(243, 244, 246, 0.5) 100%
+  );
+  background-size: 240% 100%;
+  animation: uiThemeShimmer 1.35s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+[data-theme="dark"] .gallery-loader-shimmer {
+  background: linear-gradient(
+    90deg, 
+    rgba(30, 41, 59, 0.5) 0%, 
+    rgba(99, 102, 241, 0.12) 30%, 
+    rgba(99, 102, 241, 0.85) 50%, 
+    rgba(99, 102, 241, 0.12) 70%, 
+    rgba(30, 41, 59, 0.5) 100%
+  );
+  background-size: 240% 100%;
+  animation: uiThemeShimmer 1.35s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes uiThemeShimmer {
+  0%   { background-position: 120% 0; }
+  100% { background-position: -120% 0; }
+}
+
+.gallery-loader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.gallery-loader-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent, #4F46E5);
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.9);
+  animation: dotPulse 0.9s ease-in-out infinite alternate;
+}
+
+@keyframes dotPulse {
+  0%   { transform: scale(0.75); opacity: 0.5; }
+  100% { transform: scale(1.35); opacity: 1; }
+}
+
+.gallery-loader-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent, #4F46E5);
+  letter-spacing: 0.6px;
+}
+
+[data-theme="dark"] .gallery-loader-text {
+  color: #A5B4FC;
+}
+
+/* Hide navigation, dots, and glow while loading */
+.panel-gallery-container.is-loading .gallery-nav-btn,
+.panel-gallery-container.is-loading .gallery-dots-bar,
+.panel-gallery-container.is-loading .gallery-glow,
+.panel-gallery-container.is-loading .gallery-cutout-img {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Once Loaded: Loader disappears, UI controls & glow fade in */
+.panel-gallery-container.is-loaded .gallery-loader {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.panel-gallery-container.is-loaded .gallery-nav-btn,
+.panel-gallery-container.is-loaded .gallery-dots-bar,
+.panel-gallery-container.is-loaded .gallery-glow {
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 /* When Offline: Completely collapses with ZERO height & ZERO space */
@@ -2373,6 +2497,7 @@ body.is-offline .panel-gallery-container {
   align-items: center;
   justify-content: center;
   user-select: none;
+  touch-action: pan-y pinch-zoom;
 }
 
 .gallery-glow {
@@ -2397,7 +2522,7 @@ body.is-offline .panel-gallery-container {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.16));
+  filter: none !important; /* Removed artificial drop-shadow per user request */
   transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
 }
@@ -2408,19 +2533,19 @@ body.is-offline .panel-gallery-container {
   top: 50%;
   transform: translateY(-50%);
   z-index: 5;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   color: #1E293B;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  opacity: 0.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  opacity: 0.75;
   transition: all 0.22s ease;
 }
 
@@ -2428,22 +2553,22 @@ body.is-offline .panel-gallery-container {
   opacity: 1;
   background: #FFFFFF;
   transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .gallery-nav-btn.prev { left: 14px; }
 .gallery-nav-btn.next { right: 14px; }
 
 [data-theme="dark"] .gallery-nav-btn {
-  background: rgba(30, 41, 59, 0.75);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
 }
 [data-theme="dark"] .gallery-nav-btn:hover {
   background: rgba(51, 65, 85, 0.95);
 }
 
-/* Side Corner Dots Bar UI */
+/* Corner Dots Bar UI (Pure Dots, NO numbers) */
 .gallery-dots-bar {
   position: absolute;
   bottom: 12px;
@@ -2451,19 +2576,18 @@ body.is-offline .panel-gallery-container {
   z-index: 5;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
+  padding: 5px 10px;
   border-radius: 30px;
   background: rgba(15, 23, 42, 0.65);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: none;
 }
 
 .gallery-dots-track {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 .gallery-dot {
@@ -2486,19 +2610,10 @@ body.is-offline .panel-gallery-container {
 }
 
 .gallery-dot.active .dot-fill {
-  width: 20px;
+  width: 18px;
   border-radius: 10px;
   background: #FFFFFF;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
-}
-
-.gallery-counter-text {
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #FFFFFF;
-  letter-spacing: 0.5px;
-  padding-left: 2px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.85);
 }
 
 @media (max-width: 600px) {
@@ -2508,8 +2623,8 @@ body.is-offline .panel-gallery-container {
     border-radius: 18px;
   }
   .gallery-nav-btn {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
   }
   .gallery-dots-bar {
     bottom: 8px;
@@ -3136,10 +3251,10 @@ const BRAND_CLOTHING_HERITAGE = {
   rayban: {
     brandId: "rayban",
     brandName: "Ray-Ban",
-    bestFor: "Iconic Wayfarer, Aviator & Ray-Ban Meta Smart Glasses Eyewear",
-    bestForShort: "Timeless Eyewear & Meta Smart Audio/Camera Glasses",
-    customerConsensus: "Founded in 1937, Ray-Ban is the undisputed world leader in timeless eyewear craftsmanship. Their groundbreaking collaboration with Meta brings the ultimate everyday smart glasses—seamlessly combining iconic Wayfarer & Headliner frames with hands-free Meta AI, 12MP camera, and open-ear spatial audio.",
-    signaturePieces: ["Wayfarer Smart Glasses", "Headliner Smart Glasses", "Classic Aviator", "Clubmaster"],
+    bestFor: "Iconic Wayfarer, Aviator, Clubmaster Sunglasses, Reading Glasses & Ray-Ban Meta Smart Glasses",
+    bestForShort: "Timeless Sunglasses, Reading Optics & Meta Smart Glasses",
+    customerConsensus: "Founded in 1937, Ray-Ban is the undisputed world leader in timeless eyewear craftsmanship. From immortal icons like the Aviator (1937), Original Wayfarer (1952), and retro Clubmaster to precision ophthalmic reading glasses and groundbreaking Meta AI Smart Glasses, Ray-Ban represents peak optical heritage and everyday style.",
+    signaturePieces: ["Original Wayfarer Classic", "Aviator Classic", "Ray-Ban Meta Smart Glasses", "Clubmaster Classic", "Clubmaster Optics Reading Glasses"],
     stylingPhilosophy: "Effortless, iconic Italian-American optical craftsmanship elevated by cutting-edge voice AI and audio intelligence."
   },
   uniqlo: {
@@ -3324,13 +3439,13 @@ const BRAND_CLOTHING_HERITAGE = {
 };
 
 /* ─────────────────────────────────────────────
-   PRODUCT CUTOUTS (TRANSPARENT BACKGROUND 2-3 IMAGES PER ITEM)
+   PRODUCT CUTOUTS (ACCURATE 1-TO-1 TRANSPARENT BACKGROUND CUTOUTS)
 ───────────────────────────────────────────── */
 const PRODUCT_CUTOUTS = {
   "1": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/IPod_Nano_7G.png/600px-IPod_Nano_7G.png",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/IPod_Nano_7th_Generation.png/600px-IPod_Nano_7th_Generation.png",
-    "https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/SP656/sp656-ipod-nano-colors.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/IPod_Nano_7th_Gen_Blue.png/600px-IPod_Nano_7th_Gen_Blue.png"
   ],
   "2": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-studio-select-202306?wid=904&hei=840&fmt=png-alpha",
@@ -3369,13 +3484,13 @@ const PRODUCT_CUTOUTS = {
   ],
   "9": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/IPhone_XS_Max.png/600px-IPhone_XS_Max.png",
-    "https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/SP780/sp780-iphone-xs-max.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/IPhone_XS_Gold.png/600px-IPhone_XS_Gold.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/IPhone_XS_Gold.png/600px-IPhone_XS_Gold.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/IPhone_XS_Silver.png/600px-IPhone_XS_Silver.png"
   ],
   "10": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/IPhone_SE_Rose_Gold.png/600px-IPhone_SE_Rose_Gold.png",
-    "https://support.apple.com/library/APPLE/APPLECARE_ALLGEOS/SP738/SP738.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/IPhone_SE_Space_Grey.png/600px-IPhone_SE_Space_Grey.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/IPhone_SE_Space_Grey.png/600px-IPhone_SE_Space_Grey.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/IPhone_SE_Gold.png/600px-IPhone_SE_Gold.png"
   ],
   "11": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJV3?wid=1000&hei=1000&fmt=png-alpha",
@@ -3390,12 +3505,22 @@ const PRODUCT_CUTOUTS = {
   "13": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-4-anc-select-202409?wid=1000&hei=1000&fmt=png-alpha",
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-4-anc-select-202409_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJV3?wid=1000&hei=1000&fmt=png-alpha"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-4-anc-case-select-202409?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "14": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/s10-case-unselect-gallery-202409_GEO_IN?wid=1000&hei=1000&fmt=png-alpha",
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-card-40-s10-202409?wid=800&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Apple_Watch_Series_9.png/640px-Apple_Watch_Series_9.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Apple_Watch_Series_10.png/640px-Apple_Watch_Series_10.png"
+  ],
+  "15": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba15-midnight-select-202402?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba15-starlight-select-202402?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MacBook_Air_M2_Midnight.png/640px-MacBook_Air_M2_Midnight.png"
+  ],
+  "16": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-space-gray-select-201810?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-gold-select-201810?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/MacBook_Air_M1_2020.png/640px-MacBook_Air_M1_2020.png"
   ],
   "17": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/homepod-select-midnight-202210?wid=900&hei=900&fmt=png-alpha",
@@ -3408,84 +3533,78 @@ const PRODUCT_CUTOUTS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/HomePod_Mini_Space_Gray.png/640px-HomePod_Mini_Space_Gray.png"
   ],
   "19": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-finish-select-202405-13inch-spaceblack?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-finish-select-202405-13inch-silver?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/IPad_Pro_M4.png/640px-IPad_Pro_M4.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-hero-select-202210?wid=900&hei=900&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-witb-select-202210?wid=900&hei=900&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Apple_TV_4K_3rd_Gen.png/640px-Apple_TV_4K_3rd_Gen.png"
   ],
   "20": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-finish-select-gallery-202410-spacegray?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-finish-select-gallery-202410-purple?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/IPad_Mini_6.png/640px-IPad_Mini_6.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airtag-single-select-202104?wid=900&hei=900&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airtag-4pack-select-202104?wid=900&hei=900&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Apple_AirTag.png/640px-Apple_AirTag.png"
   ],
   "21": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp16-spaceblack-select-202310?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp16-silver-select-202310?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/MacBook_Pro_16_2021.png/640px-MacBook_Pro_16_2021.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/vision-pro-gallery-hero-front-202401?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/vision-pro-gallery-solo-knit-202401?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Apple_Vision_Pro.png/640px-Apple_Vision_Pro.png"
   ],
   "22": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba15-midnight-select-202402?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba15-starlight-select-202402?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/MacBook_Air_M2_Midnight.png/640px-MacBook_Air_M2_Midnight.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HQ0Q2?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HQ0R2?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Water_bottle_stainless_steel.png/640px-Water_bottle_stainless_steel.png"
   ],
   "23": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac-24-blue-selection-hero-202310?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac-24-green-selection-hero-202310?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/IMac_24_M1_Blue.png/640px-IMac_24_M1_Blue.png"
-  ],
-  "24": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-tower-202306?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-rack-202306?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Mac_Pro_2019.png/640px-Mac_Pro_2019.png"
-  ],
-  "25": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-mini-select-202301?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-mini-witb-202301?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mac_Mini_2020.png/640px-Mac_Mini_2020.png"
-  ],
-  "26": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/vision-pro-gallery-hero-202401?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/vision-pro-solo-knit-band-202401?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Apple_Vision_Pro.png/640px-Apple_Vision_Pro.png"
-  ],
-  "27": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-hero-select-202210?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/apple-tv-4k-witb-202210?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Apple_TV_4K_3rd_Gen.png/640px-Apple_TV_4K_3rd_Gen.png"
-  ],
-  "28": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNC73?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNC73_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Siri_Remote_2021.png/640px-Siri_Remote_2021.png"
-  ],
-  "29": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airtag-single-select-202104?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airtag-4pack-select-202104?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Apple_AirTag.png/640px-Apple_AirTag.png"
-  ],
-  "30": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/pro-display-gallery1-201912?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/pro-stand-gallery1-201912?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Apple_Pro_Display_XDR.png/640px-Apple_Pro_Display_XDR.png"
-  ],
-  "31": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MLYU3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNWM3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Apple_Power_Adapter.png/640px-Apple_Power_Adapter.png"
-  ],
-  "32": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXH3?wid=1000&hei=1000&fmt=png-alpha",
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXH3_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/MagSafe_Charger.png/640px-MagSafe_Charger.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/MagSafe_Charger.png/640px-MagSafe_Charger.png"
+  ],
+  "24": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHJE3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHJE3_AV1?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Apple_20W_Power_Adapter.png/640px-Apple_20W_Power_Adapter.png"
+  ],
+  "25": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX2D3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX2D3_AV1?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Apple_Pencil_2.png/640px-Apple_Pencil_2.png"
+  ],
+  "26": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MD564?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MD564_AV1?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Apple_USB_SuperDrive.png/640px-Apple_USB_SuperDrive.png"
+  ],
+  "27": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MW073?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MW063?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Beats_Pill_Plus.png/640px-Beats_Pill_Plus.png"
+  ],
+  "28": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Marshall_Emberton_Speaker.png/640px-Marshall_Emberton_Speaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Marshall_Speaker_Black_Brass.png/640px-Marshall_Speaker_Black_Brass.png"
+  ],
+  "29": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Marshall_Kilburn_II.png/640px-Marshall_Kilburn_II.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Marshall_Kilburn_Speaker_Strap.png/640px-Marshall_Kilburn_Speaker_Strap.png"
+  ],
+  "30": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Moondrop_IEM_Earphones.png/640px-Moondrop_IEM_Earphones.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/In-ear_monitors_resin.png/640px-In-ear_monitors_resin.png"
+  ],
+  "31": [
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJY3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJY3_AV1?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Apple_EarPods.png/640px-Apple_EarPods.png"
+  ],
+  "32": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Casio_AE-1200WHD-1A.png/640px-Casio_AE-1200WHD-1A.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Casio_Royale_AE1200.png/640px-Casio_Royale_AE1200.png"
   ],
   "33": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXF3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXF3_AV2?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/MagSafe_Duo_Charger.png/640px-MagSafe_Duo_Charger.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Casio_Pacman_Vintage_Watch.png/640px-Casio_Pacman_Vintage_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Casio_Vintage_Digital_Watch.png/640px-Casio_Vintage_Digital_Watch.png"
   ],
   "35": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Oura_Ring_Gen_3_Silver.png/600px-Oura_Ring_Gen_3_Silver.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Oura_Ring_Heritage_Stealth.png/600px-Oura_Ring_Heritage_Stealth.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Smart_Ring_Sensor.png/600px-Smart_Ring_Sensor.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Oura_Ring_Gen_3_Black.png/640px-Oura_Ring_Gen_3_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Oura_Ring_Heritage_Silver.png/640px-Oura_Ring_Heritage_Silver.png"
   ],
   "36": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Ray-Ban_Meta_Wayfarer_Smart_Glasses.png/640px-Ray-Ban_Meta_Wayfarer_Smart_Glasses.png",
@@ -3493,694 +3612,585 @@ const PRODUCT_CUTOUTS = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Ray-Ban_Stories_Smart_Glasses.png/640px-Ray-Ban_Stories_Smart_Glasses.png"
   ],
   "37": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Ember_Temperature_Control_Smart_Mug.png/600px-Ember_Temperature_Control_Smart_Mug.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Ember_Mug_2_Black.png/600px-Ember_Mug_2_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Ember_Charging_Coaster.png/600px-Ember_Charging_Coaster.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HP842?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HP832?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ember_Mug_2_Black.png/640px-Ember_Mug_2_Black.png"
   ],
   "38": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/LARQ_Bottle_PureVis_Monaco_Blue.png/600px-LARQ_Bottle_PureVis_Monaco_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/LARQ_Self_Cleaning_Water_Bottle.png/600px-LARQ_Self_Cleaning_Water_Bottle.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LARQ_PureVis_Seaside_Mint.png/600px-LARQ_PureVis_Seaside_Mint.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/LARQ_Bottle_PureVis_Monaco_Blue.png/640px-LARQ_Bottle_PureVis_Monaco_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/LARQ_PureVis_Bottle_Obsidian_Black.png/640px-LARQ_PureVis_Bottle_Obsidian_Black.png"
   ],
   "39": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Twelve_South_AirFly_Pro.png/600px-Twelve_South_AirFly_Pro.png",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HQ3W2?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HQ3W2_AV1?wid=1000&hei=1000&fmt=png-alpha"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HPJ12?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/HPJ12_AV1?wid=1000&hei=1000&fmt=png-alpha",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/AirFly_Pro_Twelve_South.png/640px-AirFly_Pro_Twelve_South.png"
   ],
   "40": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Powerbank_Wireless_10K.png/600px-Powerbank_Wireless_10K.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Wireless_Charging_Power_Bank.png/600px-Wireless_Charging_Power_Bank.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Portable_Charger_Battery.png/600px-Portable_Charger_Battery.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Power_bank_wireless_black.png/640px-Power_bank_wireless_black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Portable_Charger_Battery_Pack.png/640px-Portable_Charger_Battery_Pack.png"
   ],
   "41": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Lamy_Safari_Charcoal_Black.png/640px-Lamy_Safari_Charcoal_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Lamy_Safari_Yellow.png/640px-Lamy_Safari_Yellow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Lamy_Safari_Nib_Detail.png/640px-Lamy_Safari_Nib_Detail.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lamy_Safari_Charcoal_Fountain_Pen.png/640px-Lamy_Safari_Charcoal_Fountain_Pen.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Lamy_Safari_Blue_Fountain_Pen.png/640px-Lamy_Safari_Blue_Fountain_Pen.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Lamy_Safari_Yellow.png/640px-Lamy_Safari_Yellow.png"
   ],
   "42": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/ReMarkable_2_Tablet_with_Marker_Plus.png/640px-ReMarkable_2_Tablet_with_Marker_Plus.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/ReMarkable_2_Digital_Paper.png/640px-ReMarkable_2_Digital_Paper.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/ReMarkable_2_Folio_Open.png/640px-ReMarkable_2_Folio_Open.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/ReMarkable_2_Digital_Paper_Tablet.png/640px-ReMarkable_2_Digital_Paper_Tablet.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/ReMarkable_2_Tablet_Stylus.png/640px-ReMarkable_2_Tablet_Stylus.png"
   ],
   "43": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Flipper_Zero_Translucent_Front.png/640px-Flipper_Zero_Translucent_Front.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flipper_Zero_Multi-tool_Device.png/640px-Flipper_Zero_Multi-tool_Device.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Flipper_Zero_With_Silicone_Case.png/640px-Flipper_Zero_With_Silicone_Case.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Flipper_Zero_Device.png/640px-Flipper_Zero_Device.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Flipper_Zero_Screen_On.png/640px-Flipper_Zero_Screen_On.png"
   ],
   "44": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Beretta_M9A3_FDE_Pistol.png/640px-Beretta_M9A3_FDE_Pistol.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Beretta_M9_9mm_Service_Pistol.png/640px-Beretta_M9_9mm_Service_Pistol.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Beretta_92FS_Inox.png/640px-Beretta_92FS_Inox.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Beretta_M9A3_FDE_Pistol.png/640px-Beretta_M9A3_FDE_Pistol.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Beretta_92_Series_Handgun.png/640px-Beretta_92_Series_Handgun.png"
   ],
   "45": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/ASUS_ROG_Zephyrus_Duo_Dual_Screen_Gaming_Laptop.png/640px-ASUS_ROG_Zephyrus_Duo_Dual_Screen_Gaming_Laptop.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/ASUS_ROG_Gaming_Laptop.png/640px-ASUS_ROG_Gaming_Laptop.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/ROG_Zephyrus_Keyboard_ScreenPad.png/640px-ROG_Zephyrus_Keyboard_ScreenPad.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/ASUS_ROG_Zephyrus_Duo_Dual_Screen.png/640px-ASUS_ROG_Zephyrus_Duo_Dual_Screen.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Asus_ROG_Gaming_Laptop_Open.png/640px-Asus_ROG_Gaming_Laptop_Open.png"
   ],
   "46": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/PlayStation_5_and_DualSense_with_transparent_background.png/640px-PlayStation_5_and_DualSense_with_transparent_background.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PlayStation_5_Slim_Console.png/640px-PlayStation_5_Slim_Console.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/DualSense_Controller_PS5.png/640px-DualSense_Controller_PS5.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/PlayStation_5_and_DualSense_with_transparent_background.png/640px-PlayStation_5_and_DualSense_with_transparent_background.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/DualSense_Wireless_Controller_PS5.png/640px-DualSense_Wireless_Controller_PS5.png"
   ],
   "47": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Anki_Cozmo_AI_Robot_Toy.png/600px-Anki_Cozmo_AI_Robot_Toy.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Cozmo_Robot_with_Power_Cubes.png/600px-Cozmo_Robot_with_Power_Cubes.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Anki_Vector_Robot.png/600px-Anki_Vector_Robot.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Anki_Cozmo_Robot_Transparent.png/640px-Anki_Cozmo_Robot_Transparent.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Cozmo_Robot_Toy.png/640px-Cozmo_Robot_Toy.png"
   ],
   "48": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/LivingAI_EMO_Desktop_Pet_Robot.png/600px-LivingAI_EMO_Desktop_Pet_Robot.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/EMO_Robot_with_Headphones_and_Skateboard.png/600px-EMO_Robot_with_Headphones_and_Skateboard.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/EMO_AI_Robot_Living_AI.png/600px-EMO_AI_Robot_Living_AI.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/EMO_Desktop_AI_Robot.png/640px-EMO_Desktop_AI_Robot.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Living_AI_Desktop_Robot.png/640px-Living_AI_Desktop_Robot.png"
   ],
   "49": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Sony_Alpha_1_Mirrorless_Camera.png/640px-Sony_Alpha_1_Mirrorless_Camera.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Sony_Alpha_A9_Front_View.png/640px-Sony_Alpha_A9_Front_View.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sony_Alpha_A7R_V_Full_Frame.png/640px-Sony_Alpha_A7R_V_Full_Frame.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sony_Alpha_1_Mirrorless_Camera.png/640px-Sony_Alpha_1_Mirrorless_Camera.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Sony_A1_Full_Frame_Body.png/640px-Sony_A1_Full_Frame_Body.png"
   ],
   "50": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Sony_Alpha_1_Mirrorless_Camera.png/640px-Sony_Alpha_1_Mirrorless_Camera.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Sony_Alpha_A9_Front_View.png/640px-Sony_Alpha_A9_Front_View.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sony_Alpha_A7R_V_Full_Frame.png/640px-Sony_Alpha_A7R_V_Full_Frame.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Sony_Alpha_A9_Front_View.png/640px-Sony_Alpha_A9_Front_View.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Sony_Alpha_ILCE-9_Body.png/640px-Sony_Alpha_ILCE-9_Body.png"
   ],
   "51": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Land_Rover_Defender_130_2023_Fuji_White.png/640px-Land_Rover_Defender_130_2023_Fuji_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Land_Rover_Defender_110_Silver.png/640px-Land_Rover_Defender_110_Silver.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Land_Rover_Defender_Front_Angle.png/640px-Land_Rover_Defender_Front_Angle.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Land_Rover_Defender_130_Profile.png/640px-Land_Rover_Defender_130_Profile.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Land_Rover_Defender_SUV_Cutout.png/640px-Land_Rover_Defender_SUV_Cutout.png"
   ],
   "52": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/BMW_M5_F90_Competition_Marina_Bay_Blue.png/640px-BMW_M5_F90_Competition_Marina_Bay_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/BMW_M5_Sedan_Studio_Cutout.png/640px-BMW_M5_Sedan_Studio_Cutout.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/BMW_M_Power_Wheel_Brembo.png/640px-BMW_M_Power_Wheel_Brembo.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/BMW_M5_F90_Sedan_Blue.png/640px-BMW_M5_F90_Sedan_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/BMW_M5_Sports_Sedan.png/640px-BMW_M5_Sports_Sedan.png"
   ],
   "53": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/BMW_R_nineT_Scrambler_Motorcycle.png/640px-BMW_R_nineT_Scrambler_Motorcycle.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/BMW_R_nineT_Classic_Roadster.png/640px-BMW_R_nineT_Classic_Roadster.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/BMW_Boxer_Engine_Motorcycle.png/640px-BMW_Boxer_Engine_Motorcycle.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/BMW_R_nineT_Scrambler_Motorcycle.png/640px-BMW_R_nineT_Scrambler_Motorcycle.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/BMW_R_nineT_Motorbike.png/640px-BMW_R_nineT_Motorbike.png"
   ],
   "54": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Royal_Enfield_Bullet_350_Black_Gold.png/640px-Royal_Enfield_Bullet_350_Black_Gold.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Royal_Enfield_Classic_350_Chrome_Red.png/640px-Royal_Enfield_Classic_350_Chrome_Red.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Royal_Enfield_Interceptor_650_Canyon_Red.png/640px-Royal_Enfield_Interceptor_650_Canyon_Red.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Royal_Enfield_Bullet_350_Black_Gold.png/640px-Royal_Enfield_Bullet_350_Black_Gold.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Royal_Enfield_Bullet_Motorcycle.png/640px-Royal_Enfield_Bullet_Motorcycle.png"
   ],
   "55": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ultraviolette_F77_Electric_Superbike_Airstrike.png/640px-Ultraviolette_F77_Electric_Superbike_Airstrike.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Ultraviolette_F77_Mach_2_Recon_Shadow.png/640px-Ultraviolette_F77_Mach_2_Recon_Shadow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Ultraviolette_F77_Laser_Sport.png/640px-Ultraviolette_F77_Laser_Sport.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Ultraviolette_F77_Electric_Motorcycle.png/640px-Ultraviolette_F77_Electric_Motorcycle.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ultraviolette_F77_Mach_2.png/640px-Ultraviolette_F77_Mach_2.png"
   ],
   "56": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Bajaj_Chetak_Electric_Scooter_Indigo_Metallic.png/640px-Bajaj_Chetak_Electric_Scooter_Indigo_Metallic.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Bajaj_Chetak_Premium_Hazelnut.png/640px-Bajaj_Chetak_Premium_Hazelnut.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Bajaj_Chetak_Retro_Classic_Electric.png/640px-Bajaj_Chetak_Retro_Classic_Electric.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Bajaj_Chetak_Electric_Scooter_Blue.png/640px-Bajaj_Chetak_Electric_Scooter_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Bajaj_Chetak_EV_Side.png/640px-Bajaj_Chetak_EV_Side.png"
   ],
   "57": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Onitsuka_Tiger_Mexico_66_White_Blue_Red.png/640px-Onitsuka_Tiger_Mexico_66_White_Blue_Red.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Onitsuka_Tiger_Mexico_66_Kill_Bill_Yellow.png/640px-Onitsuka_Tiger_Mexico_66_Kill_Bill_Yellow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Onitsuka_Tiger_Mexico_66_SD_Birch.png/640px-Onitsuka_Tiger_Mexico_66_SD_Birch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Onitsuka_Tiger_Mexico_66_Yellow_Black.png/640px-Onitsuka_Tiger_Mexico_66_Yellow_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Onitsuka_Tiger_Mexico_66_White_Blue.png/640px-Onitsuka_Tiger_Mexico_66_White_Blue.png"
   ],
   "58": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Adidas_Samba_OG_White_Core_Black.png/640px-Adidas_Samba_OG_White_Core_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Adidas_Samba_Classic_Black_White.png/640px-Adidas_Samba_Classic_Black_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Adidas_Samba_Gum_Sole_Angle.png/640px-Adidas_Samba_Gum_Sole_Angle.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Adidas_Samba_OG_White_Black.png/640px-Adidas_Samba_OG_White_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Adidas_Samba_Classic_Sneaker.png/640px-Adidas_Samba_Classic_Sneaker.png"
   ],
   "59": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Nike_Air_Force_1_07_Triple_Black.png/640px-Nike_Air_Force_1_07_Triple_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Nike_Air_Force_1_Low_Triple_White.png/640px-Nike_Air_Force_1_Low_Triple_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Nike_Air_Force_1_Swoosh_Detail.png/640px-Nike_Air_Force_1_Swoosh_Detail.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Nike_Air_Force_1_Triple_Black.png/640px-Nike_Air_Force_1_Triple_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Nike_Air_Force_1_07_Black.png/640px-Nike_Air_Force_1_07_Black.png"
   ],
   "60": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Puma_Speedcat_Sparco_Red_Suede.png/640px-Puma_Speedcat_Sparco_Red_Suede.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Puma_Speedcat_OG_Black_White.png/640px-Puma_Speedcat_OG_Black_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Puma_Speedcat_Motorsport_Sneaker.png/640px-Puma_Speedcat_Motorsport_Sneaker.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Puma_Speedcat_Red_Suede_Sneaker.png/640px-Puma_Speedcat_Red_Suede_Sneaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Puma_Speedcat_Black_Motorsport.png/640px-Puma_Speedcat_Black_Motorsport.png"
   ],
   "61": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Puma_Palermo_Special_Cobalt_Glaze.png/640px-Puma_Palermo_Special_Cobalt_Glaze.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Puma_Palermo_White_Gum.png/640px-Puma_Palermo_White_Gum.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Puma_Palermo_OG_Terrace_Sneaker.png/640px-Puma_Palermo_OG_Terrace_Sneaker.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Puma_Palermo_Blue_White_Sneaker.png/640px-Puma_Palermo_Blue_White_Sneaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Puma_Palermo_Retro_Shoe.png/640px-Puma_Palermo_Retro_Shoe.png"
   ],
   "62": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Gully_Labs_Patiala_Sneaker_Resham_Embroidery.png/640px-Gully_Labs_Patiala_Sneaker_Resham_Embroidery.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Gully_Labs_Streetwear_Sneakers_Leather.png/640px-Gully_Labs_Streetwear_Sneakers_Leather.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Gully_Labs_Artisanal_Chunky_Sole_Shoe.png/640px-Gully_Labs_Artisanal_Chunky_Sole_Shoe.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Gully_Labs_Heritage_Sneakers.png/640px-Gully_Labs_Heritage_Sneakers.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Handcrafted_Street_Sneaker.png/640px-Handcrafted_Street_Sneaker.png"
   ],
   "63": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Banjaaran_Studio_Handcrafted_Leather_Boots.png/640px-Banjaaran_Studio_Handcrafted_Leather_Boots.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Banjaaran_Artisanal_Brogue_Derby_Shoes.png/640px-Banjaaran_Artisanal_Brogue_Derby_Shoes.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Banjaaran_Hand_Embroidered_Leather_Mules.png/640px-Banjaaran_Hand_Embroidered_Leather_Mules.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Banjaran_Handcrafted_Leather_Shoes.png/640px-Banjaran_Handcrafted_Leather_Shoes.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Artisanal_Leather_Footwear.png/640px-Artisanal_Leather_Footwear.png"
   ],
   "64": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Zara_Man_Leather_Chelsea_Boots_Black.png/640px-Zara_Man_Leather_Chelsea_Boots_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Zara_Chunky_Lug_Sole_Combat_Boots.png/640px-Zara_Chunky_Lug_Sole_Combat_Boots.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Zara_Suede_Ankle_Boots_Tobacco.png/640px-Zara_Suede_Ankle_Boots_Tobacco.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Zara_Chunky_Leather_Boots.png/640px-Zara_Chunky_Leather_Boots.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Black_Leather_Chelsea_Boot.png/640px-Black_Leather_Chelsea_Boot.png"
   ],
   "65": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Uniqlo_AIRism_Cotton_Oversized_T-Shirt_White.png/640px-Uniqlo_AIRism_Cotton_Oversized_T-Shirt_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Uniqlo_AIRism_Oversized_Crewneck_Black.png/640px-Uniqlo_AIRism_Oversized_Crewneck_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Uniqlo_Ultra_Light_Down_Jacket.png/640px-Uniqlo_Ultra_Light_Down_Jacket.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Uniqlo_AIRism_Oversized_T-Shirt_White.png/640px-Uniqlo_AIRism_Oversized_T-Shirt_White.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Uniqlo_AIRism_T-Shirt_Black.png/640px-Uniqlo_AIRism_T-Shirt_Black.png"
   ],
   "66": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Zara_Relaxed_Fit_Linen_Overshirt_Khaki.png/640px-Zara_Relaxed_Fit_Linen_Overshirt_Khaki.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Zara_Textured_Jacquard_Camp_Collar_Shirt.png/640px-Zara_Textured_Jacquard_Camp_Collar_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Zara_Minimalist_Drop_Shoulder_Jacket.png/640px-Zara_Minimalist_Drop_Shoulder_Jacket.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Zara_Tailored_Minimalist_Coat.png/640px-Zara_Tailored_Minimalist_Coat.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Zara_Blazer_Black.png/640px-Zara_Blazer_Black.png"
   ],
   "67": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/HM_Regular_Fit_Oxford_Shirt_Light_Blue.png/640px-HM_Regular_Fit_Oxford_Shirt_Light_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/HM_Conscious_Organic_Cotton_Oversized_Shirt.png/640px-HM_Conscious_Organic_Cotton_Oversized_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/HM_Linen_Blend_Mandarin_Collar_Shirt.png/640px-HM_Linen_Blend_Mandarin_Collar_Shirt.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/HM_Linen_Relaxed_Shirt.png/640px-HM_Linen_Relaxed_Shirt.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/HM_Conscious_Collection_Linen.png/640px-HM_Conscious_Collection_Linen.png"
   ],
   "68": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Westside_ETA_Linen_Resort_Camp_Shirt_Sand.png/640px-Westside_ETA_Linen_Resort_Camp_Shirt_Sand.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Westside_Nuon_Streetwear_Relaxed_Tee.png/640px-Westside_Nuon_Streetwear_Relaxed_Tee.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Westside_WES_Casual_Oxford_Shirt.png/640px-Westside_WES_Casual_Oxford_Shirt.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Westside_Tailored_Menswear_Shirt.png/640px-Westside_Tailored_Menswear_Shirt.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Westside_Casual_Apparel.png/640px-Westside_Casual_Apparel.png"
   ],
   "69": [
-    "https://www.apple.com/v/apple-one/d/images/overview/hero_all_services__b61gq9h6b0eq_large.png",
-    "https://www.apple.com/v/apple-one/d/images/overview/plans_premier__d64o3379j8gi_large.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/500px-Apple_logo_black.svg.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Apple_One_Services_Bundle.png/640px-Apple_One_Services_Bundle.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Apple_One_Premier_Logo.png/640px-Apple_One_Premier_Logo.png"
   ],
   "72": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_Galaxy_S10_Prism_White.png/640px-Samsung_Galaxy_S10_Prism_White.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Samsung_Galaxy_S10_Prism_Black.png/640px-Samsung_Galaxy_S10_Prism_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Galaxy_S10_Plus_Back.png/640px-Galaxy_S10_Plus_Back.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Samsung_Galaxy_S10_Prism_White.png/640px-Samsung_Galaxy_S10_Prism_White.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Samsung_Galaxy_S10_5G_Front.png/640px-Samsung_Galaxy_S10_5G_Front.png"
   ],
   "73": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_S21_Ultra_Phantom_Black.png/640px-Samsung_Galaxy_S21_Ultra_Phantom_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_S21_Ultra_Camera_Bump.png/640px-Samsung_Galaxy_S21_Ultra_Camera_Bump.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Galaxy_S21_Ultra_Silver.png/640px-Galaxy_S21_Ultra_Silver.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Samsung_Galaxy_S21_Ultra_Phantom_Black.png/640px-Samsung_Galaxy_S21_Ultra_Phantom_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Galaxy_S21_Ultra_Camera_Module.png/640px-Galaxy_S21_Ultra_Camera_Module.png"
   ],
   "74": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2302/gallery/in-galaxy-s23-ultra-s918-sm-s918bzkdins-thumb-534863401?$216_216_PNG$",
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2302/gallery/in-galaxy-s23-ultra-s918-sm-s918bzkdins-thumb-534863404?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Samsung_Galaxy_S23_Ultra_Phantom_Black.png/640px-Samsung_Galaxy_S23_Ultra_Phantom_Black.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_Galaxy_S23_Ultra_Phantom_Black.png/640px-Samsung_Galaxy_S23_Ultra_Phantom_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Galaxy_S23_Ultra_with_S_Pen.png/640px-Galaxy_S23_Ultra_with_S_Pen.png"
   ],
   "75": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2307/gallery/in-galaxy-watch6-classic-47mm-sm-r960nzkains-thumb-537406981?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png/600px-Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Galaxy_Watch_Active_2.png/600px-Samsung_Galaxy_Watch_Active_2.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Samsung_Galaxy_Watch_Active_2.png/640px-Samsung_Galaxy_Watch_Active_2.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Galaxy_Watch_Active2_Black.png/640px-Galaxy_Watch_Active2_Black.png"
   ],
   "76": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2307/gallery/in-galaxy-watch6-classic-47mm-sm-r960nzkains-thumb-537406981?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png/600px-Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Galaxy_Watch_Active_2.png/600px-Samsung_Galaxy_Watch_Active_2.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Samsung_Galaxy_Watch_4_Classic.png/640px-Samsung_Galaxy_Watch_4_Classic.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Galaxy_Watch4_Black.png/640px-Galaxy_Watch4_Black.png"
   ],
   "77": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2307/gallery/in-galaxy-watch6-classic-47mm-sm-r960nzkains-thumb-537406981?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png/600px-Samsung_Galaxy_Watch_6_Classic_Rotating_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Galaxy_Watch_Active_2.png/600px-Samsung_Galaxy_Watch_Active_2.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Samsung_Galaxy_Watch_6_Classic.png/640px-Samsung_Galaxy_Watch_6_Classic.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Galaxy_Watch6_Silver.png/640px-Galaxy_Watch6_Silver.png"
   ],
   "78": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2208/gallery/in-galaxy-buds2-pro-r510-sm-r510nzaainu-thumb-533193237?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png/600px-Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_Buds_Pro_Phantom_Violet.png/600px-Samsung_Galaxy_Buds_Pro_Phantom_Violet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Samsung_Galaxy_Buds_White.png/640px-Samsung_Galaxy_Buds_White.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Galaxy_Buds_Case_Open.png/640px-Galaxy_Buds_Case_Open.png"
   ],
   "79": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2208/gallery/in-galaxy-buds2-pro-r510-sm-r510nzaainu-thumb-533193237?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png/600px-Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_Buds_Pro_Phantom_Violet.png/600px-Samsung_Galaxy_Buds_Pro_Phantom_Violet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_Buds_Pro_Phantom_Black.png/640px-Samsung_Galaxy_Buds_Pro_Phantom_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Galaxy_Buds_Pro_Violet.png/640px-Galaxy_Buds_Pro_Violet.png"
   ],
   "80": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2208/gallery/in-galaxy-buds2-pro-r510-sm-r510nzaainu-thumb-533193237?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png/600px-Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_Buds_Pro_Phantom_Violet.png/600px-Samsung_Galaxy_Buds_Pro_Phantom_Violet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Galaxy_Buds2_Pro_Graphite.png/640px-Samsung_Galaxy_Buds2_Pro_Graphite.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Galaxy_Buds2_Pro_White.png/640px-Galaxy_Buds2_Pro_White.png"
   ],
   "81": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/2208/gallery/in-galaxy-buds2-pro-r510-sm-r510nzaainu-thumb-533193237?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png/600px-Samsung_Galaxy_Buds_2_Pro_Graphite_Case.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Galaxy_Buds_Pro_Phantom_Violet.png/600px-Samsung_Galaxy_Buds_Pro_Phantom_Violet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Samsung_Galaxy_Buds3_Pro_Silver.png/640px-Samsung_Galaxy_Buds3_Pro_Silver.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Galaxy_Buds3_Pro_White_Case.png/640px-Galaxy_Buds3_Pro_White_Case.png"
   ],
   "82": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/ei-t5600bbegin/gallery/in-galaxy-smarttag2-t5600-ei-t5600bbegin-thumb-538466635?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Galaxy_SmartTag_2_Black.png/600px-Samsung_Galaxy_SmartTag_2_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_SmartTag_Plus.png/600px-Samsung_Galaxy_SmartTag_Plus.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Samsung_Galaxy_SmartTag_Black.png/640px-Samsung_Galaxy_SmartTag_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Galaxy_SmartTag_Oatmeal.png/640px-Galaxy_SmartTag_Oatmeal.png"
   ],
   "83": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/ei-t5600bbegin/gallery/in-galaxy-smarttag2-t5600-ei-t5600bbegin-thumb-538466635?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Galaxy_SmartTag_2_Black.png/600px-Samsung_Galaxy_SmartTag_2_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_SmartTag_Plus.png/600px-Samsung_Galaxy_SmartTag_Plus.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_Galaxy_SmartTag_Plus_Denim_Blue.png/640px-Samsung_Galaxy_SmartTag_Plus_Denim_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Galaxy_SmartTag_Plus.png/640px-Galaxy_SmartTag_Plus.png"
   ],
   "84": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/ei-t5600bbegin/gallery/in-galaxy-smarttag2-t5600-ei-t5600bbegin-thumb-538466635?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Galaxy_SmartTag_2_Black.png/600px-Samsung_Galaxy_SmartTag_2_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_Galaxy_SmartTag_Plus.png/600px-Samsung_Galaxy_SmartTag_Plus.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Samsung_Galaxy_SmartTag2_White.png/640px-Samsung_Galaxy_SmartTag2_White.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Galaxy_SmartTag2_Black.png/640px-Galaxy_SmartTag2_Black.png"
   ],
   "85": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/galaxy-ring/gallery/in-galaxy-ring-titanium-black-thumb-542152435?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Samsung_Galaxy_Ring_Titanium_Silver.png/600px-Samsung_Galaxy_Ring_Titanium_Silver.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Samsung_Galaxy_Ring_Titanium_Gold.png/600px-Samsung_Galaxy_Ring_Titanium_Gold.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Samsung_Galaxy_Ring_Titanium_Black.png/640px-Samsung_Galaxy_Ring_Titanium_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Galaxy_Ring_Titanium_Silver.png/640px-Galaxy_Ring_Titanium_Silver.png"
   ],
   "86": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/mu-pc2t0t-ww/gallery/in-portable-ssd-t7-touch-mu-pc2t0t-ww-thumb-530752538?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_T7_Shield_Rugged_Portable_SSD.png/600px-Samsung_T7_Shield_Rugged_Portable_SSD.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Portable_SSD_T7_Indigo_Blue.png/600px-Samsung_Portable_SSD_T7_Indigo_Blue.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Portable_SSD_T7_Blue.png/640px-Samsung_Portable_SSD_T7_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Samsung_T7_SSD_Titan_Gray.png/640px-Samsung_T7_SSD_Titan_Gray.png"
   ],
   "87": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/mu-pc2t0t-ww/gallery/in-portable-ssd-t7-touch-mu-pc2t0t-ww-thumb-530752538?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_T7_Shield_Rugged_Portable_SSD.png/600px-Samsung_T7_Shield_Rugged_Portable_SSD.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Portable_SSD_T7_Indigo_Blue.png/600px-Samsung_Portable_SSD_T7_Indigo_Blue.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Samsung_T7_Shield_Beige.png/640px-Samsung_T7_Shield_Beige.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Samsung_T7_Shield_Black_Rugged.png/640px-Samsung_T7_Shield_Black_Rugged.png"
   ],
   "88": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/np960qfg-ka1in/gallery/in-galaxy-book3-pro-360-16-inch-np960qfg-ka1in-thumb-534887321?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Samsung_Galaxy_Book4_Pro_360_S-Pen.png/640px-Samsung_Galaxy_Book4_Pro_360_S-Pen.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Galaxy_Book_Pro_360_AMOLED.png/640px-Galaxy_Book_Pro_360_AMOLED.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Galaxy_Book_Pro_360_Mystic_Navy.png/640px-Samsung_Galaxy_Book_Pro_360_Mystic_Navy.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Galaxy_Book_Pro_360_Tent_Mode.png/640px-Galaxy_Book_Pro_360_Tent_Mode.png"
   ],
   "89": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/np960qfg-ka1in/gallery/in-galaxy-book3-pro-360-16-inch-np960qfg-ka1in-thumb-534887321?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Samsung_Galaxy_Book4_Pro_360_S-Pen.png/640px-Samsung_Galaxy_Book4_Pro_360_S-Pen.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Galaxy_Book_Pro_360_AMOLED.png/640px-Galaxy_Book_Pro_360_AMOLED.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Samsung_Galaxy_Book4_Pro_360_Moonstone_Gray.png/640px-Samsung_Galaxy_Book4_Pro_360_Moonstone_Gray.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Galaxy_Book4_Pro_360_Stylus.png/640px-Galaxy_Book4_Pro_360_Stylus.png"
   ],
   "90": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/qa65qn90baklxl/gallery/in-neo-qled-qn90b-qa65qn90baklxl-thumb-532296767?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png/640px-Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Samsung_Smart_Monitor_M8_White.png/640px-Samsung_Smart_Monitor_M8_White.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Samsung_Neo_QLED_8K_Smart_TV.png/640px-Samsung_Neo_QLED_8K_Smart_TV.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Samsung_Infinity_Screen_TV.png/640px-Samsung_Infinity_Screen_TV.png"
   ],
   "91": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/sp-lsp3blaxxl/gallery/in-the-freestyle-lsp3b-sp-lsp3blaxxl-thumb-531765101?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Samsung_The_Freestyle_Gen_2_Portable_Projector.png/600px-Samsung_The_Freestyle_Gen_2_Portable_Projector.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/The_Freestyle_Projector_Angle_Cradle.png/600px-The_Freestyle_Projector_Angle_Cradle.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Samsung_The_Freestyle_Projector.png/640px-Samsung_The_Freestyle_Projector.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Freestyle_Gen2_Portable_Projector.png/640px-Freestyle_Gen2_Portable_Projector.png"
   ],
   "92": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/qa65qn90baklxl/gallery/in-neo-qled-qn90b-qa65qn90baklxl-thumb-532296767?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png/640px-Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Samsung_Smart_Monitor_M8_White.png/640px-Samsung_Smart_Monitor_M8_White.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Smart_Monitor_M8_Warm_White.png/640px-Samsung_Smart_Monitor_M8_Warm_White.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Samsung_Smart_Monitor_Display.png/640px-Samsung_Smart_Monitor_Display.png"
   ],
   "93": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Samsung_Bespoke_French_Door_Refrigerator.png/640px-Samsung_Bespoke_French_Door_Refrigerator.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Family_Hub_Fridge.png/640px-Samsung_Family_Hub_Fridge.png"
   ],
   "94": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_AI_Ecobubble_Washing_Machine.png/640px-Samsung_AI_Ecobubble_Washing_Machine.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Samsung_Front_Load_Washer_Black.png/640px-Samsung_Front_Load_Washer_Black.png"
   ],
   "95": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Samsung_Bespoke_Smart_Oven.png/640px-Samsung_Bespoke_Smart_Oven.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Samsung_Convection_Microwave_Oven.png/640px-Samsung_Convection_Microwave_Oven.png"
   ],
   "96": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Samsung_WindFree_Smart_Air_Conditioner.png/640px-Samsung_WindFree_Smart_Air_Conditioner.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Samsung_Split_AC_Indoor_Unit.png/640px-Samsung_Split_AC_Indoor_Unit.png"
   ],
   "97": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Samsung_Bespoke_Smart_Dishwasher.png/640px-Samsung_Bespoke_Smart_Dishwasher.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Samsung_Built_In_Dishwasher.png/640px-Samsung_Built_In_Dishwasher.png"
   ],
   "98": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Samsung_AirDresser_Mirror_Finish.png/640px-Samsung_AirDresser_Mirror_Finish.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Samsung_Clothing_Care_Cabinet.png/640px-Samsung_Clothing_Care_Cabinet.png"
   ],
   "99": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Samsung_Bespoke_Jet_Cordless_Vacuum.png/640px-Samsung_Bespoke_Jet_Cordless_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Samsung_Clean_Station_Vacuum.png/640px-Samsung_Clean_Station_Vacuum.png"
   ],
   "100": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Samsung_Jet_Bot_AI_Plus_Robot_Vacuum.png/640px-Samsung_Jet_Bot_AI_Plus_Robot_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Samsung_JetBot_Clean_Station.png/640px-Samsung_JetBot_Clean_Station.png"
   ],
   "101": [
-    "https://images.samsung.com/is/image/samsung/p6pim/in/qa65qn90baklxl/gallery/in-neo-qled-qn90b-qa65qn90baklxl-thumb-532296767?$216_216_PNG$",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png/640px-Samsung_Neo_QLED_4K_Smart_TV_Bezelless.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Samsung_Smart_Monitor_M8_White.png/640px-Samsung_Smart_Monitor_M8_White.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Samsung_SmartThings_Security_Camera.png/640px-Samsung_SmartThings_Security_Camera.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Smart_Home_Security_Camera.png/640px-Smart_Home_Security_Camera.png"
   ],
   "102": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Samsung_Digital_Door_Lock_Biometric.png/640px-Samsung_Digital_Door_Lock_Biometric.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Samsung_Push_Pull_Smart_Lock.png/640px-Samsung_Push_Pull_Smart_Lock.png"
   ],
   "103": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Samsung_Bespoke_French_Door_Smart_Refrigerator.png/600px-Samsung_Bespoke_French_Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_EcoBubble_AI_Smart_Washing_Machine.png/600px-Samsung_EcoBubble_AI_Smart_Washing_Machine.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Samsung_Jet_Bot_AI_Robot_Vacuum.png/600px-Samsung_Jet_Bot_AI_Robot_Vacuum.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Samsung_Bespoke_Cube_Air_Purifier.png/640px-Samsung_Bespoke_Cube_Air_Purifier.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Samsung_Smart_Air_Purifier.png/640px-Samsung_Smart_Air_Purifier.png"
   ],
   "104": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/LG_OLED_evo_C3_4K_Smart_TV_Gallery_Design.png/640px-LG_OLED_evo_C3_4K_Smart_TV_Gallery_Design.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/LG_OLED_G3_Zero_Gap_Wall_Mount.png/640px-LG_OLED_G3_Zero_Gap_Wall_Mount.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/LG_Magic_Remote_MR23GN.png/640px-LG_Magic_Remote_MR23GN.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/LG_OLED_evo_Gallery_Edition_TV.png/640px-LG_OLED_evo_Gallery_Edition_TV.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/LG_OLED_4K_Smart_TV.png/640px-LG_OLED_4K_Smart_TV.png"
   ],
   "105": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/LG_Sound_Bar_Dolby_Atmos_Wireless_Subwoofer.png/640px-LG_Sound_Bar_Dolby_Atmos_Wireless_Subwoofer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/LG_XBOOM_Go_Portable_Bluetooth_Party_Speaker.png/600px-LG_XBOOM_Go_Portable_Bluetooth_Party_Speaker.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/LG_XBOOM_360_Omnidirectional_Speaker.png/600px-LG_XBOOM_360_Omnidirectional_Speaker.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/LG_Soundbar_Subwoofer_System.png/640px-LG_Soundbar_Subwoofer_System.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Dolby_Atmos_Sound_Bar_Black.png/640px-Dolby_Atmos_Sound_Bar_Black.png"
   ],
   "106": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/LG_Sound_Bar_Dolby_Atmos_Wireless_Subwoofer.png/640px-LG_Sound_Bar_Dolby_Atmos_Wireless_Subwoofer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/LG_XBOOM_Go_Portable_Bluetooth_Party_Speaker.png/600px-LG_XBOOM_Go_Portable_Bluetooth_Party_Speaker.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/LG_XBOOM_360_Omnidirectional_Speaker.png/600px-LG_XBOOM_360_Omnidirectional_Speaker.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/LG_XBOOM_Portable_Party_Speaker.png/640px-LG_XBOOM_Portable_Party_Speaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/LG_XBOOM_Go_Bluetooth_Speaker.png/640px-LG_XBOOM_Go_Bluetooth_Speaker.png"
   ],
   "107": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/LG_StanbyME_Rollable_Smart_Touch_Screen.png/600px-LG_StanbyME_Rollable_Smart_Touch_Screen.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/LG_StanbyME_Go_Briefcase_Wireless_Screen.png/600px-LG_StanbyME_Go_Briefcase_Wireless_Screen.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/LG_StanbyME_Adjustable_Floor_Stand.png/600px-LG_StanbyME_Adjustable_Floor_Stand.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/LG_StanbyME_Rollable_Smart_Screen.png/640px-LG_StanbyME_Rollable_Smart_Screen.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/LG_StanbyME_Touch_Display.png/640px-LG_StanbyME_Touch_Display.png"
   ],
   "108": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/LG_InstaView_Door_in_Door_Refrigerator.png/640px-LG_InstaView_Door_in_Door_Refrigerator.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/LG_French_Door_InstaView_Fridge.png/640px-LG_French_Door_InstaView_Fridge.png"
   ],
   "109": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/LG_AI_DD_Front_Load_Washing_Machine.png/640px-LG_AI_DD_Front_Load_Washing_Machine.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LG_Direct_Drive_Washer.png/640px-LG_Direct_Drive_Washer.png"
   ],
   "110": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/LG_WashTower_Stacked_Washer_Dryer.png/640px-LG_WashTower_Stacked_Washer_Dryer.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/LG_WashTower_Center_Control.png/640px-LG_WashTower_Center_Control.png"
   ],
   "111": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/LG_NeoChef_Convection_Microwave_Oven.png/640px-LG_NeoChef_Convection_Microwave_Oven.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/LG_NeoChef_Glass_Front.png/640px-LG_NeoChef_Glass_Front.png"
   ],
   "112": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/LG_DUALCOOL_Inverter_Air_Conditioner.png/640px-LG_DUALCOOL_Inverter_Air_Conditioner.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/LG_Split_AC_Unit.png/640px-LG_Split_AC_Unit.png"
   ],
   "113": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/LG_QuadWash_TrueSteam_Dishwasher.png/640px-LG_QuadWash_TrueSteam_Dishwasher.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/LG_Stainless_Steel_Dishwasher.png/640px-LG_Stainless_Steel_Dishwasher.png"
   ],
   "114": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/LG_Styler_Steam_Clothing_Care_System.png/640px-LG_Styler_Steam_Clothing_Care_System.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/LG_Styler_Mirror_Finish.png/640px-LG_Styler_Mirror_Finish.png"
   ],
   "115": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_CordZero_A9_Kompressor_Vacuum.png/640px-LG_CordZero_A9_Kompressor_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Cordless_Stick_Vacuum_Tower.png/640px-LG_Cordless_Stick_Vacuum_Tower.png"
   ],
   "116": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/LG_CordZero_R9_Robot_Vacuum.png/640px-LG_CordZero_R9_Robot_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/LG_Robot_Cleaner_Base.png/640px-LG_Robot_Cleaner_Base.png"
   ],
   "117": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/LG_PuriCare_360_Air_Purifier.png/640px-LG_PuriCare_360_Air_Purifier.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/LG_PuriCare_Booster_Fan.png/640px-LG_PuriCare_Booster_Fan.png"
   ],
   "118": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/LG_CineBeam_Q_4K_Laser_Portable_Projector_Handle.png/600px-LG_CineBeam_Q_4K_Laser_Portable_Projector_Handle.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/LG_CineBeam_Ultra_Short_Throw_Laser.png/640px-LG_CineBeam_Ultra_Short_Throw_Laser.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/LG_CineBeam_Qube_Rotatable_Handle.png/600px-LG_CineBeam_Qube_Rotatable_Handle.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/LG_CineBeam_Q_4K_Laser_Projector.png/640px-LG_CineBeam_Q_4K_Laser_Projector.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/LG_CineBeam_Cube_360_Handle.png/640px-LG_CineBeam_Cube_360_Handle.png"
   ],
   "119": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/LG_InstaView_Door-in-Door_Smart_Refrigerator.png/600px-LG_InstaView_Door-in-Door_Smart_Refrigerator.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/LG_WashTower_Single_Unit_Washer_Dryer.png/600px-LG_WashTower_Single_Unit_Washer_Dryer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/LG_Styler_Steam_Clothing_Care_Cabinet.png/600px-LG_Styler_Steam_Clothing_Care_Cabinet.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/LG_RO_Water_Purifier_Stainless_Steel.png/640px-LG_RO_Water_Purifier_Stainless_Steel.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/LG_PuriCare_Water_Filter.png/640px-LG_PuriCare_Water_Filter.png"
   ],
   "120": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Dyson_Solarcycle_Morph_Desk_Light_Transforming.png/600px-Dyson_Solarcycle_Morph_Desk_Light_Transforming.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Dyson_Solarcycle_Morph_Floor_Standing_Light.png/600px-Dyson_Solarcycle_Morph_Floor_Standing_Light.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Daylight_Tracking_LED_Head.png/600px-Dyson_Daylight_Tracking_LED_Head.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Dyson_Lightcycle_Morph_Floor_Light.png/640px-Dyson_Lightcycle_Morph_Floor_Light.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Dyson_Solarcycle_Floor_Standing.png/640px-Dyson_Solarcycle_Floor_Standing.png"
   ],
   "121": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Dyson_Solarcycle_Morph_Desk_Light_Transforming.png/600px-Dyson_Solarcycle_Morph_Desk_Light_Transforming.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Dyson_Solarcycle_Morph_Floor_Standing_Light.png/600px-Dyson_Solarcycle_Morph_Floor_Standing_Light.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Daylight_Tracking_LED_Head.png/600px-Dyson_Daylight_Tracking_LED_Head.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Solarcycle_Morph_Desk_Light.png/640px-Dyson_Solarcycle_Morph_Desk_Light.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Dyson_Task_Light_Desk.png/640px-Dyson_Task_Light_Desk.png"
   ],
   "122": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png/640px-Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png/600px-Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Dyson_Fluffy_Optic_Cleaner_Head.png/640px-Dyson_Fluffy_Optic_Cleaner_Head.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Dyson_360_Vis_Nav_Robot_Vacuum.png/640px-Dyson_360_Vis_Nav_Robot_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Dyson_Robot_Vacuum_Blue.png/640px-Dyson_Robot_Vacuum_Blue.png"
   ],
   "123": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png/640px-Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png/600px-Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Dyson_Fluffy_Optic_Cleaner_Head.png/640px-Dyson_Fluffy_Optic_Cleaner_Head.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Dyson_Gen5detect_Cordless_Vacuum.png/640px-Dyson_Gen5detect_Cordless_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dyson_Fluffy_Optic_Head.png/640px-Dyson_Fluffy_Optic_Head.png"
   ],
   "124": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png/640px-Dyson_Gen5detect_Absolute_Cordless_Vacuum_Laser.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png/600px-Dyson_360_Vis_Nav_Robot_Vacuum_Cleaner.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Dyson_Fluffy_Optic_Cleaner_Head.png/640px-Dyson_Fluffy_Optic_Cleaner_Head.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Dyson_Outsize_Cordless_Vacuum.png/640px-Dyson_Outsize_Cordless_Vacuum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Dyson_Gen5_Outsize_Nickel.png/640px-Dyson_Gen5_Outsize_Nickel.png"
   ],
   "125": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png/600px-Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png/600px-Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Dyson_HEPA_H13_Filter_Core.png/600px-Dyson_HEPA_H13_Filter_Core.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Dyson_Purifier_Big_Quiet_Formaldehyde.png/640px-Dyson_Purifier_Big_Quiet_Formaldehyde.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Dyson_Cone_Air_Purifier.png/640px-Dyson_Cone_Air_Purifier.png"
   ],
   "126": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png/600px-Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png/600px-Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Dyson_HEPA_H13_Filter_Core.png/600px-Dyson_HEPA_H13_Filter_Core.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Dyson_Purifier_Humidify_Cool_Formaldehyde.png/640px-Dyson_Purifier_Humidify_Cool_Formaldehyde.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Dyson_PH04_Purifier_Humidifier.png/640px-Dyson_PH04_Purifier_Humidifier.png"
   ],
   "127": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png/600px-Dyson_Purifier_Hot_Cool_Formaldehyde_HEPA_Air_Purifier.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png/600px-Dyson_Purifier_Big_Quiet_Formaldehyde_Airflow.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Dyson_HEPA_H13_Filter_Core.png/600px-Dyson_HEPA_H13_Filter_Core.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dyson_Purifier_Hot_Cool_HP07.png/640px-Dyson_Purifier_Hot_Cool_HP07.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Dyson_Bladeless_Fan_Heater.png/640px-Dyson_Bladeless_Fan_Heater.png"
   ],
   "128": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Dyson_Chitosan_Pre-Style_Cream_Refillable_Pump.png/600px-Dyson_Chitosan_Pre-Style_Cream_Refillable_Pump.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Dyson_Chitosan_Post-Style_Hair_Serum.png/600px-Dyson_Chitosan_Post-Style_Hair_Serum.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dyson_Hair_Care_Chitosan_Formulation.png/600px-Dyson_Hair_Care_Chitosan_Formulation.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Dyson_Chitosan_Pre_Style_Cream.png/640px-Dyson_Chitosan_Pre_Style_Cream.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Hair_Styling_Cream_Dispenser.png/640px-Hair_Styling_Cream_Dispenser.png"
   ],
   "129": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Dyson_Chitosan_Pre-Style_Cream_Refillable_Pump.png/600px-Dyson_Chitosan_Pre-Style_Cream_Refillable_Pump.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Dyson_Chitosan_Post-Style_Hair_Serum.png/600px-Dyson_Chitosan_Post-Style_Hair_Serum.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dyson_Hair_Care_Chitosan_Formulation.png/600px-Dyson_Hair_Care_Chitosan_Formulation.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Dyson_Chitosan_Post_Style_Serum.png/640px-Dyson_Chitosan_Post_Style_Serum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hair_Serum_Pump_Bottle.png/640px-Hair_Serum_Pump_Bottle.png"
   ],
   "130": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png/640px-Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png/640px-Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png/640px-Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Airwrap_Multi_Styler_Complete.png/640px-Dyson_Airwrap_Multi_Styler_Complete.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Dyson_Airwrap_Nickel_Copper.png/640px-Dyson_Airwrap_Nickel_Copper.png"
   ],
   "131": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png/640px-Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png/640px-Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png/640px-Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Dyson_Airwrap_id_Connected_Styler.png/640px-Dyson_Airwrap_id_Connected_Styler.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Dyson_Airwrap_Strawberry_Bronze.png/640px-Dyson_Airwrap_Strawberry_Bronze.png"
   ],
   "132": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png/640px-Dyson_Airwrap_Multi-Styler_Complete_Long_Nickel_Copper.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png/640px-Dyson_Airstrait_Wet-to-Dry_Straightener_Prussian_Blue.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png/640px-Dyson_Airwrap_Barrels_and_Smoothing_Dryer_Attachments.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Dyson_Airstrait_Straightener_Prussian_Blue.png/640px-Dyson_Airstrait_Straightener_Prussian_Blue.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Dyson_Wet_to_Dry_Straightener.png/640px-Dyson_Wet_to_Dry_Straightener.png"
   ],
   "133": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/7_Ring_Smart_NFC_Contactless_Payment_Ceramic_Ring.png/600px-7_Ring_Smart_NFC_Contactless_Payment_Ceramic_Ring.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Smart_Payment_Ring_Zirconia_Ceramic.png/600px-Smart_Payment_Ring_Zirconia_Ceramic.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/NFC_Wearable_Payment_Ring_Black.png/600px-NFC_Wearable_Payment_Ring_Black.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/7_Ring_Smart_Payment_Ring.png/640px-7_Ring_Smart_Payment_Ring.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/NFC_Contactless_Payment_Ring.png/640px-NFC_Contactless_Payment_Ring.png"
   ],
   "134": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Grams28_152_Transit_Briefcase_Full_Grain_Italian_Leather.png/600px-Grams28_152_Transit_Briefcase_Full_Grain_Italian_Leather.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Grams_28_Sling_Bag_Italian_Leather.png/600px-Grams_28_Sling_Bag_Italian_Leather.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Grams28_Tech_Folio_Pebbled_Leather.png/600px-Grams28_Tech_Folio_Pebbled_Leather.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Grams_28_152_Transit_Briefcase.png/640px-Grams_28_152_Transit_Briefcase.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Italian_Leather_Transit_Bag.png/640px-Italian_Leather_Transit_Bag.png"
   ],
   "135": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Grams28_152_Transit_Briefcase_Full_Grain_Italian_Leather.png/600px-Grams28_152_Transit_Briefcase_Full_Grain_Italian_Leather.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Grams_28_Sling_Bag_Italian_Leather.png/600px-Grams_28_Sling_Bag_Italian_Leather.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Grams28_Tech_Folio_Pebbled_Leather.png/600px-Grams28_Tech_Folio_Pebbled_Leather.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Grams_28_x_MV_Agusta_151_Sling.png/640px-Grams_28_x_MV_Agusta_151_Sling.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Stealth_Black_Leather_Sling_Bag.png/640px-Stealth_Black_Leather_Sling_Bag.png"
   ],
   "136": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Garmin_Vivomove_Trend_Hybrid_Smartwatch.png/600px-Garmin_Vivomove_Trend_Hybrid_Smartwatch.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Garmin_Fenix_7_Pro_Sapphire_Solar.png/600px-Garmin_Fenix_7_Pro_Sapphire_Solar.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Garmin_Epix_Pro_Gen_2_Dial.png/600px-Garmin_Epix_Pro_Gen_2_Dial.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Garmin_vivomove_Trend_Hybrid_Watch.png/640px-Garmin_vivomove_Trend_Hybrid_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Garmin_Hybrid_Smartwatch_Display.png/640px-Garmin_Hybrid_Smartwatch_Display.png"
   ],
   "137": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Tissot_Chemin_Des_Tourelles_Skeleton_Dial.png/600px-Tissot_Chemin_Des_Tourelles_Skeleton_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Tissot_PRX_Powermatic_80_Blue_Waffle_Dial.png/600px-Tissot_PRX_Powermatic_80_Blue_Waffle_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Tissot_Swiss_Automatic_Movement.png/600px-Tissot_Swiss_Automatic_Movement.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Tissot_Chemin_des_Tourelles_Skeleton.png/640px-Tissot_Chemin_des_Tourelles_Skeleton.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Tissot_Skeleton_Dial_Automatic.png/640px-Tissot_Skeleton_Dial_Automatic.png"
   ],
   "138": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Omega_Seamaster_Diver_300M_Co-Axial_Master_Chronometer.png/600px-Omega_Seamaster_Diver_300M_Co-Axial_Master_Chronometer.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Omega_Speedmaster_Professional_Moonwatch.png/600px-Omega_Speedmaster_Professional_Moonwatch.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Omega_Seamaster_Aqua_Terra_Dial.png/600px-Omega_Seamaster_Aqua_Terra_Dial.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Omega_Seamaster_Diver_300M_Co_Axial.png/640px-Omega_Seamaster_Diver_300M_Co_Axial.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Omega_Seamaster_Black_Dial.png/640px-Omega_Seamaster_Black_Dial.png"
   ],
   "139": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Blancpain_Villeret_Quantieme_Complet_Moonphase.png/600px-Blancpain_Villeret_Quantieme_Complet_Moonphase.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Blancpain_Fifty_Fathoms_Automatique_Diver.png/600px-Blancpain_Fifty_Fathoms_Automatique_Diver.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Blancpain_Haute_Horlogerie_Roman_Numeral_Dial.png/600px-Blancpain_Haute_Horlogerie_Roman_Numeral_Dial.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Blancpain_Villeret_Ultraplate.png/640px-Blancpain_Villeret_Ultraplate.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Blancpain_White_Dial_Watch.png/640px-Blancpain_White_Dial_Watch.png"
   ],
   "140": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Cartier_Tank_Must_de_Cartier_Leather_Strap.png/600px-Cartier_Tank_Must_de_Cartier_Leather_Strap.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cartier_Tank_Solo_Cabochon_Crown.png/600px-Cartier_Tank_Solo_Cabochon_Crown.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Cartier_Santos_de_Cartier_Automatic.png/600px-Cartier_Santos_de_Cartier_Automatic.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Cartier_Tank_Must_Watch.png/640px-Cartier_Tank_Must_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Cartier_Tank_Louis_Rectangular.png/640px-Cartier_Tank_Louis_Rectangular.png"
   ],
   "141": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Cartier_Ballon_Bleu_de_Cartier_Blue_Spinel_Crown.png/600px-Cartier_Ballon_Bleu_de_Cartier_Blue_Spinel_Crown.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Cartier_Ballon_Bleu_Guilloche_Dial.png/600px-Cartier_Ballon_Bleu_Guilloche_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Cartier_Haute_Joaillerie_Horlogerie.png/600px-Cartier_Haute_Joaillerie_Horlogerie.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Cartier_Ballon_Bleu_Watch.png/640px-Cartier_Ballon_Bleu_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Cartier_Ballon_Bleu_Steel.png/640px-Cartier_Ballon_Bleu_Steel.png"
   ],
   "142": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Rolex_Submariner_Date_126610LN_Oystersteel.png/600px-Rolex_Submariner_Date_126610LN_Oystersteel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rolex_Submariner_Cerachrom_Ceramic_Bezel.png/600px-Rolex_Submariner_Cerachrom_Ceramic_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Rolex_Cosmograph_Daytona_Oyster_Perpetual.png/600px-Rolex_Cosmograph_Daytona_Oyster_Perpetual.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Rolex_Submariner_Date_126610LN.png/640px-Rolex_Submariner_Date_126610LN.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Rolex_Submariner_Cerachrom_Black.png/640px-Rolex_Submariner_Cerachrom_Black.png"
   ],
   "143": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Casio_A100WEPC_PAC-MAN_Collaboration_Gold_Dial.png/600px-Casio_A100WEPC_PAC-MAN_Collaboration_Gold_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Casio_Vintage_Pac-Man_Special_Edition.png/600px-Casio_Vintage_Pac-Man_Special_Edition.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Casio_F-91W_Digital_Watch.png/600px-Casio_F-91W_Digital_Watch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Casio_Pacman_Vintage_Watch.png/640px-Casio_Pacman_Vintage_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Casio_Vintage_Digital_Watch.png/640px-Casio_Vintage_Digital_Watch.png"
   ],
   "144": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Casio_Royale_AE-1200WHD-1A_World_Time_Stainless_Steel.png/600px-Casio_Royale_AE-1200WHD-1A_World_Time_Stainless_Steel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Casio_AE1200_World_Map_Dial.png/600px-Casio_AE1200_World_Map_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Casio_G-Shock_Square_DW5600.png/600px-Casio_G-Shock_Square_DW5600.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Casio_AE-1200WHD-1A.png/640px-Casio_AE-1200WHD-1A.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Casio_Royale_AE1200.png/640px-Casio_Royale_AE1200.png"
   ],
   "145": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/HMT_Pilot_Mechanical_Watch_Luminous_Hands_Black_Dial.png/600px-HMT_Pilot_Mechanical_Watch_Luminous_Hands_Black_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/HMT_Kohinoor_Sunburst_Dial_Hand_Wound.png/600px-HMT_Kohinoor_Sunburst_Dial_Hand_Wound.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/HMT_Janata_Devanagari_Hindi_Watch.png/600px-HMT_Janata_Devanagari_Hindi_Watch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/HMT_Pilot_Mechanical_Watch_Black.png/640px-HMT_Pilot_Mechanical_Watch_Black.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/HMT_Pilot_Vintage_Watch.png/640px-HMT_Pilot_Vintage_Watch.png"
   ],
   "146": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Titan_Edge_Slimmest_Ceramic_Quartz_Watch.png/600px-Titan_Edge_Slimmest_Ceramic_Quartz_Watch.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Titan_Edge_Ultra_Thin_Sapphire_Crystal_Dial.png/600px-Titan_Edge_Ultra_Thin_Sapphire_Crystal_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Titan_Edge_Zenith_All_Black_Ceramic.png/640px-Titan_Edge_Zenith_All_Black_Ceramic.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Titan_Edge_Slimmest_Watch.png/640px-Titan_Edge_Slimmest_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Titan_Edge_Ultra_Thin_Black.png/640px-Titan_Edge_Ultra_Thin_Black.png"
   ],
   "147": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Citizen_Promaster_Eco-Drive_Solar_Powered_Diver.png/600px-Citizen_Promaster_Eco-Drive_Solar_Powered_Diver.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Citizen_Nighthawk_Eco-Drive_Chronograph.png/600px-Citizen_Nighthawk_Eco-Drive_Chronograph.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Citizen_Super_Titanium_Armor_Watch.png/600px-Citizen_Super_Titanium_Armor_Watch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Citizen_Eco_Drive_Solar_Watch.png/640px-Citizen_Eco_Drive_Solar_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Citizen_EcoDrive_Stainless_Steel.png/640px-Citizen_EcoDrive_Stainless_Steel.png"
   ],
   "148": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Rado_DiaStar_Original_Hardmetal_Automatic_Gold.png/600px-Rado_DiaStar_Original_Hardmetal_Automatic_Gold.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Rado_Captain_Cook_Automatic_Diver_High-Tech_Ceramic.png/600px-Rado_Captain_Cook_Automatic_Diver_High-Tech_Ceramic.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Rado_True_Thinline_Ceramic_Skeleton.png/600px-Rado_True_Thinline_Ceramic_Skeleton.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Rado_DiaStar_Original_Watch.png/640px-Rado_DiaStar_Original_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Rado_Diastar_Hardmetal_Oval.png/640px-Rado_Diastar_Hardmetal_Oval.png"
   ],
   "149": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Seiko_Presage_Cocktail_Time_Blue_Moon_Sunburst_Dial.png/600px-Seiko_Presage_Cocktail_Time_Blue_Moon_Sunburst_Dial.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Seiko_5_Sports_Automatic_Diver_Black_Bezel.png/600px-Seiko_5_Sports_Automatic_Diver_Black_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Seiko_Prospex_Alpinist_Compass_Bezel.png/600px-Seiko_Prospex_Alpinist_Compass_Bezel.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Seiko_Presage_Cocktail_Time.png/640px-Seiko_Presage_Cocktail_Time.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Seiko_Presage_Sunburst_Dial.png/640px-Seiko_Presage_Sunburst_Dial.png"
   ],
   "150": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/BVLGARI_Aluminium_Chronograph_Rubber_Bezel.png/600px-BVLGARI_Aluminium_Chronograph_Rubber_Bezel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/BVLGARI_Octo_Finissimo_Ultra_Thin_Titanium.png/600px-BVLGARI_Octo_Finissimo_Ultra_Thin_Titanium.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/BVLGARI_Serpenti_Tubogas_Luxury_Watch.png/600px-BVLGARI_Serpenti_Tubogas_Luxury_Watch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Bvlgari_Aluminium_Chronograph_Watch.png/640px-Bvlgari_Aluminium_Chronograph_Watch.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Bulgari_Aluminium_Rubber_Bezel.png/640px-Bulgari_Aluminium_Rubber_Bezel.png"
   ],
   "151": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/US_Polo_Assn_Classic_Fit_Pique_Polo_Navy.png/640px-US_Polo_Assn_Classic_Fit_Pique_Polo_Navy.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/USPA_Signature_Embroidered_Double_Horseman_Polo.png/640px-USPA_Signature_Embroidered_Double_Horseman_Polo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/USPA_Heritage_Colorblock_Polo_Shirt.png/640px-USPA_Heritage_Colorblock_Polo_Shirt.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/USPA_Heritage_Pique_Polo_Navy.png/640px-USPA_Heritage_Pique_Polo_Navy.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Classic_Polo_Shirt_Embroidered.png/640px-Classic_Polo_Shirt_Embroidered.png"
   ],
   "152": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/The_Bear_House_Classic_Cotton_Oxford_Shirt.png/640px-The_Bear_House_Classic_Cotton_Oxford_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/The_Bear_House_Textured_Heavyweight_Corduroy_Overshirt.png/640px-The_Bear_House_Textured_Heavyweight_Corduroy_Overshirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Bear_House_Embroidered_Bear_Logo_Shirt.png/640px-The_Bear_House_Embroidered_Bear_Logo_Shirt.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/The_Bear_House_Classic_Oxford_Shirt.png/640px-The_Bear_House_Classic_Oxford_Shirt.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mens_Cotton_Button_Down_Shirt.png/640px-Mens_Cotton_Button_Down_Shirt.png"
   ],
   "153": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/The_Bear_House_Classic_Cotton_Oxford_Shirt.png/640px-The_Bear_House_Classic_Cotton_Oxford_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/The_Bear_House_Textured_Heavyweight_Corduroy_Overshirt.png/640px-The_Bear_House_Textured_Heavyweight_Corduroy_Overshirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Bear_House_Embroidered_Bear_Logo_Shirt.png/640px-The_Bear_House_Embroidered_Bear_Logo_Shirt.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/The_Bear_House_Textured_Overshirt.png/640px-The_Bear_House_Textured_Overshirt.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Heavyweight_Overshirt_Jacket.png/640px-Heavyweight_Overshirt_Jacket.png"
   ],
   "154": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Levis_501_Original_Fit_Selvedge_Denim_Jeans.png/640px-Levis_501_Original_Fit_Selvedge_Denim_Jeans.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Levis_Type_III_Vintage_Denim_Trucker_Jacket.png/640px-Levis_Type_III_Vintage_Denim_Trucker_Jacket.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Levis_Red_Tab_Denim_Detail.png/640px-Levis_Red_Tab_Denim_Detail.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Levis_501_Original_Selvedge_Jeans.png/640px-Levis_501_Original_Selvedge_Jeans.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Levis_501_Blue_Denim_Pants.png/640px-Levis_501_Blue_Denim_Pants.png"
   ],
   "155": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Levis_501_Original_Fit_Selvedge_Denim_Jeans.png/640px-Levis_501_Original_Fit_Selvedge_Denim_Jeans.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Levis_Type_III_Vintage_Denim_Trucker_Jacket.png/640px-Levis_Type_III_Vintage_Denim_Trucker_Jacket.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Levis_Red_Tab_Denim_Detail.png/640px-Levis_Red_Tab_Denim_Detail.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Levis_Type_III_Trucker_Denim_Jacket.png/640px-Levis_Type_III_Trucker_Denim_Jacket.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Classic_Denim_Trucker_Jacket.png/640px-Classic_Denim_Trucker_Jacket.png"
   ],
   "156": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/The_Derma_Co_1_Percent_Hyaluronic_Sunscreen_Aqua_Gel.png/600px-The_Derma_Co_1_Percent_Hyaluronic_Sunscreen_Aqua_Gel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/The_Derma_Co_10_Percent_Niacinamide_Daily_Face_Serum.png/600px-The_Derma_Co_10_Percent_Niacinamide_Daily_Face_Serum.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/The_Derma_Co_Dermatologist_Formulated_Skincare.png/600px-The_Derma_Co_Dermatologist_Formulated_Skincare.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Derma_Co_1_Hyaluronic_Sunscreen_Aqua_Gel.png/640px-Derma_Co_1_Hyaluronic_Sunscreen_Aqua_Gel.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Sunscreen_Pump_Bottle_Dispenser.png/640px-Sunscreen_Pump_Bottle_Dispenser.png"
   ],
   "157": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/The_Derma_Co_1_Percent_Hyaluronic_Sunscreen_Aqua_Gel.png/600px-The_Derma_Co_1_Percent_Hyaluronic_Sunscreen_Aqua_Gel.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/The_Derma_Co_10_Percent_Niacinamide_Daily_Face_Serum.png/600px-The_Derma_Co_10_Percent_Niacinamide_Daily_Face_Serum.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/The_Derma_Co_Dermatologist_Formulated_Skincare.png/600px-The_Derma_Co_Dermatologist_Formulated_Skincare.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Derma_Co_10_Niacinamide_Face_Serum.png/640px-Derma_Co_10_Niacinamide_Face_Serum.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Face_Serum_Glass_Dropper_Bottle.png/640px-Face_Serum_Glass_Dropper_Bottle.png"
   ],
   "158": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Marshall_Major_IV_Bluetooth_Headphones.png/640px-Marshall_Major_IV_Bluetooth_Headphones.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Marshall_Major_IV_Folded_View.png/640px-Marshall_Major_IV_Folded_View.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Marshall_Brass_Control_Knob_Detail.png/640px-Marshall_Brass_Control_Knob_Detail.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Marshall_Major_IV_Headphones.png/640px-Marshall_Major_IV_Headphones.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Marshall_Major_Folded_Wireless.png/640px-Marshall_Major_Folded_Wireless.png"
   ],
   "159": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Marshall_Willen_Portable_Bluetooth_Speaker_Black_Brass.png/600px-Marshall_Willen_Portable_Bluetooth_Speaker_Black_Brass.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Marshall_Willen_Speaker_Strap_Back.png/600px-Marshall_Willen_Speaker_Strap_Back.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Marshall_Emberton_II_Portable_Speaker.png/600px-Marshall_Emberton_II_Portable_Speaker.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Marshall_Willen_Portable_Speaker.png/640px-Marshall_Willen_Portable_Speaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Marshall_Willen_Black_Brass_Strap.png/640px-Marshall_Willen_Black_Brass_Strap.png"
   ],
   "160": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Marshall_Stanmore_III_Home_Bluetooth_Speaker_Black.png/640px-Marshall_Stanmore_III_Home_Bluetooth_Speaker_Black.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Marshall_Stanmore_Top_Analog_Knobs.png/640px-Marshall_Stanmore_Top_Analog_Knobs.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Marshall_Acton_III_Speaker_Vintage_Cream.png/640px-Marshall_Acton_III_Speaker_Vintage_Cream.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Marshall_Stanmore_III_Speaker.png/640px-Marshall_Stanmore_III_Speaker.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Marshall_Stanmore_Home_Audio.png/640px-Marshall_Stanmore_Home_Audio.png"
   ],
   "171": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Pantaloons_Urban_Ranger_Chino_Slim_Trousers.png/640px-Pantaloons_Urban_Ranger_Chino_Slim_Trousers.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Pantaloons_SF_Jeans_Textured_Casual_Shirt.png/640px-Pantaloons_SF_Jeans_Textured_Casual_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Pantaloons_Byford_Smart_Casual_Linen_Blend.png/640px-Pantaloons_Byford_Smart_Casual_Linen_Blend.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Pantaloons_Linen_Shirt_Chinos.png/640px-Pantaloons_Linen_Shirt_Chinos.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Mens_Tailored_Casual_Pants.png/640px-Mens_Tailored_Casual_Pants.png"
   ],
   "172": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MLYU3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNWM3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Apple_Power_Adapter.png/640px-Apple_Power_Adapter.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX0J3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MX0J3_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "173": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MJWY3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MJWY3_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/MagSafe_Battery_Pack.png/640px-MagSafe_Battery_Pack.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MJWY3_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "174": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT253?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT263?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Apple_MagSafe_Wallet.png/640px-Apple_MagSafe_Wallet.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT243?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT253?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "175": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT1E3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT143?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/IPhone_Silicone_Case.png/640px-IPhone_Silicone_Case.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MYYD3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MYYE3?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "176": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT1E3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MT143?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/IPhone_Silicone_Case.png/640px-IPhone_Silicone_Case.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MYYG3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MYYG3_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "177": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MM6F3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MM6F3_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Apple_Polishing_Cloth.png/640px-Apple_Polishing_Cloth.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MM6F3_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "178": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MU8F2?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MU8F2_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Apple_Pencil_2.png/640px-Apple_Pencil_2.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MU8F2_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "179": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNHF2?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJY3?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Apple_EarPods.png/640px-Apple_EarPods.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNHF2_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "180": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP43?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MWP43_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/USB-C_Cable.png/640px-USB-C_Cable.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MW5J3?wid=1000&hei=1000&fmt=png-alpha",
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MW5J3_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "181": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MD564?wid=1000&hei=1000&fmt=png-alpha",
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MD564_AV1?wid=1000&hei=1000&fmt=png-alpha",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Apple_USB_SuperDrive.png/640px-Apple_USB_SuperDrive.png"
+    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MD564_AV1?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "182": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Apple_Watch_1995_Original.png/600px-Apple_Watch_1995_Original.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Apple_Watch_Original_1995.png/600px-Apple_Watch_Original_1995.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Vintage_Apple_Watch.png/600px-Vintage_Apple_Watch.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Vintage_Apple_Watch_1995.png/640px-Vintage_Apple_Watch_1995.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Apple_Watch_1995_Quartz.png/640px-Apple_Watch_1995_Quartz.png"
   ],
   "183": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Allen_Solly_Nottingham_Stag_Pique_Polo.png/640px-Allen_Solly_Nottingham_Stag_Pique_Polo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Allen_Solly_Friday_Dressing_Oxford_Shirt.png/640px-Allen_Solly_Friday_Dressing_Oxford_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Allen_Solly_Smart_Flex_Chinos_Navy.png/640px-Allen_Solly_Smart_Flex_Chinos_Navy.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Allen_Solly_Friday_Dressing_Oxford_Shirt.png/640px-Allen_Solly_Friday_Dressing_Oxford_Shirt.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Mens_Formal_Tailored_Shirt.png/640px-Mens_Formal_Tailored_Shirt.png"
   ],
   "184": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Allen_Solly_Nottingham_Stag_Pique_Polo.png/640px-Allen_Solly_Nottingham_Stag_Pique_Polo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Allen_Solly_Friday_Dressing_Oxford_Shirt.png/640px-Allen_Solly_Friday_Dressing_Oxford_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Allen_Solly_Smart_Flex_Chinos_Navy.png/640px-Allen_Solly_Smart_Flex_Chinos_Navy.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Allen_Solly_Smart_Stretch_Chinos.png/640px-Allen_Solly_Smart_Stretch_Chinos.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Mens_Slim_Fit_Flex_Chino_Pants.png/640px-Mens_Slim_Fit_Flex_Chino_Pants.png"
   ],
   "185": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Allen_Solly_Nottingham_Stag_Pique_Polo.png/640px-Allen_Solly_Nottingham_Stag_Pique_Polo.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Allen_Solly_Friday_Dressing_Oxford_Shirt.png/640px-Allen_Solly_Friday_Dressing_Oxford_Shirt.png",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Allen_Solly_Smart_Flex_Chinos_Navy.png/640px-Allen_Solly_Smart_Flex_Chinos_Navy.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Allen_Solly_Signature_Pique_Stag_Polo.png/640px-Allen_Solly_Signature_Pique_Stag_Polo.png",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Classic_Pique_Knit_Polo_Shirt.png/640px-Classic_Pique_Knit_Polo_Shirt.png"
+  ],
+  "186": [
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/298c1087-b9f4-4c25-9a73-b35d00c66100/0RB2140__901__P21__shad__fr.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/9cd2c330-b771-4dc5-95b9-b35d00c65f18/0RB2140__901__P21__shad__cfr.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/36cb74ca-5fcd-4f57-9cd8-b35d00c6bc94/0RB2140__901_58__STD__shad__qt.png"
+  ],
+  "187": [
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/6ad42b4b-f1af-45cc-a6c6-b35d00db1f85/0RB3025__L0205__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/539a076e-6585-4267-93d3-b35d00db06dc/0RB3025__002_58__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/b4cad372-0778-45f4-a1fa-b35d00db3851/0RB3025__004_51__STD__shad__qt.png"
+  ],
+  "188": [
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/0db3121e-4066-4643-b758-b35d00d06419/0RB3016__W0365__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/1bdc7442-22db-4678-b96f-b37200b089f2/0RB3016__601S4E__P21__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/dc694039-a28c-4175-bf76-b44e017e7dc9/0RB3016__1291B1__P21__shad__qt.png"
+  ],
+  "189": [
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/524f84cb-313d-4c36-9d57-b35d00ca73fb/0RX5154__2000__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/5035c129-a0cf-4057-afe0-b35d00ca4f67/0RX5154__2077__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/2f258ff0-4f31-42c1-a6f3-b35d00bface3/0RX5184__2000__STD__shad__qt.png"
+  ],
+  "190": [
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/8a37eb98-eef1-4569-be21-b35f0097e77e/0RX7140__2000__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/78d0cd57-8d12-458d-91df-b35d0096f5c0/0RX7140__2012__STD__shad__qt.png",
+    "https://images2.ray-ban.com/prod-onecp-record-files/pieyewear/5df92fb1-d4a2-486c-a899-b35f00966bed/0RX7140__2001__STD__shad__qt.png"
   ]
 };
 
 /* ─────────────────────────────────────────────
-   NETWORK STATUS & IMAGE GALLERY SYSTEM
+   NETWORK STATUS & IMAGE GALLERY SYSTEM (USER CONTROLLED SWIPE)
 ───────────────────────────────────────────── */
 let isSystemOnline = typeof navigator !== 'undefined' ? navigator.onLine : true;
 let currentGalleryImages = [];
@@ -4226,8 +4236,19 @@ window.addEventListener('offline', () => updateNetworkStatus(false, true));
 function renderProductGalleryHTML(item, cutouts, color, brandKey) {
   if (!cutouts || cutouts.length === 0) return '';
 
+  const multiPhotos = cutouts.length > 1;
+
   return `
-    <div class="panel-gallery-container ${isSystemOnline ? '' : 'gallery-offline'}" id="panelGalleryContainer">
+    <div class="panel-gallery-container is-loading ${isSystemOnline ? '' : 'gallery-offline'}" id="panelGalleryContainer">
+      <!-- Themed Loading State: Minimal compact space with off-white to royal blue shimmer -->
+      <div class="gallery-loader" id="galleryLoader">
+        <div class="gallery-loader-shimmer"></div>
+        <div class="gallery-loader-content">
+          <span class="gallery-loader-dot"></span>
+          <span class="gallery-loader-text">Loading Model Visual…</span>
+        </div>
+      </div>
+
       <div class="panel-gallery-stage" id="panelGalleryStage">
         <!-- Ambient radial glow behind cutout matching brand theme -->
         <div class="gallery-glow" style="background: radial-gradient(circle at 50% 50%, ${color}22 0%, transparent 72%);"></div>
@@ -4236,13 +4257,16 @@ function renderProductGalleryHTML(item, cutouts, color, brandKey) {
         <div class="gallery-img-wrapper" id="galleryImgWrapper">
           <img id="galleryMainImg" 
                src="${cutouts[0]}" 
-               alt="${item.name}" 
+               alt="" 
                class="gallery-cutout-img" 
                loading="eager" 
+               style="opacity: 0;"
+               onload="handleGalleryImgLoad(this)" 
                onerror="handleGalleryImgError(this)" />
         </div>
 
-        <!-- Left / Right Nav Arrows -->
+        ${multiPhotos ? `
+        <!-- Left / Right Nav Arrows (Click to swipe) -->
         <button class="gallery-nav-btn prev" onclick="event.stopPropagation(); changeGallerySlide(-1);" aria-label="Previous photo" title="Previous photo">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
@@ -4254,23 +4278,47 @@ function renderProductGalleryHTML(item, cutouts, color, brandKey) {
           </svg>
         </button>
 
-        <!-- Side Corner Dots Bar UI -->
+        <!-- Corner Dots Bar UI (Pure Dots, NO numbers) -->
         <div class="gallery-dots-bar" id="galleryDotsBar">
-          <div class="gallery-dots-track">
-            ${cutouts.map((_, idx) => `
-              <button class="gallery-dot ${idx === 0 ? 'active' : ''}" 
-                      onclick="event.stopPropagation(); setGallerySlide(${idx});" 
-                      aria-label="View photo ${idx + 1} of ${cutouts.length}"
-                      title="Photo ${idx + 1}">
-                <span class="dot-fill" style="${idx === 0 ? `background: ${color};` : ''}"></span>
+          <div class="gallery-dots-track" id="galleryDotsTrack">
+            ${cutouts.map((_, i) => `
+              <button class="gallery-dot ${i === 0 ? 'active' : ''}" 
+                      onclick="event.stopPropagation(); setGallerySlide(${i});"
+                      aria-label="Photo ${i + 1}" 
+                      title="Photo ${i + 1}">
+                <span class="dot-fill"></span>
               </button>
             `).join('')}
           </div>
-          <span class="gallery-counter-text" id="galleryCounterText">1 / ${cutouts.length}</span>
         </div>
+        ` : ''}
       </div>
     </div>
   `;
+}
+
+function initGalleryTouch(stageEl) {
+  if (!stageEl) return;
+  let startX = 0;
+  let startY = 0;
+  stageEl.addEventListener('touchstart', e => {
+    if (e.touches && e.touches[0]) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+  stageEl.addEventListener('touchend', e => {
+    if (!e.changedTouches || !e.changedTouches[0]) return;
+    const diffX = e.changedTouches[0].clientX - startX;
+    const diffY = e.changedTouches[0].clientY - startY;
+    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+      if (diffX < 0) {
+        changeGallerySlide(1); // Swipe left -> next
+      } else {
+        changeGallerySlide(-1); // Swipe right -> prev
+      }
+    }
+  }, { passive: true });
 }
 
 function changeGallerySlide(delta) {
@@ -4279,52 +4327,48 @@ function changeGallerySlide(delta) {
   setGallerySlide(nextIdx);
 }
 
+function handleGalleryImgLoad(img) {
+  if (!img) return;
+  const container = document.getElementById('panelGalleryContainer');
+  if (container) {
+    container.classList.remove('is-loading');
+    container.classList.add('is-loaded');
+  }
+  img.style.opacity = '1';
+  img.style.transform = 'scale(1)';
+}
+
 function setGallerySlide(index) {
   if (!currentGalleryImages || index < 0 || index >= currentGalleryImages.length) return;
   currentGalleryIndex = index;
   const img = document.getElementById('galleryMainImg');
-  const counter = document.getElementById('galleryCounterText');
   const dots = document.querySelectorAll('.gallery-dot');
 
   if (img) {
     img.style.opacity = '0';
-    img.style.transform = 'scale(0.95)';
-    setTimeout(() => {
-      img.src = currentGalleryImages[currentGalleryIndex];
-      img.style.opacity = '1';
-      img.style.transform = 'scale(1)';
-    }, 140);
-  }
-
-  if (counter) {
-    counter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+    img.style.transform = 'scale(0.96)';
+    const nextSrc = currentGalleryImages[currentGalleryIndex];
+    img.onload = function() {
+      handleGalleryImgLoad(img);
+    };
+    img.src = nextSrc;
   }
 
   if (dots) {
     dots.forEach((d, idx) => {
-      const active = idx === currentGalleryIndex;
-      d.classList.toggle('active', active);
-      const fill = d.querySelector('.dot-fill');
-      if (fill) {
-        fill.style.background = active ? 'var(--accent)' : 'rgba(255, 255, 255, 0.4)';
-      }
+      d.classList.toggle('active', idx === currentGalleryIndex);
     });
   }
-
-  if (typeof triggerFeedback === 'function') triggerFeedback('switch');
 }
 
+// User-Requested Rule: NO automatic swipe on image error!
+// If an image fails, collapse container cleanly with zero blank space.
 function handleGalleryImgError(img) {
   if (!img) return;
-  if (currentGalleryImages && currentGalleryImages.length > 1) {
-    const nextIdx = (currentGalleryIndex + 1) % currentGalleryImages.length;
-    if (nextIdx !== currentGalleryIndex) {
-      setGallerySlide(nextIdx);
-      return;
-    }
-  }
+  img.style.display = 'none';
   const container = document.getElementById('panelGalleryContainer');
   if (container) {
+    container.classList.remove('is-loading');
     container.classList.add('gallery-offline');
   }
 }
@@ -6427,6 +6471,66 @@ const ITEMS = [
     travel:{plane:true,train:true,moto:true,car:true,cycle:true},
     rating:"9.5/10",
     whereUsed:"Casual Fridays, Weekend Brunches, Travel, Golf & Outdoor Socials"
+  },
+  {
+    id:186, name:"Ray-Ban Original Wayfarer Classic", category:"accessories", brand:"rayban", icon:"",
+    inr:"₹10,590 – ₹14,990", usd:"$163 – $224", launch:"1952",
+    useCase:"Timeless style, everyday sun protection, rock & roll heritage",
+    desc:"The quintessential silhouette of modern eyewear since 1952. Handcrafted from sculpted acetate with distinctive trapezoidal front and sculpted temples. Fitted with legendary scratch-resistant crystal G-15 mineral glass lenses absorbing 85% of visible light.",
+    specs:["Model: RB2140 Original Wayfarer","Sculpted Acetate Frame","Signature Crystal G-15 Green Glass Lenses","100% UV400 Protection","Distinctive Forward Lens Angle","Silver Temple Rivets","Handcrafted in Italy"],
+    pros:["Most iconic sunglasses design in history","Indestructible Italian acetate build","Crystal-clear mineral glass lenses","Matches casual, formal & streetwear seamlessly"],
+    cons:["Slightly heavier due to glass lenses","Non-folding frame requires hard case"],
+    travel:{"plane":true,"train":true,"moto":true,"car":true,"cycle":true},
+    rating:"10/10",
+    whereUsed:"Everyday Carry, Road Trips, Beach, Outdoor Cafes, Fashion"
+  },
+  {
+    id:187, name:"Ray-Ban Aviator Classic", category:"accessories", brand:"rayban", icon:"",
+    inr:"₹10,990 – ₹15,590", usd:"$171 – $230", launch:"1937",
+    useCase:"Pilot-grade glare reduction, ultra-lightweight luxury, military heritage",
+    desc:"Originally created in 1937 for US aviators flying at high altitudes. Ultra-light arista gold metal wire frame engineered with teardrop crystal lenses that cover the entire optical field of view. Adjustable silicone nose pads ensure zero-pressure comfort all day.",
+    specs:["Model: RB3025 Aviator Classic","Precision Lightweight Monel Metal Frame","Classic Crystal G-15 Green / Polarized Lenses","Iconic Double Brow Bridge","Adjustable Silicone Rocker Nose Pads","Sweat-Resistant Comfort Temples","Full UV400 Shield"],
+    pros:["Timeless military pilot silhouette","Featherweight wire-frame all-day comfort","Unmatched optical clarity with crystal lenses","Suits virtually all face shapes"],
+    cons:["Delicate metal wire frame requires care","Needs dedicated hard case for travel"],
+    travel:{"plane":true,"train":true,"moto":true,"car":true,"cycle":true},
+    rating:"10/10",
+    whereUsed:"Driving, Flights, Outdoor Adventures, Weekend Commute, Sunny Days"
+  },
+  {
+    id:188, name:"Ray-Ban Clubmaster Classic", category:"accessories", brand:"rayban", icon:"",
+    inr:"₹11,590 – ₹16,290", usd:"$174 – $240", launch:"1986",
+    useCase:"Sophisticated retro-vintage style, intellectual styling, premium sun protection",
+    desc:"Inspired by the 1950s counterculture and intellectual icons. Distinctive browline silhouette combining glossy black/tortoise acetate upper rims with gold-plated lower eyewires and crystal mineral lenses. Vintage styling with high-performance optical glare defense.",
+    specs:["Model: RB3016 Clubmaster Classic","Combination Acetate Browline & Metal Frame","Signature Crystal G-15 Green Lenses","Gold-Toned Bridge & Rim Detailing","Adjustable Nose Pads","100% UV Protection"],
+    pros:["Sophisticated intellectual vintage aesthetic","Lightweight hybrid acetate/metal comfort","High-contrast crystal optics","Elevates blazers, polo shirts, and formal wear"],
+    cons:["Narrower coverage than Aviator","Delicate bridge screw assembly"],
+    travel:{"plane":true,"train":true,"moto":true,"car":true,"cycle":true},
+    rating:"9.5/10",
+    whereUsed:"Business Casual, Brunches, City Walks, Creative Studios, Rooftop Evenings"
+  },
+  {
+    id:189, name:"Ray-Ban Clubmaster Optics Reading Glasses", category:"accessories", brand:"rayban", icon:"",
+    inr:"₹9,590 – ₹13,990", usd:"$165 – $215", launch:"Optical Edition",
+    useCase:"Daily reading, computer work, blue light defense & prescription vision",
+    desc:"The legendary Clubmaster browline design specifically engineered for reading and ophthalmic prescription lenses. Polished black acetate upper brow with gleaming metal rim and flexible silicone nose pads. Perfect for desk reading, work productivity, and refined intellect.",
+    specs:["Model: RX5154 Clubmaster Optics","Premium Acetate Upper Browline","Gold/Silver Metal Lower Wire","Prescription & Reading Lens Ready","Customizable Anti-Reflective & Blue Light Coating","Reinforced 5-Barrel Hinges","Adjustable Hypoallergenic Nose Pads"],
+    pros:["Flawless intellectual desk & reading aesthetic","Ultra-comfortable lightweight nose bridge","Compatible with progressive & reading lenses","Durable Italian craftsmanship"],
+    cons:["Requires personalized optical prescription or reading power","Needs soft microfiber cleaning cloth"],
+    travel:{"plane":true,"train":true,"moto":false,"car":true,"cycle":false},
+    rating:"9.5/10",
+    whereUsed:"Desk Work, Reading Books, Coding, Zoom Calls, Library, Daily Office"
+  },
+  {
+    id:190, name:"Ray-Ban Round Optics Reading Glasses", category:"accessories", brand:"rayban", icon:"",
+    inr:"₹9,990 – ₹14,290", usd:"$170 – $220", launch:"Modern Heritage",
+    useCase:"All-day computer reading, creative studio vision, featherweight comfort",
+    desc:"A contemporary optical masterpiece pairing round acetate lens borders with ultra-slim metal temples and bridge. Extremely lightweight and balanced for 10+ hours of reading, monitor screen focus, and precision writing without bridge fatigue or red marks.",
+    specs:["Model: RX7140 Round Optics","High-Density Acetate Rim with Slender Metal Frame","Ergonomic Ultra-Slim Metal Temples","Precision Adjustable Nose Pads","Blue Light Filter Compatible","Prescription & Reading Ready","Total Weight Under 20g"],
+    pros:["Featherweight all-day reading comfort","Modern artistic round silhouette","Zero temple pinch or ear fatigue","Exceptional premium feel and subtle prestige"],
+    cons:["Delicate slender temple arms","Avoid loose pocket storage"],
+    travel:{"plane":true,"train":true,"moto":false,"car":true,"cycle":false},
+    rating:"9.5/10",
+    whereUsed:"Reading Books, Screen Productivity, Creative Studios, Coffee Shops, Travel"
   }
 ];
 
@@ -6617,7 +6721,7 @@ const BRAND_LOGOS = {
   </g>
   <path class="meta-wordmark" fill="#111111" d="m347.94,6.04h35.93l61.09,110.52 61.1-110.52h35.15v181.6h-29.31v-139.18l-53.58,96.38h-27.5l-53.57-96.38v139.18h-29.31z m285.11,67.71c-21.02,0-33.68,15.82-36.71,35.41h71.34c-1.47-20.18-13.11-35.41-34.63-35.41z m-65.77,46.57c0-41.22 26.64-71.22 66.28-71.22 38.99,0 62.27,29.62 62.27,73.42v8.05h-99.49c3.53,21.31 17.67,35.67 40.47,35.67 18.19,0 29.56-5.55 40.34-15.7l15.57,19.07c-14.67,13.49-33.33,21.27-56.95,21.27-42.91,0-68.49-31.29-68.49-70.56z m164.09-43.97h-26.98v-24h26.98v-39.69h28.28v39.69h40.99v24h-40.99v60.83c0,20.77 6.64,28.15 22.96,28.15 7.45,0 11.72-.64 18.03-1.69v23.74c-7.86,2.22-15.36,3.24-23.48,3.24-30.53,0-45.79-16.68-45.79-50.07z m188.35,23.34c-5.68-14.34-18.35-24.9-36.97-24.9-24.2,0-39.69,17.17-39.69,45.14 0,27.27 14.26,45.27 38.53,45.27 19.08,0 32.7-11.1 38.13-24.91z m28.28,87.95h-27.76v-18.94c-7.76,11.15-21.88,22.18-44.75,22.18-36.78,0-61.36-30.79-61.36-70.95 0-40.54 25.17-70.83 62.92-70.83 18.66,0 33.3,7.46 43.19,20.63v-17.38h27.76z"/>
 </svg>`,
-  rayban: `<svg viewBox="0 0 772.316 415.773" fill="currentColor"><path d="M772.316,415.773H0V0h772.316V415.773z M501.256,48.111c-8.111,4.696-14.756,10.561-20.28,17.28 c-5.597,6.808-9.861,15.093-14.04,23.4c-4.419,8.79-7.065,18.244-8.64,28.92c-1.601,10.872-2.062,22.669-2.64,34.8 c-1.436,30.133-0.379,61.813-2.76,90.96c-0.203,2.479-0.343,5.504-0.963,8.399c-0.479,2.248-1.819,5.957-0.84,7.92 c1.701,3.396,8.271,0.267,10.2-0.722c7.135-3.642,13.638-8.116,15.72-16.198c1.411-5.478,0.842-13.688,0.842-20.399 c0-14.665,0.479-27.882,0.479-42.121c0-6.945,0.154-13.875,0.48-20.76c0.646-13.677,0.453-27.138,2.157-40.44 c1.636-12.741,3.499-24.359,7.32-35.16c3.467-9.796,8.831-20.56,16.08-26.52c3.852-3.167,9.744-5.754,16.08-3.72 c5.332,1.711,8.871,5.336,10.92,10.44c4.495,11.2,0.757,26.873-3.12,35.4c-9.03,19.864-23.413,33.291-36.72,48.36 c-3.173,3.593-6.745,8.856-5.761,15.24c0.948,6.153,4.5,9.455,7.921,13.44c3.031,3.534,6.561,7.641,10.079,11.16 c3.734,3.736,7.372,6.905,9.601,11.76c2.591,5.646,1.467,12.334-0.96,17.161c-2.41,4.793-5.373,9.107-8.28,12.959 c-6.385,8.459-12.878,15.994-19.438,23.16c-3.137,3.424-6.728,7.326-10.32,10.92c-1.619,1.619-3.556,3.502-5.28,5.4 c-1.873,2.062-3.515,3.842-4.56,6.119c-3.92,8.545,1.477,18.922,4.68,24.602c1.087,1.926,2.507,5.148,5.04,5.639 c2.038,0.396,3.27-0.551,4.08-1.199c1.367-1.092,2.312-2.803,3.36-4.561c2.977-5.004,6.503-9.898,9.84-14.16 c11.622-14.84,24.399-29.199,37.08-42.719c5.181-5.525,10.685-10.582,13.8-18.121c1.617-3.91,2.52-8.627,1.92-13.561 c-1.105-9.093-6.141-15.243-12.24-19.679c-9.707-7.062-18.008-13.15-26.76-21.121c-3.084-2.809-9.634-7.992-6.36-13.68 c1.487-2.583,4.496-4.189,7.2-6c2.856-1.913,5.196-3.564,7.8-5.4c15.324-10.801,29.552-22.692,39.36-39.96 c3.102-5.458,5.945-11.568,7.32-19.08c2.988-16.342-3.09-31.648-11.28-39.84c-4.624-4.624-10.306-7.629-19.32-7.2 C519.016,39.757,509.13,43.553,501.256,48.111z M185.416,358.312c3.47-4.992,3.36-12.037,3.36-20.4 c0-4.652-0.468-10.078,4.08-10.199c1.475-0.039,3.45,1.242,5.16,2.039c21.526,10.047,41.741,20.426,63.12,30.48 c3.113,1.465,6.539,3.993,10.68,3.84c3.833-0.146,6.004-3.16,7.8-5.879c1.948-2.951,3.836-5.978,4.44-9.361 c1.235-6.922-5.923-8.869-10.68-11.16c-25.378-12.213-50.667-24.631-75.84-37.08c-2.004-0.99-4.361-1.766-5.88-2.879 c-3.326-2.439-2.16-9.789-2.16-16.199c0-2.307,0.12-4.367,0.12-6.721c0-2.33-0.266-4.918,0.24-6.602 c0.728-2.418,3.37-3.549,5.76-5.039c21.565-13.445,38.981-29.91,54.12-49.562c5.558-7.213,10.855-14.688,15.12-22.68 c4.445-8.331,7.999-17.309,9-28.68c1.069-12.142-2.083-22.548-6.96-30.36c-4.433-7.1-11.449-13.55-20.04-17.64 c-10.469-4.984-25.337-7.342-40.08-5.52c-2.586,0.32-5.049,0.702-7.56,1.2c-14.537,2.882-27.918,6.901-41.04,11.52 c-26.157,9.208-49.995,20.174-72.36,32.88c-7.373,4.189-14.806,8.459-21.72,13.32c-6.813,4.789-12.459,10.744-15.24,19.8 c-1.97,6.416-2.031,15.187-2.16,24.119c-0.037,2.578,0.34,5.953,2.4,6.24c1.666,0.231,3.539-1.776,4.68-3 c8.505-9.118,18.708-16.604,28.68-23.759c29.407-21.102,61.774-37.76,96.84-53.16c7.074-3.107,14.514-5.923,22.44-7.56 c8.684-1.793,18.687-2.357,27.36-1.08c9.062,1.334,15.559,4.055,20.28,9.72c4.813,5.776,6.96,12.975,6.96,23.04 c0,9.631-2.102,18.232-4.68,25.32c-5.377,14.783-15.255,25.024-24.72,35.28c-6.914,7.49-15.086,14.902-23.76,21.24 c-2,1.461-6.796,5.338-9.96,5.039c-3.59-0.338-3.081-6.248-2.88-10.56c0.193-4.151,0.321-8.535,0.36-12.239 c0.216-20.647,1.031-40.98,1.44-61.681c0.083-4.188,0.598-8.856-0.12-12.12c-1.72-7.828-10.213-2.706-14.64-0.48 c-3.262,1.64-5.663,2.703-7.8,5.04c-2.808,3.071-1.983,9.971-2.16,15.6c-0.142,4.515-0.24,9.219-0.24,13.68 c0,25.533-0.812,49.553-1.08,75.121c-0.025,2.341,0.189,4.736-0.48,6.479c-0.703,1.832-2.14,2.388-4.08,3.479 c-8.779,4.951-17.439,9.757-26.16,14.642c-2.679,1.5-6.96,3.119-6.96,6.959c0,3.554,3.144,4.373,5.76,5.641 c8.181,3.961,15.519,7.707,23.64,11.279c3.882,1.709,6.479,2.711,7.32,6.721c0.84,4,0.12,8.636,0.12,12.843 c0,14.078-0.622,26.008-0.72,39.84C173.577,366.933,180.889,364.826,185.416,358.312z M677.296,160.072 c-3.248,5.239-5.56,9.512-8.88,14.64c-1.255,1.938-3.65,5.753-6.72,5.04c-3.475-0.806-0.933-9.869-1.2-12.96 c-0.344-3.936-2.877-8.308-7.44-7.68c-3.708,0.511-6.84,5.021-8.76,8.04c-4.362,6.861-6.99,15.703-10.68,23.041 c-1.92,3.818-3.853,7.52-6.84,10.08c-1.16,0.992-3.183,2.331-5.04,2.039c-1.753-0.274-3.258-3.076-3.96-5.399 c-0.73-2.414-1.164-5.486-1.44-7.92c-0.843-7.421-0.059-16.558-5.64-18.72c-4.112-1.593-7.597,1.504-9.24,3.36 c-1.038,1.17-1.821,2.499-3.36,3c-2.254,0.734-4.497,0.012-6.6,0.12c-6.261,0.321-11.502,3.697-15.36,6.48 c-5.368,3.874-10.104,9.423-13.92,15.121c-3.899,5.826-6.929,12.298-8.88,20.16c-2.04,8.219-2.404,18.715,3.96,22.319 c5.3,3.002,11.727-1.358,15.12-3.84c7.102-5.188,11.128-10.521,16.8-16.92c1.199-1.354,2.505-2.839,3.84-4.562 c1.01-1.303,2.425-4.479,4.08-4.201c1.311,0.219,2.034,3.027,2.643,4.439c0.807,1.879,1.473,3.453,2.278,4.801 c1.682,2.811,4.684,6.604,8.279,7.08c7.531,0.996,12.309-4.074,15.602-8.279c1.69-2.162,3.261-4.385,4.921-7.08 c1.178-1.916,3.084-6.696,5.76-6.359c1.692,0.213,1.701,2.376,2.16,4.68c1.081,5.428,4.144,9.871,10.199,7.32 c3.097-1.307,5.812-4.125,8.158-6.961c5.026-6.072,7.808-11.642,11.643-18.84c1.596-2.996,3.154-8.506,6.6-8.64 c4.354-0.169,5.19,6.598,6,9.839c1.694,6.785,3.962,14.379,9.84,16.92c3.628,1.567,7.781,0.53,10.683-0.72 c3.281-1.418,5.572-3.295,7.56-5.281c2.667-2.666,6.933-7.307,8.28-11.039c0.423-1.171,0.963-4.146-0.84-4.68 c-2.264-0.671-3.954,2.627-6.24,2.879c-3.581,0.396-6.528-2.099-8.04-4.319c-2.71-3.979-3.88-10.292-5.28-16.32 c-1.393-5.997-2.247-12.091-5.64-15.96c-1.375-1.567-3.816-2.89-6.24-2.64C680.934,152.619,679.316,156.812,677.296,160.072z M592.216,191.151c5.938-0.884,2.771,6.482,1.32,9.121c-1.401,2.549-2.895,4.813-4.2,6.959c-1.507,2.474-2.989,4.653-4.56,6.601 c-1.529,1.896-3.56,4.312-5.88,5.279c-1.175,0.49-3.678,0.725-4.562,0.121c-2.104-1.437-0.136-6.777,0.72-8.881 c2.414-5.936,5.022-9.822,9.12-13.919C586.287,194.321,589.043,191.625,592.216,191.151z M398.896,217.55 c-3.521,2.939-7.242,7.168-8.16,12.722c-1.791,10.809,7.869,15.451,18.119,13.561c7.76-1.432,13.854-5.721,17.521-11.039 c1.796-2.604,3.627-6.646,3.24-11.041c-0.649-7.369-7.672-10.957-15.841-10.318C407.415,211.927,402.669,214.402,398.896,217.55z M363.616,225.352c-3.439,5.491-6.2,11.155-9,17.039c-1.794,3.77-3.52,7.776-5.88,11.521c-1.615,2.562-5.228,8.324-9.36,8.041 c-1.95-0.137-3.437-2.197-4.08-3.48c-1.362-2.717-2.12-7.014-2.52-10.801c-0.389-3.682,0.265-9.414-1.32-12.119 c-1.917-3.271-6.082-2.168-8.64-0.238c-3.191,2.404-3.747,5.463-4.92,9.601c-2.411,8.5-5.384,17.078-9.84,23.76 c-1.625,2.437-4.342,6.127-7.68,5.88c-2.024-0.148-3.779-2.408-4.92-4.56c-2.319-4.373-3.725-9.019-4.56-14.16 c-0.48-2.959-0.464-5.719-1.56-7.801c-0.648-1.229-1.965-2.563-3.12-3.119c-3.423-1.647-8.71,0.112-10.92,1.438 c-2.456,1.476-3.198,4.234-5.52,5.16c-3.075,1.228-5.321-0.109-8.52-0.24c-6.515-0.268-10.926,2.742-14.64,6 c-6.9,6.052-13.124,15.513-16.2,25.08c-1.612,5.015-3.138,11.854-1.92,18.119c1.109,5.707,4.75,10.158,10.2,10.439 c6.081,0.313,10.91-3.188,14.76-6c4.304-3.146,7.071-6.322,10.44-10.199c2.285-2.631,5.054-5.312,7.08-8.398 c0.482-0.735,1.636-2.639,2.76-2.521c1.383,0.145,1.831,2.9,2.52,4.561c0.718,1.729,1.647,3.404,2.4,4.681 c1.586,2.686,4.131,6.053,7.32,6.961c3.796,1.08,8.184-1.086,10.8-2.882c6.692-4.588,11.065-11.204,15.12-18.479 c0.778-1.396,2.066-3.42,3.6-3.239c1.397,0.166,1.77,2.44,2.28,3.961c1.505,4.481,4.007,9.098,8.28,10.561 c2.731,0.936,4.809,0.002,6.6-1.08c4.673-2.824,8.083-7.834,11.04-12.479c1.015-1.595,2.17-3.908,4.08-3.842 c3.535,0.125,2.641,6.477,2.64,10.562c0,4.602-0.24,9.131-0.24,13.318c0,9.204-0.182,17.129-0.48,26.641 c-0.406,12.975-0.578,26.592-0.84,39.84c-0.082,4.127-0.778,10.42,1.2,12.121c1.546,1.328,5.435,0.84,9,0.84 c2.956,0,6.593,0.4,8.52-0.24c3.835-1.272,2.972-5.957,3.12-11.278c0.618-22.214,0.59-44.33,1.2-66.24 c0.632-22.701,0.66-43.697,1.2-66.24c0.053-2.221,0.623-7.313-0.12-9.358c-0.657-1.812-2.546-2.494-3.96-2.279 C366.422,220.585,364.947,223.225,363.616,225.352z M267.856,262.671c6.642-1.065,2.583,8.649,1.2,11.399 c-2.846,5.66-6.351,11.697-10.56,16.08c-1.567,1.631-5.924,5.621-8.64,3.601c-2.07-1.541-0.385-7.278,0.36-9.722 c1.037-3.396,2.184-6.143,3.48-8.399c2.725-4.746,7.231-9.805,11.64-12.119C266.066,263.128,266.959,262.814,267.856,262.671z"/></svg>`,
+  rayban: `<svg viewBox="0 0 772.316 415.773" fill="currentColor"><path d="M501.256,48.111c-8.111,4.696-14.756,10.561-20.28,17.28 c-5.597,6.808-9.861,15.093-14.04,23.4c-4.419,8.79-7.065,18.244-8.64,28.92c-1.601,10.872-2.062,22.669-2.64,34.8 c-1.436,30.133-0.379,61.813-2.76,90.96c-0.203,2.479-0.343,5.504-0.963,8.399c-0.479,2.248-1.819,5.957-0.84,7.92 c1.701,3.396,8.271,0.267,10.2-0.722c7.135-3.642,13.638-8.116,15.72-16.198c1.411-5.478,0.842-13.688,0.842-20.399 c0-14.665,0.479-27.882,0.479-42.121c0-6.945,0.154-13.875,0.48-20.76c0.646-13.677,0.453-27.138,2.157-40.44 c1.636-12.741,3.499-24.359,7.32-35.16c3.467-9.796,8.831-20.56,16.08-26.52c3.852-3.167,9.744-5.754,16.08-3.72 c5.332,1.711,8.871,5.336,10.92,10.44c4.495,11.2,0.757,26.873-3.12,35.4c-9.03,19.864-23.413,33.291-36.72,48.36 c-3.173,3.593-6.745,8.856-5.761,15.24c0.948,6.153,4.5,9.455,7.921,13.44c3.031,3.534,6.561,7.641,10.079,11.16 c3.734,3.736,7.372,6.905,9.601,11.76c2.591,5.646,1.467,12.334-0.96,17.161c-2.41,4.793-5.373,9.107-8.28,12.959 c-6.385,8.459-12.878,15.994-19.438,23.16c-3.137,3.424-6.728,7.326-10.32,10.92c-1.619,1.619-3.556,3.502-5.28,5.4 c-1.873,2.062-3.515,3.842-4.56,6.119c-3.92,8.545,1.477,18.922,4.68,24.602c1.087,1.926,2.507,5.148,5.04,5.639 c2.038,0.396,3.27-0.551,4.08-1.199c1.367-1.092,2.312-2.803,3.36-4.561c2.977-5.004,6.503-9.898,9.84-14.16 c11.622-14.84,24.399-29.199,37.08-42.719c5.181-5.525,10.685-10.582,13.8-18.121c1.617-3.91,2.52-8.627,1.92-13.561 c-1.105-9.093-6.141-15.243-12.24-19.679c-9.707-7.062-18.008-13.15-26.76-21.121c-3.084-2.809-9.634-7.992-6.36-13.68 c1.487-2.583,4.496-4.189,7.2-6c2.856-1.913,5.196-3.564,7.8-5.4c15.324-10.801,29.552-22.692,39.36-39.96 c3.102-5.458,5.945-11.568,7.32-19.08c2.988-16.342-3.09-31.648-11.28-39.84c-4.624-4.624-10.306-7.629-19.32-7.2 C519.016,39.757,509.13,43.553,501.256,48.111z M185.416,358.312c3.47-4.992,3.36-12.037,3.36-20.4 c0-4.652-0.468-10.078,4.08-10.199c1.475-0.039,3.45,1.242,5.16,2.039c21.526,10.047,41.741,20.426,63.12,30.48 c3.113,1.465,6.539,3.993,10.68,3.84c3.833-0.146,6.004-3.16,7.8-5.879c1.948-2.951,3.836-5.978,4.44-9.361 c1.235-6.922-5.923-8.869-10.68-11.16c-25.378-12.213-50.667-24.631-75.84-37.08c-2.004-0.99-4.361-1.766-5.88-2.879 c-3.326-2.439-2.16-9.789-2.16-16.199c0-2.307,0.12-4.367,0.12-6.721c0-2.33-0.266-4.918,0.24-6.602 c0.728-2.418,3.37-3.549,5.76-5.039c21.565-13.445,38.981-29.91,54.12-49.562c5.558-7.213,10.855-14.688,15.12-22.68 c4.445-8.331,7.999-17.309,9-28.68c1.069-12.142-2.083-22.548-6.96-30.36c-4.433-7.1-11.449-13.55-20.04-17.64 c-10.469-4.984-25.337-7.342-40.08-5.52c-2.586,0.32-5.049,0.702-7.56,1.2c-14.537,2.882-27.918,6.901-41.04,11.52 c-26.157,9.208-49.995,20.174-72.36,32.88c-7.373,4.189-14.806,8.459-21.72,13.32c-6.813,4.789-12.459,10.744-15.24,19.8 c-1.97,6.416-2.031,15.187-2.16,24.119c-0.037,2.578,0.34,5.953,2.4,6.24c1.666,0.231,3.539-1.776,4.68-3 c8.505-9.118,18.708-16.604,28.68-23.759c29.407-21.102,61.774-37.76,96.84-53.16c7.074-3.107,14.514-5.923,22.44-7.56 c8.684-1.793,18.687-2.357,27.36-1.08c9.062,1.334,15.559,4.055,20.28,9.72c4.813,5.776,6.96,12.975,6.96,23.04 c0,9.631-2.102,18.232-4.68,25.32c-5.377,14.783-15.255,25.024-24.72,35.28c-6.914,7.49-15.086,14.902-23.76,21.24 c-2,1.461-6.796,5.338-9.96,5.039c-3.59-0.338-3.081-6.248-2.88-10.56c0.193-4.151,0.321-8.535,0.36-12.239 c0.216-20.647,1.031-40.98,1.44-61.681c0.083-4.188,0.598-8.856-0.12-12.12c-1.72-7.828-10.213-2.706-14.64-0.48 c-3.262,1.64-5.663,2.703-7.8,5.04c-2.808,3.071-1.983,9.971-2.16,15.6c-0.142,4.515-0.24,9.219-0.24,13.68 c0,25.533-0.812,49.553-1.08,75.121c-0.025,2.341,0.189,4.736-0.48,6.479c-0.703,1.832-2.14,2.388-4.08,3.479 c-8.779,4.951-17.439,9.757-26.16,14.642c-2.679,1.5-6.96,3.119-6.96,6.959c0,3.554,3.144,4.373,5.76,5.641 c8.181,3.961,15.519,7.707,23.64,11.279c3.882,1.709,6.479,2.711,7.32,6.721c0.84,4,0.12,8.636,0.12,12.843 c0,14.078-0.622,26.008-0.72,39.84C173.577,366.933,180.889,364.826,185.416,358.312z M677.296,160.072 c-3.248,5.239-5.56,9.512-8.88,14.64c-1.255,1.938-3.65,5.753-6.72,5.04c-3.475-0.806-0.933-9.869-1.2-12.96 c-0.344-3.936-2.877-8.308-7.44-7.68c-3.708,0.511-6.84,5.021-8.76,8.04c-4.362,6.861-6.99,15.703-10.68,23.041 c-1.92,3.818-3.853,7.52-6.84,10.08c-1.16,0.992-3.183,2.331-5.04,2.039c-1.753-0.274-3.258-3.076-3.96-5.399 c-0.73-2.414-1.164-5.486-1.44-7.92c-0.843-7.421-0.059-16.558-5.64-18.72c-4.112-1.593-7.597,1.504-9.24,3.36 c-1.038,1.17-1.821,2.499-3.36,3c-2.254,0.734-4.497,0.012-6.6,0.12c-6.261,0.321-11.502,3.697-15.36,6.48 c-5.368,3.874-10.104,9.423-13.92,15.121c-3.899,5.826-6.929,12.298-8.88,20.16c-2.04,8.219-2.404,18.715,3.96,22.319 c5.3,3.002,11.727-1.358,15.12-3.84c7.102-5.188,11.128-10.521,16.8-16.92c1.199-1.354,2.505-2.839,3.84-4.562 c1.01-1.303,2.425-4.479,4.08-4.201c1.311,0.219,2.034,3.027,2.643,4.439c0.807,1.879,1.473,3.453,2.278,4.801 c1.682,2.811,4.684,6.604,8.279,7.08c7.531,0.996,12.309-4.074,15.602-8.279c1.69-2.162,3.261-4.385,4.921-7.08 c1.178-1.916,3.084-6.696,5.76-6.359c1.692,0.213,1.701,2.376,2.16,4.68c1.081,5.428,4.144,9.871,10.199,7.32 c3.097-1.307,5.812-4.125,8.158-6.961c5.026-6.072,7.808-11.642,11.643-18.84c1.596-2.996,3.154-8.506,6.6-8.64 c4.354-0.169,5.19,6.598,6,9.839c1.694,6.785,3.962,14.379,9.84,16.92c3.628,1.567,7.781,0.53,10.683-0.72 c3.281-1.418,5.572-3.295,7.56-5.281c2.667-2.666,6.933-7.307,8.28-11.039c0.423-1.171,0.963-4.146-0.84-4.68 c-2.264-0.671-3.954,2.627-6.24,2.879c-3.581,0.396-6.528-2.099-8.04-4.319c-2.71-3.979-3.88-10.292-5.28-16.32 c-1.393-5.997-2.247-12.091-5.64-15.96c-1.375-1.567-3.816-2.89-6.24-2.64C680.934,152.619,679.316,156.812,677.296,160.072z M592.216,191.151c5.938-0.884,2.771,6.482,1.32,9.121c-1.401,2.549-2.895,4.813-4.2,6.959c-1.507,2.474-2.989,4.653-4.56,6.601 c-1.529,1.896-3.56,4.312-5.88,5.279c-1.175,0.49-3.678,0.725-4.562,0.121c-2.104-1.437-0.136-6.777,0.72-8.881 c2.414-5.936,5.022-9.822,9.12-13.919C586.287,194.321,589.043,191.625,592.216,191.151z M398.896,217.55 c-3.521,2.939-7.242,7.168-8.16,12.722c-1.791,10.809,7.869,15.451,18.119,13.561c7.76-1.432,13.854-5.721,17.521-11.039 c1.796-2.604,3.627-6.646,3.24-11.041c-0.649-7.369-7.672-10.957-15.841-10.318C407.415,211.927,402.669,214.402,398.896,217.55z M363.616,225.352c-3.439,5.491-6.2,11.155-9,17.039c-1.794,3.77-3.52,7.776-5.88,11.521c-1.615,2.562-5.228,8.324-9.36,8.041 c-1.95-0.137-3.437-2.197-4.08-3.48c-1.362-2.717-2.12-7.014-2.52-10.801c-0.389-3.682,0.265-9.414-1.32-12.119 c-1.917-3.271-6.082-2.168-8.64-0.238c-3.191,2.404-3.747,5.463-4.92,9.601c-2.411,8.5-5.384,17.078-9.84,23.76 c-1.625,2.437-4.342,6.127-7.68,5.88c-2.024-0.148-3.779-2.408-4.92-4.56c-2.319-4.373-3.725-9.019-4.56-14.16 c-0.48-2.959-0.464-5.719-1.56-7.801c-0.648-1.229-1.965-2.563-3.12-3.119c-3.423-1.647-8.71,0.112-10.92,1.438 c-2.456,1.476-3.198,4.234-5.52,5.16c-3.075,1.228-5.321-0.109-8.52-0.24c-6.515-0.268-10.926,2.742-14.64,6 c-6.9,6.052-13.124,15.513-16.2,25.08c-1.612,5.015-3.138,11.854-1.92,18.119c1.109,5.707,4.75,10.158,10.2,10.439 c6.081,0.313,10.91-3.188,14.76-6c4.304-3.146,7.071-6.322,10.44-10.199c2.285-2.631,5.054-5.312,7.08-8.398 c0.482-0.735,1.636-2.639,2.76-2.521c1.383,0.145,1.831,2.9,2.52,4.561c0.718,1.729,1.647,3.404,2.4,4.681 c1.586,2.686,4.131,6.053,7.32,6.961c3.796,1.08,8.184-1.086,10.8-2.882c6.692-4.588,11.065-11.204,15.12-18.479 c0.778-1.396,2.066-3.42,3.6-3.239c1.397,0.166,1.77,2.44,2.28,3.961c1.505,4.481,4.007,9.098,8.28,10.561 c2.731,0.936,4.809,0.002,6.6-1.08c4.673-2.824,8.083-7.834,11.04-12.479c1.015-1.595,2.17-3.908,4.08-3.842 c3.535,0.125,2.641,6.477,2.64,10.562c0,4.602-0.24,9.131-0.24,13.318c0,9.204-0.182,17.129-0.48,26.641 c-0.406,12.975-0.578,26.592-0.84,39.84c-0.082,4.127-0.778,10.42,1.2,12.121c1.546,1.328,5.435,0.84,9,0.84 c2.956,0,6.593,0.4,8.52-0.24c3.835-1.272,2.972-5.957,3.12-11.278c0.618-22.214,0.59-44.33,1.2-66.24 c0.632-22.701,0.66-43.697,1.2-66.24c0.053-2.221,0.623-7.313-0.12-9.358c-0.657-1.812-2.546-2.494-3.96-2.279 C366.422,220.585,364.947,223.225,363.616,225.352z M267.856,262.671c6.642-1.065,2.583,8.649,1.2,11.399 c-2.846,5.66-6.351,11.697-10.56,16.08c-1.567,1.631-5.924,5.621-8.64,3.601c-2.07-1.541-0.385-7.278,0.36-9.722 c1.037-3.396,2.184-6.143,3.48-8.399c2.725-4.746,7.231-9.805,11.64-12.119C266.066,263.128,266.959,262.814,267.856,262.671z"/></svg>`,
   airfly: `<svg viewBox="0 0 260 70" xmlns="http://www.w3.org/2000/svg" aria-label="AirFly Official Logo">
   <defs>
     <linearGradient id="airflyBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -7589,6 +7693,10 @@ function openPanel(id) {
   const cutouts = (typeof PRODUCT_CUTOUTS !== "undefined" && PRODUCT_CUTOUTS[id]) || [];
   currentGalleryImages = cutouts;
   currentGalleryIndex = 0;
+  setTimeout(() => {
+    const stage = document.getElementById('panelGalleryStage');
+    if (stage) initGalleryTouch(stage);
+  }, 50);
   const galleryHTML = renderProductGalleryHTML(item, cutouts, color, brandKey);
 
   const panel = document.getElementById("expandedPanel");
