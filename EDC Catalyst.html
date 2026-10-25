@@ -4029,83 +4029,95 @@ img, svg, picture, canvas {
   display: block;
 }
 
-/* ─── LIVE WAVE DIVIDER (SYMMETRICAL MULTI-LAYER LIQUID HORIZON) ────── */
+/* ─── LIVE WAVE DIVIDER (SEAMLESS HIGH-VELOCITY DYNAMIC OCEAN HORIZON) ────── */
 .wave-divider {
   position: relative;
   width: 100%;
+  height: 148px;
   overflow: hidden;
   line-height: 0;
   margin-bottom: -3px; /* Seamless zero-gap continuity into footer gradient */
   pointer-events: none;
   z-index: 2;
   display: block;
-  background: radial-gradient(ellipse 70% 90px at 50% 100%, rgba(99, 102, 241, 0.12), transparent 70%);
-}
-
-.wave-divider svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 2px);
-  margin-left: -1px;
-  height: 98px;
-  vertical-align: bottom;
+  background: radial-gradient(ellipse 80% 120px at 50% 100%, rgba(56, 189, 248, 0.18), rgba(79, 70, 229, 0.12) 45%, transparent 75%);
 }
 
 @media (max-width: 768px) {
-  .wave-divider svg {
-    height: 64px;
+  .wave-divider {
+    height: 94px;
   }
 }
 
+.wave-divider .wave-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  will-change: transform;
+}
+
+.wave-divider .wave-track svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  vertical-align: bottom;
+}
+
 /* Luminous Ambient Glow Wave */
-.wave-divider .shape-fill-glow {
-  fill: url(#waveGlowGrad);
-  opacity: 0.7;
-  animation: waveFloatGlow 14s ease-in-out infinite alternate;
-  transform-origin: bottom center;
-  transform-box: fill-box;
+.wave-divider .wave-track-glow {
+  animation: waveScrollGlow 10s linear infinite;
+  opacity: 0.65;
+  z-index: 1;
 }
 
-/* Mid-Depth Fluid Accent Wave */
-.wave-divider .shape-fill-bg {
-  fill: rgba(79, 70, 229, 0.28);
-  animation: waveFloatBg 10s ease-in-out infinite alternate;
-  transform-origin: bottom center;
-  transform-box: fill-box;
+/* Mid-Depth Fluid Accent Wave (Counter-flowing harmonic layer) */
+.wave-divider .wave-track-mid {
+  animation: waveScrollMid 7s linear infinite;
+  opacity: 0.8;
+  z-index: 2;
 }
 
-/* Primary Seamless Obsidian Crest Wave (Full-width balanced horizon) */
-.wave-divider .shape-fill {
-  fill: var(--footer-bg-top);
-  animation: waveFloatMain 8s ease-in-out infinite alternate;
-  transform-origin: bottom center;
-  transform-box: fill-box;
+.wave-divider .shape-wave-mid {
+  fill: rgba(37, 99, 235, 0.35);
   transition: fill 0.3s ease;
 }
 
-/* Luminous Crest Neon Ridge Glow */
-.wave-divider .shape-ridge-glow {
-  animation: waveFloatMain 8s ease-in-out infinite alternate;
-  transform-origin: bottom center;
-  transform-box: fill-box;
+[data-theme="dark"] .wave-divider .shape-wave-mid {
+  fill: rgba(30, 58, 138, 0.45);
 }
 
-@keyframes waveFloatGlow {
-  0% { transform: scaleY(0.94) scaleX(1); }
-  50% { transform: scaleY(1.08) scaleX(1.01); }
-  100% { transform: scaleY(0.96) scaleX(0.99); }
+/* Primary Seamless Obsidian Crest Wave (Full-width balanced horizon) */
+.wave-divider .wave-track-front {
+  animation: waveScrollFront 5s linear infinite;
+  z-index: 3;
 }
 
-@keyframes waveFloatMain {
-  0% { transform: scaleY(1); }
-  50% { transform: scaleY(1.04); }
-  100% { transform: scaleY(1); }
+.wave-divider .shape-wave-front {
+  fill: var(--footer-bg-top);
+  transition: fill 0.3s ease;
 }
 
-@keyframes waveFloatBg {
-  0% { transform: scaleY(0.96) scaleX(1); }
-  50% { transform: scaleY(1.1) scaleX(1.02); }
-  100% { transform: scaleY(1) scaleX(0.99); }
+/* Radiant Crest Neon Ridge Glow */
+.wave-divider .shape-wave-ridge {
+  filter: drop-shadow(0 -3px 8px rgba(56, 189, 248, 0.65));
+}
+
+@keyframes waveScrollFront {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes waveScrollMid {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes waveScrollGlow {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 /* ─── FOOTER BODY (EDGE-TO-EDGE EXPANDED ARCHITECTURE) ──────────────── */
@@ -4176,17 +4188,17 @@ img, svg, picture, canvas {
 }
 
 .footer-brand-logo {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, var(--accent) 0%, #4338CA 100%);
-  border-radius: 12px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.38);
   cursor: pointer;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.4);
   flex-shrink: 0;
 }
 
@@ -4195,8 +4207,8 @@ img, svg, picture, canvas {
 }
 
 .footer-brand-logo svg {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
 }
 
 .footer-title-text {
@@ -4205,11 +4217,15 @@ img, svg, picture, canvas {
 }
 
 .footer-title {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-size: clamp(2rem, 3.8vw, 2.85rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .title-edc {
@@ -4217,20 +4233,12 @@ img, svg, picture, canvas {
 }
 
 .title-catalyst {
-  background: linear-gradient(135deg, #A5B4FC 0%, #818CF8 50%, #C084FC 100%);
+  color: #38BDF8;
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.footer-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3.5px;
-  color: var(--footer-text-muted);
-  text-transform: uppercase;
-  margin-top: 6px;
-  font-weight: 500;
+  text-shadow: 0 0 35px rgba(59, 130, 246, 0.45);
 }
 
 .footer-bio {
@@ -4241,278 +4249,90 @@ img, svg, picture, canvas {
   max-width: 440px;
 }
 
-.live-dot-pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulseGreen 2s infinite;
-  display: inline-block;
-}
-
-@keyframes pulseGreen {
-  0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
-}
-
 /* ═══════════════════════════════════════════════
-   MINIMAL & UNIQUE HOROLOGICAL CHRONOMETER
+   MINIMAL LIVE CHRONO WIDGET (UI THEME FONT & COLORS)
 ═══════════════════════════════════════════════ */
-.footer-live-chrono-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.012) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  padding: 18px 20px 16px;
-  max-width: 380px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 12px 32px rgba(0, 0, 0, 0.35);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.footer-live-chrono-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.45), transparent);
-  pointer-events: none;
-}
-
-.footer-live-chrono-card:hover {
-  border-color: rgba(129, 140, 248, 0.35);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0.02) 100%);
-  transform: translateY(-2px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 16px 38px rgba(79, 70, 229, 0.22);
-}
-
-.flc-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.flc-badge-sync {
+.footer-live-chrono-minimal {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-}
-
-.flc-pulse-dot {
-  width: 6.5px;
-  height: 6.5px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: pulseGreen 2s infinite;
-  display: inline-block;
-}
-
-.flc-badge-title {
+  gap: 10px;
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  color: #A5B4FC;
-  font-weight: 600;
-}
-
-.flc-tz-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-  text-transform: lowercase;
-  color: #38BDF8;
-  background: rgba(56, 189, 248, 0.09);
-  border: 1px solid rgba(56, 189, 248, 0.24);
-  padding: 3px 9px;
+  font-size: 13.5px;
+  letter-spacing: 0.04em;
+  color: #94A3B8;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 100px;
-  font-weight: 500;
-}
-
-.flc-dial-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.flc-digits {
-  display: flex;
-  align-items: baseline;
-  gap: 3px;
-  font-variant-numeric: tabular-nums;
-}
-
-.flc-digit-hm {
-  font-family: 'DM Mono', monospace;
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: #FFFFFF;
-  line-height: 1;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
-}
-
-.flc-digit-sec-wrap {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  margin-left: 2px;
-}
-
-.flc-digit-sec {
-  font-family: 'DM Mono', monospace;
-  font-size: 18px;
-  font-weight: 600;
-  color: #818CF8;
-  line-height: 1;
-}
-
-.flc-ampm-pill {
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #A5B4FC;
-  background: rgba(99, 102, 241, 0.16);
-  border: 1px solid rgba(99, 102, 241, 0.28);
-  padding: 2px 6px;
-  border-radius: 5px;
-  text-transform: lowercase;
-  vertical-align: 2px;
-}
-
-.flc-mode-tag {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
-  letter-spacing: 1.2px;
-  text-transform: lowercase;
-  color: rgba(255, 255, 255, 0.35);
-  font-weight: 500;
-}
-
-/* 60-Second Chronograph Sweep Gauge */
-.flc-sweep-container {
-  margin-bottom: 14px;
-}
-
-.flc-sweep-track {
-  width: 100%;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
-  overflow: visible;
-  position: relative;
-}
-
-.flc-sweep-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #4F46E5 0%, #818CF8 70%, #C084FC 100%);
-  border-radius: 3px;
-  position: relative;
-  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1);
-  box-shadow: 0 0 10px rgba(99, 102, 241, 0.55);
-}
-
-.flc-sweep-bead {
-  position: absolute;
-  right: -2px;
-  top: -2.5px;
-  width: 8px;
-  height: 8px;
-  background: #FFFFFF;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #A5B4FC, 0 0 14px #6366F1;
-}
-
-.flc-sweep-ticks {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4px;
-  font-family: 'DM Mono', monospace;
-  font-size: 8.5px;
-  color: rgba(255, 255, 255, 0.3);
-  letter-spacing: 0.5px;
-  -webkit-user-select: none;
+  margin-bottom: 22px;
+  max-width: fit-content;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
   user-select: none;
 }
 
-/* Bottom Calendar & Date Telemetry */
-.flc-bottom-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+.footer-live-chrono-minimal:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
 }
 
-.flc-calendar-info {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+.flc-min-time {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
 }
 
-.flc-cal-icon {
-  color: #818CF8;
-  flex-shrink: 0;
+.flc-min-time #footerLiveHM {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 14.5px;
 }
 
-.flc-date-string {
-  font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.4px;
-  text-transform: lowercase;
-  color: var(--footer-text-muted);
-}
-
-.flc-date-day-small {
-  color: #E2E8F0;
+.flc-min-time #footerLiveSec {
+  color: #38BDF8;
   font-weight: 600;
+  font-size: 13.5px;
 }
 
-.flc-date-sep {
-  color: rgba(255, 255, 255, 0.3);
-  margin: 0 3px;
+.flc-min-time #footerLivePeriod {
+  color: #818CF8;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-left: 3px;
 }
 
-.flc-date-num {
+.flc-min-dot {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+}
+
+.flc-min-date {
+  color: #CBD5E1;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.flc-min-date #footerLiveDaySmall {
   color: #F8FAFC;
   font-weight: 600;
+  text-transform: capitalize;
 }
 
-.flc-date-month {
-  color: #CBD5E1;
-}
-
-.flc-date-year {
-  color: #94A3B8;
-  margin-left: 2px;
-}
-
-.flc-status-sync {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
-  letter-spacing: 1px;
-  text-transform: lowercase;
-  color: #34D399;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.22);
-  padding: 1.5px 6px;
-  border-radius: 4px;
+.flc-min-date #footerLiveDateNum {
+  color: #38BDF8;
   font-weight: 600;
+}
+
+.flc-min-date #footerLiveMonth {
+  text-transform: capitalize;
+}
+
+.flc-min-date #footerLiveYear {
+  color: #94A3B8;
 }
 
 /* Quick discovery chips in footer */
@@ -4622,13 +4442,21 @@ img, svg, picture, canvas {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  color: #818CF8;
-  transition: transform 0.2s ease;
+  color: #38BDF8;
+  transition: transform 0.2s ease, color 0.2s ease;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+[data-footer-brand] .footer-link-icon {
+  width: 22px;
+  height: 15px;
+  color: #38BDF8;
 }
 
 .footer-links li a:hover .footer-link-icon {
   transform: scale(1.15);
-  color: #A5B4FC;
+  color: #60A5FA;
 }
 
 .footer-link-badge {
@@ -4986,25 +4814,43 @@ img, svg, picture, canvas {
 <!-- ══ FOOTER SECTION WITH LIVE WAVE DIVIDER (SEAMLESS OBSIDIAN) ═══════════════ -->
 <div class="footer-wrapper">
   <div class="wave-divider">
-    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="waveGlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.3"/>
-          <stop offset="50%" stop-color="#818CF8" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="#A855F7" stop-opacity="0.3"/>
-        </linearGradient>
-        <linearGradient id="waveRidgeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#6366F1" stop-opacity="0.2"/>
-          <stop offset="30%" stop-color="#818CF8" stop-opacity="0.8"/>
-          <stop offset="70%" stop-color="#C084FC" stop-opacity="0.8"/>
-          <stop offset="100%" stop-color="#6366F1" stop-opacity="0.2"/>
-        </linearGradient>
-      </defs>
-      <path d="M0,32 C240,64 480,12 720,38 C960,64 1200,16 1440,32 L1440,120 L0,120 Z" class="shape-fill-glow"></path>
-      <path d="M0,45 C220,18 460,58 720,26 C980,-2 1220,52 1440,32 L1440,120 L0,120 Z" class="shape-fill-bg"></path>
-      <path d="M0,40 C180,18 380,54 580,32 C780,12 980,50 1180,24 C1320,10 1400,32 1440,34 L1440,120 L0,120 Z" class="shape-fill"></path>
-      <path d="M0,40 C180,18 380,54 580,32 C780,12 980,50 1180,24 C1320,10 1400,32 1440,34" fill="none" stroke="url(#waveRidgeGrad)" stroke-width="2" class="shape-ridge-glow"></path>
-    </svg>
+    <!-- Back Luminous Glow Wave Track -->
+    <div class="wave-track wave-track-glow">
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="waveGlowGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.45"/>
+            <stop offset="25%" stop-color="#6366F1" stop-opacity="0.55"/>
+            <stop offset="50%" stop-color="#A855F7" stop-opacity="0.45"/>
+            <stop offset="75%" stop-color="#38BDF8" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#6366F1" stop-opacity="0.45"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,65 C260,20 540,100 800,40 C1020,-10 1180,110 1440,65 C1700,20 1980,100 2240,40 C2460,-10 2620,110 2880,65 L2880,160 L0,160 Z" fill="url(#waveGlowGrad2)"></path>
+      </svg>
+    </div>
+    <!-- Mid Fluid Accent Wave Track -->
+    <div class="wave-track wave-track-mid">
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+        <path d="M0,50 C240,95 480,15 720,60 C960,105 1200,5 1440,50 C1680,95 1920,15 2160,60 C2400,105 2640,5 2880,50 L2880,160 L0,160 Z" class="shape-wave-mid"></path>
+      </svg>
+    </div>
+    <!-- Foreground Crest Wave Track (Seamlessly enters footer body) -->
+    <div class="wave-track wave-track-front">
+      <svg viewBox="0 0 2880 160" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="waveRidgeGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"/>
+            <stop offset="25%" stop-color="#60A5FA" stop-opacity="1"/>
+            <stop offset="50%" stop-color="#818CF8" stop-opacity="0.9"/>
+            <stop offset="75%" stop-color="#38BDF8" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#818CF8" stop-opacity="0.8"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,55 C220,18 460,95 720,40 C980,-8 1220,92 1440,55 C1660,18 1900,95 2160,40 C2420,-8 2660,92 2880,55 L2880,160 L0,160 Z" class="shape-wave-front"></path>
+        <path d="M0,55 C220,18 460,95 720,40 C980,-8 1220,92 1440,55 C1660,18 1900,95 2160,40 C2420,-8 2660,92 2880,55" fill="none" stroke="url(#waveRidgeGrad2)" stroke-width="3" class="shape-wave-ridge"></path>
+      </svg>
+    </div>
   </div>
 
   <footer class="footer-content">
@@ -5020,72 +4866,21 @@ img, svg, picture, canvas {
             </div>
             <div class="footer-title-text">
               <h2 class="footer-title"><span class="title-edc">EDC</span> <span class="title-catalyst">Catalyst</span></h2>
-              <p class="footer-sub">Explore · Decipher · Category</p>
             </div>
           </div>
           <p class="footer-bio">
             The ultimate curated catalog of modern Everyday Carry gear, tactical tools, luxury horology, fine writing instruments, audiophile acoustics, and digital life ecosystems. Handcrafted for explorers, makers, and carry minimalists.
           </p>
 
-          <!-- Minimalist & Unique Precision Horological Chrono Widget -->
-          <div class="footer-live-chrono-card" id="footerLiveChronoWidget">
-            <!-- Top Instrument Header -->
-            <div class="flc-header-row">
-              <div class="flc-badge-sync">
-                <span class="flc-pulse-dot"></span>
-                <span class="flc-badge-title">Chrono Calibre</span>
-              </div>
-              <div class="flc-tz-pill" id="footerLiveTz">live · utc+5:30</div>
-            </div>
-
-            <!-- Main Digital Chrono Dial -->
-            <div class="flc-dial-row">
-              <div class="flc-digits">
-                <span class="flc-digit-hm" id="footerLiveHM">12:00</span>
-                <span class="flc-digit-sec-wrap">
-                  <span class="flc-digit-sec" id="footerLiveSec">:00</span>
-                  <span class="flc-ampm-pill" id="footerLivePeriod">pm</span>
-                </span>
-                <span class="flc-time-num" id="footerLiveTime" style="display:none;"></span>
-              </div>
-              <div class="flc-mode-tag">real-time</div>
-            </div>
-
-            <!-- 60-Second Precision Chronograph Sweep Gauge -->
-            <div class="flc-sweep-container" title="60-second linear chronograph sweep">
-              <div class="flc-sweep-track">
-                <div class="flc-sweep-bar" id="footerLiveSweepBar" style="width: 0%;">
-                  <span class="flc-sweep-bead"></span>
-                </div>
-              </div>
-              <div class="flc-sweep-ticks">
-                <span>00s</span>
-                <span>15s</span>
-                <span>30s</span>
-                <span>45s</span>
-                <span>60s</span>
-              </div>
-            </div>
-
-            <!-- Bottom Calendar & Date Telemetry -->
-            <div class="flc-bottom-row">
-              <div class="flc-calendar-info">
-                <svg class="flc-cal-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                <div class="flc-date-string">
-                  <span class="flc-date-day-small" id="footerLiveDaySmall">wednesday</span>
-                  <span class="flc-date-sep">·</span>
-                  <span class="flc-date-num" id="footerLiveDateNum">28</span>
-                  <span class="flc-date-month" id="footerLiveMonth">october</span>
-                  <span class="flc-date-year" id="footerLiveYear">2026</span>
-                </div>
-              </div>
-              <div class="flc-status-sync">synced</div>
-            </div>
+          <!-- Minimalist Live Chrono (Simple Text Form, UI Theme Font & Colors) -->
+          <div class="footer-live-chrono-minimal" id="footerLiveChronoWidget">
+            <span class="flc-min-time">
+              <span id="footerLiveHM">12:00</span><span id="footerLiveSec">:00</span> <span id="footerLivePeriod">pm</span>
+            </span>
+            <span class="flc-min-dot">•</span>
+            <span class="flc-min-date">
+              <span id="footerLiveDaySmall">wednesday</span>, <span id="footerLiveDateNum">28</span> <span id="footerLiveMonth">october</span> <span id="footerLiveYear">2026</span>
+            </span>
           </div>
 
           <!-- Quick Discovery Chips -->
@@ -5233,83 +5028,111 @@ img, svg, picture, canvas {
             </li>
             <li>
               <a data-footer-brand="samsung" onclick="selectBrandFilter('samsung', true)" title="Filter Samsung Galaxy">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                <svg class="footer-link-icon" viewBox="0 0 300 100" fill="none">
+                  <ellipse cx="150" cy="50" rx="138" ry="43" transform="rotate(-8 150 50)" fill="currentColor"/>
+                  <g fill="var(--footer-bg-top, #101426)">
+                    <path d="M50 41v-2.5c0-3 2.2-4.8 5.8-4.8 3.5 0 5.6 1.8 5.6 4.8v2.2h7.2v-2.4c0-6.2-4.8-9.8-12.8-9.8-8.2 0-13 3.6-13 9.8v2.8c0 8.5 18.8 7.8 18.8 15.2v2.8c0 3.2-2.3 5-6 5-3.8 0-6-1.8-6-5v-3h-7.2v3c0 6.4 4.8 10.2 13.2 10.2 8.4 0 13.2-3.8 13.2-10.2v-3.8c0-8.6-18.8-8-18.8-14.3z"/>
+                    <path d="M75 68.5l8.8-39h10.4l8.8 39h-7.6l-6.4-31.2-6.4 31.2H75z"/>
+                    <path d="M109 68.5v-39h11.2l6.3 28.5 6.3-28.5H144v39h-7.2V36.8l-7.3 31.7h-6l-7.3-31.7v31.7H109z"/>
+                    <path d="M158 41v-2.5c0-3 2.2-4.8 5.8-4.8 3.5 0 5.6 1.8 5.6 4.8v2.2h7.2v-2.4c0-6.2-4.8-9.8-12.8-9.8-8.2 0-13 3.6-13 9.8v2.8c0 8.5 18.8 7.8 18.8 15.2v2.8c0 3.2-2.3 5-6 5-3.8 0-6-1.8-6-5v-3h-7.2v3c0 6.4 4.8 10.2 13.2 10.2 8.4 0 13.2-3.8 13.2-10.2v-3.8c0-8.6-18.8-8-18.8-14.3z"/>
+                    <path d="M183 29.5h7.4v29c0 3.2 2.1 5.2 5.6 5.2s5.6-2 5.6-5.2v-29h7.4v29c0 6.8-4.8 10.6-13 10.6s-13-3.8-13-10.6v-29z"/>
+                    <path d="M216 68.5v-39h9.2l10.6 27.8V29.5h7v39h-8.8L223 39.8v28.7h-7z"/>
+                    <path d="M263 47.5h12.8v11c0 6.8-5 10.6-13.2 10.6-8.2 0-13.2-3.8-13.2-10.6V39.5c0-6.8 5-10.6 13.2-10.6 8 0 12.8 3.6 12.8 9.8v2.8h-7.2v-2.6c0-3.2-2.1-4.8-5.6-4.8-3.6 0-5.8 1.8-5.8 5v19.2c0 3.2 2.2 5 5.8 5 3.6 0 5.8-1.8 5.8-5v-5.4H263v-5.4z"/>
+                  </g>
                 </svg>
                 <span>Samsung Galaxy &amp; Ultra</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="sony" onclick="selectBrandFilter('sony', true)" title="Filter Sony Alpha &amp; Acoustics">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                <svg class="footer-link-icon" viewBox="0 10 500 95" fill="currentColor">
+                  <path d="M98,25 C84,15 62,13 42,17 C22,21 12,31 14,44 C16,56 31,61 56,65 C79,68 88,72 88,80 C88,89 74,94 53,93 C33,92 20,84 15,74 L6,74 L8,99 L20,99 L23,93 C33,99 48,102 64,101 C89,100 105,89 105,74 C105,60 91,53 64,49 C40,45 31,42 31,34 C31,26 44,22 61,23 C79,24 90,31 94,40 L103,40 L101,17 L91,17 L98,25 Z"/>
+                  <path d="M180,15 C142,15 120,35 120,58 C120,81 142,101 180,101 C218,101 240,81 240,58 C240,35 218,15 180,15 Z M180,91 C156,91 142,76 142,58 C142,40 156,25 180,25 C204,25 218,40 218,58 C218,76 204,91 180,91 Z"/>
+                  <path d="M252,18 L252,27 L265,27 L265,89 L251,89 L251,98 L292,98 L292,89 L278,89 L278,38 L338,98 L352,98 L352,27 L366,27 L366,18 L325,18 L325,27 L339,27 L339,74 L283,18 L252,18 Z"/>
+                  <path d="M376,18 L376,27 L388,27 L423,66 L423,89 L407,89 L407,98 L459,98 L459,89 L443,89 L443,66 L478,27 L490,27 L490,18 L452,18 L452,27 L463,27 L436,57 L409,27 L420,27 L420,18 L376,18 Z"/>
                 </svg>
                 <span>Sony Alpha &amp; Acoustics</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="lg" onclick="selectBrandFilter('lg', true)" title="Filter LG Tech &amp; Displays">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
+                <svg class="footer-link-icon" viewBox="50 10 200 80" fill="none">
+                  <circle cx="95" cy="50" r="38" fill="currentColor"/>
+                  <path d="M114.8 30.2 A 28 28 0 1 0 123 50 L 105 50" stroke="var(--footer-bg-top, #101426)" stroke-width="4.5" stroke-linecap="round"/>
+                  <path d="M95 33.5 L 95 57.5 L 103.5 57.5" stroke="var(--footer-bg-top, #101426)" stroke-width="4.5" stroke-linecap="round"/>
+                  <circle cx="82" cy="39" r="4.2" fill="var(--footer-bg-top, #101426)"/>
+                  <g fill="currentColor">
+                    <path d="M150 26h11.5v37.5H183V74h-33V26z"/>
+                    <path d="M219 47.5h21.5V74h-8.5v-5.2c-3.5 4.2-8.8 6.4-15.2 6.4-14.5 0-24.2-10.4-24.2-25.2s9.8-25.2 24.5-25.2c11.8 0 20.6 6.2 22.8 15.8h-11.5c-1.8-4.2-5.6-6.5-11.2-6.5-8.5 0-13.8 6.4-13.8 15.9s5.3 15.9 13.8 15.9c6.8 0 11.6-4.2 12.6-10.2H219v-8.2z"/>
+                  </g>
                 </svg>
                 <span>LG OLED &amp; Tech</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="dyson" onclick="selectBrandFilter('dyson', true)" title="Filter Dyson Engineering">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="9"></circle>
-                  <path d="M12 3v6"></path>
-                  <path d="M12 15v6"></path>
-                  <path d="M3 12h6"></path>
-                  <path d="M15 12h6"></path>
+                <svg class="footer-link-icon" viewBox="40 10 230 80" fill="none" stroke="currentColor" stroke-width="7.8" stroke-linecap="butt" stroke-linejoin="round">
+                  <circle cx="62" cy="50" r="16.5"/>
+                  <line x1="78.5" y1="15" x2="78.5" y2="69.5"/>
+                  <path d="M96 31v18.5c0 9.5 7.2 16.5 16.5 16.5s16.5-7 16.5-16.5V31"/>
+                  <path d="M129 48v20.5c0 10.2-7.2 17.5-17.5 17.5H101"/>
+                  <path d="M170 37.5c-2.5-3.2-7.2-5-13-5-8.2 0-14 4-14 9.2 0 5.5 5.8 7.2 14 8.5 8.2 1.3 14 3.2 14 9.2 0 5.6-6.2 9.6-15 9.6-6.8 0-12.2-2.2-15-6"/>
+                  <circle cx="198" cy="50.5" r="16.5"/>
+                  <path d="M227 69.5V48.5c0-9.5 7.2-16.5 16.5-16.5S260 39 260 48.5v21"/>
                 </svg>
                 <span>Dyson Engineering</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="dji" onclick="selectBrandFilter('dji', true)" title="Filter DJI Drones &amp; Gimbals">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                  <polyline points="2 17 12 22 22 17"></polyline>
-                  <polyline points="2 12 12 17 22 12"></polyline>
+                <svg class="footer-link-icon" viewBox="0 4.5 24 15" fill="currentColor">
+                  <path d="M19.2 7.8a716.856 716.856 0 0 0-1.232 4.63c-.202.772-.401 1.544-.634 2.308-.226.743-.504 1.535-.91 2.21-.422.703-.969 1.253-1.726 1.604-.3.137-.615.24-.939.306-.46.09-.926.146-1.394.165-1.163.065-3.628.056-4.79.056l.713-2.64c.539 0 1.078.002 1.617-.013.52-.014 1.092-.042 1.605-.163.56-.133.984-.36 1.355-.817.337-.416.564-.935.75-1.424.34-.893.688-2.173.934-3.093.277-1.041.544-2.085.812-3.129zm4.8 0-2.072 7.68h-3.84l2.073-7.68ZM11.339 4.92h3.84c-.403 1.5-.805 2.999-1.212 4.496-.283 1.044-.565 2.088-.872 3.124-.135.452-.269.903-.445 1.342-.141.352-.3.666-.591.93a1.908 1.908 0 0 1-.734.405c-.356.112-.717.154-1.085.184-.53.043-1.06.054-1.591.063-1.991.02-3.983.02-5.974-.001a21.408 21.408 0 0 1-.954-.034 5.319 5.319 0 0 1-.632-.07 1.851 1.851 0 0 1-.412-.119c-.44-.192-.664-.575-.677-1.043 0-.263.032-.525.093-.78.076-.367.171-.728.265-1.09.179-.691.506-1.966.762-2.638.2-.526.464-1.05.966-1.382.28-.186.576-.285.901-.35.241-.05.483-.075.728-.093.41-.03.82-.04 1.23-.047.582-.01 1.165-.013 1.748-.015L8.148 7.8h1.454l-.518 1.92c-.864 0-1.728-.002-2.593.003-.252.001-.504 0-.756.016a.968.968 0 0 0-.264.042c-.113.04-.17.11-.22.213-.073.15-.115.31-.162.468a84.804 84.804 0 0 0-.503 1.857c-.035.14-.07.28-.1.42-.022.099-.04.197-.05.298-.01.11-.014.242.053.345.068.103.182.127.29.143.12.018.241.021.363.025.199.006.398.007.597.008.544.003 1.089.003 1.633 0 .25-.002.501-.004.752-.014.173-.007.343-.013.513-.054.13-.031.23-.08.318-.186.056-.071.1-.15.133-.235.088-.209.15-.425.213-.641.245-.83.466-1.665.692-2.499l.675-2.503.67-2.505h3.84z"/>
                 </svg>
                 <span>DJI Drones &amp; Gimbals</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="rolex" onclick="selectBrandFilter('rolex', true)" title="Filter Rolex Horology">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"></path>
+                <svg class="footer-link-icon" viewBox="88 8 84 56" fill="currentColor">
+                  <circle cx="96" cy="24" r="3.6"/>
+                  <circle cx="112" cy="15" r="3.8"/>
+                  <circle cx="130" cy="11" r="4.2"/>
+                  <circle cx="148" cy="15" r="3.8"/>
+                  <circle cx="164" cy="24" r="3.6"/>
+                  <path d="M98,27 L112,44 L113,19 L125,42 L130,16 L135,42 L147,19 L148,44 L162,27 L152,52 H108 L98,27 Z"/>
+                  <ellipse cx="130" cy="56" rx="23" ry="4.5" fill="none" stroke="currentColor" stroke-width="2.8"/>
                 </svg>
                 <span>Rolex Swiss Horology</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="lamy" onclick="selectBrandFilter('lamy', true)" title="Filter LAMY Germany">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m12 19 7-7 3 3-7 7-3-3z"></path>
-                  <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <svg class="footer-link-icon" viewBox="20 20 220 50" fill="currentColor">
+                  <text x="130" y="60" text-anchor="middle" font-family="'Montserrat', sans-serif" font-style="italic" font-size="46" font-weight="900" letter-spacing="2">LAMY</text>
                 </svg>
                 <span>LAMY Germany</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="marshall" onclick="selectBrandFilter('marshall', true)" title="Filter Marshall Acoustics">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                <svg class="footer-link-icon" viewBox="0 0 425 109" fill="currentColor">
+                  <path d="M 57.452909,107.44494 C 55.565461,106.06481 55.606504,105.70498 59.325861,91.02412 C 61.417338,82.768746 63.34615,73.391221 63.61211,70.185176 L 64.095674,64.356003 L 59.113146,74.022722 C 50.238363,91.240899 43.703177,99.601713 35.244987,104.55854 C 29.944486,107.66484 20.124289,108.71058 13.547191,106.86911 C 0.13742327,103.1146 -4.6498435,85.170137 5.3092407,75.990184 C 11.306899,70.461742 28.461715,72.676396 26.540045,78.731041 C 25.906858,80.726039 25.388256,80.886755 21.476704,80.300181 C 17.664778,79.728547 16.798177,79.967301 14.559594,82.205884 C 12.579656,84.185822 12.000384,85.773828 12.000384,89.221655 C 12.000384,92.970453 12.489008,94.089363 15.077109,96.267113 C 20.383778,100.73237 28.537039,99.267423 35.105479,92.668472 C 39.643366,88.109505 47.453279,73.755989 57.45285,51.597163 C 67.842362,28.574234 74.096238,16.145473 79.528295,7.7251038 C 84.452118,0.092559908 85.233679,-0.55324379 88.54199,0.27708921 C 92.288299,1.217353 92.483714,4.5906108 89.214808,11.89128 C 83.050303,25.658884 78.618703,41.840674 77.448342,54.856003 L 76.773929,62.356003 L 86.548242,48.356003 C 98.952504,30.589061 106.12202,21.695016 117.38169,10.106003 C 124.56792,2.7095794 126.93935,0.85600281 129.21598,0.85600281 C 132.797,0.85600281 133.86795,3.3258728 131.78226,6.7744188 C 130.92352,8.1942898 125.85498,16.556003 120.51884,25.356003 C 100.74021,57.973581 91.785976,81.918605 94.959735,93.705043 C 96.325354,98.776583 98.625844,99.589473 104.22327,96.978393 C 110.32847,94.130453 113.41963,90.949434 117.02783,83.801632 C 123.62587,70.730981 136.71315,60.856003 147.4376,60.856003 C 150.25237,60.856003 153.45487,61.486042 154.55427,62.25609 C 156.26768,63.456205 156.82665,63.456205 158.46791,62.25609 C 160.96335,60.431376 165.43085,60.464836 166.97031,62.31977 C 167.95711,63.508791 167.14975,65.808084 162.66895,74.56977 C 159.63505,80.502198 156.11224,87.237269 154.8405,89.536594 C 153.56875,91.835919 152.83579,94.024753 153.2117,94.400663 C 155.50073,96.689693 165.83846,85.697296 176.36225,69.784048 C 180.00028,64.28291 180.02775,64.165753 178.52375,60.566166 C 176.56906,55.887953 176.56569,46.597277 178.51731,42.82327 C 180.15652,39.653379 184.61484,36.856003 188.02764,36.856003 C 189.19726,36.856003 191.46961,38.171388 193.0773,39.77908 C 195.46388,42.165656 196.00038,43.549515 196.00038,47.318918 C 196.00038,49.962238 195.14548,53.611427 194.00038,55.856003 C 191.36743,61.017011 191.42478,61.211094 195.3926,60.567206 C 199.49929,59.900782 203.00038,62.018814 203.00038,65.169631 C 203.00038,66.38366 199.82379,71.400763 195.91331,76.362927 C 182.67812,93.157613 180.54108,101.58171 190.57982,97.387253 C 197.12232,94.653623 200.43417,91.392344 216.0052,72.350114 C 227.34531,58.481975 231.68173,53.856003 233.34169,53.856003 C 235.89845,53.856003 240.00038,56.453069 240.00038,58.071838 C 240.00038,58.678173 238.12765,61.654681 235.83875,64.686299 L 231.67713,70.198332 L 233.00474,74.777167 C 233.73492,77.295527 234.52797,81.268503 234.76706,83.606003 C 235.00615,85.943503 235.42243,87.856003 235.69213,87.856003 C 235.96182,87.856003 238.77325,86.038684 241.93974,83.817517 C 246.53338,80.595265 248.21629,78.624657 250.26631,74.067517 C 261.47712,49.146202 270.36196,29.992179 271.58616,28.106003 C 273.31404,25.44377 279.03544,24.988399 281.00094,27.356674 C 282.32808,28.955782 282.30527,29.020975 271.63558,54.13158 L 267.05695,64.907157 L 271.36652,62.38158 C 276.0931,59.611622 279.77011,59.177932 282.1814,61.106003 C 284.45296,62.922342 286.02524,68.460121 285.31849,72.155255 C 284.67988,75.494172 279.96236,85.31209 275.49187,92.606003 C 273.93708,95.142753 273.37225,96.856003 274.09071,96.856003 C 276.78987,96.856003 283.84704,89.689708 286.32684,87.356003 C 288.80664,85.022298 289.00038,84.148564 289.00038,75.356003 C 289.00038,69.578503 289.62476,64.856003 290.38789,64.856003 C 291.15102,64.856003 292.00038,66.881003 292.00038,69.356003 C 292.00038,71.831003 293.30509,73.856003 294.90085,73.856003 C 296.49661,73.856003 298.00038,76.556003 298.00038,79.856003 C 298.00038,83.156003 299.16568,85.856003 300.59104,85.856003 C 302.0164,85.856003 303.00038,88.106003 303.00038,90.856003 C 303.00038,93.606003 304.38029,95.856003 306.06684,95.856003 C 308.20455,95.856003 313.1165,91.803719 317.00038,86.856003 C 320.10612,82.899388 321.00038,80.70624 321.00038,77.01809 C 321.00038,74.331804 321.65671,72.138656 322.45889,72.138656 C 323.26107,72.138656 324.00038,70.563656 324.00038,68.638656 C 324.00038,66.713656 325.33465,65.138656 326.96543,65.138656 C 328.59621,65.138656 330.00038,63.788656 330.00038,62.138656 C 330.00038,60.488656 331.42895,59.138656 333.17609,59.138656 C 334.92323,59.138656 337.00038,57.113656 337.00038,54.638656 C 337.00038,52.163656 338.35,50.138656 340.00038,50.138656 C 341.65076,50.138656 343.00038,48.338656 343.00038,46.138656 C 343.00038,43.938656 344.40453,42.138656 346.12159,42.138656 C 347.83865,42.138656 350.00038,39.663656 350.00038,36.638656 C 350.00038,33.613656 351.35,31.588656 353.00038,31.588656 C 354.65076,31.588656 356.00038,29.788656 356.00038,27.588656 C 356.00038,24.811822 360.59021,21.588656 364.50038,21.588656 C 367.52538,21.588656 370.00038,22.938656 370.00038,24.588656 C 370.00038,26.238656 371.35,28.263656 373.00038,29.088656 C 374.65076,29.913656 376.00038,31.713656 376.00038,33.088656 C 376.00038,34.463656 377.35,36.488656 379.00038,37.588656 C 380.65076,38.688656 382.00038,40.488656 382.00038,41.588656 C 382.00038,42.688656 383.35,44.713656 385.00038,46.088656 C 386.65076,47.463656 388.00038,49.263656 388.00038,50.088656 C 388.00038,50.913656 389.35,52.938656 391.00038,54.588656 C 392.65076,56.238656 394.00038,58.038656 394.00038,58.588656 C 394.00038,59.138656 395.35,61.163656 397.00038,63.088656 C 398.65076,65.013656 400.00038,66.813656 400.00038,67.088656 C 400.00038,67.363656 401.35,69.388656 403.00038,71.588656 C 404.65076,73.788656 406.00038,75.588656 406.00038,75.588656 C 406.00038,75.588656 408.02538,73.563656 410.50038,71.088656 C 414.77095,66.818086 425.00038,48.064219 425.00038,44.588656 C 425.00038,44.038656 423.65,42.013656 422.00038,40.088656 C 420.35076,38.163656 419.00038,36.363656 419.00038,36.088656 C 419.00038,35.813656 417.65,33.788656 416.00038,31.588656 C 414.35076,29.388656 413.00038,27.588656 413.00038,27.588656 C 413.00038,27.588656 414.35,25.563656 416.00038,23.088656 C 417.65076,20.613656 419.00038,18.813656 419.00038,19.088656 C 419.00038,19.363656 420.35,21.388656 422.00038,23.588656 C 423.65076,25.788656 425.00038,27.588656 425.00038,27.588656 Z"/>
                 </svg>
                 <span>Marshall Acoustics</span>
               </a>
             </li>
             <li>
               <a data-footer-brand="bmw" onclick="selectBrandFilter('bmw', true)" title="Filter BMW Mobility">
-                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="2" x2="12" y2="22"></line>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                <svg class="footer-link-icon" viewBox="0 0 100 100" fill="none">
+                  <circle cx="50" cy="50" r="47" stroke="currentColor" stroke-width="4"/>
+                  <circle cx="50" cy="50" r="28" stroke="currentColor" stroke-width="3"/>
+                  <path d="M50 50 L22 50 A28 28 0 0 1 50 22 Z" fill="currentColor"/>
+                  <path d="M50 50 L78 50 A28 28 0 0 1 50 78 Z" fill="currentColor"/>
+                  <g fill="currentColor" font-family="'Montserrat', Arial, sans-serif" font-weight="900" font-size="13" text-anchor="middle">
+                    <text transform="translate(50,50) rotate(-38) translate(0,-33)">B</text>
+                    <text transform="translate(50,50) rotate(0) translate(0,-33)">M</text>
+                    <text transform="translate(50,50) rotate(38) translate(0,-33)">W</text>
+                  </g>
                 </svg>
                 <span>BMW Motorrad &amp; Mobility</span>
               </a>
