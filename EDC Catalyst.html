@@ -4191,7 +4191,12 @@ img, svg, picture, canvas {
   <!-- ══ GRID ═════════════════════════════════════ -->
   <div class="grid" id="grid"></div>
   <div class="no-results" id="noResults">
-    <div style="font-size:54px">No Results</div>
+    <div class="no-results-icon" style="margin-bottom:14px;color:var(--accent);">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </div>
     <h3>No items found</h3>
     <p>Try a different search term or category</p>
     <button onclick="resetAll()">Clear All Filters</button>
@@ -4310,7 +4315,7 @@ img, svg, picture, canvas {
       <!-- Footer Bottom Strip -->
       <div class="footer-bottom-strip">
         <div class="footer-copy">
-          © <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;"><circle cx="12" cy="12" r="10"/><path d="M14.83 14.83a4 4 0 1 1 0-5.66"/></svg> <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
         </div>
         <div class="footer-actions">
           <button class="footer-action-btn" onclick="resetAll(); scrollToCatalog();" title="Reset all catalog filters">
@@ -4393,6 +4398,7 @@ const BRANDS = [
   { id:"anki",         label:"Anki"           },
   { id:"livingai",     label:"EMO (Living.ai)" },
   { id:"dji",          label:"DJI"             },
+  { id:"netflix",      label:"Netflix"         },
 ];
 
 const CATS = [
@@ -4443,7 +4449,7 @@ const BRAND_CLOTHING_HERITAGE = {
     bestFor: "Straight-Leg Levi's 501 Original Fit Jeans & Type III Denim Trucker Jackets (Est. 1873).",
     bestForShort: "501 Original Straight Jeans & Type III Trucker",
     customerConsensus: "The definitive gold standard and founding father of global denim culture. Denim connoisseurs and multi-generational customers consistently rate 501s as the most reliable, flattering straight-cut jeans ever created—celebrated for their individual fading journey (whiskers, honeycombs, and roping) and indestructible durability lasting 15 to 30+ years.",
-    techInvention: "Historical landmark inventions: (1) 1873 Copper Rivet Patent (US Patent #139,121 by Jacob Davis & Levi Strauss) reinforcing pocket stress points under intense work strain. (2) Shrink-to-Fit Raw Unsanforized Denim that shrinks ~10% upon initial warm soak to mold organically to the wearer's exact anatomy. (3) Water<Less® Finishing saving over 13 billion liters of water worldwide.",
+    techInvention: "Historical landmark inventions: (1) 1873 Copper Rivet Patent (US Patent #139,121 by Jacob Davis & Levi Strauss) reinforcing pocket stress points under intense work strain. (2) Shrink-to-Fit Raw Unsanforized Denim that shrinks ~10% upon initial warm soak to mold organically to the wearer's exact anatomy. (3) Water<Less Finishing saving over 13 billion liters of water worldwide.",
     designSilhouette: "Timeless mid-to-high rise, iconic straight leg with subtle taper, 5-pocket construction, double-arc Arcuate back pocket stitching, button fly (which prevents zipper bunching), and the legendary Two-Horse pull leather back patch.",
     fabricComposition: "Heavyweight 12.5 oz to 14.5 oz 100% ring-spun cotton twill, vintage shuttle-loom red-line selvedge denim, and sustainable cottonized hemp blends.",
     marketStanding: "The undisputed global denim authority. Unmatched cultural prestige, exceptional vintage resale value, and lifetime durability."
@@ -5321,7 +5327,26 @@ const PRODUCT_CUTOUTS = {
   ],
   "209": [
     "assets/dji/dji-osmo-mobile-6.png"
-  ]
+  ],
+  "210": ["assets/apple/imac-pro-2017.png"],
+  "211": ["assets/apple/mac-studio-m1-max.png"],
+  "212": ["assets/apple/apple-isight-webcam.png"],
+  "213": ["assets/apple/magic-space-gray-collection.png"],
+  "214": ["assets/apple/iphone-13-pro-max-sierra-blue.png"],
+  "215": ["assets/apple/airpods-pro-1st-gen.png"],
+  "216": ["assets/apple/apple-watch-s6-blue.png"],
+  "217": ["assets/apple/apple-watch-s8-midnight.png"],
+  "218": ["assets/apple/macbook-air-15-m2.png"],
+  "219": ["assets/apple/ipad-mini-6th-gen.png"],
+  "220": ["assets/apple/ipad-mini-7th-gen.png"],
+  "221": ["assets/apple/apple-tv-4k-2nd-gen.png"],
+  "222": ["assets/apple/apple-35w-dual-usb-c.png"],
+  "223": ["assets/apple/apple-67w-usbc-power-adapter.png"],
+  "224": ["assets/apple/apple-leather-sleeve-pocket.png"],
+  "225": ["assets/apple/apple-ipod-socks.png"],
+  "226": ["assets/apple/apple-park-executive-pen.png"],
+  "227": ["assets/apple/apple-240w-usbc-cable.png"],
+  "228": ["assets/apple/apple-20yr-service-award-block.png"]
 };
 
 /* ─────────────────────────────────────────────
@@ -5590,40 +5615,45 @@ const PRODUCT_LINEAGES = {
     items: [
       { id: 10, genLabel: "Gen 1 • Classic", year: "2016", badge: "Legacy 4\" Compact", highlight: "4\" Retina IPS & 3.5mm Headphone Jack" },
       { id: 9,  genLabel: "Gen 2 • OLED Era", year: "2018", badge: "First OLED & Dual SIM", highlight: "6.5\" Super Retina OLED & A12 Bionic" },
+      { id: 214, genLabel: "Gen 2.5 • ProMotion", year: "2021", badge: "120Hz ProMotion & 3× Zoom", highlight: "Super Retina XDR 120Hz, A15 Bionic & Cinematic Mode" },
       { id: 7,  genLabel: "Gen 3 • Titanium", year: "2023", badge: "Grade 5 Titanium", highlight: "A17 Pro (3nm), Action Button & USB-C 3.0" },
       { id: 8,  genLabel: "Gen 4 • AI Flagship", year: "2025", badge: "Next-Gen 2nm AI", highlight: "A19 Pro, Apple Intelligence & 5× Telephoto" },
       { id: 205, genLabel: "Gen 5 • Apex White", year: "2026", badge: "White Ceramic Titanium", highlight: "A20 Pro (2nm GAA), Tandem OLED & 5×-10× Continuous Periscope" }
     ],
-    evolutionSummary: "4\" Compact (2016) → 6.5\" OLED (2018) → 6.1\" Titanium (2023) → 6.3\" AI Flagship (2025) → 6.3\" White Ceramic Pro (2026)"
+    evolutionSummary: "4\" Compact (2016) → 6.5\" OLED (2018) → 6.7\" ProMotion (2021) → 6.1\" Titanium (2023) → 6.3\" AI Flagship (2025) → 6.3\" White Ceramic Pro (2026)"
   },
   macbook_air: {
     familyName: "MacBook Air",
     brand: "apple",
     items: [
       { id: 16, genLabel: "M1 Generation", year: "2020", badge: "Apple Silicon Pioneer", highlight: "M1 Chip (Silent Fanless Architecture)" },
+      { id: 218, genLabel: "M2 Generation", year: "2023", badge: "15\" Liquid Retina Pioneer", highlight: "15.3\" Liquid Retina, M2 Chip, MagSafe 3 & 6-Speaker Sound" },
       { id: 15, genLabel: "M5 Generation", year: "2026", badge: "15\" Liquid Retina", highlight: "M5 Chip, MagSafe 3 & Liquid Retina Display" }
     ],
-    evolutionSummary: "13\" M1 First-Gen Silicon (2020) → 15\" M5 Large Liquid Retina Powerhouse (2026)"
+    evolutionSummary: "13\" M1 First-Gen Silicon (2020) → 15\" M2 Liquid Retina Pioneer (2023) → 15\" M5 Large Liquid Retina Powerhouse (2026)"
   },
   apple_watch: {
     familyName: "Apple Watch",
     brand: "apple",
     items: [
       { id: 182, genLabel: "Vintage Genesis", year: "1995", badge: "1995 Analog Heritage", highlight: "Rare Collector Quartz with Geometric Crown" },
-      { id: 14,  genLabel: "Series 10", year: "2024", badge: "10th Anniversary", highlight: "Thinnest Ever, Wide-Angle OLED & S10 SIP" }
+      { id: 216, genLabel: "Series 6", year: "2020", badge: "SpO2 Blood Oxygen", highlight: "Blood Oxygen Sensor, Always-On Altimeter & S6 SiP" },
+      { id: 217, genLabel: "Series 8", year: "2022", badge: "Crash Detection & Temp", highlight: "Body Temperature Sensor, Crash Detection & S8 SiP" },
+      { id: 14,  genLabel: "Series 10", year: "2024", badge: "10th Anniversary", highlight: "Thinnest Ever, Wide-Angle OLED & S10 SiP" }
     ],
-    evolutionSummary: "1995 Quartz Analog Heritage → 2024 Series 10 Titanium & Wide-Angle OLED"
+    evolutionSummary: "1995 Quartz Analog Heritage → 2020 Series 6 Blood Oxygen → 2022 Series 8 Crash Detection → 2024 Series 10 Titanium OLED"
   },
   airpods_audio: {
     familyName: "AirPods Audio",
     brand: "apple",
     items: [
       { id: 179, genLabel: "Wired Ancestor", year: "2012", badge: "Analog EarPods", highlight: "3.5mm Headphone Jack Classic" },
+      { id: 215, genLabel: "Pro 1st Gen", year: "2019", badge: "ANC Pioneer", highlight: "First In-Ear Active Noise Cancellation & Transparency Mode" },
       { id: 11,  genLabel: "Pro 2nd Gen", year: "2022", badge: "H2 Active Noise Cancelling", highlight: "Adaptive Audio & Spatial Audio with Head Tracking" },
       { id: 13,  genLabel: "Pro 3rd Gen", year: "2025", badge: "Next-Gen Bio-Sensors", highlight: "H3 Chip, Temperature Tracking & Lossless ANC" },
       { id: 12,  genLabel: "Max Studio", year: "2024", badge: "Over-Ear Masterpiece", highlight: "Computational Audio, 40mm Neodymium Drivers & USB-C" }
     ],
-    evolutionSummary: "3.5mm Wired EarPods (2012) → H2 Adaptive ANC (2022) → H3 Lossless (2025) → Over-Ear Studio Max (2024)"
+    evolutionSummary: "3.5mm Wired EarPods (2012) → H1 ANC Pioneer (2019) → H2 Adaptive ANC (2022) → H3 Lossless (2025) → Over-Ear Studio Max (2024)"
   },
   apple_pencil: {
     familyName: "Apple Pencil",
@@ -5633,6 +5663,34 @@ const PRODUCT_LINEAGES = {
       { id: 25,  genLabel: "Pencil Pro", year: "2024", badge: "Haptic Barrel Roll", highlight: "Squeeze Sensor, Gyroscope & Find My Support" }
     ],
     evolutionSummary: "Pencil 2 Magnetic Charging (2018) → Pencil Pro Haptic Squeeze & Barrel Roll (2024)"
+  },
+  ipad_mini: {
+    familyName: "iPad mini Series",
+    brand: "apple",
+    items: [
+      { id: 219, genLabel: "Mini 6th Gen", year: "2021", badge: "All-Screen Redesign", highlight: "8.3\" Liquid Retina, A15 Bionic & Touch ID Top Button" },
+      { id: 220, genLabel: "Mini 7th Gen", year: "2024", badge: "Apple Intelligence", highlight: "A17 Pro, Apple Intelligence & Apple Pencil Pro Support" }
+    ],
+    evolutionSummary: "8.3\" All-Screen Redesign (2021) → A17 Pro Apple Intelligence & Pencil Pro (2024)"
+  },
+  mac_studio: {
+    familyName: "Mac Studio & Pro Desktop",
+    brand: "apple",
+    items: [
+      { id: 210, genLabel: "iMac Pro Genesis", year: "2017", badge: "Xeon W Workstation", highlight: "27\" 5K Retina, Intel Xeon W & Space Gray Chassis" },
+      { id: 211, genLabel: "Studio M1 Max", year: "2022", badge: "Apple Silicon Desktop", highlight: "M1 Max 10-Core CPU, 32-Core GPU & Thermal Architecture" },
+      { id: 2,   genLabel: "Studio M2 Ultra", year: "2023", badge: "Apex Desktop Workstation", highlight: "M2 Ultra 24-Core CPU, 76-Core GPU & 192GB Unified Memory" }
+    ],
+    evolutionSummary: "iMac Pro 5K Xeon (2017) → Mac Studio M1 Max (2022) → Mac Studio M2 Ultra (2023)"
+  },
+  apple_tv: {
+    familyName: "Apple TV 4K",
+    brand: "apple",
+    items: [
+      { id: 221, genLabel: "Apple TV 4K 2nd Gen", year: "2021", badge: "A12 Bionic & Aluminum Remote", highlight: "A12 Bionic, Color Balance calibration & Siri Remote" },
+      { id: 19,  genLabel: "Apple TV 4K 3rd Gen", year: "2022", badge: "A15 Bionic Fanless", highlight: "A15 Bionic, HDR10+, Gigabit Ethernet & Thread Mesh" }
+    ],
+    evolutionSummary: "4K 2nd Gen A12 Bionic (2021) → 4K 3rd Gen A15 Bionic Fanless & HDR10+ (2022)"
   },
   homepod: {
     familyName: "Apple HomePod",
@@ -5713,7 +5771,7 @@ function renderEvolutionTimelineHTML(item) {
           <span class="evo-dna-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg></span>
           <div>
             <h4 class="evo-box-title">${lineage.familyName} Evolution Journey</h4>
-            <p class="evo-box-subtitle">${lineage.totalGens} Generations chronologically mapped (Oldest → Newest)</p>
+            <p class="evo-box-subtitle">${lineage.totalGens} Generations chronologically mapped (Oldest <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin:0 2px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Newest)</p>
           </div>
         </div>
         <span class="evo-active-pill">Viewing: ${lineage.currentItem.genLabel}</span>
@@ -5730,11 +5788,11 @@ function renderEvolutionTimelineHTML(item) {
               <span class="evo-step-year">${it.year}</span>
               <span class="evo-step-name">${it.genLabel.replace(/^Gen\s*\d+\s*•?\s*/i, '').trim()}</span>
               <span class="evo-step-feat">${it.badge}</span>
-              ${isCurrent ? '<span class="evo-active-indicator">CURRENT ACTIVE</span>' : '<span class="evo-view-btn">View Model →</span>'}
+              ${isCurrent ? '<span class="evo-active-indicator">CURRENT ACTIVE</span>' : '<span class="evo-view-btn">View Model <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:2px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>'}
             </button>
             ${idx < lineage.items.length - 1 ? `
               <div class="evolution-connector">
-                <span>→</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
             ` : ''}
           `;
@@ -11864,9 +11922,9 @@ const ITEMS = [
     "usd": "$600 – $700",
     "launch": "2022",
     "useCase": "Smart lighting — circadian rhythm, color temperature, app control",
-    "desc": "Intelligent floor lamp with Solarcycle™ technology that mimics natural daylight. Automatically adjusts color temperature throughout the day to support your body's circadian rhythm. Local daylight tracking via app. 4 light modes: Study, Relax, Precision, Boost. Low optical flicker and glare.",
+    "desc": "Intelligent floor lamp with Solarcycle technology that mimics natural daylight. Automatically adjusts color temperature throughout the day to support your body's circadian rhythm. Local daylight tracking via app. 4 light modes: Study, Relax, Precision, Boost. Low optical flicker and glare.",
     "specs": [
-      "Solarcycle™ Technology",
+      "Solarcycle Technology",
       "Local Daylight Tracking",
       "4 Light Modes",
       "2,000 Lux Brightness",
@@ -11909,9 +11967,9 @@ const ITEMS = [
     "usd": "$550 – $650",
     "launch": "2022",
     "useCase": "Smart desk lighting — circadian rhythm, compact design, app control",
-    "desc": "Compact desk lamp with Solarcycle™ technology for natural daylight simulation. Automatically adjusts color temperature based on local daylight. 4 light modes for different activities. High CRI (Color Rendering Index) for accurate color perception. Low optical flicker for eye comfort during long work sessions.",
+    "desc": "Compact desk lamp with Solarcycle technology for natural daylight simulation. Automatically adjusts color temperature based on local daylight. 4 light modes for different activities. High CRI (Color Rendering Index) for accurate color perception. Low optical flicker for eye comfort during long work sessions.",
     "specs": [
-      "Solarcycle™ Technology",
+      "Solarcycle Technology",
       "Local Daylight Tracking",
       "4 Light Modes",
       "1,500 Lux Brightness",
@@ -14321,6 +14379,785 @@ const ITEMS = [
     },
     "rating": "9/10",
     "whereUsed": "Travel Vlogs, Street Cinematography, Mobile Filmmaking"
+  },
+  {
+    "id": 210,
+    "name": "iMac Pro (27-inch 5K Retina, Space Gray)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹4,15,870 – ₹6,99,900",
+    "usd": "$4,999 – $7,999",
+    "launch": "2017",
+    "useCase": "Pro workstation computing — 27-inch 5K Retina display, up to 18-core Intel Xeon W & Radeon Pro Vega in Space Gray",
+    "desc": "The all-in-one powerhouse workstation designed for pros. Boasts an awe-inspiring 27-inch 5K Retina display (5120×2880, 500 nits, P3 wide color) encased in a stealth Space Gray unibody with matching Space Gray Magic accessories. Powered by Intel Xeon W processors up to 18 cores, up to 256GB ECC RAM, Radeon Pro Vega 64 graphics, dual blower thermal system with 80% more airflow, T2 Security Chip, and 10Gb Ethernet.",
+    "specs": [
+      "27-inch 5K Retina Display (5120×2880, 500 nits, P3 Wide Color)",
+      "8 to 18-Core Intel Xeon W Processor with Turbo Boost up to 4.5GHz",
+      "Radeon Pro Vega 56/64/64X Graphics with up to 16GB HBM2 Memory",
+      "Up to 256GB 2666MHz DDR4 ECC Memory",
+      "Up to 4TB High-Speed PCIe Solid-State Storage",
+      "Four Thunderbolt 3 (USB-C) Ports & 10Gb Nbase-T Ethernet",
+      "Apple T2 Security Chip with Hardware Encryption Engine",
+      "Iconic Monolithic Space Gray Anodized Aluminum Chassis"
+    ],
+    "pros": [
+      "Massive 5K P3 workstation display in an all-in-one footprint",
+      "Server-grade Xeon W multi-core processing with ECC RAM stability",
+      "Full 10Gb Ethernet built-in for lightning fast NAS workflows",
+      "Collector's item status as the only Space Gray iMac ever made"
+    ],
+    "cons": [
+      "RAM and CPU are not user-upgradable after purchase",
+      "Intel architecture produces higher thermals than modern Apple Silicon"
+    ],
+    "travel": {
+      "plane": false,
+      "train": false,
+      "moto": false,
+      "car": true,
+      "cycle": false
+    },
+    "rating": "9.3/10",
+    "whereUsed": "Pro Video Editing, 3D Rendering, Audio Production, Color Grading"
+  },
+  {
+    "id": 211,
+    "name": "Apple Mac Studio (M1 Max)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹1,89,900 – ₹2,49,900",
+    "usd": "$1,999 – $2,599",
+    "launch": "2022",
+    "useCase": "Desktop creative studio powerhouse — M1 Max chip, whisper-quiet dual-sided blowers & comprehensive front/back I/O",
+    "desc": "The groundbreaking desktop modular computer that reinvented professional workstations. Featuring an ultra-compact 7.7-inch square extruded aluminum enclosure with an innovative thermal architecture that pulls air through circular perforations on the base and exhausts it out the rear quietly. Powered by the M1 Max chip with a 10-core CPU, 24-core or 32-core GPU, 16-core Neural Engine, up to 64GB unified memory with 400GB/s bandwidth, support for up to 5 displays, and convenient front USB-C ports with SDXC card slot.",
+    "specs": [
+      "Apple M1 Max Chip with 10-Core CPU & up to 32-Core GPU",
+      "16-Core Neural Engine & Dedicated ProRes Hardware Video Engines",
+      "32GB or 64GB Unified Memory (400GB/s Memory Bandwidth)",
+      "Four Thunderbolt 4 Ports, Two USB-A Ports, HDMI & 10Gb Ethernet",
+      "Two Front USB-C (10Gbps) Ports & UHS-II SDXC Card Slot",
+      "Support for up to Four Pro Display XDRs plus One 4K Display",
+      "Whisper-Quiet Dual-Sided Centrifugal Blower Thermal System",
+      "Compact 7.7-inch Square Aluminum Enclosure (3.7-inch Height)"
+    ],
+    "pros": [
+      "Astonishing power efficiency and near-silent operation under load",
+      "Tremendous unified memory bandwidth for heavy timeline scrubbing",
+      "Rich port selection including front SD card slot and USB-C",
+      "Compact desktop footprint fits seamlessly underneath Studio Display"
+    ],
+    "cons": [
+      "Internal storage and memory are completely non-upgradable",
+      "Requires separate external monitor, keyboard, and mouse"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": false,
+      "car": true,
+      "cycle": false
+    },
+    "rating": "9.7/10",
+    "whereUsed": "Music Production, 8K Video Editing, Software Development, Graphic Design"
+  },
+  {
+    "id": 212,
+    "name": "Apple iSight Camera (FireWire Webcam)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹12,500 (Vintage Collector: ₹24,000)",
+    "usd": "$149 (Collector: $299)",
+    "launch": "2003 (Legacy Milestone: 2017)",
+    "useCase": "Iconic desktop video communications — precision-machined aluminum cylinder, FireWire 400 & integrated dual-element mic",
+    "desc": "An industrial design triumph engineered by Jony Ive and Apple's design team. Crafted from an anodized aluminum cylindrical unibody with fine micro-perforations for its integrated noise-suppressing dual-capsule microphone array. Features a quarter-inch color CCD sensor with auto-focus from 50mm to infinity, a mechanical twist-to-close iris shutter for physical privacy, and a FireWire 400 cable carrying both pristine uncompressed video and bus power. Includes versatile multi-mount magnetic brackets for Cinema Displays and PowerBooks.",
+    "specs": [
+      "1/4-inch Color CCD Sensor (640×480 VGA at 30fps Full-Motion)",
+      "Auto-Focus Optical System with F/2.8 Aperture Lens (50mm to Infinity)",
+      "Dual-Element Noise-Suppressing Directional Microphone Array",
+      "Mechanical Twist-to-Close Privacy Iris Shutter Lens Ring",
+      "FireWire 400 (IEEE 1394a) Single-Cable Video, Audio & Bus Power",
+      "Extruded Anodized Aluminum Cylindrical Unibody Construction",
+      "Universal Magnetic & Clamping Stand Mount Adapters",
+      "Dimensions: 3.46\" Length × 1.34\" Diameter; Weight: 64g"
+    ],
+    "pros": [
+      "Timeless Jony Ive industrial design in sculpted bead-blasted aluminum",
+      "Physical twist-ring privacy shutter built into the lens bezel",
+      "Bus-powered via FireWire with zero external power bricks required",
+      "Permanent exhibition piece in design museums worldwide"
+    ],
+    "cons": [
+      "Requires FireWire to Thunderbolt/USB-C adapters on modern Macs",
+      "640x480 resolution is vintage compared to modern 4K/1080p sensors"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.5/10",
+    "whereUsed": "Vintage Mac Setups, Video Conferencing Collectors, Design Exhibition"
+  },
+  {
+    "id": 213,
+    "name": "Apple Magic Accessories Collection (Space Gray)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹34,700 (Bundle)",
+    "usd": "$397 (Bundle)",
+    "launch": "2017",
+    "useCase": "Desktop input mastery — Magic Keyboard with Numeric Keypad, Magic Mouse 2 & Magic Trackpad 2 in Space Gray",
+    "desc": "The legendary Space Gray desktop input trio originally bundled exclusively with the 2017 iMac Pro before being released as standalone collector accessories. Features deep Space Gray anodized aluminum bodies with contrasting pitch-black glass multi-touch surfaces and keycaps. Includes the Magic Keyboard with Numeric Keypad featuring stable scissor mechanism keys, the Magic Mouse 2 with multi-touch gestural top shell, and the expansive Force Touch Magic Trackpad 2 with corner-to-corner click detection.",
+    "specs": [
+      "Includes Magic Keyboard Numeric, Magic Mouse 2 & Magic Trackpad 2",
+      "Exclusive Deep Space Gray Anodized Aluminum Finish",
+      "Pitch-Black Multi-Touch Glass & Matte Keycap Accents",
+      "Force Touch Sensors on Trackpad with Taptic Engine Feedback",
+      "Stable Scissor Mechanism with 1mm Key Travel on Keyboard",
+      "Rechargeable Lithium-Ion Battery (Over 1 Month per Charge)",
+      "Auto-Pairing via Lightning-to-USB-C Braided Space Gray Cable",
+      "Bluetooth Wireless Range up to 33 Feet (10 Meters)"
+    ],
+    "pros": [
+      "Most iconic, unified dark aesthetic ever created for Mac desks",
+      "Force Touch gesture navigation on Magic Trackpad is best-in-class",
+      "Rechargeable batteries last weeks between brief top-ups",
+      "Highly prized discontinued colorway among Apple collectors"
+    ],
+    "cons": [
+      "Magic Mouse lightning charging port remains on the bottom underside",
+      "Discontinued in favor of standard silver/black M-series accessories"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.6/10",
+    "whereUsed": "Minimalist Mac Desk Setups, Pro Workstations, Design Studios"
+  },
+  {
+    "id": 214,
+    "name": "Apple iPhone 13 Pro Max (Sierra Blue)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹1,29,900 – ₹1,79,900",
+    "usd": "$1,099 – $1,599",
+    "launch": "2021",
+    "useCase": "Flagship mobile computing & photography — 120Hz ProMotion Super Retina XDR, A15 Bionic & legendary battery endurance",
+    "desc": "The monumental flagship that introduced 120Hz ProMotion to the iPhone, crowned for having the greatest real-world battery endurance in iPhone history. Encased in surgical-grade stainless steel with textured matte glass in signature Sierra Blue. Powered by the A15 Bionic chip with a 5-core GPU, massive 6.7-inch Super Retina XDR OLED display with adaptive 10Hz to 120Hz refresh rates, 3× optical telephoto camera, macro photography capability, Sensor-Shift optical image stabilization, and Cinematic Mode with automatic rack focus.",
+    "specs": [
+      "6.7-inch Super Retina XDR OLED with 120Hz ProMotion (1000 nits typical)",
+      "A15 Bionic Chip (6-Core CPU, 5-Core GPU, 16-Core Neural Engine)",
+      "Pro Triple Camera System: 12MP Wide (f/1.5), Ultra Wide & 3× Telephoto",
+      "Macro Photography & Macro Video Recording as close as 2cm",
+      "Cinematic Mode in 1080p 30fps with Depth-of-Field Rack Focus",
+      "ProRes Video Recording up to 4K at 30fps (10-bit HDR)",
+      "Surgical-Grade Stainless Steel Frame & Ceramic Shield Front Glass",
+      "Massive 4352mAh Battery with Legendary All-Day+ Endurance"
+    ],
+    "pros": [
+      "Groundbreaking 120Hz ProMotion display fluidly adapts to content",
+      "Class-leading battery longevity that routinely outlasts a full heavy day",
+      "3x optical zoom and macro mode offer unmatched photography versatility",
+      "Sierra Blue finish remains one of Apple's most celebrated colors"
+    ],
+    "cons": [
+      "Noticeably hefty in the hand at 240g with squared stainless steel edges",
+      "Lightning connector limits wired transfer speeds compared to USB-C"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.8/10",
+    "whereUsed": "Pro Mobile Filmmaking, Everyday Flagship Computing, Travel Photography"
+  },
+  {
+    "id": 215,
+    "name": "Apple AirPods Pro (1st Generation)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹24,900",
+    "usd": "$249",
+    "launch": "2019",
+    "useCase": "In-ear acoustic isolation — Active Noise Cancellation, Transparency mode & custom-fit silicone ear tips",
+    "desc": "The groundbreaking wireless in-ear headphones that revolutionized personal audio. Combining Active Noise Cancellation with Transparency mode in a compact, vented in-ear form factor. Powered by Apple's custom H1 chip with 10 audio cores running real-time low-latency audio processing, outward and inward-facing microphones that continuously calibrate anti-noise 200 times per second, Adaptive EQ that automatically tunes music to the shape of your ear, and Force Sensor stem controls.",
+    "specs": [
+      "Custom High-Excursion Apple Audio Driver & High Dynamic Range Amplifier",
+      "Active Noise Cancellation with Continuous 200Hz Sound Calibration",
+      "Transparency Mode for Hearing Ambient Surroundings Naturally",
+      "Apple H1 Headphone Chip with System in Package (SiP) Architecture",
+      "Adaptive EQ Tuning Low and Mid Frequencies to Individual Ear Geometry",
+      "Three Sizes of Soft, Flexible Silicone Tips with Ear Tip Fit Test",
+      "Force Sensor Stem Controls for Media, Calls & Listening Modes",
+      "Wireless Charging Case (Qi-Certified & MagSafe Compatible in 2021 update)"
+    ],
+    "pros": [
+      "First in-ear ANC buds that eliminated the plugged-ear occlusion pressure",
+      "Flawless Transparency mode sounds completely transparent and natural",
+      "Instant iCloud ecosystem pairing across iPhone, iPad, Mac & Apple Watch",
+      "Extremely lightweight (5.4g per earbud) with secure silicone fit"
+    ],
+    "cons": [
+      "H1 ANC is less powerful in sub-bass rumble than modern H2 AirPods Pro 2",
+      "Battery life per charge is approximately 4.5 hours with ANC enabled"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.6/10",
+    "whereUsed": "Air Travel, Commuting, Office Focus, Workout Audio, Calls"
+  },
+  {
+    "id": 216,
+    "name": "Apple Watch Series 6 (44mm Blue Aluminum)",
+    "category": "watches",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹43,900 – ₹49,900",
+    "usd": "$399 – $499",
+    "launch": "2020",
+    "useCase": "Advanced health & wellness tracking — Blood Oxygen (SpO2) sensor, ECG app, Always-On Altimeter & deep navy blue finish",
+    "desc": "The watershed Apple Watch that introduced revolutionary Blood Oxygen (SpO2) monitoring to keep track of respiratory wellness. Engineered with an array of four LED clusters and four photodiodes on the ceramic back crystal measuring light reflected back from blood. Powered by the S6 SiP dual-core processor based on the A13 Bionic, delivering 20% faster performance. Features a 2.5× brighter Always-On Retina display outdoors, always-on barometric altimeter, fast charging, and the stunning deep Blue Aluminum case.",
+    "specs": [
+      "Blood Oxygen (SpO2) Sensor with Advanced Photodiode Cluster",
+      "Electrical Heart Sensor (ECG App) & 2nd-Gen Optical Heart Sensor",
+      "Always-On Retina LTPO OLED Display (1000 nits, 2.5× Brighter Outdoors)",
+      "Apple S6 SiP with 64-bit Dual-Core Processor (Based on A13 Bionic)",
+      "Always-On Barometric Altimeter for Real-Time Elevation Tracking",
+      "50-Meter Water Resistance (Swimproof with Water Lock Speaker)",
+      "U1 Ultra Wideband Chip for Precise Spatial Orientation",
+      "Fast Magnetic Charging (0 to 80% in approximately 60 minutes)"
+    ],
+    "pros": [
+      "Introduced vital SpO2 Blood Oxygen monitoring for wellness",
+      "Striking rich Blue Aluminum finish stands out from neutral metallic tones",
+      "Significantly brighter Always-On display is easily readable in direct sunlight",
+      "S6 SiP chip provides fluid watchOS animations and snappy app loading"
+    ],
+    "cons": [
+      "Sleep tracking requires disciplined daily charging routine (18-hour battery)",
+      "Blood oxygen pulse oximetry app subject to later patent disputes in US"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.4/10",
+    "whereUsed": "Fitness Tracking, Daily Health Metrics, Outdoor Running, Sleep Insights"
+  },
+  {
+    "id": 217,
+    "name": "Apple Watch Series 8 (45mm Midnight Aluminum)",
+    "category": "watches",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹45,900 – ₹55,900",
+    "usd": "$399 – $499",
+    "launch": "2022",
+    "useCase": "Comprehensive health & safety guardian — innovative dual-temperature sensors, Crash Detection & Low Power Mode",
+    "desc": "The essential health companion equipped with dual-sensor temperature tracking for retrospective ovulation estimates and sleep temperature variation analysis. Features Crash Detection powered by a high-g accelerometer and improved gyroscope that detects severe car collisions and alerts emergency responders automatically. Powered by the S8 SiP, offering an edge-to-edge Always-On Retina display with crack-resistant front crystal, IP6X dust resistance, WR50 water resistance, and up to 36 hours of battery in Low Power Mode.",
+    "specs": [
+      "Innovative Dual-Sensor Body Temperature Sensing (Wrist & Crystal)",
+      "Crash Detection with 256-g High Dynamic Range Accelerometer",
+      "Always-On LTPO OLED Retina Display with Edge-to-Edge Slim Borders",
+      "Apple S8 SiP with 64-Bit Dual-Core Processor & 32GB Storage",
+      "ECG App, High & Low Heart Rate Notifications, Irregular Rhythm Alerts",
+      "IP6X Dust Resistance Certification & WR50 Swimproof Water Resistance",
+      "Low Power Mode Extending Battery Endurance up to 36 Hours",
+      "Deep Midnight Anodized Aluminum Case with Matching Sport Band"
+    ],
+    "pros": [
+      "Groundbreaking temperature sensing provides insightful wellness trends",
+      "Crash Detection provides peace of mind on long road commutes",
+      "Low Power Mode allows the watch to stretch through weekend trips",
+      "Crack-resistant front crystal is exceptionally durable against daily bumps"
+    ],
+    "cons": [
+      "Incremental design evolution over Series 7 with identical screen borders",
+      "Standard battery life remains 18 hours when Low Power Mode is off"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.5/10",
+    "whereUsed": "Everyday Wellness, Road Safety, Sleep Analysis, Gym & Swim Workouts"
+  },
+  {
+    "id": 218,
+    "name": "Apple MacBook Air 15\" (M2, Midnight)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹1,34,900 – ₹1,54,900",
+    "usd": "$1,299 – $1,499",
+    "launch": "2023",
+    "useCase": "Expansive ultrabook productivity — world's thinnest 15-inch laptop, silent fanless M2 silicon & six-speaker sound",
+    "desc": "The world's best 15-inch consumer laptop, merging an expansive 15.3-inch Liquid Retina display with an astonishingly thin 11.5mm unibody aluminum enclosure. Powered by the M2 chip with an 8-core CPU and 10-core GPU in a completely fanless, silent architecture. Delivers up to 18 hours of real-world battery life, a 1080p FaceTime HD camera, MagSafe 3 charging port, two Thunderbolt ports, and a rich six-speaker sound system with force-cancelling woofers delivering twice the bass depth of the 13-inch model in an alluring Midnight coat.",
+    "specs": [
+      "15.3-inch Liquid Retina Display (2880×1864, 500 nits, P3 Wide Color)",
+      "Apple M2 Chip (8-Core CPU with 4 Perf & 4 Eff Cores, 10-Core GPU)",
+      "16-Core Neural Engine with 100GB/s Memory Bandwidth",
+      "100% Fanless, Completely Silent Thermal Architecture",
+      "Six-Speaker Sound System with Force-Cancelling Woofers & Spatial Audio",
+      "MagSafe 3 Dedicated Charging Port & Two Thunderbolt / USB 4 Ports",
+      "1080p FaceTime HD Camera with Advanced Image Signal Processor",
+      "Ultra-Thin 11.5mm Profile; Lightweight 3.3 lbs (1.51 kg)"
+    ],
+    "pros": [
+      "Magnificent 15.3-inch screen space without the weight or bulk of a Pro",
+      "Completely silent operation even under sustained multithreaded loads",
+      "Six-speaker audio system provides astonishingly rich, room-filling sound",
+      "Incredible 18-hour battery longevity easily powers two days of coffee-shop work"
+    ],
+    "cons": [
+      "Midnight finish readily picks up fingerprint smudges without skin/cloth",
+      "Base model limited to supporting a single external display natively"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.7/10",
+    "whereUsed": "Coffee Shop Productivity, Large-Canvas Writing, Student Life, Remote Work"
+  },
+  {
+    "id": 219,
+    "name": "Apple iPad mini (6th Gen, Space Gray)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹49,900 – ₹64,900",
+    "usd": "$499 – $649",
+    "launch": "2021",
+    "useCase": "Ultra-portable digital notebook — all-screen 8.3-inch Liquid Retina, A15 Bionic & Apple Pencil 2 magnetic charging",
+    "desc": "The beloved mega-redesign that transformed the iPad mini into a miniature iPad Pro. Featuring an all-screen 8.3-inch Liquid Retina display with narrow borders, rounded corners, True Tone, and P3 wide color. Houses the A15 Bionic chip with a 6-core CPU and 5-core GPU, Touch ID integrated into the top power button, an Ultra Wide 12MP front camera with Center Stage, USB-C connectivity for cameras and external drives, and a flat-edge magnetic chassis that wirelessly pairs and charges the Apple Pencil (2nd gen).",
+    "specs": [
+      "8.3-inch Liquid Retina Display (2266×1488 at 326 ppi, 500 nits, P3 Wide Color)",
+      "A15 Bionic Chip with 6-Core CPU, 5-Core GPU & 16-Core Neural Engine",
+      "Touch ID Integrated Seamlessly into the Top Power Button",
+      "12MP Ultra Wide Front Camera with Center Stage Auto-Framing",
+      "12MP Wide Back Camera with True Tone Flash & 4K Video Recording",
+      "USB-C Port with up to 5Gbps Data Transfer Speeds",
+      "Magnetic Edge Pairing & Wireless Charging for Apple Pencil (2nd Gen)",
+      "Ultra-Lightweight 293g Aluminum Unibody with Landscape Stereo Speakers"
+    ],
+    "pros": [
+      "The quintessential pocket-sized digital notebook and e-reader",
+      "Apple Pencil 2 snaps magnetically to the side and charges wirelessly",
+      "Center Stage keeps you naturally framed on mobile FaceTime calls",
+      "USB-C port allows direct connection to cameras, SSDs, and docks"
+    ],
+    "cons": [
+      "Standard 60Hz display exhibits minor jelly scrolling in vertical reading",
+      "Battery life is around 8-10 hours, less than the full-sized iPads"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.6/10",
+    "whereUsed": "Field Research, Aviation EFB, Digital Sketching, E-Reading, Travel Journal"
+  },
+  {
+    "id": 220,
+    "name": "Apple iPad mini (7th Gen, A17 Pro)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹49,900 – ₹69,900",
+    "usd": "$499 – $699",
+    "launch": "2024",
+    "useCase": "Next-gen pocket AI powerhouse — A17 Pro silicon, Apple Intelligence, Apple Pencil Pro & 10Gbps USB-C",
+    "desc": "The AI-supercharged evolution of Apple's most portable tablet. Powered by the high-performance A17 Pro chip built on 3nm architecture, bringing Apple Intelligence onboard alongside hardware-accelerated ray tracing for AAA console gaming. Features an upgraded 8.3-inch Liquid Retina display with optimized display driver eliminating jelly scroll, double the base storage (128GB), a 2× faster 10Gbps USB-C port, Wi-Fi 6E, and full compatibility with the Apple Pencil Pro (supporting squeeze gestures, barrel roll, and haptic feedback).",
+    "specs": [
+      "A17 Pro Chip (6-Core CPU with 2 Perf & 4 Eff Cores, 5-Core GPU)",
+      "Hardware-Accelerated Ray Tracing & 16-Core Neural Engine for Apple Intelligence",
+      "8.3-inch Liquid Retina Display with Anti-Reflective Coating & 500 nits",
+      "Full Support for Apple Pencil Pro (Haptic Squeeze, Barrel Roll, Hover)",
+      "Upgraded 10Gbps USB-C Port (2× Faster Data Transfer for High-Res Media)",
+      "Wi-Fi 6E & Bluetooth 5.3 Wireless Connectivity with Smart HDR 4",
+      "Double Base Storage Starting at 128GB up to 512GB",
+      "Lightweight 293g Enclosure Available in Space Gray, Blue, Purple & Starlight"
+    ],
+    "pros": [
+      "A17 Pro provides console-level gaming and effortless Apple Intelligence",
+      "Apple Pencil Pro support adds haptic squeeze palette and barrel roll",
+      "Doubled base storage (128GB) offers far better value out of the box",
+      "Faster 10Gbps USB-C enables rapid transfers of massive RAW camera cards"
+    ],
+    "cons": [
+      "Still retains a 60Hz refresh rate rather than 120Hz ProMotion",
+      "Does not support the older Apple Pencil 2 (requires USB-C or Pencil Pro)"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.8/10",
+    "whereUsed": "On-the-Go Creative Illustration, Apple Intelligence, Aviation, Notes"
+  },
+  {
+    "id": 221,
+    "name": "Apple TV 4K (2nd Gen)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹18,900",
+    "usd": "$179",
+    "launch": "2021",
+    "useCase": "Living room cinematic hub — 4K High Frame Rate HDR, A12 Bionic, Color Balance & redesigned all-aluminum Siri Remote",
+    "desc": "The definitive streaming box that introduced the beloved all-aluminum Siri Remote with a multi-touch clickpad. Powered by the A12 Bionic chip delivering substantial graphics performance and audio processing for games, arcade titles, and high frame rate HDR playback at 60fps with Dolby Vision. Features an innovative Color Balance calibration tool that uses your iPhone's front light sensor to fine-tune television color accuracy to film-industry standards, Gigabit Ethernet, and HDMI 2.1.",
+    "specs": [
+      "Apple A12 Bionic Chip with 64-Bit Architecture & Neural Engine",
+      "4K High Frame Rate HDR (Dolby Vision & HDR10 up to 60fps)",
+      "All-Aluminum Redesigned Siri Remote with Touch-Enabled Clickpad & Jog Scrubber",
+      "Innovative iPhone Color Balance Calibration Sensor Integration",
+      "HDMI 2.1 with eARC (Audio Return Channel) for TV Audio Passthrough",
+      "Dolby Atmos 7.1.4 Immersive Spatial Surround Audio Output",
+      "Gigabit Ethernet, Wi-Fi 6 (802.11ax) with MIMO & Bluetooth 5.0",
+      "Thread Mesh Networking Smart Home Border Router Built-In"
+    ],
+    "pros": [
+      "Solid aluminum Siri Remote with jog-wheel scrubber is a joy to navigate",
+      "eARC allows sending TV console and broadcast audio directly to HomePods",
+      "Color Balance calibration instantly fixes poorly tuned living room TVs",
+      "Zero ads or bloatware compared to Smart TV operating systems"
+    ],
+    "cons": [
+      "Chassis includes an internal cooling fan (unlike fanless 3rd gen)",
+      "Larger and heavier physical footprint than the 3rd gen model"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": false,
+      "car": true,
+      "cycle": false
+    },
+    "rating": "9.4/10",
+    "whereUsed": "Home Theater, Apple Arcade Gaming, Fitness+ Living Room Workouts"
+  },
+  {
+    "id": 222,
+    "name": "Apple 35W Dual USB-C Port Compact Power Adapter",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹5,800",
+    "usd": "$59",
+    "launch": "2022",
+    "useCase": "Dual-device portable fast charging — two USB-C ports, foldable prongs & dynamic power redistribution",
+    "desc": "Apple's ultra-compact dual-port travel charger designed to power two devices simultaneously from a single wall outlet. Features a sleek, pocketable high-gloss white polycarbonate enclosure with recessed side finger indents for easy unplugging and folding US prongs. Intelligently communicates via USB-PD to allocate power dynamically between connected devices (e.g., 27W to a MacBook Air and 7.5W to an iPhone, or 17.5W split equally between two phones), making it the ultimate minimalist travel brick.",
+    "specs": [
+      "35W Total Maximum Power Delivery Output",
+      "Dual USB-C Output Ports with Dynamic Intelligent Load Balancing",
+      "Compact Pocketable Form Factor with Ergonomic Recessed Finger Grips",
+      "Foldable Electrical Wall Prongs for Snag-Free Travel Pockets",
+      "Supports USB Power Delivery (USB-PD 3.0) Fast Charging Protocols",
+      "Over-Current, Over-Voltage & Thermal Regulation Safety Architecture",
+      "Charges MacBook Air, iPhone, iPad, Apple Watch & AirPods",
+      "Weight: Only 105g; Dimensions: 1.9\" × 1.9\" × 1.1\""
+    ],
+    "pros": [
+      "Charges both a MacBook Air and an iPhone from one tiny wall outlet",
+      "Intelligent power negotiation prevents port resets when plugging in",
+      "Foldable prongs and recessed side grips make it ideal for EDC travel pouches",
+      "Rock-solid Apple safety engineering and electrical isolation"
+    ],
+    "cons": [
+      "35W total output is shared when two high-draw devices are plugged in",
+      "High-gloss white shell can show surface micro-scratches over time"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.5/10",
+    "whereUsed": "Travel EDC Bags, Bedside Charging, Minimalist Desk Setup, Coffee Shop Trips"
+  },
+  {
+    "id": 223,
+    "name": "Apple 70W Dynamic USB-C Power Adapter",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹5,800 – ₹6,900",
+    "usd": "$59 – $69",
+    "launch": "2023",
+    "useCase": "Rapid Mac fast-charging — 70W USB-PD output, compact GaN-optimized efficiency & 50% charge in 30 minutes",
+    "desc": "The sleek, high-efficiency power adapter engineered by Apple to replace older 60W and 67W bricks with a more compact, cooler-running GaN-optimized design. Delivers up to 70W of pure USB-C Power Delivery, capable of fast-charging a 13-inch or 15-inch MacBook Air from 0% to 50% battery in just 30 minutes when paired with a MagSafe 3 or high-power USB-C cable. Compatible with worldwide AC input standards via Apple's interchangeable modular duckhead plug system.",
+    "specs": [
+      "70W High-Speed USB Power Delivery (USB-PD) Output",
+      "Optimized Gallium Nitride (GaN) Thermal & Component Architecture",
+      "Fast-Charges MacBook Air M2/M3/M5 from 0 to 50% in 30 Minutes",
+      "Modular Interchangeable AC Wall Plug (Apple World Travel Kit Compatible)",
+      "Multi-Voltage Output: 5V/3A, 9V/3A, 15V/3A, 20.6V/3.4A",
+      "Robust Short-Circuit, Over-Voltage & Temperature Regulation",
+      "Compact Matte/Gloss White Hybrid Shell Design",
+      "Single High-Retention USB-C Power Interface"
+    ],
+    "pros": [
+      "Provides true fast charging for 15\" MacBook Air and 14\" MacBook Pro",
+      "Smaller and runs noticeably cooler than older 67W silicon-based bricks",
+      "Interchangeable AC prongs allow global travel with standard Apple plugs",
+      "Universal USB-PD compatibility charges iPads and iPhones at maximum speeds"
+    ],
+    "cons": [
+      "Has only a single USB-C port (cannot charge phone and laptop at once)",
+      "Does not include a USB-C charge cable in the box"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.4/10",
+    "whereUsed": "Workstations, Travel Bags, Laptop Backpacks, High-Speed Charging"
+  },
+  {
+    "id": 224,
+    "name": "Apple iPhone Leather Sleeve with MagSafe",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹12,900",
+    "usd": "$129",
+    "launch": "2020",
+    "useCase": "Luxury leather phone protection — specially tanned European leather, MagSafe time display window & wrist strap",
+    "desc": "A masterclass in tailored luxury leather goods designed by Apple. Crafted from specially tanned and finished European leather that develops a rich, natural patina over time. Snugly encases the iPhone with a soft interior microfiber lining, an internal slot for credit cards or ID, and an included matching leather lanyard strap. Built-in NFC and MagSafe magnets detect when the iPhone is inserted, instantly waking a specialized ambient lock screen that displays the time and color-matched ambient notifications through a front cut-out window.",
+    "specs": [
+      "Crafted from Specially Tanned, Premium European Finished Leather",
+      "Embedded MagSafe Magnetic Ring & NFC Recognition Sensor",
+      "Custom Front Time Window Activating MagSafe Ambient Glance Display",
+      "Integrated Interior Credit Card & ID Pocket Sleeve",
+      "Includes Detachable Color-Matched Premium Leather Wrist Strap",
+      "Protective Microfiber Interior Lining Protecting Rails from Micro-Scratches",
+      "Supports Wireless Charging through the Sleeve via MagSafe Charger",
+      "Available in Saddle Brown, Baltic Blue, Pink Citrus & (PRODUCT)RED"
+    ],
+    "pros": [
+      "MagSafe NFC sensor automatically triggers an elegant glowing time window",
+      "European leather patinas gorgeously over months of pocket carry",
+      "Includes an internal card slot so you can leave your wallet at home",
+      "Lanyard strap offers dropped-phone security while traveling"
+    ],
+    "cons": [
+      "Phone must be slipped out of the sleeve to answer calls or type",
+      "Premium original retail price reflects luxury leather accessory positioning"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.3/10",
+    "whereUsed": "Everyday Pocket Carry, Formal Events, Minimalist Travel, Collector Gear"
+  },
+  {
+    "id": 225,
+    "name": "Apple iPod Socks (Iconic Knit Pouches)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹2,500 (6-Pack, Vintage Collector: ₹8,500)",
+    "usd": "$29 (6-Pack, Collector: $99)",
+    "launch": "2004 (Cult Classic through 2012)",
+    "useCase": "Whimsical scratch protection — six-pack of vibrant ribbed cotton knit socks for iPods, iPhones & pocket gear",
+    "desc": "Unveiled by Steve Jobs in October 2004 with his trademark playful showmanship, iPod Socks became one of the most culturally iconic tech accessories of the 2000s. Sold in a vibrant six-pack featuring green, purple, grey, blue, orange, and pink ribbed-knit cotton sleeves with a small embroidered white Apple logo tag sewn into the side. The soft, elastic knit stretches snugly over any iPod classic, iPod mini, iPod nano, or modern iPhone/cased gear, providing cozy, scratch-free protection and nostalgic charm.",
+    "specs": [
+      "Sold as a Set of Six Vibrant Colors: Green, Purple, Grey, Blue, Orange & Pink",
+      "100% Stretchable Ribbed-Knit Soft Cotton Construction",
+      "Subtle Embroidered White Apple Woven Tag on the Side Seam",
+      "Snug Friction-Fit Accommodates All iPod Models, Phones & EDC Tools",
+      "Provides Comprehensive Pocket Scratch Protection for Polished Chrome Backs",
+      "Machine Washable & Exceptionally Durable Construction",
+      "Cult Status Product Sold Continuously from 2004 until September 2012",
+      "Weight: Less than 15g per sock"
+    ],
+    "pros": [
+      "The most playful, universally recognized piece of Apple vintage culture",
+      "Soft cotton completely protects mirror-finish iPod backs from pocket keys",
+      "Six colors allow daily matching to outfits or different gadgets",
+      "Stretches effortlessly to fit AirPods cases, hard drives, or compact pocket knives"
+    ],
+    "cons": [
+      "Offers zero drop or impact protection against hard concrete falls",
+      "Discontinued in 2012, requiring secondary collector sourcing today"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.7/10",
+    "whereUsed": "Retro iPod Preservation, Pocket Gadget Protection, Collector Showcases"
+  },
+  {
+    "id": 226,
+    "name": "Apple Park Executive Pen (Retro 51 Tornado)",
+    "category": "writing",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹3,900 – ₹5,500",
+    "usd": "$35 (Collector: $65)",
+    "launch": "2018 (Apple Park Visitor Center Exclusive)",
+    "useCase": "Refined analogue writing — solid metal barrel, knurled twist-top mechanism & laser-engraved Apple logo",
+    "desc": "An exclusive piece of corporate industrial design sold solely at the physical Apple Park Visitor Center in Cupertino, California. Manufactured in partnership with renowned American pen maker Retro 51 based on their classic Tornado rollerball chassis. Features a substantial, perfectly balanced solid metal barrel in satin matte silver or space gray with a knurled twist-top crown, heavy-duty stainless steel pocket clip, and a laser-etched corporate Apple logo. Uses ultra-smooth hybrid rollerball/ballpoint refills.",
+    "specs": [
+      "Exclusive Collaboration between Apple Inc. & Retro 51 Tornado",
+      "Substantial Weight-Balanced Solid Lacquered Metal / Aluminum Barrel",
+      "Signature Knurled Twist-Top Mechanism for Tip Extension & Retraction",
+      "Precision Laser-Etched Apple Corporate Logo on Barrel",
+      "Heavy-Duty Spring-Steel Pocket Clip with Tapered Profile",
+      "Fitted with Ultra-Smooth Free-Flowing Rollerball / Ballpoint Refill",
+      "Compatible with Standard Parker-Style & Retro 51 Schmidt P8126 Refills",
+      "Sold Exclusively In-Person at Apple Park Visitor Center, Cupertino"
+    ],
+    "pros": [
+      "Sensational writing balance and buttery smooth ink flow on paper",
+      "Exclusive Apple Park provenance makes it a prized collector stationery piece",
+      "Solid all-metal barrel withstands decades of daily notebook use",
+      "Takes widely available Schmidt and Parker-style ballpoint/rollerball refills"
+    ],
+    "cons": [
+      "Only obtainable in person at Cupertino or via marked-up secondary markets",
+      "Substantial metal weight may feel heavy for users who prefer featherweight plastic pens"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.6/10",
+    "whereUsed": "Journaling, Executive Signatures, Everyday Carry Notebooks, Design Sketching"
+  },
+  {
+    "id": 227,
+    "name": "Apple 240W USB-C Charge Cable (2m)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹2,900",
+    "usd": "$29",
+    "launch": "2023",
+    "useCase": "High-power extended charging — 240W Extended Power Range (EPR), durable braided jacket & 2-meter length",
+    "desc": "Apple's most powerful charging cable ever engineered. Built with an Extended Power Range (EPR) e-marker chip supporting up to an astounding 240W (48V/5A) of USB Power Delivery, ensuring compatibility with even the most power-hungry laptops, workstations, and high-wattage power supplies. Wrapped in a premium, flexible white woven braided outer textile jacket that resists fraying, tangling, and splitting. Spans a generous 2 meters (6.6 feet) for effortless reach from wall outlet to desk.",
+    "specs": [
+      "Supports USB Power Delivery Extended Power Range (EPR) up to 240W (48V/5A)",
+      "Premium Double-Braided White Textile Exterior Jacket",
+      "Two-Meter (6.6-Foot) Generous Reach for Desk & Bedside Freedom",
+      "Integrated E-Marker Smart Controller for Safe High-Wattage Power Negotiation",
+      "Reinforced Molded Strain Relief Sleeves at Both USB-C Terminations",
+      "USB 2.0 Data Transfer Protocol (480Mbps) for Universal Device Syncing",
+      "Universal Compatibility across MacBook Pro/Air, iPad, iPhone 15/16/17/18 & Android",
+      "Thick Internal Conductors Minimizing Voltage Drop over 2m Distance"
+    ],
+    "pros": [
+      "Future-proof 240W rating handles any laptop charger on the market",
+      "Supple braided textile jacket does not kink, curl, or yellow easily",
+      "2-meter length provides comfortable reach across hotel rooms and offices",
+      "Apple hardware e-marker guarantees safe charging without thermal runaway"
+    ],
+    "cons": [
+      "Data transfer protocol is USB 2.0 (480Mbps), not high-speed Thunderbolt 4",
+      "Slightly thicker diameter than older non-braided 60W cables"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9.5/10",
+    "whereUsed": "Desk Workstations, High-Wattage Mac Charging, Bedside Reach, Travel Pouch"
+  },
+  {
+    "id": 228,
+    "name": "Apple 20-Year Service Award (Space Gray Aluminum Block)",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹3,50,000 – ₹5,00,000 (Private Collector Value)",
+    "usd": "$3,500 – $5,500 (Auction / Collector)",
+    "launch": "2023 (Internal Milestone Honor)",
+    "useCase": "Trophy of ultimate loyalty — monolithic solid block of custom-formulated recycled 6000-series Space Gray aluminum",
+    "desc": "An ultra-rare, unpurchasable artifact presented exclusively to veteran Apple employees celebrating two decades of shaping the company. Crafted from the exact same 100% recycled 6000-series aluminum remnants salvaged from MacBook Air and Mac mini manufacturing lines. Cast into monolithic 12-foot ingots, sliced, diamond-cut with chamfered edges, fine-blasted, and deep-anodized in rich Space Gray. Features a mirror-lapped stainless steel Apple logo inset flush into the center, the numeral '20' laser-etched along the side, and the recipient's name and milestone date.",
+    "specs": [
+      "Monolithic Solid Block of Recycled 6000-Series Production Aluminum",
+      "Custom Deep Space Gray Anodized Finish with Fine-Blasted Texture",
+      "Diamond-Cut Precision Chamfered Edge Perimeters",
+      "Mirror-Lapped Stainless Steel Apple Logo Set into a Machined Center Pocket",
+      "Numeral '20' Laser-Etched on the Top Edge & Custom Employee Engraving on Side",
+      "Hefty Solid Metal Display Weight (Approx. 7.5 to 8.5 lbs / ~3.6 kg)",
+      "Includes Official Apple Polishing Cloth & Tim Cook Congratulatory Card",
+      "Exclusive Internal Milestone Honor — Never Sold to the General Public"
+    ],
+    "pros": [
+      "The pinnacle of Apple manufacturing craft, honoring 20 years of dedication",
+      "100% recycled alloy forged from actual MacBook and Mac mini production remnants",
+      "Mirror-polished stainless steel Apple logo inset into bead-blasted Space Gray aluminum",
+      "One of the rarest pieces of modern Apple history in existence"
+    ],
+    "cons": [
+      "Strictly unpurchasable retail; only surfaces via rare collector auctions",
+      "Heft requires a sturdy desk or shelf display surface"
+    ],
+    "travel": {
+      "plane": false,
+      "train": false,
+      "moto": false,
+      "car": true,
+      "cycle": false
+    },
+    "rating": "10/10",
+    "whereUsed": "Executive Display, Apple Collector Vaults, Milestone Recognition"
   }
 ];
 
@@ -14329,7 +15166,7 @@ const ITEMS = [
 ───────────────────────────────────────────── */
 const BRAND_LOGOS = {
   duolingo: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 26 10, 12 28, 12 56 C 12 76, 26 90, 50 90 C 74 90, 88 76, 88 56 C 88 28, 74 10, 50 10 Z" fill="#58CC02"/><path d="M 28 14 C 20 8, 10 14, 14 26 C 18 20, 24 16, 28 14 Z" fill="#46A302"/><path d="M 72 14 C 80 8, 90 14, 86 26 C 82 20, 76 16, 72 14 Z" fill="#46A302"/><ellipse cx="34" cy="46" rx="14" ry="16" fill="#FFFFFF"/><ellipse cx="36" cy="47" rx="8" ry="10" fill="#4B4B4B"/><circle cx="38" cy="44" r="3.5" fill="#FFFFFF"/><ellipse cx="66" cy="46" rx="14" ry="16" fill="#FFFFFF"/><ellipse cx="64" cy="47" rx="8" ry="10" fill="#4B4B4B"/><circle cx="62" cy="44" r="3.5" fill="#FFFFFF"/><path d="M 43 54 C 43 54, 50 67, 50 67 C 50 67, 57 54, 57 54 Z" fill="#FF9600" stroke="#E07A00" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
-  netflix: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4.5" fill="#000000"/><path d="M5.5 4h3.2v16H5.5V4z" fill="#B1060F"/><path d="M15.3 4h3.2v16h-3.2V4z" fill="#B1060F"/><path d="M5.5 4l9.8 16h3.2L8.7 4H5.5z" fill="#E50914"/></svg>`,
+  netflix: `<svg viewBox="0 0 1024 276.742" fill="#E50914" xmlns="http://www.w3.org/2000/svg"><path d="M140.803 258.904c-15.404 2.705-31.079 3.516-47.294 5.676l-49.458-144.856v151.073c-15.404 1.621-29.457 3.783-44.051 5.945v-276.742h41.08l56.212 157.021v-157.021h43.511v258.904zm85.131-157.558c16.757 0 42.431-.811 57.835-.811v43.24c-19.189 0-41.619 0-57.835.811v64.322c25.405-1.621 50.809-3.785 76.482-4.596v41.617l-119.724 9.461v-255.39h119.724v43.241h-76.482v58.105zm237.284-58.104h-44.862v198.908c-14.594 0-29.188 0-43.239.539v-199.447h-44.862v-43.242h132.965l-.002 43.242zm70.266 55.132h59.187v43.24h-59.187v98.104h-42.433v-239.718h120.808v43.241h-78.375v55.133zm148.641 103.507c24.594.539 49.456 2.434 73.51 3.783v42.701c-38.646-2.434-77.293-4.863-116.75-5.676v-242.689h43.24v201.881zm109.994 49.457c13.783.812 28.377 1.623 42.43 3.242v-254.58h-42.43v251.338zm231.881-251.338l-54.863 131.615 54.863 145.127c-16.217-2.162-32.432-5.135-48.648-7.838l-31.078-79.994-31.617 73.51c-15.678-2.705-30.812-3.516-46.484-5.678l55.672-126.75-50.269-129.992h46.482l28.377 72.699 30.27-72.699h47.295z"/></svg>`,
   dji: `<svg viewBox="0 0 165 95" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="#0971ce"><path d="M115.5 13.5l12.2 50.8h-26.2l-11.1-45.5c-1.6-8.9-11.1-13.1-17.9-13.2h-18.6l-6.3-18.3h39c9.6 0 23.8 4.9 28.9 26.2z"/><path d="M37.5 13.5l12.3 51.6h26.9L62.7 6.4C60 0 51.6-2.7 43.8-2.7H-18.3C-25.1-2.7-30.9.2-27.8 13.3l5.6 23.4c2.8 11.9 11.6 14.6 18 14.6h43.4l-3.5-14.6h-22.1c-3.3 0-5-.7-6-4.5l-3.6-14.9c-1.3-5.4.6-5.7 4.5-5.7h20.3c3.7 0 7 0.2 8.6 6.9z"/><path d="M141.5 68.3l12.7 54h26.2l-12.7-54h-26.2z"/></g></svg>`,
   jio: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" fill="#0A2885"/><circle cx="50" cy="50" r="42" fill="#0054A6"/><text x="50" y="64" font-family="'Inter',-apple-system,sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">Jio</text></svg>`,
   icloud: `<svg viewBox="0 0 24 24" fill="#0284C7" xmlns="http://www.w3.org/2000/svg"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>`,
@@ -15201,6 +16038,7 @@ function isItemInBrand(item, brandId) {
   const name = (item.name || "").toLowerCase();
 
   if (brandId === "dji") return item.category === "dji" || item.brand === "dji" || /\b(dji|osmo|mini 4 pro|mic 2)\b/i.test(name);
+  if (brandId === "netflix") return item.category === "netflix" || item.brand === "netflix" || item.bundleRole === "netflix" || /\bnetflix\b/i.test(name);
 
   // Comprehensive brand matching by item title & category keywords
   if (brandId === "apple") return item.category === "apple" || item.brand === "apple" || /\b(apple|macbook|mac studio|imac|iphone|ipad|airpods?|airtag|homepod|magsafe|earpods?|vision pro)\b/i.test(name);
@@ -15549,8 +16387,8 @@ function openPanel(id, clickedEl, isSwitch = false) {
   activeCardElement = card;
 
   const specsHTML = (item.specs || []).map(s => `<span class="spec-chip">${s}</span>`).join("");
-  const prosHTML  = (item.pros || []).map(p => `<span class="tag good">+ ${p}</span>`).join("");
-  const consHTML  = (item.cons || []).map(c => `<span class="tag">− ${c}</span>`).join("");
+  const prosHTML  = (item.pros || []).map(p => `<span class="tag good"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>${p}</span>`).join("");
+  const consHTML  = (item.cons || []).map(c => `<span class="tag"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><line x1="5" y1="12" x2="19" y2="12"/></svg>${c}</span>`).join("");
   const brandKey  = (activeBrand !== "all" && isItemInBrand(item, activeBrand)) ? activeBrand : getBrandForItem(item);
   const brandObj  = BRANDS.find(b => b.id === brandKey);
   const brandLabel = brandObj ? brandObj.label : (item.category ? item.category.toUpperCase() : 'Brand');
@@ -15596,7 +16434,7 @@ function openPanel(id, clickedEl, isSwitch = false) {
         <div class="panel-top-badges">
           <span class="panel-badge" style="margin-bottom:0;">${item.category}</span>
           <button class="panel-brand-catalog-chip" onclick="viewBrandCatalogFromPanel('${brandKey}');" title="Explore ${brandLabel} Catalog">
-            View all ${brandLabel} products (${brandCount}) →
+            View all ${brandLabel} products (${brandCount}) <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-left:3px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
         <button class="panel-close" onclick="closePanel()" aria-label="Back to catalog" title="Back to Catalog">
