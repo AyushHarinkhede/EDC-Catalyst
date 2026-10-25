@@ -191,6 +191,7 @@ EDC-Catalyst/
 │   ├── edc-catalyst-logo.svg         # Clean standalone vector logo
 │   ├── apple/                        # High-resolution cutouts for Apple devices
 │   ├── beats/                        # Official studio cutouts for Beats Pill (2024)
+│   ├── marshall/                     # Authentic studio cutouts for Marshall speakers & headphones
 │   ├── samsung/                      # Studio cutouts for Samsung flagships
 │   ├── sony/                         # Audio, camera, and console assets
 │   ├── watches/                      # Luxury and horology cutouts
