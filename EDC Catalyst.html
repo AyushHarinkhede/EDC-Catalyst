@@ -4112,6 +4112,150 @@ img, svg, picture, canvas {
   box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
 }
 
+
+/* ==========================================================================
+   iPhone 18 Pro White Ceramic Titanium Special Edition Container
+   ========================================================================== */
+.card[data-id="205"],
+.card.is-white-edition {
+  background: linear-gradient(145deg, #ffffff 0%, #f6f8fb 55%, #ebf0f7 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 14px 38px -6px rgba(0, 0, 0, 0.12), 0 0 28px rgba(255, 255, 255, 0.7) !important;
+  color: #1d1d1f !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .card[data-id="205"],
+[data-theme="dark"] .card.is-white-edition {
+  background: linear-gradient(145deg, #ffffff 0%, #f1f4f9 55%, #e1e7f0 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 16px 44px -8px rgba(0, 0, 0, 0.55), 0 0 32px rgba(255, 255, 255, 0.4) !important;
+  color: #111116 !important;
+}
+
+.card[data-id="205"] .card-name,
+.card.is-white-edition .card-name {
+  color: #0b0b0f !important;
+  font-weight: 800;
+}
+
+.card[data-id="205"] .card-usecase,
+.card.is-white-edition .card-usecase {
+  color: #4a5568 !important;
+}
+
+.card[data-id="205"] .card-cat,
+.card.is-white-edition .card-cat {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #1d1d1f !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.card[data-id="205"] .card-lineage-pill,
+.card.is-white-edition .card-lineage-pill {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #1d1d1f !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.card[data-id="205"] .lineage-dot,
+.card.is-white-edition .lineage-dot {
+  background: #000000 !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.card[data-id="205"] .card-brand-stage,
+.card.is-white-edition .card-brand-stage {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+}
+
+.card[data-id="205"] .card-brand-stage .card-brand-logo,
+.card.is-white-edition .card-brand-stage .card-brand-logo,
+.card[data-id="205"] .card-brand-stage .card-brand-logo svg,
+.card.is-white-edition .card-brand-stage .card-brand-logo svg {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+.card[data-id="205"] .card-brand-stage .card-brand-badge,
+.card.is-white-edition .card-brand-stage .card-brand-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+.card[data-id="205"] .card-price-inr,
+.card.is-white-edition .card-price-inr {
+  color: #0b0b0f !important;
+}
+
+.card[data-id="205"] .card-price-usd,
+.card.is-white-edition .card-price-usd {
+  color: #718096 !important;
+}
+
+.card[data-id="205"] .card-launch,
+.card.is-white-edition .card-launch {
+  color: #0b0b0f !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.card[data-id="205"] .card-tap,
+.card.is-white-edition .card-tap {
+  color: #000000 !important;
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Card Cutout Showcase Container */
+.card-preview-stage {
+  width: 100%;
+  height: 165px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 12px;
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(235, 241, 250, 0.7) 65%, rgba(225, 233, 245, 0.3) 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.9), 0 4px 14px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.card-preview-thumb {
+  max-height: 152px;
+  max-width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.16));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.card:hover .card-preview-thumb {
+  transform: translateY(-4px) scale(1.05);
+  filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.24));
+}
+
+.white-edition-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+  color: #1d1d1f;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
 </style>
 </head>
 <body>
@@ -5314,7 +5458,8 @@ const PRODUCT_CUTOUTS = {
     "assets/watches/apple_watch_ultra2_cutout.svg"
   ],
   "205": [
-    "assets/apple/iphone-18-pro-white.png"
+    "assets/apple/iphone-18-pro-white.png",
+    "assets/apple/iphone-18-pro-white-duo.png"
   ],
   "206": [
     "assets/dji/dji-mic-2.png"
@@ -6003,6 +6148,51 @@ const ITEMS = [
     },
     "rating": "10/10",
     "whereUsed": "Everywhere — ultimate pocketable daily driver"
+  },
+  {
+    "id": 205,
+    "name": "iPhone 18 Pro",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹1,44,900 – ₹1,69,900",
+    "usd": "$1,199 – $1,399",
+    "launch": "2026",
+    "useCase": "Next-generation compact white flagship — A20 Pro 2nm architecture, under-display Face ID & studio periscope optics in pristine White Ceramic Titanium",
+    "desc": "The ultimate evolution of the compact Pro iPhone in signature White Titanium with ceramic nano-coating. Powered by the groundbreaking Apple A20 Pro chip built on next-gen 2nm GAA process with dedicated Neural Accelerator for offline Apple Intelligence models. Features an edge-to-edge 6.3-inch 120Hz ProMotion Tandem OLED display with micro-aperture Dynamic Island, 48MP quad-prism continuous optical periscope zoom (5× to 10×), capacitive sapphire Camera Control, and 40W MagSafe wireless charging.",
+    "specs": [
+      "Apple A20 Pro Chip (2nm GAA Architecture)",
+      "6.3\" Tandem OLED Super Retina XDR (1-120Hz ProMotion)",
+      "White Ceramic Titanium Chassis with Contoured Chamfers",
+      "48MP Fusion Main + 48MP Ultra-Wide + 48MP Continuous 5×-10× Periscope",
+      "On-Device Apple Intelligence 2.0 with 32-Core Neural Engine",
+      "Solid-State Action Button & Sapphire Camera Control 2.0",
+      "USB-C 4.0 / Thunderbolt (40Gbps) with DisplayPort 2.1",
+      "ProRes RAW 8K30 & 4K120 Spatial Video Direct to NVMe",
+      "MagSafe 40W Qi2 Fast Wireless Charging",
+      "Emergency SOS Satellite 2.0 & Wi-Fi 7 (320MHz)"
+    ],
+    "pros": [
+      "Stunning White Ceramic Titanium finish with zero smudge",
+      "A20 Pro 2nm console-grade gaming & AI powerhouse",
+      "Tandem OLED panel with 3000 nits outdoor peak brightness",
+      "Continuous 5× to 10× optical zoom telephoto",
+      "Ultra-fast Thunderbolt 40Gbps data transfer"
+    ],
+    "cons": [
+      "Premium flagship investment",
+      "Requires high-wattage 45W+ adapter for max charging speeds",
+      "No physical SIM tray (Global eSIM standard)"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "10/10",
+    "whereUsed": "Everywhere — the definitive pocketable pro daily driver"
   },
   {
     "id": 16,
@@ -8300,120 +8490,120 @@ const ITEMS = [
     "isAirsoft": true,
     "ageLimit": "18+ Adult Sporting Replica",
     "legalNotice": {
-        "classification": "Airsoft Sporting Device / Non-Lethal Replica",
-        "ageLimit": "18+ Adult Sporting Device",
-        "muzzleEnergy": "1.05 – 1.15 Joules (approx. 330–350 FPS with 0.20g BB)",
-        "publicCarry": "Strictly Prohibited in Public / Locked Transport Case Only"
+      "classification": "Airsoft Sporting Device / Non-Lethal Replica",
+      "ageLimit": "18+ Adult Sporting Device",
+      "muzzleEnergy": "1.05 – 1.15 Joules (approx. 330–350 FPS with 0.20g BB)",
+      "publicCarry": "Strictly Prohibited in Public / Locked Transport Case Only"
     },
     "lawRegulations": [
-        {
-            "country": "India",
-            "code": "IN",
-            "law": "Arms Rules 2016 (Schedule I / Rule 4)",
-            "status": "Regulated Non-Lethal",
-            "rule": "Muzzle energy under 20 Joules does not require an arms license for 6mm airsoft sport replicas. Commercial import is restricted via DGFT policy (permitted for registered sports clubs / shooters). Open public carry or brandishing is strictly illegal under IPC and Arms Act (imitation firearm offense). Confined to private property or registered sports ranges.",
-            "age": "18+ Years"
-        },
-        {
-            "country": "United States",
-            "code": "US",
-            "law": "15 U.S.C. § 5001 & Federal Regulations",
-            "status": "Blaze-Orange Tip Required",
-            "rule": "Federal statute requires a permanently affixed 6mm blaze-orange muzzle tip for commercial sale and interstate transport. Open carry in public is unlawful brandishing and treated as a live firearm by law enforcement. Local sales restrictions apply in New York City and Chicago.",
-            "age": "18+ to Purchase"
-        },
-        {
-            "country": "United Kingdom",
-            "code": "UK",
-            "law": "Violent Crime Reduction Act 2006 (VCRA)",
-            "status": "UKARA Defense Required",
-            "rule": "Classified as a Realistic Imitation Firearm (RIF). Purchase requires verified UKARA skirmisher player defense. Without UKARA membership, buyers may only acquire a Two-Tone replica painted in at least 51% bright non-military color (neon blue, red, or lime).",
-            "age": "18+ to Purchase"
-        },
-        {
-            "country": "Germany",
-            "code": "DE",
-            "law": "Waffengesetz (WaffG) Section 24",
-            "status": "F-Pentagon Mark Required",
-            "rule": "Muzzle energy between 0.5J and 7.5J must bear the official stamped F-in-Pentagon (F-im-Fünfeck) proof mark. Full-auto firing is prohibited for airsoft over 0.5J (strictly semi-automatic). Open public carry is an administrative offense (Anscheinswaffe). Locked container transit mandatory.",
-            "age": "18+ Years"
-        },
-        {
-            "country": "Canada",
-            "code": "CA",
-            "law": "Criminal Code of Canada & Bill C-21",
-            "status": "366–500 FPS Unregulated Firearm",
-            "rule": "Airsoft devices firing 6mm BBs between 366 FPS and 500 FPS are classified as unregulated firearms and can be legally owned without a PAL. Replicas under 366 FPS that replicate real firearms with exact dimensions are prohibited replicas and subject to border customs seizure.",
-            "age": "18+ Years"
-        },
-        {
-            "country": "Australia",
-            "code": "AU",
-            "law": "State Firearms Acts (NSW, VIC, QLD, WA)",
-            "status": "Prohibited in Most States",
-            "rule": "Completely banned in New South Wales, Victoria, and Queensland without specialized collector or film theatrical permits. Permitted with a dedicated firearms license only in Western Australia and South Australia.",
-            "age": "18+ (Licensed Only)"
-        },
-        {
-            "country": "Japan",
-            "code": "JP",
-            "law": "Firearms and Swords Control Law (ASGK)",
-            "status": "Capped at 0.98 Joules",
-            "rule": "Muzzle kinetic energy is strictly capped by national law at 0.98 Joules (approx. 328 FPS with 0.20g BB). Modifications exceeding 0.98 Joules convert the device into an illegal firearm under penal law.",
-            "age": "18+ (Adult Models)"
-        },
-        {
-            "country": "Singapore",
-            "code": "SG",
-            "law": "Arms & Explosives Act (Chapter 13)",
-            "status": "Strict Police Licensing Only",
-            "rule": "Possession, import, or sale of airsoft guns without explicit authorization from the Singapore Police Licensing & Regulatory Department is strictly illegal and subject to fines and imprisonment.",
-            "age": "Police Permit Required"
-        }
+      {
+        "country": "India",
+        "code": "IN",
+        "law": "Arms Rules 2016 (Schedule I / Rule 4)",
+        "status": "Regulated Non-Lethal",
+        "rule": "Muzzle energy under 20 Joules does not require an arms license for 6mm airsoft sport replicas. Commercial import is restricted via DGFT policy (permitted for registered sports clubs / shooters). Open public carry or brandishing is strictly illegal under IPC and Arms Act (imitation firearm offense). Confined to private property or registered sports ranges.",
+        "age": "18+ Years"
+      },
+      {
+        "country": "United States",
+        "code": "US",
+        "law": "15 U.S.C. § 5001 & Federal Regulations",
+        "status": "Blaze-Orange Tip Required",
+        "rule": "Federal statute requires a permanently affixed 6mm blaze-orange muzzle tip for commercial sale and interstate transport. Open carry in public is unlawful brandishing and treated as a live firearm by law enforcement. Local sales restrictions apply in New York City and Chicago.",
+        "age": "18+ to Purchase"
+      },
+      {
+        "country": "United Kingdom",
+        "code": "UK",
+        "law": "Violent Crime Reduction Act 2006 (VCRA)",
+        "status": "UKARA Defense Required",
+        "rule": "Classified as a Realistic Imitation Firearm (RIF). Purchase requires verified UKARA skirmisher player defense. Without UKARA membership, buyers may only acquire a Two-Tone replica painted in at least 51% bright non-military color (neon blue, red, or lime).",
+        "age": "18+ to Purchase"
+      },
+      {
+        "country": "Germany",
+        "code": "DE",
+        "law": "Waffengesetz (WaffG) Section 24",
+        "status": "F-Pentagon Mark Required",
+        "rule": "Muzzle energy between 0.5J and 7.5J must bear the official stamped F-in-Pentagon (F-im-Fünfeck) proof mark. Full-auto firing is prohibited for airsoft over 0.5J (strictly semi-automatic). Open public carry is an administrative offense (Anscheinswaffe). Locked container transit mandatory.",
+        "age": "18+ Years"
+      },
+      {
+        "country": "Canada",
+        "code": "CA",
+        "law": "Criminal Code of Canada & Bill C-21",
+        "status": "366–500 FPS Unregulated Firearm",
+        "rule": "Airsoft devices firing 6mm BBs between 366 FPS and 500 FPS are classified as unregulated firearms and can be legally owned without a PAL. Replicas under 366 FPS that replicate real firearms with exact dimensions are prohibited replicas and subject to border customs seizure.",
+        "age": "18+ Years"
+      },
+      {
+        "country": "Australia",
+        "code": "AU",
+        "law": "State Firearms Acts (NSW, VIC, QLD, WA)",
+        "status": "Prohibited in Most States",
+        "rule": "Completely banned in New South Wales, Victoria, and Queensland without specialized collector or film theatrical permits. Permitted with a dedicated firearms license only in Western Australia and South Australia.",
+        "age": "18+ (Licensed Only)"
+      },
+      {
+        "country": "Japan",
+        "code": "JP",
+        "law": "Firearms and Swords Control Law (ASGK)",
+        "status": "Capped at 0.98 Joules",
+        "rule": "Muzzle kinetic energy is strictly capped by national law at 0.98 Joules (approx. 328 FPS with 0.20g BB). Modifications exceeding 0.98 Joules convert the device into an illegal firearm under penal law.",
+        "age": "18+ (Adult Models)"
+      },
+      {
+        "country": "Singapore",
+        "code": "SG",
+        "law": "Arms & Explosives Act (Chapter 13)",
+        "status": "Strict Police Licensing Only",
+        "rule": "Possession, import, or sale of airsoft guns without explicit authorization from the Singapore Police Licensing & Regulatory Department is strictly illegal and subject to fines and imprisonment.",
+        "age": "Police Permit Required"
+      }
     ],
     "useCase": "Precision target shooting, tactical MilSim training, collector replica sidearm, safe firearm handling simulation",
     "desc": "The Beretta M9A3 Blowback Airsoft Pistol is an officially licensed 1:1 scale replica manufactured by Umarex / Elite Force under authentic Beretta trademarks. Built with a full-metal slide, barrel, and frame in military Flat Dark Earth (FDE) finish, it features realistic CO2-powered blowback recoil, a 22-round drop-free full-size metal magazine, 14mm CCW threaded outer barrel for mock suppressors/tracer units, 3-slot Picatinny lower accessory rail, Vertec-style slim ergonomic grip, and functioning ambidextrous safety/decocker. Firing standard 6mm plastic BBs with an adjustable hop-up unit, it delivers unmatched mechanical realism for sporting drills without using live ammunition.",
     "specs": [
-        "6mm CO2 Gas Blowback (GBB)",
-        "Umarex / Elite Force (Licensed by Beretta)",
-        "6mm Airsoft BB (0.20g – 0.28g)",
-        "Power: 12g CO2 Cartridge in Magazine",
-        "Velocity: 330 – 350 FPS (1.1 Joules)",
-        "Full Metal Slide, Barrel & Frame",
-        "3-Tone Flat Dark Earth (FDE) Finish",
-        "22-Round Drop-Free Metal Magazine",
-        "Semi-Automatic with Slide Lock on Empty",
-        "14mm CCW Threaded Muzzle Barrel",
-        "Rotary Adjustable Hop-Up System",
-        "Double / Single Action (DA/SA) Trigger",
-        "Vertec Slim Profile Checkered Grips",
-        "Mil-STD 1913 Picatinny Rail (3-Slot)",
-        "Weight: 1,060g (2.34 lbs) – Exact 1:1 Scale",
-        "Overall Length: 225mm (8.85 in)"
+      "6mm CO2 Gas Blowback (GBB)",
+      "Umarex / Elite Force (Licensed by Beretta)",
+      "6mm Airsoft BB (0.20g – 0.28g)",
+      "Power: 12g CO2 Cartridge in Magazine",
+      "Velocity: 330 – 350 FPS (1.1 Joules)",
+      "Full Metal Slide, Barrel & Frame",
+      "3-Tone Flat Dark Earth (FDE) Finish",
+      "22-Round Drop-Free Metal Magazine",
+      "Semi-Automatic with Slide Lock on Empty",
+      "14mm CCW Threaded Muzzle Barrel",
+      "Rotary Adjustable Hop-Up System",
+      "Double / Single Action (DA/SA) Trigger",
+      "Vertec Slim Profile Checkered Grips",
+      "Mil-STD 1913 Picatinny Rail (3-Slot)",
+      "Weight: 1,060g (2.34 lbs) – Exact 1:1 Scale",
+      "Overall Length: 225mm (8.85 in)"
     ],
     "pros": [
-        "1:1 authentic weight, dimensions & Beretta laser engravings",
-        "Crisp CO2 blowback kick with functional slide lock",
-        "All-metal heavy duty alloy slide, barrel and frame",
-        "14mm CCW threaded barrel ready for tracer units",
-        "Universal under-barrel Picatinny rail for tactical lights"
+      "1:1 authentic weight, dimensions & Beretta laser engravings",
+      "Crisp CO2 blowback kick with functional slide lock",
+      "All-metal heavy duty alloy slide, barrel and frame",
+      "14mm CCW threaded barrel ready for tracer units",
+      "Universal under-barrel Picatinny rail for tactical lights"
     ],
     "cons": [
-        "Strict international import & customs regulations",
-        "Requires 12g CO2 cartridges and silicone maintenance",
-        "Strictly illegal to carry or brandish in public spaces",
-        "18+ adult age restriction in almost all countries"
+      "Strict international import & customs regulations",
+      "Requires 12g CO2 cartridges and silicone maintenance",
+      "Strictly illegal to carry or brandish in public spaces",
+      "18+ adult age restriction in almost all countries"
     ],
     "travel": {
-        "plane": false,
-        "train": false,
-        "moto": false,
-        "car": true,
-        "cycle": false
+      "plane": false,
+      "train": false,
+      "moto": false,
+      "car": true,
+      "cycle": false
     },
     "rating": "9.3/10",
     "whereUsed": "Airsoft Arena, MilSim Training, Target Range, Collection Display"
-},
+  },
   {
     "id": 45,
     "name": "ASUS ROG Zephyrus Duo 16",
@@ -8837,41 +9027,41 @@ const ITEMS = [
     "useCase": "Iconic thumper highway cruising, city commuting, long-distance touring & heritage motorcycling",
     "desc": "The flagship Black Gold edition of the all-new Royal Enfield Bullet 350 is finished in a commanding dual-texture Matte Black with hand-laid 3D copper-gold tank badging and pinstripes. Powered by the refined J-series 349cc single-cylinder counter-balanced thumper engine, it features a completely blacked-out matte engine block, black heat-shielded exhaust, wider dual-cradle chassis, plush dual-density bench seat, and digital-analog instrument cluster with USB charging. Capturing the immortal 1932 Bullet legacy in a stealth modern persona.",
     "specs": [
-        "349cc J-Series Air-Oil Cooled SOHC Single",
-        "20.2 bhp @ 6,100 RPM | 27 Nm @ 4,000 RPM",
-        "5-Speed Constant Mesh Transmission",
-        "Dual-Channel ABS (300mm Front / 270mm Rear Disc)",
-        "Matte Black Finish with 3D Gold Badging",
-        "Blacked-Out Matte Engine & Exhaust Pipe",
-        "Telescopic 41mm Front Forks (130mm Travel)",
-        "Twin Tube Emulsion Rear Shock Absorbers (6-Step Adj)",
-        "19\" Front / 18\" Rear Spoke Wheels (100/90 & 120/80)",
-        "13 Litre Fuel Tank Capacity",
-        "Weight: 195 kg (Curb Weight)",
-        "Under-Handlebar USB Fast-Charging Port"
+      "349cc J-Series Air-Oil Cooled SOHC Single",
+      "20.2 bhp @ 6,100 RPM | 27 Nm @ 4,000 RPM",
+      "5-Speed Constant Mesh Transmission",
+      "Dual-Channel ABS (300mm Front / 270mm Rear Disc)",
+      "Matte Black Finish with 3D Gold Badging",
+      "Blacked-Out Matte Engine & Exhaust Pipe",
+      "Telescopic 41mm Front Forks (130mm Travel)",
+      "Twin Tube Emulsion Rear Shock Absorbers (6-Step Adj)",
+      "19\" Front / 18\" Rear Spoke Wheels (100/90 & 120/80)",
+      "13 Litre Fuel Tank Capacity",
+      "Weight: 195 kg (Curb Weight)",
+      "Under-Handlebar USB Fast-Charging Port"
     ],
     "pros": [
-        "Signature J-Series counter-balanced refined thumper exhaust beat",
-        "Stunning factory Matte Black aesthetic with blacked-out mechanicals",
-        "Extremely comfortable upright touring riding ergonomics",
-        "Heavy-gauge steel construction with unmatched road presence",
-        "Dual-channel ABS with confidence-inspiring disc brake setup"
+      "Signature J-Series counter-balanced refined thumper exhaust beat",
+      "Stunning factory Matte Black aesthetic with blacked-out mechanicals",
+      "Extremely comfortable upright touring riding ergonomics",
+      "Heavy-gauge steel construction with unmatched road presence",
+      "Dual-channel ABS with confidence-inspiring disc brake setup"
     ],
     "cons": [
-        "Heavier curb weight (195 kg) during tight city parking",
-        "No alloy wheel tubeless option on spoke variants",
-        "Cruising sweet spot tops out comfortably at 90-100 km/h"
+      "Heavier curb weight (195 kg) during tight city parking",
+      "No alloy wheel tubeless option on spoke variants",
+      "Cruising sweet spot tops out comfortably at 90-100 km/h"
     ],
     "travel": {
-        "plane": false,
-        "train": false,
-        "moto": true,
-        "car": false,
-        "cycle": false
+      "plane": false,
+      "train": false,
+      "moto": true,
+      "car": false,
+      "cycle": false
     },
     "rating": "9.2/10",
     "whereUsed": "Highways, City Roads, Mountain Passes, Weekend Leisure Rides"
-},
+  },
   {
     "id": 55,
     "name": "Ultraviolette F77 Mach 2 Recon",
@@ -14172,51 +14362,6 @@ const ITEMS = [
     "whereUsed": "Mountaineering, Scuba Diving, Marathons, Aviation, Heavy Outdoor EDC"
   },
   {
-    "id": 205,
-    "name": "iPhone 18 Pro",
-    "category": "apple",
-    "brand": "apple",
-    "icon": "",
-    "inr": "₹1,44,900 – ₹1,69,900",
-    "usd": "$1,199 – $1,399",
-    "launch": "2026",
-    "useCase": "Next-generation compact white flagship — A20 Pro 2nm architecture, under-display Face ID & studio periscope optics in pristine White Ceramic Titanium",
-    "desc": "The ultimate evolution of the compact Pro iPhone in signature White Titanium with ceramic nano-coating. Powered by the groundbreaking Apple A20 Pro chip built on next-gen 2nm GAA process with dedicated Neural Accelerator for offline Apple Intelligence models. Features an edge-to-edge 6.3-inch 120Hz ProMotion Tandem OLED display with micro-aperture Dynamic Island, 48MP quad-prism continuous optical periscope zoom (5× to 10×), capacitive sapphire Camera Control, and 40W MagSafe wireless charging.",
-    "specs": [
-      "Apple A20 Pro Chip (2nm GAA Architecture)",
-      "6.3\" Tandem OLED Super Retina XDR (1-120Hz ProMotion)",
-      "White Ceramic Titanium Chassis with Contoured Chamfers",
-      "48MP Fusion Main + 48MP Ultra-Wide + 48MP Continuous 5×-10× Periscope",
-      "On-Device Apple Intelligence 2.0 with 32-Core Neural Engine",
-      "Solid-State Action Button & Sapphire Camera Control 2.0",
-      "USB-C 4.0 / Thunderbolt (40Gbps) with DisplayPort 2.1",
-      "ProRes RAW 8K30 & 4K120 Spatial Video Direct to NVMe",
-      "MagSafe 40W Qi2 Fast Wireless Charging",
-      "Emergency SOS Satellite 2.0 & Wi-Fi 7 (320MHz)"
-    ],
-    "pros": [
-      "Stunning White Ceramic Titanium finish with zero smudge",
-      "A20 Pro 2nm console-grade gaming & AI powerhouse",
-      "Tandem OLED panel with 3000 nits outdoor peak brightness",
-      "Continuous 5× to 10× optical zoom telephoto",
-      "Ultra-fast Thunderbolt 40Gbps data transfer"
-    ],
-    "cons": [
-      "Premium flagship investment",
-      "Requires high-wattage 45W+ adapter for max charging speeds",
-      "No physical SIM tray (Global eSIM standard)"
-    ],
-    "travel": {
-      "plane": true,
-      "train": true,
-      "moto": true,
-      "car": true,
-      "cycle": true
-    },
-    "rating": "10/10",
-    "whereUsed": "Everywhere — the definitive pocketable pro daily driver"
-  },
-  {
     "id": 206,
     "name": "DJI Mic 2",
     "category": "dji",
@@ -16188,7 +16333,7 @@ function renderGrid() {
     const color = BRAND_COLORS[brandKey] || BRAND_COLORS[item.category] || '#4f46e5';
     const heritage = BRAND_CLOTHING_HERITAGE[brandKey];
     return `
-    <div class="card" 
+    <div class="card ${item.id === 205 ? 'is-white-edition' : ''}" 
          onclick="openPanel(${item.id}, this)"
          data-id="${item.id}">
       <div class="card-brand-stage" onclick="event.stopPropagation(); selectBrandFilter('${brandKey}')" title="Explore ${brandLabel} Catalog">
@@ -16207,6 +16352,14 @@ function renderGrid() {
         })()}
       </div>
       <h3 class="card-name">${item.name}</h3>
+      ${item.id === 205 ? `
+      <div class="card-preview-stage" title="iPhone 18 Pro White Ceramic Titanium">
+        <img src="assets/apple/iphone-18-pro-white.png" alt="iPhone 18 Pro White Ceramic Titanium" class="card-preview-thumb" loading="lazy" />
+      </div>
+      <div class="white-edition-chip" title="Pristine White Ceramic Titanium Finish">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+        White Ceramic Titanium Edition
+      </div>` : ""}
       ${(item.banNotice || item.bannedCountries) ? `<div class="card-ban-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>BANNED / RESTRICTED DEVICE</div>` : ""}
       ${heritage ? `
       <div class="card-heritage-pill" title="Customer Consensus: Best for ${heritage.bestFor}">
