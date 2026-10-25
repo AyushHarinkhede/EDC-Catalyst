@@ -3700,17 +3700,7 @@ img, svg, picture, canvas {
   transition: fill 0.3s ease;
 }
 
-/* Luminous animated glow sweep along the wave ridge */
-.wave-glow-line {
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  background: radial-gradient(ellipse at 50% 20%, rgba(99, 102, 241, 0.3) 0%, transparent 65%);
-  animation: waveGlowSweep 12s ease-in-out infinite alternate;
-  pointer-events: none;
-}
+
 
 @keyframes waveFloatMain {
   0% {
@@ -3736,24 +3726,17 @@ img, svg, picture, canvas {
   }
 }
 
-@keyframes waveGlowSweep {
-  0% {
-    transform: translateX(-15%);
-    opacity: 0.35;
-  }
-  100% {
-    transform: translateX(15%);
-    opacity: 0.85;
-  }
-}
+
 
 /* ─── FOOTER BODY ────────────────────────────── */
 .footer-content {
   background: linear-gradient(180deg, var(--footer-bg-top) 0%, var(--footer-bg-bottom) 100%);
   color: var(--footer-text);
-  padding: 55px 24px 38px;
+  padding: 48px 24px 38px;
   position: relative;
-  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.28);
+  box-shadow: none;
+  border-top: none;
+  margin-top: -1px;
 }
 
 .footer-inner {
@@ -3856,6 +3839,67 @@ img, svg, picture, canvas {
   color: var(--footer-text-muted);
   margin-bottom: 22px;
   max-width: 440px;
+}
+
+
+/* Live footer real-time calendar and clock card */
+.footer-live-clock-card {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+}
+
+.flc-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+  color: #a5b4fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.flc-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.flc-day-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.flc-day-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: lowercase; /* strictly small letters as requested */
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.flc-time-tag {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.flc-date-row {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.02em;
 }
 
 .footer-live-status-pill {
@@ -4165,7 +4209,6 @@ img, svg, picture, canvas {
       <path d="M0,0 C150,60 350,0 500,40 C650,80 900,10 1200,50 L1200,120 L0,120 Z" class="shape-fill-bg"></path>
       <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
     </svg>
-    <div class="wave-glow-line"></div>
   </div>
 
   <footer class="footer-content">
@@ -4191,18 +4234,33 @@ img, svg, picture, canvas {
             <span class="live-dot-pulse"></span>
             <span>Catalog Engine: <strong>Live &amp; Synced</strong></span>
           </div>
+          <div class="footer-live-clock-card" id="footerLiveClockWidget">
+            <div class="flc-icon-badge">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="flc-details">
+              <div class="flc-day-row">
+                <span class="flc-day-tag" id="footerLiveDay">loading day</span>
+                <span class="flc-time-tag" id="footerLiveTime">--:--:--</span>
+              </div>
+              <div class="flc-date-row" id="footerLiveDate">-- ------- ----</div>
+            </div>
+          </div>
         </div>
 
         <!-- Column 2: Quick Categories -->
         <div class="footer-col">
           <h4 class="footer-col-title">Categories</h4>
           <ul class="footer-links">
-            <li><a onclick="selectCategoryFilter('tools', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>Multi-Tools &amp; Tech</a></li>
+            <li><a onclick="selectCategoryFilter('apple', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple Ecosystem</a></li>
             <li><a onclick="selectCategoryFilter('watches', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.85 4.65h-7.32l-.85-4.65"></path><path d="M7.49 6.65l.85-4.65h7.32l.85 4.65"></path></svg>Watches &amp; Horology</a></li>
-            <li><a onclick="selectCategoryFilter('pens', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>Fine Writing &amp; Pens</a></li>
             <li><a onclick="selectCategoryFilter('audio', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>Audiophile Acoustics</a></li>
-            <li><a onclick="selectCategoryFilter('tech', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>Mobile Tech &amp; Laptops</a></li>
-            <li><a onclick="selectCategoryFilter('app', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>Digital Life Suite</a></li>
+            <li><a onclick="selectCategoryFilter('writing', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>Fine Writing Instruments</a></li>
+            <li><a onclick="selectCategoryFilter('vehicles', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></svg>Vehicles &amp; Mobility</a></li>
+            <li><a onclick="selectCategoryFilter('apps', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>Digital Apps &amp; Stack</a></li>
           </ul>
         </div>
 
@@ -4210,11 +4268,11 @@ img, svg, picture, canvas {
         <div class="footer-col">
           <h4 class="footer-col-title">Top Brands</h4>
           <ul class="footer-links">
-            <li><a onclick="selectBrandFilter('apple', true)"> Apple Ecosystem</a></li>
+            <li><a onclick="selectBrandFilter('apple', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple Ecosystem</a></li>
+            <li><a onclick="selectBrandFilter('dji', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>DJI Drones &amp; Imaging</a></li>
             <li><a onclick="selectBrandFilter('lamy', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19 7-7 3 3-7 7-3-3z"></path><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>LAMY Germany</a></li>
             <li><a onclick="selectBrandFilter('marshall', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Marshall Acoustics</a></li>
             <li><a onclick="selectBrandFilter('rolex', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"></path></svg>Rolex Horology</a></li>
-            <li><a onclick="selectBrandFilter('omega', true)">Ω Omega Precision</a></li>
             <li><a onclick="selectBrandFilter('flipper', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Flipper Security Tech</a></li>
           </ul>
         </div>
@@ -4334,6 +4392,7 @@ const BRANDS = [
   { id:"beretta",      label:"Beretta"        },
   { id:"anki",         label:"Anki"           },
   { id:"livingai",     label:"EMO (Living.ai)" },
+  { id:"dji",          label:"DJI"             },
 ];
 
 const CATS = [
@@ -4576,25 +4635,21 @@ const PRODUCT_CUTOUTS = {
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MK2D3?wid=1000&hei=1000&fmt=png-alpha"
   ],
   "7": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-1inch-whitetitanium?wid=1000&hei=1000&fmt=png-alpha"
+    "assets/apple/iphone-15-pro-front.png",
+    "assets/apple/iphone-15-pro-showcase.png"
   ],
   "8": [
-    "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=1000&hei=1000&fmt=png-alpha"
+    "assets/apple/iphone-17-pro-front.png",
+    "assets/apple/iphone-17-pro-titanium.png"
   ],
   "9": [
-    "https://pngimg.com/uploads/iphone_11/iphone_11_PNG4.png",
-    "https://pngimg.com/uploads/iphone_11/iphone_11_PNG3.png"
+    "assets/apple/iphone-xs-max-gold.png",
+    "assets/apple/iphone-xs-max-silver.png"
   ],
   "10": [
-    "https://pngimg.com/uploads/iphone/iphone_PNG5729.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5722.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5723.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5720.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5721.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5728.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5732.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5735.png",
-    "https://pngimg.com/uploads/iphone/iphone_PNG5744.png"
+    "assets/apple/iphone-se-1st-gen-silver.png",
+    "assets/apple/iphone-se-1st-gen-rose-gold-rear.png",
+    "assets/apple/iphone-se-1st-gen-space-gray.png"
   ],
   "11": [
     "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MTJV3?wid=1000&hei=1000&fmt=png-alpha",
@@ -5249,6 +5304,21 @@ const PRODUCT_CUTOUTS = {
   "204": [
     "assets/watches/apple_watch_ultra2_cutout.svg"
   ],
+  "205": [
+    "assets/apple/iphone-18-pro-white.png"
+  ],
+  "206": [
+    "assets/dji/dji-mic-2.png"
+  ],
+  "207": [
+    "assets/dji/dji-mini-4-pro.png"
+  ],
+  "208": [
+    "assets/dji/dji-osmo-action-5-pro.png"
+  ],
+  "209": [
+    "assets/dji/dji-osmo-mobile-6.png"
+  ]
 };
 
 /* ─────────────────────────────────────────────
@@ -5518,9 +5588,10 @@ const PRODUCT_LINEAGES = {
       { id: 10, genLabel: "Gen 1 • Classic", year: "2016", badge: "Legacy 4\" Compact", highlight: "4\" Retina IPS & 3.5mm Headphone Jack" },
       { id: 9,  genLabel: "Gen 2 • OLED Era", year: "2018", badge: "First OLED & Dual SIM", highlight: "6.5\" Super Retina OLED & A12 Bionic" },
       { id: 7,  genLabel: "Gen 3 • Titanium", year: "2023", badge: "Grade 5 Titanium", highlight: "A17 Pro (3nm), Action Button & USB-C 3.0" },
-      { id: 8,  genLabel: "Gen 4 • AI Flagship", year: "2025", badge: "Next-Gen 2nm AI", highlight: "A19 Pro, Apple Intelligence & 5× Telephoto" }
+      { id: 8,  genLabel: "Gen 4 • AI Flagship", year: "2025", badge: "Next-Gen 2nm AI", highlight: "A19 Pro, Apple Intelligence & 5× Telephoto" },
+      { id: 205, genLabel: "Gen 5 • Apex White", year: "2026", badge: "White Ceramic Titanium", highlight: "A20 Pro (2nm GAA), Tandem OLED & 5×-10× Continuous Periscope" }
     ],
-    evolutionSummary: "4\" Compact (2016) → 6.5\" OLED Dual-SIM (2018) → 6.1\" Titanium & USB-C (2023) → 6.3\" On-Device AI 2nm (2025)"
+    evolutionSummary: "4\" Compact (2016) → 6.5\" OLED (2018) → 6.1\" Titanium (2023) → 6.3\" AI Flagship (2025) → 6.3\" White Ceramic Pro (2026)"
   },
   macbook_air: {
     familyName: "MacBook Air",
@@ -14038,6 +14109,215 @@ const ITEMS = [
     },
     "rating": "9.9/10",
     "whereUsed": "Mountaineering, Scuba Diving, Marathons, Aviation, Heavy Outdoor EDC"
+  },
+  {
+    "id": 205,
+    "name": "iPhone 18 Pro",
+    "category": "apple",
+    "brand": "apple",
+    "icon": "",
+    "inr": "₹1,44,900 – ₹1,69,900",
+    "usd": "$1,199 – $1,399",
+    "launch": "2026",
+    "useCase": "Next-generation compact white flagship — A20 Pro 2nm architecture, under-display Face ID & studio periscope optics in pristine White Ceramic Titanium",
+    "desc": "The ultimate evolution of the compact Pro iPhone in signature White Titanium with ceramic nano-coating. Powered by the groundbreaking Apple A20 Pro chip built on next-gen 2nm GAA process with dedicated Neural Accelerator for offline Apple Intelligence models. Features an edge-to-edge 6.3-inch 120Hz ProMotion Tandem OLED display with micro-aperture Dynamic Island, 48MP quad-prism continuous optical periscope zoom (5× to 10×), capacitive sapphire Camera Control, and 40W MagSafe wireless charging.",
+    "specs": [
+      "Apple A20 Pro Chip (2nm GAA Architecture)",
+      "6.3\" Tandem OLED Super Retina XDR (1-120Hz ProMotion)",
+      "White Ceramic Titanium Chassis with Contoured Chamfers",
+      "48MP Fusion Main + 48MP Ultra-Wide + 48MP Continuous 5×-10× Periscope",
+      "On-Device Apple Intelligence 2.0 with 32-Core Neural Engine",
+      "Solid-State Action Button & Sapphire Camera Control 2.0",
+      "USB-C 4.0 / Thunderbolt (40Gbps) with DisplayPort 2.1",
+      "ProRes RAW 8K30 & 4K120 Spatial Video Direct to NVMe",
+      "MagSafe 40W Qi2 Fast Wireless Charging",
+      "Emergency SOS Satellite 2.0 & Wi-Fi 7 (320MHz)"
+    ],
+    "pros": [
+      "Stunning White Ceramic Titanium finish with zero smudge",
+      "A20 Pro 2nm console-grade gaming & AI powerhouse",
+      "Tandem OLED panel with 3000 nits outdoor peak brightness",
+      "Continuous 5× to 10× optical zoom telephoto",
+      "Ultra-fast Thunderbolt 40Gbps data transfer"
+    ],
+    "cons": [
+      "Premium flagship investment",
+      "Requires high-wattage 45W+ adapter for max charging speeds",
+      "No physical SIM tray (Global eSIM standard)"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "10/10",
+    "whereUsed": "Everywhere — the definitive pocketable pro daily driver"
+  },
+  {
+    "id": 206,
+    "name": "DJI Mic 2",
+    "category": "dji",
+    "brand": "dji",
+    "icon": "",
+    "inr": "₹19,990 – ₹34,990",
+    "usd": "$219 – $349",
+    "launch": "2024",
+    "useCase": "Studio-grade wireless audio recording — 32-bit float internal backup, intelligent noise cancelling & magnetic wear",
+    "desc": "The gold standard for mobile content creation, podcasting, and filmmaking audio. Features high-quality omnidirectional audio recording with cutting-edge 32-bit float internal recording to prevent audio clipping in high-decibel environments. Offers 250m (820 ft) ultra-stable transmission range, dual-channel recording, intelligent dual-level noise cancelling, 18-hour total battery life with premium metallic charging case, and direct Bluetooth connectivity.",
+    "specs": [
+      "32-Bit Float Internal Recording (8GB Onboard Storage per TX)",
+      "Omnidirectional High-Fidelity Capsule with Dual-Level Noise Cancelling",
+      "250m (820 ft) Low-Latency Digital Audio Transmission",
+      "1.1\" OLED Touchscreen with Precision Haptic Control Dial",
+      "Direct Bluetooth Connection to Smartphones & Action Cams",
+      "Magnetic Attachment + Cold Shoe & 3.5mm TRS / Lightning / USB-C Adapters",
+      "18-Hour Total Battery Life with Premium Metallic Charging Case",
+      "Safety Track Recording at -6dB Dual Channel"
+    ],
+    "pros": [
+      "32-bit float guarantees zero clipped or distorted audio",
+      "Sleek transparent aesthetic with magnetic clip-on ease",
+      "Universal compatibility with cameras, iPhones, and Android",
+      "Outstanding battery endurance with metallic charging case"
+    ],
+    "cons": [
+      "Wind muff requires careful placement in extreme weather",
+      "Transmitter glass face can attract micro-scratches"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "10/10",
+    "whereUsed": "Interviews, Vlogging, Field Recording, Studio Acoustics"
+  },
+  {
+    "id": 207,
+    "name": "DJI Mini 4 Pro",
+    "category": "dji",
+    "brand": "dji",
+    "icon": "",
+    "inr": "₹89,990 – ₹1,15,990",
+    "usd": "$759 – $1,099",
+    "launch": "2023",
+    "useCase": "Regulatory-friendly aerial cinematography — sub-249g pocketable drone with 4K/60fps HDR True Vertical Shooting",
+    "desc": "The most capable sub-249g camera drone ever created. Bypasses registration requirements in most jurisdictions while delivering professional imaging. Equipped with a 1/1.3-inch CMOS sensor with Dual Native ISO Fusion, f/1.7 aperture, and 4K/60fps HDR video plus 4K/100fps slow motion. Features omnidirectional obstacle sensing, ActiveTrack 360°, O4 FHD video transmission up to 20 km, 34-minute standard flight time, and true mechanical vertical camera rotation for social-ready footage.",
+    "specs": [
+      "Ultralight Sub-249g Takeoff Weight (Regulation-Friendly)",
+      "1/1.3\" CMOS Sensor (f/1.7, Dual Native ISO Fusion, 48MP Raw)",
+      "4K/60fps HDR & 4K/100fps Slow Motion Video",
+      "True Vertical Shooting (Hardware Gimbal 90° Rotation)",
+      "Omnidirectional Binocular Obstacle Sensing System",
+      "DJI O4 HD Video Transmission (Up to 20 km Range at 1080p/60fps)",
+      "ActiveTrack 360° Advanced Subject Tracking & Waypoint Flight",
+      "34-Minute Flight Time (Standard) / 45-Min (Plus Battery)"
+    ],
+    "pros": [
+      "Sub-249g weight means no FAA/DGCA license in many areas",
+      "Outstanding dynamic range and low-light performance",
+      "Omnidirectional safety sensing prevents crashes",
+      "True vertical shooting for full-res mobile reels"
+    ],
+    "cons": [
+      "Light body is susceptible to high gusty winds above Level 5",
+      "Plus batteries push weight over 249g mark"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "10/10",
+    "whereUsed": "Travel Expeditions, Landscape Cinematography, Content Creation"
+  },
+  {
+    "id": 208,
+    "name": "DJI Osmo Action 5 Pro",
+    "category": "dji",
+    "brand": "dji",
+    "icon": "",
+    "inr": "₹35,990 – ₹45,990",
+    "usd": "$349 – $449",
+    "launch": "2024",
+    "useCase": "Extreme sports and action cinematography — revolutionary 13.5-stop dynamic range, 4-hour battery & 20m waterproofing",
+    "desc": "Pro-tier action camera powered by a revolutionary next-generation 1/1.3-inch sensor with 4nm high-efficiency image processor. Delivers 13.5 stops of dynamic range, true 4K/120fps recording in 4:3, and dedicated SuperNight mode with AI noise reduction. Features dual high-brightness OLED touchscreens, 47GB built-in internal storage, magnetic quick-release mounting, 4-hour ultra-long battery life, cold-resistance down to -20°C, and native waterproof rating down to 20 meters without housing.",
+    "specs": [
+      "Next-Gen 1/1.3\" Sensor with 4nm AI Image Processor",
+      "13.5 Stops Dynamic Range & 10-Bit D-Log M Color Profile",
+      "4K/120fps (4:3) & 4K/60fps SuperNight Low-Light Mode",
+      "Dual High-Brightness OLED Touchscreens (Peak 1000 Nits)",
+      "Native 20m Waterproof Without External Case",
+      "4-Hour Continuous Recording Time (1950mAh Extreme Battery)",
+      "47GB Built-in Internal Storage + MicroSD Expansion",
+      "HorizonSteady 360° & RockSteady 3.0 EIS Stabilization"
+    ],
+    "pros": [
+      "Industry-leading 13.5 stops dynamic range in daylight & night",
+      "Incredible 4-hour battery life crushes the competition",
+      "Dual OLED screens with incredible visibility under direct sunlight",
+      "Magnetic quick-release system for lightning-fast mount swapping"
+    ],
+    "cons": [
+      "Requires high-speed V30/U3 microSD for max bitrate",
+      "No built-in GPS (requires GPS Bluetooth remote accessory)"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "10/10",
+    "whereUsed": "Scuba Diving, Moto Vlogging, Mountain Biking, Extreme Weather"
+  },
+  {
+    "id": 209,
+    "name": "DJI Osmo Mobile 6",
+    "category": "dji",
+    "brand": "dji",
+    "icon": "",
+    "inr": "₹12,490 – ₹13,990",
+    "usd": "$139 – $159",
+    "launch": "2022",
+    "useCase": "Cinematic mobile videography — 3-axis smartphone stabilization, built-in extension rod & quick magnetic snap",
+    "desc": "The ultimate 3-axis smartphone stabilizer for buttery smooth cinematic video. Features a compact, foldable ergonomic body with an integrated 215mm extension rod for dynamic high and low-angle shots. Includes Quick Launch for iPhones to automatically open the camera app upon unfolding, ActiveTrack 6.0 for tracking subjects even during rapid movement, side control wheel for manual zoom and focus, and a magnetic phone clamp that snaps on instantly without rebalancing.",
+    "specs": [
+      "3-Axis High-Torque Brushless Motor Stabilization",
+      "Built-in 215mm (8.5\") Telescopic Extension Rod",
+      "ActiveTrack 6.0 Subject Tracking & Deep Learning Identification",
+      "Quick Launch Automated App Activation for iPhone & Android",
+      "Magnetic Quick-Release Phone Clamp with Anti-Slip Pads",
+      "Side Wheel for Smooth Focus & Zoom Focal Length Adjustments",
+      "Integrated Status Display Panel (Battery & Gimbal Mode Indicators)",
+      "Foldable Ultra-Compact Design (Weighs Only 309g)"
+    ],
+    "pros": [
+      "Extremely compact and quick to deploy with magnetic clamp",
+      "Integrated selfie/extension rod expands shooting angles",
+      "ActiveTrack 6.0 keeps moving subjects locked in center",
+      "Physical side wheel allows pro-level manual focus pulling"
+    ],
+    "cons": [
+      "Very heavy phone cases may need removal before clamping",
+      "Extension rod slightly increases overall flex at full extension"
+    ],
+    "travel": {
+      "plane": true,
+      "train": true,
+      "moto": true,
+      "car": true,
+      "cycle": true
+    },
+    "rating": "9/10",
+    "whereUsed": "Travel Vlogs, Street Cinematography, Mobile Filmmaking"
   }
 ];
 
@@ -14046,7 +14326,8 @@ const ITEMS = [
 ───────────────────────────────────────────── */
 const BRAND_LOGOS = {
   duolingo: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 26 10, 12 28, 12 56 C 12 76, 26 90, 50 90 C 74 90, 88 76, 88 56 C 88 28, 74 10, 50 10 Z" fill="#58CC02"/><path d="M 28 14 C 20 8, 10 14, 14 26 C 18 20, 24 16, 28 14 Z" fill="#46A302"/><path d="M 72 14 C 80 8, 90 14, 86 26 C 82 20, 76 16, 72 14 Z" fill="#46A302"/><ellipse cx="34" cy="46" rx="14" ry="16" fill="#FFFFFF"/><ellipse cx="36" cy="47" rx="8" ry="10" fill="#4B4B4B"/><circle cx="38" cy="44" r="3.5" fill="#FFFFFF"/><ellipse cx="66" cy="46" rx="14" ry="16" fill="#FFFFFF"/><ellipse cx="64" cy="47" rx="8" ry="10" fill="#4B4B4B"/><circle cx="62" cy="44" r="3.5" fill="#FFFFFF"/><path d="M 43 54 C 43 54, 50 67, 50 67 C 50 67, 57 54, 57 54 Z" fill="#FF9600" stroke="#E07A00" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
-  netflix: `<svg viewBox="0 0 111 30" fill="#E50914" xmlns="http://www.w3.org/2000/svg"><path d="M105.062 14.28L111 30c-1.75-.25-3.5-.375-5.25-.375-3.375 0-5.125.625-6.875 1.375L93.75 16.5 88.5 30.75c-1.625.375-3.375.625-5.125.625-1.75 0-3.5-.125-5.25-.375l5.875-15.625L78.25 1.25c1.625.375 3.375.625 5.125.625 1.75 0 3.5-.125 5.25-.375L93.75 14.25 99 0c1.75.25 3.5.375 5.25.375 1.75 0 3.5-.125 5.25-.375l-4.438 14.28zM0 0h6.75l10.5 24.375V0h6.75v30h-6l-11.25-25.5V30H0V0zm30 0h19.5v5.25H36.75v7.125h11.25v5.25H36.75v7.125h12.75V30H30V0zm24 0h18.75v5.25h-6v24.75h-6.75V5.25H54V0z"/></svg>`,
+  netflix: `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="4.5" fill="#000000"/><path d="M5.5 4h3.2v16H5.5V4z" fill="#B1060F"/><path d="M15.3 4h3.2v16h-3.2V4z" fill="#B1060F"/><path d="M5.5 4l9.8 16h3.2L8.7 4H5.5z" fill="#E50914"/></svg>`,
+  dji: `<svg viewBox="0 0 165 95" fill="none" xmlns="http://www.w3.org/2000/svg"><g fill="#0971ce"><path d="M115.5 13.5l12.2 50.8h-26.2l-11.1-45.5c-1.6-8.9-11.1-13.1-17.9-13.2h-18.6l-6.3-18.3h39c9.6 0 23.8 4.9 28.9 26.2z"/><path d="M37.5 13.5l12.3 51.6h26.9L62.7 6.4C60 0 51.6-2.7 43.8-2.7H-18.3C-25.1-2.7-30.9.2-27.8 13.3l5.6 23.4c2.8 11.9 11.6 14.6 18 14.6h43.4l-3.5-14.6h-22.1c-3.3 0-5-.7-6-4.5l-3.6-14.9c-1.3-5.4.6-5.7 4.5-5.7h20.3c3.7 0 7 0.2 8.6 6.9z"/><path d="M141.5 68.3l12.7 54h26.2l-12.7-54h-26.2z"/></g></svg>`,
   jio: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="48" fill="#0A2885"/><circle cx="50" cy="50" r="42" fill="#0054A6"/><text x="50" y="64" font-family="'Inter',-apple-system,sans-serif" font-size="42" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">Jio</text></svg>`,
   icloud: `<svg viewBox="0 0 24 24" fill="#0284C7" xmlns="http://www.w3.org/2000/svg"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/></svg>`,
   apple: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>`,
@@ -14590,6 +14871,7 @@ uspa: `<svg viewBox="70 24 236 424" xmlns="http://www.w3.org/2000/svg" aria-labe
 const BRAND_COLORS = {
   duolingo: '#58CC02',
   netflix: '#E50914',
+  dji: '#0971ce',
   jio: '#0054A6',
   icloud: '#0284C7',
   ultraviolette: '#8B5CF6',
@@ -14876,8 +15158,8 @@ function isItemInCat(item, catId) {
   }
 
   if (catId === "camera") {
-    return ["camera", "sony"].includes(c) ||
-      /\b(camera|alpha 1|alpha a9|cctv|projector|cinebeam)\b/i.test(name);
+    return ["camera", "sony", "dji"].includes(c) || item.brand === "dji" ||
+      /\b(camera|alpha 1|alpha a9|cctv|projector|cinebeam|drone|action 5|osmo)\b/i.test(name);
   }
 
   if (catId === "robots") {
@@ -14911,8 +15193,11 @@ function isItemInCat(item, catId) {
 function isItemInBrand(item, brandId) {
   if (brandId === "all") return true;
   if (item.category === brandId) return true;
+  if (item.brand === brandId) return true;
 
   const name = (item.name || "").toLowerCase();
+
+  if (brandId === "dji") return item.category === "dji" || item.brand === "dji" || /\b(dji|osmo|mini 4 pro|mic 2)\b/i.test(name);
 
   // Comprehensive brand matching by item title & category keywords
   if (brandId === "apple") return item.category === "apple" || item.brand === "apple" || /\b(apple|macbook|mac studio|imac|iphone|ipad|airpods?|airtag|homepod|magsafe|earpods?|vision pro)\b/i.test(name);
@@ -17060,12 +17345,44 @@ document.addEventListener('keydown', e => {
 /* ─────────────────────────────────────────────
    START
 ───────────────────────────────────────────── */
+
+// Real-time live date, month, year, time and lowercase day updater
+function initFooterLiveClock() {
+  function updateTime() {
+    const now = new Date();
+    const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const dayEl = document.getElementById('footerLiveDay');
+    const dateEl = document.getElementById('footerLiveDate');
+    const timeEl = document.getElementById('footerLiveTime');
+
+    if (dayEl) dayEl.textContent = dayNames[now.getDay()]; // Day strictly in lowercase as requested
+    if (dateEl) dateEl.textContent = now.getDate() + ' ' + monthNames[now.getMonth()] + ' ' + now.getFullYear();
+    if (timeEl) {
+      const pad = (n) => String(n).padStart(2, '0');
+      timeEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    }
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+}
+
+function updateFooterStats() {
+  const tot = document.getElementById('footerTotalItems');
+  if (tot && typeof ITEMS !== 'undefined') tot.textContent = ITEMS.length;
+  const br = document.getElementById('footerTotalBrands');
+  if (br && typeof BRANDS !== 'undefined') br.textContent = BRANDS.length + '+';
+}
+
+
 init();
 updateNetworkStatus(typeof navigator !== "undefined" ? navigator.onLine : true, false);
 applyAllSettings();
 initHeaderScatter();
 handleScroll();
 updateFooterStats();
+initFooterLiveClock();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
