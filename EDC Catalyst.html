@@ -54,6 +54,11 @@ body {
   cursor: default;
   position: relative;
   transition: background 0.5s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Smooth page transitions */
@@ -133,6 +138,7 @@ header {
   border-radius: 100px;
   padding: 7px 20px;
   margin-bottom: 26px;
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   animation: fadeDown 0.7s ease forwards;
   box-shadow: 0 2px 10px rgba(0,0,0,0.02);
@@ -150,6 +156,7 @@ header {
   color: var(--accent);
   animation: fadeDown 0.7s 0.1s ease both;
   margin-bottom: 12px;
+  -webkit-user-select: none;
   user-select: none;
   perspective: 1200px;
   perspective-origin: 50% 50%;
@@ -195,6 +202,7 @@ header {
   transform-style: preserve-3d;
   transform-origin: center center;
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   backface-visibility: hidden;
@@ -229,6 +237,7 @@ header {
   padding: 8px 18px;
   font-size: 13px; font-weight: 500;
   color: var(--text2);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
@@ -397,6 +406,7 @@ header {
   color: var(--text);
   z-index: 1;
   box-sizing: border-box;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -519,6 +529,7 @@ header {
   color: #9CA3AF;
   z-index: 1;
   box-sizing: border-box;
+  -webkit-user-select: none;
   user-select: none;
   transform: translateY(0) scale(1);
   opacity: 1;
@@ -660,9 +671,11 @@ header {
               border-color 0.25s ease,
               background 0.25s ease,
               color 0.25s ease;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   white-space: nowrap;
   box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -837,6 +850,9 @@ header {
   transition: border-color 0.32s ease, box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: visible;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .card:hover {
   border-color: rgba(99, 102, 241, 0.18);
@@ -1195,6 +1211,7 @@ header {
               border-color 0.2s ease,
               box-shadow 0.2s ease;
   z-index: 12;
+  -webkit-user-select: none;
   user-select: none;
 }
 .card-brand-stage:hover .card-brand-badge,
@@ -2084,6 +2101,7 @@ header {
   box-shadow: 0 4px 16px rgba(250, 82, 82, 0.28);
   z-index: 10;
   transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3263,6 +3281,7 @@ body.is-offline .panel-gallery-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  -webkit-user-select: none;
   user-select: none;
   touch-action: pan-y pinch-zoom;
   cursor: grab;
@@ -3294,6 +3313,7 @@ body.is-offline .panel-gallery-container {
   object-fit: contain;
   filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.14)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   will-change: transform, opacity;
@@ -3309,6 +3329,7 @@ body.is-offline .panel-gallery-container {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   z-index: 1;
@@ -3338,6 +3359,7 @@ body.is-offline .panel-gallery-container {
               background 0.2s ease,
               opacity 0.2s ease,
               box-shadow 0.22s ease;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3398,6 +3420,7 @@ body.is-offline .panel-gallery-container {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3500,6 +3523,7 @@ html[data-scale="large"] {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transform-origin: center bottom;
@@ -4383,6 +4407,7 @@ img, svg, picture, canvas {
   font-size: 8.5px;
   color: rgba(255, 255, 255, 0.3);
   letter-spacing: 0.5px;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4472,6 +4497,7 @@ img, svg, picture, canvas {
   color: var(--footer-text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4604,6 +4630,7 @@ img, svg, picture, canvas {
 
 .footer-stat-clickable {
   cursor: pointer;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4655,6 +4682,7 @@ img, svg, picture, canvas {
   padding: 14px 16px;
   cursor: pointer;
   transition: all 0.25s ease;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -4763,6 +4791,7 @@ img, svg, picture, canvas {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.22s ease;
+  -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -5328,6 +5357,103 @@ img, svg, picture, canvas {
     </div>
   </footer>
 </div><script>
+/* ═══════════════════════════════════════════════════════════════
+   CROSS-BROWSER ENGINE COMPATIBILITY & PERFORMANCE FOUNDATION
+   Guarantees bulletproof execution across Chromium, WebKit (iOS/macOS Safari),
+   Gecko (Firefox), Android WebViews, and privacy-hardened environments.
+═══════════════════════════════════════════════════════════════ */
+
+// 1. Web Animations API Polyfills (Element.prototype.getAnimations & Element.prototype.animate)
+// Prevents fatal crashes in older Safari, iOS WebKit, or custom Android WebViews
+if (typeof Element !== 'undefined') {
+  if (!Element.prototype.getAnimations) {
+    Element.prototype.getAnimations = function() { return []; };
+  }
+  if (!Element.prototype.animate) {
+    Element.prototype.animate = function(keyframes, options) {
+      var duration = 0;
+      if (typeof options === 'number') {
+        duration = options;
+      } else if (options && typeof options.duration === 'number') {
+        duration = options.duration;
+      }
+      var anim = {
+        finished: Promise.resolve(),
+        onfinish: null,
+        cancel: function() {},
+        finish: function() { if (typeof this.onfinish === 'function') this.onfinish(); },
+        play: function() {},
+        pause: function() {},
+        reverse: function() {},
+        currentTime: 0,
+        playbackRate: 1,
+        playState: 'finished',
+        addEventListener: function(type, cb) { if (type === 'finish') setTimeout(cb, Math.max(0, duration || 0)); },
+        removeEventListener: function() {}
+      };
+      setTimeout(function() {
+        if (typeof anim.onfinish === 'function') {
+          anim.onfinish();
+        }
+      }, Math.max(0, duration || 0));
+      return anim;
+    };
+  }
+}
+
+// 2. Safe requestIdleCallback & cancelIdleCallback (WebKit/Safari fallback)
+if (typeof window !== 'undefined') {
+  window.requestIdleCallback = window.requestIdleCallback || function(cb) {
+    var start = Date.now();
+    return setTimeout(function() {
+      cb({
+        didTimeout: false,
+        timeRemaining: function() { return Math.max(0, 50 - (Date.now() - start)); }
+      });
+    }, 1);
+  };
+  window.cancelIdleCallback = window.cancelIdleCallback || function(id) {
+    clearTimeout(id);
+  };
+}
+
+// 3. Exception-Proof Safe Storage (Immunity to Safari Private Browsing & Sandboxed Iframes)
+const safeStorage = {
+  getItem: function(key) {
+    try {
+      return (typeof window !== 'undefined' && window.localStorage) ? window.localStorage.getItem(key) : null;
+    } catch(e) {
+      return null;
+    }
+  },
+  setItem: function(key, val) {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(key, val);
+      }
+    } catch(e) {}
+  },
+  removeItem: function(key) {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.removeItem(key);
+      }
+    } catch(e) {}
+  }
+};
+
+// 4. Benign Error Suppression for Non-Critical Engine Quirks
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', function(e) {
+    if (e && e.message && (
+      e.message.indexOf('ResizeObserver') !== -1 ||
+      e.message.indexOf('Script error') !== -1
+    )) {
+      e.stopImmediatePropagation();
+    }
+  });
+}
+
 /* ─────────────────────────────────────────────
    CATEGORIES
 ───────────────────────────────────────────── */
@@ -6455,16 +6581,18 @@ function initGalleryTouch(stageEl) {
   let currentX = 0;
   let isPointerDown = false;
   let isDragging = false;
+  let capturedPointerId = null;
 
   const getWrapper = () => document.getElementById('galleryImgWrapper');
 
-  const handleStart = (clientX, clientY) => {
+  const handleStart = (clientX, clientY, pointerId) => {
     if (!currentGalleryImages || currentGalleryImages.length <= 1) return;
     startX = clientX;
     startY = clientY;
     currentX = clientX;
     isPointerDown = true;
     isDragging = false;
+    capturedPointerId = pointerId;
   };
 
   const handleMove = (clientX, clientY, e) => {
@@ -6474,17 +6602,23 @@ function initGalleryTouch(stageEl) {
 
     if (!isDragging) {
       if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 8) {
+        // Vertical gesture: release capture so page/panel can scroll smoothly
         isPointerDown = false;
+        if (capturedPointerId !== null && stageEl.releasePointerCapture && stageEl.hasPointerCapture && stageEl.hasPointerCapture(capturedPointerId)) {
+          try { stageEl.releasePointerCapture(capturedPointerId); } catch(err) {}
+        }
+        capturedPointerId = null;
         return;
       }
       if (Math.abs(diffX) > 8) {
         isDragging = true;
+        stageEl.classList.add('is-dragging');
         stageEl.style.cursor = 'grabbing';
       }
     }
 
     if (isDragging) {
-      if (e.cancelable) e.preventDefault();
+      if (e && e.cancelable) e.preventDefault();
       currentX = clientX;
       const damp = 0.65;
       const moveX = diffX * damp;
@@ -6501,8 +6635,14 @@ function initGalleryTouch(stageEl) {
   const handleEnd = () => {
     if (!isPointerDown) return;
     isPointerDown = false;
+    stageEl.classList.remove('is-dragging');
     stageEl.style.cursor = '';
     const wrap = getWrapper();
+
+    if (capturedPointerId !== null && stageEl.releasePointerCapture && stageEl.hasPointerCapture && stageEl.hasPointerCapture(capturedPointerId)) {
+      try { stageEl.releasePointerCapture(capturedPointerId); } catch(err) {}
+      capturedPointerId = null;
+    }
 
     if (isDragging) {
       isDragging = false;
@@ -6529,28 +6669,50 @@ function initGalleryTouch(stageEl) {
     }
   };
 
-  stageEl.addEventListener('touchstart', e => {
-    if (e.touches && e.touches[0]) handleStart(e.touches[0].clientX, e.touches[0].clientY);
-  }, { passive: true });
+  // Modern Unified Pointer Events API (Chromium, Firefox, Safari 13+, iOS WebKit)
+  if (typeof window !== 'undefined' && 'PointerEvent' in window) {
+    stageEl.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      try {
+        if (stageEl.setPointerCapture) stageEl.setPointerCapture(e.pointerId);
+      } catch (err) {}
+      handleStart(e.clientX, e.clientY, e.pointerId);
+    });
 
-  stageEl.addEventListener('touchmove', e => {
-    if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY, e);
-  }, { passive: false });
+    stageEl.addEventListener('pointermove', e => {
+      handleMove(e.clientX, e.clientY, e);
+    });
 
-  stageEl.addEventListener('touchend', handleEnd, { passive: true });
-  stageEl.addEventListener('touchcancel', handleEnd, { passive: true });
+    stageEl.addEventListener('pointerup', handleEnd);
+    stageEl.addEventListener('pointercancel', handleEnd);
+  } else {
+    // Legacy Touch & Mouse Event fallback with auto-removing scoped listeners
+    stageEl.addEventListener('touchstart', e => {
+      if (e.touches && e.touches[0]) handleStart(e.touches[0].clientX, e.touches[0].clientY, null);
+    }, { passive: true });
 
-  stageEl.addEventListener('mousedown', e => {
-    if (e.button === 0) handleStart(e.clientX, e.clientY);
-  });
+    stageEl.addEventListener('touchmove', e => {
+      if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY, e);
+    }, { passive: false });
 
-  window.addEventListener('mousemove', e => {
-    if (isPointerDown) handleMove(e.clientX, e.clientY, e);
-  });
+    stageEl.addEventListener('touchend', handleEnd, { passive: true });
+    stageEl.addEventListener('touchcancel', handleEnd, { passive: true });
 
-  window.addEventListener('mouseup', () => {
-    if (isPointerDown) handleEnd();
-  });
+    const onLegacyMove = e => { if (isPointerDown) handleMove(e.clientX, e.clientY, e); };
+    const onLegacyUp = () => {
+      if (isPointerDown) handleEnd();
+      window.removeEventListener('mousemove', onLegacyMove);
+      window.removeEventListener('mouseup', onLegacyUp);
+    };
+
+    stageEl.addEventListener('mousedown', e => {
+      if (e.button === 0) {
+        handleStart(e.clientX, e.clientY, null);
+        window.addEventListener('mousemove', onLegacyMove);
+        window.addEventListener('mouseup', onLegacyUp);
+      }
+    });
+  }
 }
 
 function changeGallerySlide(delta) {
@@ -18653,11 +18815,11 @@ document.addEventListener("keydown", e => {
 ───────────────────────────────────────────── */
 const SETTINGS = {
   theme: 'light',
-  brandsTop: localStorage.getItem('edc_brands_top') !== 'false', // default true
-  scale: localStorage.getItem('edc_scale') || 'normal',
-  cardLogos: localStorage.getItem('edc_card_logos') !== 'false', // default true
-  gridDensity: localStorage.getItem('edc_grid_density') || 'standard',
-  scrollAnim: localStorage.getItem('edc_scroll_anim') !== 'false' // default true
+  brandsTop: safeStorage.getItem('edc_brands_top') !== 'false', // default true
+  scale: safeStorage.getItem('edc_scale') || 'normal',
+  cardLogos: safeStorage.getItem('edc_card_logos') !== 'false', // default true
+  gridDensity: safeStorage.getItem('edc_grid_density') || 'standard',
+  scrollAnim: safeStorage.getItem('edc_scroll_anim') !== 'false' // default true
 };
 
 function applyAllSettings() {
@@ -18685,13 +18847,13 @@ function closeSettings() {
 
 function setTheme(mode, save = true) {
   SETTINGS.theme = 'light';
-  localStorage.removeItem('edc_theme');
+  safeStorage.removeItem('edc_theme');
   document.documentElement.removeAttribute('data-theme');
 }
 
 function toggleBrandsVisibility(visible, save = true) {
   SETTINGS.brandsTop = visible;
-  if (save) localStorage.setItem('edc_brands_top', visible);
+  if (save) safeStorage.setItem('edc_brands_top', visible);
   const sec = document.getElementById('brandsSection');
   if (sec) {
     sec.style.display = visible ? 'block' : 'none';
@@ -18702,7 +18864,7 @@ function toggleBrandsVisibility(visible, save = true) {
 
 function setScale(scaleMode, save = true) {
   SETTINGS.scale = scaleMode;
-  if (save) localStorage.setItem('edc_scale', scaleMode);
+  if (save) safeStorage.setItem('edc_scale', scaleMode);
   document.documentElement.setAttribute('data-scale', scaleMode);
 
   const compactBtn = document.getElementById('scaleCompactBtn');
@@ -18717,7 +18879,7 @@ function setScale(scaleMode, save = true) {
 
 function toggleCardLogosVisibility(show, save = true) {
   SETTINGS.cardLogos = show;
-  if (save) localStorage.setItem('edc_card_logos', show);
+  if (save) safeStorage.setItem('edc_card_logos', show);
   document.body.classList.toggle('hide-card-logos', !show);
   const chk = document.getElementById('toggleCardLogos');
   if (chk) chk.checked = show;
@@ -18725,7 +18887,7 @@ function toggleCardLogosVisibility(show, save = true) {
 
 function setGridDensity(density, save = true) {
   SETTINGS.gridDensity = density;
-  if (save) localStorage.setItem('edc_grid_density', density);
+  if (save) safeStorage.setItem('edc_grid_density', density);
   const grid = document.getElementById('grid');
   if (grid) {
     grid.classList.toggle('dense-grid', density === 'compact');
@@ -18739,12 +18901,12 @@ function setGridDensity(density, save = true) {
 }
 
 function resetSettings() {
-  localStorage.removeItem('edc_theme');
-  localStorage.removeItem('edc_brands_top');
-  localStorage.removeItem('edc_scale');
-  localStorage.removeItem('edc_card_logos');
-  localStorage.removeItem('edc_grid_density');
-  localStorage.removeItem('edc_scroll_anim');
+  safeStorage.removeItem('edc_theme');
+  safeStorage.removeItem('edc_brands_top');
+  safeStorage.removeItem('edc_scale');
+  safeStorage.removeItem('edc_card_logos');
+  safeStorage.removeItem('edc_grid_density');
+  safeStorage.removeItem('edc_scroll_anim');
   SETTINGS.theme = 'light';
   SETTINGS.brandsTop = true;
   SETTINGS.scale = 'normal';
@@ -18762,7 +18924,7 @@ let scrollObserver = null;
 
 function toggleScrollAnim(enable, save = true) {
   SETTINGS.scrollAnim = enable;
-  if (save) localStorage.setItem('edc_scroll_anim', enable);
+  if (save) safeStorage.setItem('edc_scroll_anim', enable);
   document.body.classList.toggle('no-scroll-anim', !enable);
   const chk = document.getElementById('toggleScrollAnim');
   if (chk) chk.checked = enable;
@@ -19025,34 +19187,68 @@ function initHeaderHoverField() {
   const title = document.getElementById('mainHeaderTitle');
   if (!title) return;
 
-  title.addEventListener('mousemove', e => {
-    if (currentScatterProgress > 0.15) return;
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
+  let cachedLetterCenters = [];
+  let hoverRafPending = false;
+  let latestMouseX = 0;
+  let latestMouseY = 0;
 
-    scatterLetters.forEach(el => {
-      const charRect = el.getBoundingClientRect();
-      const charCenterX = charRect.left + charRect.width / 2;
-      const charCenterY = charRect.top + charRect.height / 2;
-      const dist = Math.hypot(mouseX - charCenterX, mouseY - charCenterY);
-      const maxDist = 130;
+  function cacheLetterCenters() {
+    if (!scatterLetters || scatterLetters.length === 0) return;
+    cachedLetterCenters = scatterLetters.map(el => {
+      const r = el.getBoundingClientRect();
+      return { el: el, x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    });
+  }
+
+  function updateHoverField() {
+    hoverRafPending = false;
+    if (currentScatterProgress > 0.15) return;
+    if (cachedLetterCenters.length === 0) cacheLetterCenters();
+    if (cachedLetterCenters.length === 0) return;
+
+    const maxDist = 130;
+    for (let i = 0; i < cachedLetterCenters.length; i++) {
+      const item = cachedLetterCenters[i];
+      const charCenterX = item.x;
+      const charCenterY = item.y;
+      const dist = Math.hypot(latestMouseX - charCenterX, latestMouseY - charCenterY);
 
       if (dist < maxDist) {
         const force = (1 - dist / maxDist) * 14;
-        const angle = Math.atan2(charCenterY - mouseY, charCenterX - mouseX);
+        const angle = Math.atan2(charCenterY - latestMouseY, charCenterX - latestMouseX);
         const moveX = (Math.cos(angle) * force).toFixed(1);
         const moveY = (Math.sin(angle) * force).toFixed(1);
-        const rot = ((mouseX - charCenterX) * -0.06).toFixed(1);
-        el.style.transform = `translate3d(${moveX}px, ${moveY}px, 20px) rotate(${rot}deg) scale(1.08)`;
+        const rot = ((latestMouseX - charCenterX) * -0.06).toFixed(1);
+        item.el.style.transform = `translate3d(${moveX}px, ${moveY}px, 20px) rotate(${rot}deg) scale(1.08)`;
       } else {
         if (currentScatterProgress === 0) {
-          el.style.transform = '';
+          item.el.style.transform = '';
         }
       }
-    });
-  });
+    }
+  }
+
+  title.addEventListener('mouseenter', () => {
+    cacheLetterCenters();
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    cachedLetterCenters = [];
+  }, { passive: true });
+
+  title.addEventListener('mousemove', e => {
+    if (currentScatterProgress > 0.15) return;
+    latestMouseX = e.clientX;
+    latestMouseY = e.clientY;
+    if (!hoverRafPending) {
+      hoverRafPending = true;
+      requestAnimationFrame(updateHoverField);
+    }
+  }, { passive: true });
 
   title.addEventListener('mouseleave', () => {
+    hoverRafPending = false;
+    cachedLetterCenters = [];
     if (currentScatterProgress === 0) {
       scatterLetters.forEach(el => {
         el.style.transition = 'transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1)';
@@ -19060,7 +19256,7 @@ function initHeaderHoverField() {
         setTimeout(() => { el.style.transition = ''; }, 380);
       });
     }
-  });
+  }, { passive: true });
 }
 
 function initHeaderScatter() {
@@ -19801,7 +19997,12 @@ function initFooterLiveClock() {
     if (copyYearEl) copyYearEl.textContent = yearNum;
   }
   updateTime();
-  setInterval(updateTime, 1000);
+  setInterval(() => {
+    if (!document.hidden) updateTime();
+  }, 1000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateTime();
+  });
 }
 
 function pickRandomGear() {
