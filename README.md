@@ -74,10 +74,12 @@ Built from the ground up as a single, self-contained architecture, the platform 
 * **Pointer Events with Capture**: Touch, mouse, and stylus drag gestures use `stageEl.setPointerCapture(e.pointerId)`, eliminating memory leaks and ensuring gestures track smoothly even outside viewport bounds.
 * **Instant Background Decoding**: High-resolution image assets are pre-decoded in the background via `img.decode()` prior to display, preventing progressive render tears.
 
-### 3. Mobile Tap-to-Expand Search Bar
-* **Blink/WebKit Spring Dynamics**: On mobile screens (<768px), tapping the search icon smoothly expands the search bar from a compact circular pill into a focused discovery console.
-* **Dynamic Backdrop Dimming**: Background content dims gently to focus user input on quick search results and real-time category chips.
-* **Instant Shortcut Activation**: Desktop users can press `/` from anywhere on the page to instantly focus search.
+### 3. Adaptive Dynamic Auto-Expanding Search Console
+* **Dynamic Multi-Line Height Expansion**: As users type longer search queries or paste multi-word phrases, the search console smoothly expands in height from 58px up to 142px with cubic-bezier elastic spring physics.
+* **Internal Smooth Vertical Scrolling**: When reaching the maximum height limit (~4-5 lines of text), typed queries scroll seamlessly inside the search container with custom slim scrollbars, keeping the entire input accessible and visible.
+* **Dedicated Word-Boundary Typography**: Left and right safety margins prevent typed words from ever clipping or overlapping the search icon or clear button, while atomic word-wrap ensures clean readability without awkward mid-word breaks.
+* **Mobile Tap-to-Expand Dynamics**: On mobile screens (<768px), tapping the search icon smoothly expands the search bar from a compact pill into a focused discovery console with dynamic backdrop dimming and quick trending chips.
+* **Instant Shortcut Activation**: Desktop users can press `/` from anywhere on the page to instantly focus search, with `Escape` clearing the query and resetting the console.
 
 ### 4. Custom Precision Cursor Suite
 * **Aero Precision Arrow**: 28-degree aerodynamic pointer with a dual-coat indigo reticle (`--cursor-arrow`).
