@@ -24,3 +24,150 @@
 </svg>
 
 </div>
+
+<p align="center">
+  <strong>The Ultimate Interactive Everyday Carry Catalog &amp; Hardware Intelligence Platform</strong><br>
+  Curated gear, tactical tools, luxury horology, fine writing instruments, audiophile acoustics, and digital life ecosystems.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Catalog_Items-212_Verified-4F46E5?style=for-the-badge" alt="Catalog Items" />
+  <img src="https://img.shields.io/badge/Brands-40+_Curated-10B981?style=for-the-badge" alt="Curated Brands" />
+  <img src="https://img.shields.io/badge/Categories-12_Disciplines-06B6D4?style=for-the-badge" alt="Categories" />
+  <img src="https://img.shields.io/badge/UI_Standard-Zero_Emoji_/_Pure_SVG-8B5CF6?style=for-the-badge" alt="Vector SVGs" />
+  <img src="https://img.shields.io/badge/License-MIT-gray?style=for-the-badge" alt="License" />
+</p>
+
+---
+
+## Overview
+
+**EDC Catalyst** is a high-performance web experience and curated catalog designed for explorers, makers, tech minimalists, and everyday carry connoisseurs. It brings together over 212 meticulously documented physical tools, computing powerhouses, precision timepieces, and digital software stacks into a unified, responsive interface with instant search, interactive cutout galleries, and real-time chronometer intelligence.
+
+### Concept & Philosophy
+
+* **EDC (Everyday Carry)**: The philosophy of curating items you carry daily to remain capable, prepared, and focused.
+* **Catalyst (Explore · Decipher · Category)**:
+  * **Explore**: Discover breakthrough industrial design across flagship tech, analog classics, and heritage craftsmanship.
+  * **Decipher**: Unpack verified technical specifications, launch timelines, authentic market pricing (INR / USD), and carry compatibility.
+  * **Category**: Filter seamlessly across 12 distinct lifestyle and gear disciplines.
+
+---
+
+## Key Highlights & Features
+
+### 1. Curated Product Universes (212+ Verified Items)
+* **Apple Comprehensive Lineage**: Full historical and flagship lineup from the compact iPhone SE (1st Gen) to the cutting-edge **iPhone 18 Pro White Edition**, plus Mac Studio, Studio Display, iPad Mini 7, AirPods Pro 3, Apple Watch Ultra 2, Apple Vision Pro M4, vintage Macintosh watches, MagSafe accessories, and official peripherals.
+* **Elite Tech & Computing**: Samsung Galaxy Ultra & Foldables, Sony Alpha imaging & audio, LG CineBeam & OLED displays, Dyson supersonic engineering, and ASUS ROG gaming.
+* **Luxury Horology & Tool Watches**: Rolex Submariner, Omega Seamaster, Cartier Santos, Blancpain Villeret, Casioak G-Shock, and Tissot PRX.
+* **Acoustics & Sound Engineering**: Marshall vintage amplification, Moondrop planar IEMs, Beats acoustics, and audiophile soundbars.
+* **Tactical & EDC Gear**: Flipper Zero security multi-tools, 7 Ring contactless smart rings, GRAMS(28) Italian leather organizers, LARQ self-cleaning bottles, and Ember smart drinkware.
+* **Writing Instruments**: LAMY Safari & 2000 Bauhaus pens, reMarkable 2 paper tablets.
+* **Mobility & Electric Vehicles**: BMW Motorrad superbikes, Royal Enfield classic scramblers, Ultraviolette F77 electric superbikes, and Bajaj Chetak EVs.
+* **Heritage Footwear & Apparel**: Onitsuka Tiger Mexico 66, Nike Air Force, Adidas Samba, PUMA Speedcat, Gully Labs, Zara, Levi's selvedge denim, Uniqlo Supima, and H&M essentials.
+* **Digital Stack**: Obsidian, Notion, Arc Browser, Raycast, and 1Password productivity workflows.
+
+### 2. Multi-Cutout Interactive Product Gallery
+* High-resolution transparent background PNG cutouts (`alpha: true`) rendered with Lanczos3 resampling.
+* Interactive multi-angle dots navigation allowing instantaneous switching between single device and full bundle/duo cutouts.
+* Custom White Ceramic Titanium styling container with metallic sheen for the iPhone 18 Pro Special Edition.
+
+### 3. Seamless Obsidian Wave Divider & Real-Time Chronometer
+* **Continuous Wave Fluidity**: Wave divider SVG paths extend down to `y=160` with a `-6px` negative margin overlap, eliminating sub-pixel antialiasing cracks across all screen densities.
+* **Live Chronometer Engine**:
+  * Real-time digital clock updating every second with `am`/`pm` indicators.
+  * Day strictly displayed in lowercase (`small letter me`, e.g., `wednesday`, `friday`).
+  * Real-time date number, month name, and year tracking with green pulsing status dot.
+
+### 4. Zero-Emoji Design Standard
+* All buttons, badges, categories, navigation pills, and indicators are crafted with crisp inline vector SVGs for crisp rendering on high-DPI and Retina displays.
+
+### 5. Adaptive Online & Offline Engine
+* **Online Mode**: Loads full-resolution CDN product cutouts and live image galleries.
+* **Offline Fallback**: Seamless compact cards with zero-height image collapse and instant spec accessibility when disconnected.
+* **Real-time Connectivity Indicator**: Dynamic network status updates integrated directly into the floating scroll trigger.
+
+### 6. Search & Dynamic Multi-Filter System
+* Spring physics search input with real-time keystroke feedback and smooth filtering.
+* One-click category buttons (`selectCategoryFilter`) and brand pills (`selectBrandFilter`) with smooth scrolling to active results.
+* Reset actions and keyboard shortcuts (`/` to focus search, `Esc` to clear).
+
+---
+
+## Catalog Categories
+
+| Category | Identifier | Description & Focus |
+| :--- | :--- | :--- |
+| **Audio & Acoustics** | `audio` | Studio monitors, noise-canceling headphones, planar IEMs & portable speakers |
+| **Horology & Watches** | `watches` | Mechanical chronographs, luxury horology, smartwatches & tool watches |
+| **EDC Accessories** | `accessories` | Smart rings, modular wallets, magnetic mounts, charging bricks & EDC carry |
+| **Fine Writing** | `writing` | Bauhaus fountain pens, precision mechanical pencils & digital paper tablets |
+| **Tactical Tools** | `tools` | Multi-tools, wireless security hardware & pocket utility instruments |
+| **Companion Robotics** | `robots` | Autonomous desktop AI companions, robot cleaners & kinetic tech |
+| **Drones & Imaging** | `camera` | Full-frame mirrorless cameras, 4K action cams & compact cinema drones |
+| **Vehicles & Mobility** | `vehicles` | High-performance electric motorcycles, vintage cruisers & urban mobility |
+| **Footwear & Sneakers** | `shoes` | Low-profile racing trainers, heritage silhouettes & lifestyle sneakers |
+| **Curated Apparel** | `clothes` | Japanese selvedge denim, technical outerwear, merino wool & essentials |
+| **Digital Stack** | `apps` | Local-first markdown knowledge graphs, intelligent command bars & suites |
+
+---
+
+## Getting Started
+
+### Prerequisites
+* Any modern web browser (Google Chrome, Safari, Mozilla Firefox, Microsoft Edge, or Arc).
+* (Optional) [Node.js](https://nodejs.org/) v18+ for local preview server.
+
+### Running Locally
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/AyushHarinkhede/EDC-Catalyst.git
+   cd EDC-Catalyst
+   ```
+
+2. **Open directly in your browser:**
+   Double-click `EDC Catalyst.html` or open it via terminal:
+   ```bash
+   # Windows (PowerShell)
+   Start-Process "EDC Catalyst.html"
+
+   # macOS
+   open "EDC Catalyst.html"
+
+   # Linux
+   xdg-open "EDC Catalyst.html"
+   ```
+
+3. **Or run with the built-in Node.js server:**
+   ```bash
+   node "EDC Catalyst.html"
+   ```
+   Navigate to `http://localhost:3000` in your web browser.
+
+---
+
+## File Structure
+
+```
+EDC-Catalyst/
+├── assets/
+│   └── apple/                # Transparent cutout PNGs for Apple devices & lineages
+├── EDC Catalyst.html         # Main application containing all catalog data, CSS, and logic
+├── README.md                 # Project documentation and SVG brand architecture
+└── LICENSE                   # MIT License
+```
+
+---
+
+## Keyboard Shortcuts
+
+* `/` : Instant search bar focus
+* `Esc` : Close expanded modal or reset active search query
+* `Click on Logo` : Smooth scroll to top
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - feel free to explore, fork, and build upon this everyday carry catalog.
