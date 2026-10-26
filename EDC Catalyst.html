@@ -3632,7 +3632,7 @@ img, svg, picture, canvas {
 
 
 /* ═══════════════════════════════════════════════
-   EDC CATALYST FOOTER & LIVE WAVE DIVIDER
+   EDC CATALYST FOOTER & LIVE WAVE DIVIDER (SEAMLESS OBSIDIAN EDITION)
 ═══════════════════════════════════════════════ */
 :root {
   --footer-bg-top: #101426;
@@ -3642,6 +3642,7 @@ img, svg, picture, canvas {
   --footer-card-bg: rgba(255, 255, 255, 0.035);
   --footer-card-border: rgba(255, 255, 255, 0.08);
   --footer-card-hover: rgba(99, 102, 241, 0.12);
+  --footer-border: rgba(255, 255, 255, 0.07);
 }
 
 [data-theme="dark"] {
@@ -3652,36 +3653,42 @@ img, svg, picture, canvas {
   --footer-card-bg: rgba(255, 255, 255, 0.025);
   --footer-card-border: rgba(255, 255, 255, 0.05);
   --footer-card-hover: rgba(99, 102, 241, 0.16);
+  --footer-border: rgba(255, 255, 255, 0.06);
 }
 
 .footer-wrapper {
   position: relative;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 40px;
   z-index: 10;
   background: transparent;
+  display: block;
 }
 
-/* ─── LIVE WAVE DIVIDER ──────────────────────── */
+/* ─── LIVE WAVE DIVIDER (ZERO-SEAM CONTINUITY) ──────────────────────── */
 .wave-divider {
   position: relative;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  margin-bottom: -1px;
+  margin-bottom: -6px; /* Deep overlap eliminates all sub-pixel anti-aliasing cracks */
   pointer-events: none;
+  z-index: 2;
+  display: block;
 }
 
 .wave-divider svg {
   position: relative;
   display: block;
-  width: calc(100% + 1.3px);
-  height: 84px;
+  width: calc(100% + 2px);
+  margin-left: -1px;
+  height: 86px;
+  vertical-align: bottom;
 }
 
 @media (max-width: 768px) {
   .wave-divider svg {
-    height: 52px;
+    height: 54px;
   }
 }
 
@@ -3690,43 +3697,41 @@ img, svg, picture, canvas {
   fill: rgba(79, 70, 229, 0.28);
   animation: waveFloatBg 11s ease-in-out infinite alternate;
   transform-origin: bottom center;
+  transform-box: fill-box;
 }
 
-/* Main primary wave */
+/* Main primary wave - pinned to bottom coordinates, gentle organic crest breathing */
 .wave-divider .shape-fill {
   fill: var(--footer-bg-top);
   animation: waveFloatMain 8s ease-in-out infinite alternate;
   transform-origin: bottom center;
+  transform-box: fill-box;
   transition: fill 0.3s ease;
 }
 
-
-
 @keyframes waveFloatMain {
   0% {
-    transform: scaleY(1) translateY(0);
+    transform: scaleY(1);
   }
   50% {
-    transform: scaleY(1.05) translateY(-3px);
+    transform: scaleY(1.05);
   }
   100% {
-    transform: scaleY(0.97) translateY(2px);
+    transform: scaleY(1);
   }
 }
 
 @keyframes waveFloatBg {
   0% {
-    transform: scaleY(0.95) scaleX(1) translateY(3px);
+    transform: scaleY(0.96) scaleX(1);
   }
   50% {
-    transform: scaleY(1.1) scaleX(1.02) translateY(-4px);
+    transform: scaleY(1.1) scaleX(1.02);
   }
   100% {
-    transform: scaleY(0.98) scaleX(0.99) translateY(1px);
+    transform: scaleY(1) scaleX(0.99);
   }
 }
-
-
 
 /* ─── FOOTER BODY ────────────────────────────── */
 .footer-content {
@@ -3736,7 +3741,9 @@ img, svg, picture, canvas {
   position: relative;
   box-shadow: none;
   border-top: none;
-  margin-top: -1px;
+  outline: none;
+  margin-top: 0;
+  z-index: 1;
 }
 
 .footer-inner {
@@ -3746,7 +3753,7 @@ img, svg, picture, canvas {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2.2fr 1.15fr 1.15fr 1.6fr;
+  grid-template-columns: 2.2fr 1.25fr 1.25fr 1.5fr;
   gap: 40px;
   margin-bottom: 48px;
 }
@@ -3837,71 +3844,11 @@ img, svg, picture, canvas {
   font-size: 13.5px;
   line-height: 1.65;
   color: var(--footer-text-muted);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   max-width: 440px;
 }
 
-
-/* Live footer real-time calendar and clock card */
-.footer-live-clock-card {
-  margin-top: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-}
-
-.flc-icon-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(99, 102, 241, 0.18);
-  border: 1px solid rgba(129, 140, 248, 0.35);
-  color: #a5b4fc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.flc-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.flc-day-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.flc-day-tag {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: lowercase; /* strictly small letters as requested */
-  color: var(--accent);
-  letter-spacing: 0.04em;
-}
-
-.flc-time-tag {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.flc-date-row {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.02em;
-}
-
+/* Status pill */
 .footer-live-status-pill {
   display: inline-flex;
   align-items: center;
@@ -3914,6 +3861,7 @@ img, svg, picture, canvas {
   font-size: 12px;
   font-weight: 600;
   width: fit-content;
+  margin-bottom: 16px;
 }
 
 .live-dot-pulse {
@@ -3924,6 +3872,7 @@ img, svg, picture, canvas {
   box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
   animation: liveDotPulse 2s infinite;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 @keyframes liveDotPulse {
@@ -3939,6 +3888,130 @@ img, svg, picture, canvas {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
+}
+
+/* ─── REAL-TIME CHRONOMETER CARD (DATE, MONTH, YEAR & LOWERCASE DAY) ─────────────────── */
+.footer-live-chrono-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  max-width: 440px;
+}
+
+.flc-chrono-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flc-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #A5B4FC;
+}
+
+.flc-day-pill {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: lowercase; /* strictly small letters as requested */
+  letter-spacing: 0.06em;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.flc-chrono-main {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.flc-time-num {
+  font-family: 'JetBrains Mono', 'Fira Code', 'DM Mono', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.flc-ampm-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: var(--accent);
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.flc-chrono-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flc-calendar-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #A5B4FC;
+  flex-shrink: 0;
+}
+
+.flc-date-string {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.flc-date-day-small {
+  color: #38BDF8;
+  text-transform: lowercase; /* strictly small letters as requested */
+  font-weight: 700;
+}
+
+.flc-date-sep {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.flc-date-num {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.flc-date-month {
+  color: #E2E8F0;
+  text-transform: lowercase; /* strictly small letters as requested */
+  font-weight: 600;
+}
+
+.flc-date-year {
+  color: #94A3B8;
+  font-weight: 600;
 }
 
 /* Column titles */
@@ -3971,24 +4044,38 @@ img, svg, picture, canvas {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 10px;
 }
 
 .footer-links li a {
   color: var(--footer-text-muted);
   text-decoration: none;
-  font-size: 13.5px;
+  font-size: 13px;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   cursor: pointer;
+  line-height: 1.35;
 }
 
 .footer-links li a:hover {
   color: #FFFFFF;
   transform: translateX(4px);
   text-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+.footer-link-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--accent);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-links li a:hover .footer-link-icon {
+  color: #818CF8;
+  transform: scale(1.15);
 }
 
 /* Stats boxes in footer */
@@ -4077,6 +4164,9 @@ img, svg, picture, canvas {
 .footer-copy {
   font-size: 12.5px;
   color: var(--footer-text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .footer-copy strong {
@@ -4111,7 +4201,6 @@ img, svg, picture, canvas {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
 }
-
 
 /* ==========================================================================
    iPhone 18 Pro White Ceramic Titanium Special Edition Container
@@ -4351,19 +4440,19 @@ img, svg, picture, canvas {
 
 </div><!-- /wrap -->
 
-<!-- ══ FOOTER SECTION WITH LIVE WAVE DIVIDER ═══════════════ -->
+<!-- ══ FOOTER SECTION WITH LIVE WAVE DIVIDER (SEAMLESS OBSIDIAN) ═══════════════ -->
 <div class="footer-wrapper">
   <div class="wave-divider">
-    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="wave-svg">
-      <path d="M0,0 C150,60 350,0 500,40 C650,80 900,10 1200,50 L1200,120 L0,120 Z" class="shape-fill-bg"></path>
-      <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+      <path d="M0,0 C150,60 350,0 500,40 C650,80 900,10 1200,50 L1200,160 L0,160 Z" class="shape-fill-bg"></path>
+      <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V160H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
     </svg>
   </div>
 
   <footer class="footer-content">
     <div class="footer-inner">
       <div class="footer-grid">
-        <!-- Column 1: Brand, Logo & Mission -->
+        <!-- Column 1: Brand, Mission & Real-time Live Clock Card -->
         <div class="footer-col footer-col-brand">
           <div class="footer-brand-header">
             <div class="footer-brand-logo" onclick="scrollToTop()" title="EDC Catalyst - Back to Top">
@@ -4383,64 +4472,264 @@ img, svg, picture, canvas {
             <span class="live-dot-pulse"></span>
             <span>Catalog Engine: <strong>Live &amp; Synced</strong></span>
           </div>
-          <div class="footer-live-clock-card" id="footerLiveClockWidget">
-            <div class="flc-icon-badge">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <div class="flc-details">
-              <div class="flc-day-row">
-                <span class="flc-day-tag" id="footerLiveDay">loading day</span>
-                <span class="flc-time-tag" id="footerLiveTime">--:--:--</span>
+
+          <!-- Real-Time Chronometer Widget: Date, Month, Year, Lowercase Day & Live Time -->
+          <div class="footer-live-chrono-card" id="footerLiveChronoWidget">
+            <div class="flc-chrono-header">
+              <div class="flc-pulse-badge">
+                <span class="live-dot-pulse"></span>
+                <span class="flc-pulse-label">Real-Time Chrono</span>
               </div>
-              <div class="flc-date-row" id="footerLiveDate">-- ------- ----</div>
+              <div class="flc-day-pill" id="footerLiveDay">wednesday</div>
+            </div>
+            <div class="flc-chrono-main">
+              <div class="flc-time-num" id="footerLiveTime">12:00:00</div>
+              <div class="flc-ampm-pill" id="footerLivePeriod">pm</div>
+            </div>
+            <div class="flc-chrono-footer">
+              <div class="flc-calendar-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </div>
+              <div class="flc-date-string">
+                <span class="flc-date-day-small" id="footerLiveDaySmall">wednesday</span>
+                <span class="flc-date-sep">·</span>
+                <span class="flc-date-num" id="footerLiveDateNum">28</span>
+                <span class="flc-date-month" id="footerLiveMonth">october</span>
+                <span class="flc-date-year" id="footerLiveYear">2026</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Column 2: Quick Categories -->
+        <!-- Column 2: Genuine Catalog Categories from CATS -->
         <div class="footer-col">
           <h4 class="footer-col-title">Categories</h4>
           <ul class="footer-links">
-            <li><a onclick="selectCategoryFilter('apple', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple Ecosystem</a></li>
-            <li><a onclick="selectCategoryFilter('watches', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.85 4.65h-7.32l-.85-4.65"></path><path d="M7.49 6.65l.85-4.65h7.32l.85 4.65"></path></svg>Watches &amp; Horology</a></li>
-            <li><a onclick="selectCategoryFilter('audio', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>Audiophile Acoustics</a></li>
-            <li><a onclick="selectCategoryFilter('writing', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>Fine Writing Instruments</a></li>
-            <li><a onclick="selectCategoryFilter('vehicles', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path><circle cx="7" cy="17" r="2"></circle><path d="M9 17h6"></path><circle cx="17" cy="17" r="2"></circle></svg>Vehicles &amp; Mobility</a></li>
-            <li><a onclick="selectCategoryFilter('apps', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>Digital Apps &amp; Stack</a></li>
+            <li>
+              <a onclick="selectCategoryFilter('audio', true)" title="Filter Audio &amp; Acoustics">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                  <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                </svg>
+                Audio &amp; Acoustics
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('watches', true)" title="Filter Watches &amp; Horology">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="7"></circle>
+                  <polyline points="12 9 12 12 13.5 13.5"></polyline>
+                  <path d="M16.51 17.35l-.85 4.65h-7.32l-.85-4.65"></path>
+                  <path d="M7.49 6.65l.85-4.65h7.32l.85 4.65"></path>
+                </svg>
+                Watches &amp; Horology
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('accessories', true)" title="Filter EDC Gear &amp; Accessories">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10z"></path>
+                  <circle cx="12" cy="12" r="2"></circle>
+                </svg>
+                EDC Accessories
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('writing', true)" title="Filter Fine Writing Instruments">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                  <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                  <path d="M2 2l7.586 7.586"></path>
+                  <circle cx="11" cy="11" r="2"></circle>
+                </svg>
+                Fine Writing &amp; Notes
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('tools', true)" title="Filter Tactical Tools &amp; Hardware">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+                Tactical &amp; EDC Tools
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('robots', true)" title="Filter Companion Robotics">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                  <circle cx="12" cy="5" r="2"></circle>
+                  <path d="M12 7v4"></path>
+                  <line x1="8" y1="16" x2="8.01" y2="16"></line>
+                  <line x1="16" y1="16" x2="16.01" y2="16"></line>
+                </svg>
+                Companion Robotics
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('camera', true)" title="Filter Imaging, Drones &amp; Optics">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                Drones &amp; Imaging
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('vehicles', true)" title="Filter Vehicles &amp; Mobility">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                  <circle cx="7" cy="17" r="2"></circle>
+                  <path d="M9 17h6"></path>
+                  <circle cx="17" cy="17" r="2"></circle>
+                </svg>
+                Vehicles &amp; Mobility
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('shoes', true)" title="Filter Footwear &amp; Sneakers">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 18h18v2H3zM5 18l2-7h3l2 4 4-2 3 5H5z"></path>
+                </svg>
+                Footwear &amp; Sneakers
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('clothes', true)" title="Filter Curated Apparel">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a3 3 0 0 0-3 3c0 .8.3 1.5.8 2L2 14v2h20v-2l-7.8-7c.5-.5.8-1.2.8-2a3 3 0 0 0-3-3z"></path>
+                </svg>
+                Curated Apparel
+              </a>
+            </li>
+            <li>
+              <a onclick="selectCategoryFilter('apps', true)" title="Filter Digital Apps &amp; Stack">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+                Digital Stack &amp; Apps
+              </a>
+            </li>
           </ul>
         </div>
 
-        <!-- Column 3: Featured Brands -->
+        <!-- Column 3: Featured Elite Brands -->
         <div class="footer-col">
           <h4 class="footer-col-title">Top Brands</h4>
           <ul class="footer-links">
-            <li><a onclick="selectBrandFilter('apple', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple Ecosystem</a></li>
-            <li><a onclick="selectBrandFilter('dji', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>DJI Drones &amp; Imaging</a></li>
-            <li><a onclick="selectBrandFilter('lamy', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19 7-7 3 3-7 7-3-3z"></path><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path></svg>LAMY Germany</a></li>
-            <li><a onclick="selectBrandFilter('marshall', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Marshall Acoustics</a></li>
-            <li><a onclick="selectBrandFilter('rolex', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"></path></svg>Rolex Horology</a></li>
-            <li><a onclick="selectBrandFilter('flipper', true)"><svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>Flipper Security Tech</a></li>
+            <li>
+              <a onclick="selectBrandFilter('apple', true)" title="Filter Apple Products">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Apple Ecosystem
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('samsung', true)" title="Filter Samsung Products">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="3"></rect>
+                  <circle cx="12" cy="18" r="1"></circle>
+                </svg>
+                Samsung Galaxy &amp; Ultra
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('sony', true)" title="Filter Sony Products">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Sony Alpha &amp; Acoustics
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('lg', true)" title="Filter LG Products">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 7v5h4"></path>
+                </svg>
+                LG OLED &amp; Tech
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('dyson', true)" title="Filter Dyson Products">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 3v18"></path>
+                  <path d="M12 12l6-6"></path>
+                  <path d="M12 12l-6 6"></path>
+                </svg>
+                Dyson Engineering
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('dji', true)" title="Filter DJI Drones &amp; Imaging">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+                DJI Drones &amp; Gimbals
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('rolex', true)" title="Filter Rolex Horology">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5z"></path>
+                </svg>
+                Rolex Swiss Horology
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('lamy', true)" title="Filter LAMY Germany">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 19 7-7 3 3-7 7-3-3z"></path>
+                  <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                </svg>
+                LAMY Germany
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('marshall', true)" title="Filter Marshall Acoustics">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                Marshall Acoustics
+              </a>
+            </li>
+            <li>
+              <a onclick="selectBrandFilter('bmw', true)" title="Filter BMW Mobility">
+                <svg class="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="2" x2="12" y2="22"></line>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                </svg>
+                BMW Motorrad &amp; Mobility
+              </a>
+            </li>
           </ul>
         </div>
 
-        <!-- Column 4: Stats & Digital Suite -->
+        <!-- Column 4: Catalog Intelligence & Stats -->
         <div class="footer-col footer-col-stats">
           <h4 class="footer-col-title">Catalog Stats</h4>
           <div class="footer-stats-boxes">
             <div class="footer-stat-item">
-              <span class="fstat-val" id="footerTotalItems">172</span>
+              <span class="fstat-val" id="footerTotalItems">212</span>
               <span class="fstat-label">Curated Gear</span>
             </div>
             <div class="footer-stat-item">
-              <span class="fstat-val" id="footerTotalBrands">38+</span>
+              <span class="fstat-val" id="footerTotalBrands">40+</span>
               <span class="fstat-label">Elite Brands</span>
             </div>
             <div class="footer-stat-item">
-              <span class="fstat-val">5-Pillar</span>
-              <span class="fstat-label">Digital Stack</span>
+              <span class="fstat-val" id="footerTotalCats">12</span>
+              <span class="fstat-label">Categories</span>
             </div>
             <div class="footer-stat-item">
               <span class="fstat-val">100%</span>
@@ -4450,7 +4739,7 @@ img, svg, picture, canvas {
 
           <div class="footer-digital-suite-callout">
             <div class="fdsc-label">Digital Essential Suite</div>
-            <div class="fdsc-details">Netflix + Jio + Apple One + iCloud + Duolingo</div>
+            <div class="fdsc-details">Netflix + Apple One + Obsidian + Notion + Raycast</div>
             <div class="fdsc-price">Total: <strong>₹12,998 / year</strong></div>
           </div>
         </div>
@@ -4459,21 +4748,31 @@ img, svg, picture, canvas {
       <!-- Footer Bottom Strip -->
       <div class="footer-bottom-strip">
         <div class="footer-copy">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;"><circle cx="12" cy="12" r="10"/><path d="M14.83 14.83a4 4 0 1 1 0-5.66"/></svg> <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:2px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M14.83 14.83a4 4 0 1 1 0-5.66"></path>
+          </svg>
+          <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
         </div>
         <div class="footer-actions">
           <button class="footer-action-btn" onclick="resetAll(); scrollToCatalog();" title="Reset all catalog filters">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+              <path d="M3 3v5h5"></path>
+            </svg>
             <span>Reset Filters</span>
           </button>
           <button class="footer-action-btn" onclick="scrollToTop()" title="Scroll to top">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19V5M5 12l7-7 7 7"></path>
+            </svg>
             <span>Back to Top</span>
           </button>
         </div>
       </div>
     </div>
   </footer>
+</div>
 </div>
 
 
@@ -18344,19 +18643,44 @@ document.addEventListener('keydown', e => {
 function initFooterLiveClock() {
   function updateTime() {
     const now = new Date();
+    // strictly small letters (lowercase) as requested by user
     const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
+    const dayName = dayNames[now.getDay()];
+    const dateNum = now.getDate();
+    const monthName = monthNames[now.getMonth()];
+    const yearNum = now.getFullYear();
+
+    const hours24 = now.getHours();
+    const period = hours24 >= 12 ? 'pm' : 'am';
+    const hours12 = hours24 % 12 || 12;
+    const pad = (n) => String(n).padStart(2, '0');
+    const timeStr = pad(hours12) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+
+    // Update Day elements (strictly lowercase)
     const dayEl = document.getElementById('footerLiveDay');
-    const dateEl = document.getElementById('footerLiveDate');
-    const timeEl = document.getElementById('footerLiveTime');
+    if (dayEl) dayEl.textContent = dayName;
+    const daySmallEl = document.getElementById('footerLiveDaySmall');
+    if (daySmallEl) daySmallEl.textContent = dayName;
 
-    if (dayEl) dayEl.textContent = dayNames[now.getDay()]; // Day strictly in lowercase as requested
-    if (dateEl) dateEl.textContent = now.getDate() + ' ' + monthNames[now.getMonth()] + ' ' + now.getFullYear();
-    if (timeEl) {
-      const pad = (n) => String(n).padStart(2, '0');
-      timeEl.textContent = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-    }
+    // Update Date, Month, Year elements
+    const dateNumEl = document.getElementById('footerLiveDateNum');
+    if (dateNumEl) dateNumEl.textContent = dateNum;
+    const monthEl = document.getElementById('footerLiveMonth');
+    if (monthEl) monthEl.textContent = monthName;
+    const yearEl = document.getElementById('footerLiveYear');
+    if (yearEl) yearEl.textContent = yearNum;
+
+    // Update digital clock and period
+    const timeEl = document.getElementById('footerLiveTime');
+    if (timeEl) timeEl.textContent = timeStr;
+    const periodEl = document.getElementById('footerLivePeriod');
+    if (periodEl) periodEl.textContent = period;
+
+    // Also update bottom copyright year
+    const copyYearEl = document.getElementById('footerCurrentYear');
+    if (copyYearEl) copyYearEl.textContent = yearNum;
   }
   updateTime();
   setInterval(updateTime, 1000);
@@ -18366,9 +18690,10 @@ function updateFooterStats() {
   const tot = document.getElementById('footerTotalItems');
   if (tot && typeof ITEMS !== 'undefined') tot.textContent = ITEMS.length;
   const br = document.getElementById('footerTotalBrands');
-  if (br && typeof BRANDS !== 'undefined') br.textContent = BRANDS.length + '+';
+  if (br && typeof BRANDS !== 'undefined') br.textContent = (BRANDS.length - 1) + '+';
+  const cats = document.getElementById('footerTotalCats');
+  if (cats && typeof CATS !== 'undefined') cats.textContent = (CATS.length - 1);
 }
-
 
 init();
 updateNetworkStatus(typeof navigator !== "undefined" ? navigator.onLine : true, false);
