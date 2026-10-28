@@ -3899,109 +3899,218 @@ img, svg, picture, canvas {
   }
 }
 
-/* Real-Time Live Chrono Widget */
+/* ═══════════════════════════════════════════════
+   MINIMAL & UNIQUE HOROLOGICAL CHRONOMETER
+═══════════════════════════════════════════════ */
 .footer-live-chrono-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
-  border: 1px solid var(--footer-card-border);
-  border-radius: 16px;
-  padding: 18px 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.012) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px 20px 16px;
   max-width: 380px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 12px 32px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-live-chrono-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.45), transparent);
+  pointer-events: none;
 }
 
 .footer-live-chrono-card:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-color: rgba(129, 140, 248, 0.35);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.065) 0%, rgba(255, 255, 255, 0.02) 100%);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 16px 38px rgba(79, 70, 229, 0.22);
 }
 
-.flc-chrono-header {
+.flc-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
 }
 
-.flc-pulse-badge {
+.flc-badge-sync {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
 
-.flc-pulse-label {
+.flc-pulse-dot {
+  width: 6.5px;
+  height: 6.5px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseGreen 2s infinite;
+  display: inline-block;
+}
+
+.flc-badge-title {
   font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 1.5px;
+  font-size: 10px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: #A5B4FC;
   font-weight: 600;
 }
 
-.flc-day-pill {
+.flc-tz-pill {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   letter-spacing: 0.06em;
   text-transform: lowercase;
   color: #38BDF8;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  padding: 3px 10px;
+  background: rgba(56, 189, 248, 0.09);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  padding: 3px 9px;
   border-radius: 100px;
   font-weight: 500;
 }
 
-.flc-chrono-main {
+.flc-dial-row {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  margin-bottom: 14px;
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
-.flc-time-num {
+.flc-digits {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.flc-digit-hm {
   font-family: 'DM Mono', monospace;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: #FFFFFF;
   line-height: 1;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+}
+
+.flc-digit-sec-wrap {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-left: 2px;
+}
+
+.flc-digit-sec {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #818CF8;
+  line-height: 1;
 }
 
 .flc-ampm-pill {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
-  color: #818CF8;
-  background: rgba(99, 102, 241, 0.18);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  padding: 2px 7px;
-  border-radius: 6px;
+  color: #A5B4FC;
+  background: rgba(99, 102, 241, 0.16);
+  border: 1px solid rgba(99, 102, 241, 0.28);
+  padding: 2px 6px;
+  border-radius: 5px;
   text-transform: lowercase;
+  vertical-align: 2px;
 }
 
-.flc-chrono-footer {
+.flc-mode-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 1.2px;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+}
+
+/* 60-Second Chronograph Sweep Gauge */
+.flc-sweep-container {
+  margin-bottom: 14px;
+}
+
+.flc-sweep-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: visible;
+  position: relative;
+}
+
+.flc-sweep-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4F46E5 0%, #818CF8 70%, #C084FC 100%);
+  border-radius: 3px;
+  position: relative;
+  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.55);
+}
+
+.flc-sweep-bead {
+  position: absolute;
+  right: -2px;
+  top: -2.5px;
+  width: 8px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #A5B4FC, 0 0 14px #6366F1;
+}
+
+.flc-sweep-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+/* Bottom Calendar & Date Telemetry */
+.flc-bottom-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--footer-text-muted);
-  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.flc-calendar-badge {
-  display: inline-flex;
+.flc-calendar-info {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 7px;
+}
+
+.flc-cal-icon {
   color: #818CF8;
+  flex-shrink: 0;
 }
 
 .flc-date-string {
   font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+  font-size: 11.5px;
+  letter-spacing: 0.4px;
   text-transform: lowercase;
+  color: var(--footer-text-muted);
 }
 
 .flc-date-day-small {
@@ -4010,8 +4119,8 @@ img, svg, picture, canvas {
 }
 
 .flc-date-sep {
-  color: rgba(255, 255, 255, 0.35);
-  margin: 0 4px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 3px;
 }
 
 .flc-date-num {
@@ -4020,12 +4129,25 @@ img, svg, picture, canvas {
 }
 
 .flc-date-month {
-  color: #E2E8F0;
+  color: #CBD5E1;
 }
 
 .flc-date-year {
   color: #94A3B8;
   margin-left: 2px;
+}
+
+.flc-status-sync {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 /* Quick discovery chips in footer */
@@ -4665,35 +4787,64 @@ img, svg, picture, canvas {
             The ultimate curated catalog of modern Everyday Carry gear, tactical tools, luxury horology, fine writing instruments, audiophile acoustics, and digital life ecosystems. Handcrafted for explorers, makers, and carry minimalists.
           </p>
 
-          <!-- Unified Live Telemetry & Chrono Card -->
+          <!-- Minimalist & Unique Precision Horological Chrono Widget -->
           <div class="footer-live-chrono-card" id="footerLiveChronoWidget">
-            <div class="flc-chrono-header">
-              <div class="flc-pulse-badge">
-                <span class="live-dot-pulse"></span>
-                <span class="flc-pulse-label">Engine Live · Synced</span>
+            <!-- Top Instrument Header -->
+            <div class="flc-header-row">
+              <div class="flc-badge-sync">
+                <span class="flc-pulse-dot"></span>
+                <span class="flc-badge-title">Chrono Calibre</span>
               </div>
-              <div class="flc-day-pill" id="footerLiveTz">live · utc+5:30</div>
+              <div class="flc-tz-pill" id="footerLiveTz">live · utc+5:30</div>
             </div>
-            <div class="flc-chrono-main">
-              <div class="flc-time-num" id="footerLiveTime">12:00:00</div>
-              <div class="flc-ampm-pill" id="footerLivePeriod">pm</div>
+
+            <!-- Main Digital Chrono Dial -->
+            <div class="flc-dial-row">
+              <div class="flc-digits">
+                <span class="flc-digit-hm" id="footerLiveHM">12:00</span>
+                <span class="flc-digit-sec-wrap">
+                  <span class="flc-digit-sec" id="footerLiveSec">:00</span>
+                  <span class="flc-ampm-pill" id="footerLivePeriod">pm</span>
+                </span>
+                <span class="flc-time-num" id="footerLiveTime" style="display:none;"></span>
+              </div>
+              <div class="flc-mode-tag">real-time</div>
             </div>
-            <div class="flc-chrono-footer">
-              <div class="flc-calendar-badge">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+
+            <!-- 60-Second Precision Chronograph Sweep Gauge -->
+            <div class="flc-sweep-container" title="60-second linear chronograph sweep">
+              <div class="flc-sweep-track">
+                <div class="flc-sweep-bar" id="footerLiveSweepBar" style="width: 0%;">
+                  <span class="flc-sweep-bead"></span>
+                </div>
+              </div>
+              <div class="flc-sweep-ticks">
+                <span>00s</span>
+                <span>15s</span>
+                <span>30s</span>
+                <span>45s</span>
+                <span>60s</span>
+              </div>
+            </div>
+
+            <!-- Bottom Calendar & Date Telemetry -->
+            <div class="flc-bottom-row">
+              <div class="flc-calendar-info">
+                <svg class="flc-cal-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                   <line x1="16" y1="2" x2="16" y2="6"></line>
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
                 </svg>
+                <div class="flc-date-string">
+                  <span class="flc-date-day-small" id="footerLiveDaySmall">wednesday</span>
+                  <span class="flc-date-sep">·</span>
+                  <span class="flc-date-num" id="footerLiveDateNum">28</span>
+                  <span class="flc-date-month" id="footerLiveMonth">october</span>
+                  <span class="flc-date-year" id="footerLiveYear">2026</span>
+                </div>
               </div>
-              <div class="flc-date-string">
-                <span class="flc-date-day-small" id="footerLiveDaySmall">wednesday</span>
-                <span class="flc-date-sep">·</span>
-                <span class="flc-date-num" id="footerLiveDateNum">28</span>
-                <span class="flc-date-month" id="footerLiveMonth">october</span>
-                <span class="flc-date-year" id="footerLiveYear">2026</span>
-              </div>
+              <div class="flc-status-sync">synced</div>
             </div>
           </div>
 
@@ -18976,9 +19127,29 @@ function initFooterLiveClock() {
     const period = hours24 >= 12 ? 'pm' : 'am';
     const hours12 = hours24 % 12 || 12;
     const pad = (n) => String(n).padStart(2, '0');
-    const timeStr = pad(hours12) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    const minutesStr = pad(now.getMinutes());
+    const secondsNum = now.getSeconds();
+    const secondsStr = pad(secondsNum);
+    const timeStr = pad(hours12) + ':' + minutesStr + ':' + secondsStr;
 
-    // Update Timezone/Live badge (eliminates duplicate day name)
+    // Update Split Digits (Hours:Minutes & Seconds)
+    const hmEl = document.getElementById('footerLiveHM');
+    if (hmEl) hmEl.textContent = pad(hours12) + ':' + minutesStr;
+    const secEl = document.getElementById('footerLiveSec');
+    if (secEl) secEl.textContent = ':' + secondsStr;
+
+    // Backwards compatibility for footerLiveTime
+    const timeEl = document.getElementById('footerLiveTime');
+    if (timeEl) timeEl.textContent = timeStr;
+
+    // Update 60-Second Chronograph Sweep Gauge (0 to 60s)
+    const sweepBar = document.getElementById('footerLiveSweepBar');
+    if (sweepBar) {
+      const pct = Math.min(100, Math.max(0, ((secondsNum + 1) / 60) * 100));
+      sweepBar.style.width = pct + '%';
+    }
+
+    // Update Timezone/Live badge
     const tzEl = document.getElementById('footerLiveTz');
     if (tzEl) {
       const offsetMin = -now.getTimezoneOffset();
@@ -18988,10 +19159,10 @@ function initFooterLiveClock() {
       const offStr = offM > 0 ? `${sign}${offH}:${pad(offM)}` : `${sign}${offH}`;
       tzEl.textContent = `live · utc${offStr}`;
     }
+
+    // Update Date, Day, Month, Year elements
     const daySmallEl = document.getElementById('footerLiveDaySmall');
     if (daySmallEl) daySmallEl.textContent = dayName;
-
-    // Update Date, Month, Year elements
     const dateNumEl = document.getElementById('footerLiveDateNum');
     if (dateNumEl) dateNumEl.textContent = dateNum;
     const monthEl = document.getElementById('footerLiveMonth');
@@ -18999,9 +19170,6 @@ function initFooterLiveClock() {
     const yearEl = document.getElementById('footerLiveYear');
     if (yearEl) yearEl.textContent = yearNum;
 
-    // Update digital clock and period
-    const timeEl = document.getElementById('footerLiveTime');
-    if (timeEl) timeEl.textContent = timeStr;
     const periodEl = document.getElementById('footerLivePeriod');
     if (periodEl) periodEl.textContent = period;
 
