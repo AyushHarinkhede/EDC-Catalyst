@@ -144,45 +144,72 @@ header {
 }
 .header-title {
   font-size: clamp(3.5rem, 9vw, 7rem);
-  font-weight: 700; line-height: 0.95;
-  letter-spacing: -1px;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -1.5px;
   color: var(--accent);
   animation: fadeDown 0.7s 0.1s ease both;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   user-select: none;
-}
-.header-title .title-edc {
-  color: var(--accent);
-}
-.header-title .title-catalyst {
-  color: #1a1a1c;
-}
-[data-theme="dark"] .header-title .title-edc {
-  color: var(--accent);
-}
-[data-theme="dark"] .header-title .title-catalyst {
-  color: #11141a;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.08);
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
 }
 
-/* Scroll-Driven Dynamic Letter Scatter & Dispersion */
+.header-title .title-edc {
+  color: var(--accent);
+  text-shadow: 0 0 40px rgba(79, 70, 229, 0.22);
+}
+
+.header-title .title-catalyst {
+  color: #1a1a1c;
+  transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .header-title .title-edc {
+  color: var(--accent);
+  text-shadow: 0 0 45px rgba(129, 140, 248, 0.35);
+}
+
+[data-theme="dark"] .header-title .title-catalyst {
+  color: #F1F5F9;
+  text-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
+}
+
+/* Scroll-Driven 3D Kinetic Letter Dispersion Engine */
 .scatter-line {
   display: block;
+  transform-style: preserve-3d;
 }
+
 .scatter-word {
   display: inline-block;
   white-space: nowrap;
+  transform-style: preserve-3d;
 }
+
 .scatter-char {
   display: inline-block;
-  will-change: transform, opacity, filter;
+  position: relative;
+  will-change: transform, opacity, filter, text-shadow;
+  transform-style: preserve-3d;
   transform-origin: center center;
-  transition: transform 0.08s ease-out, opacity 0.08s ease-out, filter 0.08s ease-out;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
+
+.scatter-char:hover {
+  text-shadow: 0 0 28px rgba(99, 102, 241, 0.75);
+}
+
 .scatter-space {
   display: inline-block;
   width: 0.28em;
 }
+
 .header-sub {
   font-family: 'DM Mono', monospace;
   font-size: 12px; letter-spacing: 4px;
@@ -18682,99 +18709,317 @@ function scrollToTop() {
 }
 
 /* ─────────────────────────────────────────────
-   DYNAMIC SCROLL-DRIVEN HEADER SCATTER & DISPERSION ENGINE
-   (Scroll down = letters fly & scatter unpredictably upward;
-    Scroll up   = smoothly regroup back into original position)
+   KINETIC 3D SCROLL-DRIVEN HEADER SCATTER ENGINE
+   (60fps/120fps Spring-Damped Ballistic Dispersion,
+    Atmospheric Optical Defocus & Magnetic Re-Assembly)
 ───────────────────────────────────────────── */
 let scatterLetters = [];
-let hasScatteredOnce = false;
 let scatterSeeds = [];
+let targetScatterProgress = 0;
+let currentScatterProgress = 0;
+let isScatterRafRunning = false;
+let hasScatteredOnce = false;
 
-function generateRandomScatterTrajectory() {
+function generate3DScatterTrajectory() {
   return [
-    // 'E'
-    { dx: -38 + (Math.random() * 16 - 8), dy: -75 - Math.random() * 30, rot: -28 + (Math.random() * 16 - 8), scale: 0.82 },
-    // 'D'
-    { dx: -12 + (Math.random() * 14 - 7), dy: -95 - Math.random() * 35, rot: 18 + (Math.random() * 14 - 7),  scale: 0.78 },
-    // 'C'
-    { dx: 32 + (Math.random() * 18 - 9),  dy: -80 - Math.random() * 30, rot: 34 + (Math.random() * 18 - 9),  scale: 0.85 },
-    // 'C' (Catalyst)
-    { dx: -60 + (Math.random() * 20 - 10), dy: -60 - Math.random() * 30, rot: -32 + (Math.random() * 16 - 8), scale: 0.80 },
-    // 'a'
-    { dx: -40 + (Math.random() * 16 - 8),  dy: -85 - Math.random() * 30, rot: 22 + (Math.random() * 14 - 7),  scale: 0.76 },
-    // 't'
-    { dx: -22 + (Math.random() * 14 - 7),  dy: -105 - Math.random() * 35, rot: -18 + (Math.random() * 14 - 7), scale: 0.72 },
-    // 'a'
-    { dx: -4 + (Math.random() * 14 - 7),   dy: -70 - Math.random() * 25, rot: 15 + (Math.random() * 12 - 6),  scale: 0.84 },
-    // 'l'
-    { dx: 16 + (Math.random() * 14 - 7),   dy: -110 - Math.random() * 35, rot: -24 + (Math.random() * 16 - 8), scale: 0.74 },
-    // 'y'
-    { dx: 36 + (Math.random() * 16 - 8),   dy: -82 - Math.random() * 30, rot: 28 + (Math.random() * 16 - 8),  scale: 0.79 },
-    // 's'
-    { dx: 54 + (Math.random() * 18 - 9),   dy: -98 - Math.random() * 35, rot: -30 + (Math.random() * 16 - 8), scale: 0.75 },
-    // 't'
-    { dx: 72 + (Math.random() * 22 - 11),  dy: -68 - Math.random() * 28, rot: 36 + (Math.random() * 18 - 9),  scale: 0.82 }
+    // 0: 'E' - High left vault with forward banking roll
+    { 
+      dx: -88 + (Math.random() * 20 - 10), 
+      dy: -145 - Math.random() * 35, 
+      dz: 95 + Math.random() * 30, 
+      rx: 34 + (Math.random() * 16 - 8), 
+      ry: -48 + (Math.random() * 16 - 8), 
+      rz: -28 + (Math.random() * 14 - 7), 
+      scale: 0.82, 
+      stagger: 0.00,
+      glow: 'rgba(99, 102, 241, 0.75)'
+    },
+    // 1: 'D' - Skyward rocket, tilts backward facing up
+    { 
+      dx: -24 + (Math.random() * 16 - 8), 
+      dy: -195 - Math.random() * 40, 
+      dz: 140 + Math.random() * 35, 
+      rx: 58 + (Math.random() * 16 - 8), 
+      ry: 16 + (Math.random() * 14 - 7), 
+      rz: 18 + (Math.random() * 12 - 6), 
+      scale: 0.88, 
+      stagger: 0.05,
+      glow: 'rgba(129, 140, 248, 0.85)'
+    },
+    // 2: 'C' - Flings up-right, soaring spiral
+    { 
+      dx: 82 + (Math.random() * 22 - 11), 
+      dy: -160 - Math.random() * 35, 
+      dz: 85 + Math.random() * 25, 
+      rx: 28 + (Math.random() * 14 - 7), 
+      ry: 44 + (Math.random() * 16 - 8), 
+      rz: 38 + (Math.random() * 14 - 7), 
+      scale: 0.84, 
+      stagger: 0.02,
+      glow: 'rgba(99, 102, 241, 0.75)'
+    },
+    // 3: 'C' (Catalyst) - Wide downward-left sweep with dramatic bank
+    { 
+      dx: -130 + (Math.random() * 24 - 12), 
+      dy: -85 - Math.random() * 30, 
+      dz: 60 + Math.random() * 25, 
+      rx: -32 + (Math.random() * 14 - 7), 
+      ry: -42 + (Math.random() * 16 - 8), 
+      rz: -38 + (Math.random() * 14 - 7), 
+      scale: 0.78, 
+      stagger: 0.04,
+      glow: 'rgba(168, 85, 247, 0.75)'
+    },
+    // 4: 'a' - Deep background tumble, spinning into distance
+    { 
+      dx: -78 + (Math.random() * 18 - 9), 
+      dy: -175 - Math.random() * 35, 
+      dz: -95 - Math.random() * 30, 
+      rx: 48 + (Math.random() * 18 - 9), 
+      ry: -28 + (Math.random() * 14 - 7), 
+      rz: 32 + (Math.random() * 14 - 7), 
+      scale: 0.72, 
+      stagger: 0.08,
+      glow: 'rgba(192, 132, 252, 0.7)'
+    },
+    // 5: 't' - Needle ascent directly upwards
+    { 
+      dx: -36 + (Math.random() * 16 - 8), 
+      dy: -225 - Math.random() * 45, 
+      dz: 115 + Math.random() * 30, 
+      rx: 68 + (Math.random() * 16 - 8), 
+      ry: 12 + (Math.random() * 12 - 6), 
+      rz: -16 + (Math.random() * 12 - 6), 
+      scale: 0.86, 
+      stagger: 0.12,
+      glow: 'rgba(236, 72, 153, 0.75)'
+    },
+    // 6: 'a' - Center spiral roll forward
+    { 
+      dx: 8 + (Math.random() * 16 - 8), 
+      dy: -135 - Math.random() * 30, 
+      dz: 55 + Math.random() * 25, 
+      rx: -42 + (Math.random() * 16 - 8), 
+      ry: 36 + (Math.random() * 14 - 7), 
+      rz: 24 + (Math.random() * 12 - 6), 
+      scale: 0.77, 
+      stagger: 0.09,
+      glow: 'rgba(168, 85, 247, 0.7)'
+    },
+    // 7: 'l' - Slender ascent floating into distant sky
+    { 
+      dx: 48 + (Math.random() * 18 - 9), 
+      dy: -205 - Math.random() * 40, 
+      dz: -70 - Math.random() * 25, 
+      rx: 32 + (Math.random() * 14 - 7), 
+      ry: -34 + (Math.random() * 14 - 7), 
+      rz: -28 + (Math.random() * 12 - 6), 
+      scale: 0.74, 
+      stagger: 0.11,
+      glow: 'rgba(192, 132, 252, 0.7)'
+    },
+    // 8: 'y' - Wing sweep out to the right
+    { 
+      dx: 98 + (Math.random() * 20 - 10), 
+      dy: -155 - Math.random() * 35, 
+      dz: 98 + Math.random() * 30, 
+      rx: -38 + (Math.random() * 16 - 8), 
+      ry: 52 + (Math.random() * 16 - 8), 
+      rz: 36 + (Math.random() * 14 - 7), 
+      scale: 0.82, 
+      stagger: 0.07,
+      glow: 'rgba(236, 72, 153, 0.75)'
+    },
+    // 9: 's' - S-curve serpentine drift outward
+    { 
+      dx: 142 + (Math.random() * 24 - 12), 
+      dy: -115 - Math.random() * 30, 
+      dz: -45 - Math.random() * 20, 
+      rx: 44 + (Math.random() * 16 - 8), 
+      ry: -38 + (Math.random() * 14 - 7), 
+      rz: -45 + (Math.random() * 16 - 8), 
+      scale: 0.76, 
+      stagger: 0.03,
+      glow: 'rgba(168, 85, 247, 0.75)'
+    },
+    // 10: 't' - Far-right explosive vault
+    { 
+      dx: 185 + (Math.random() * 26 - 13), 
+      dy: -135 - Math.random() * 35, 
+      dz: 80 + Math.random() * 25, 
+      rx: 52 + (Math.random() * 18 - 9), 
+      ry: 54 + (Math.random() * 18 - 9), 
+      rz: 48 + (Math.random() * 16 - 8), 
+      scale: 0.80, 
+      stagger: 0.01,
+      glow: 'rgba(99, 102, 241, 0.8)'
+    }
   ];
+}
+
+function onLetterClick(e, index) {
+  const el = e.currentTarget;
+  if (!el || currentScatterProgress > 0.2) return;
+  el.animate([
+    { transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)', offset: 0 },
+    { transform: 'translate3d(0, -18px, 60px) scale(1.35) rotate(-12deg)', offset: 0.4 },
+    { transform: 'translate3d(0, 4px, 10px) scale(0.94) rotate(4deg)', offset: 0.75 },
+    { transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)', offset: 1 }
+  ], {
+    duration: 480,
+    easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
+  });
+  triggerFeedback('tap');
+}
+
+function initHeaderHoverField() {
+  const title = document.getElementById('mainHeaderTitle');
+  if (!title) return;
+
+  title.addEventListener('mousemove', e => {
+    if (currentScatterProgress > 0.15) return;
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    scatterLetters.forEach(el => {
+      const charRect = el.getBoundingClientRect();
+      const charCenterX = charRect.left + charRect.width / 2;
+      const charCenterY = charRect.top + charRect.height / 2;
+      const dist = Math.hypot(mouseX - charCenterX, mouseY - charCenterY);
+      const maxDist = 130;
+
+      if (dist < maxDist) {
+        const force = (1 - dist / maxDist) * 14;
+        const angle = Math.atan2(charCenterY - mouseY, charCenterX - mouseX);
+        const moveX = (Math.cos(angle) * force).toFixed(1);
+        const moveY = (Math.sin(angle) * force).toFixed(1);
+        const rot = ((mouseX - charCenterX) * -0.06).toFixed(1);
+        el.style.transform = `translate3d(${moveX}px, ${moveY}px, 20px) rotate(${rot}deg) scale(1.08)`;
+      } else {
+        if (currentScatterProgress === 0) {
+          el.style.transform = '';
+        }
+      }
+    });
+  });
+
+  title.addEventListener('mouseleave', () => {
+    if (currentScatterProgress === 0) {
+      scatterLetters.forEach(el => {
+        el.style.transition = 'transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        el.style.transform = '';
+        setTimeout(() => { el.style.transition = ''; }, 380);
+      });
+    }
+  });
 }
 
 function initHeaderScatter() {
   const title = document.getElementById('mainHeaderTitle');
   if (!title) return;
 
-  // Render individual animated letter spans (EDC in vibrant Blue, Catalyst in soft off-black)
+  // Render individual animated 3D letter glyphs with interactive tap spring
   title.innerHTML = `
     <span class="scatter-line title-edc">
       <span class="scatter-word">
-        <span class="scatter-char">E</span><span class="scatter-char">D</span><span class="scatter-char">C</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 0)" title="E">E</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 1)" title="D">D</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 2)" title="C">C</span>
       </span>
     </span>
     <span class="scatter-line title-catalyst">
       <span class="scatter-word">
-        <span class="scatter-char">C</span><span class="scatter-char">a</span><span class="scatter-char">t</span><span class="scatter-char">a</span><span class="scatter-char">l</span><span class="scatter-char">y</span><span class="scatter-char">s</span><span class="scatter-char">t</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 3)" title="C">C</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 4)" title="a">a</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 5)" title="t">t</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 6)" title="a">a</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 7)" title="l">l</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 8)" title="y">y</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 9)" title="s">s</span>
+        <span class="scatter-char" onclick="onLetterClick(event, 10)" title="t">t</span>
       </span>
     </span>
   `;
 
   scatterLetters = Array.from(title.querySelectorAll('.scatter-char'));
-  scatterSeeds = generateRandomScatterTrajectory();
+  scatterSeeds = generate3DScatterTrajectory();
+  initHeaderHoverField();
 }
 
-function updateHeaderScatter(scrollY) {
-  if (!scatterLetters.length) return;
+function onScrollScatter(scrollY) {
+  const maxScroll = 360;
+  targetScatterProgress = Math.min(1, Math.max(0, scrollY / maxScroll));
+  if (!isScatterRafRunning) {
+    isScatterRafRunning = true;
+    requestAnimationFrame(renderScatterFrame);
+  }
+}
 
-  // Max scattering distance reached at 320px scroll
-  const maxScroll = 320;
-  const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+function renderScatterFrame() {
+  if (!scatterLetters.length) {
+    isScatterRafRunning = false;
+    return;
+  }
 
-  // If user scrolled back to top completely, re-randomize next flight positions!
-  if (progress === 0) {
-    if (hasScatteredOnce) {
-      scatterSeeds = generateRandomScatterTrajectory();
-      hasScatteredOnce = false;
-    }
+  // Smooth spring-damping interpolation (lerp factor = 0.14)
+  const diff = targetScatterProgress - currentScatterProgress;
+  if (Math.abs(diff) < 0.001) {
+    currentScatterProgress = targetScatterProgress;
+  } else {
+    currentScatterProgress += diff * 0.14;
+  }
+
+  // When back to top completely, re-assemble crisply and randomize next flight path
+  if (currentScatterProgress <= 0.001) {
+    currentScatterProgress = 0;
     scatterLetters.forEach(el => {
-      el.style.transform = 'none';
-      el.style.opacity = '1';
-      el.style.filter = 'none';
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.style.filter = '';
+      el.style.textShadow = '';
     });
+    if (hasScatteredOnce) {
+      scatterSeeds = generate3DScatterTrajectory();
+      hasScatteredOnce = false;
+      triggerFeedback('tap');
+    }
+    isScatterRafRunning = false;
     return;
   }
 
   hasScatteredOnce = true;
 
-  // Physics curve for natural gentle release (ease-out cubic dispersion)
-  const easeProgress = 1 - Math.pow(1 - progress, 2.4);
-
   scatterLetters.forEach((el, index) => {
-    const seed = scatterSeeds[index] || { dx: 0, dy: -80, rot: 0, scale: 0.8 };
-    const curDx = seed.dx * easeProgress;
-    const curDy = seed.dy * easeProgress;
-    const curRot = seed.rot * easeProgress;
-    const curScale = 1 - (1 - seed.scale) * easeProgress;
-    const curOpacity = Math.max(0.12, 1 - (easeProgress * 0.78));
-    el.style.transform = `translate3d(${curDx.toFixed(1)}px, ${curDy.toFixed(1)}px, 0) rotate(${curRot.toFixed(1)}deg) scale(${curScale.toFixed(2)})`;
-    el.style.opacity = curOpacity.toFixed(2);
+    const seed = scatterSeeds[index];
+    if (!seed) return;
+
+    // Staggered shockwave progress curve
+    const stagger = seed.stagger;
+    const rawP = Math.min(1, Math.max(0, (currentScatterProgress - stagger) / (1 - stagger)));
+    // Cubic ease-out explosion curve
+    const easeP = 1 - Math.pow(1 - rawP, 2.6);
+
+    const curDx = (seed.dx * easeP).toFixed(1);
+    const curDy = (seed.dy * easeP).toFixed(1);
+    const curDz = (seed.dz * easeP).toFixed(1);
+    const curRx = (seed.rx * easeP).toFixed(1);
+    const curRy = (seed.ry * easeP).toFixed(1);
+    const curRz = (seed.rz * easeP).toFixed(1);
+    const curScale = (1 - (1 - seed.scale) * easeP).toFixed(3);
+    const curOpacity = Math.max(0.08, 1 - (easeP * 0.82)).toFixed(2);
+    const curBlur = (easeP * 3.8).toFixed(1);
+
+    el.style.transform = `translate3d(${curDx}px, ${curDy}px, ${curDz}px) rotateX(${curRx}deg) rotateY(${curRy}deg) rotateZ(${curRz}deg) scale(${curScale})`;
+    el.style.opacity = curOpacity;
+    el.style.filter = easeP > 0.04 ? `blur(${curBlur}px)` : 'none';
+    el.style.textShadow = easeP > 0.05 ? `0 0 ${(easeP * 24).toFixed(1)}px ${seed.glow}` : 'none';
   });
+
+  if (Math.abs(targetScatterProgress - currentScatterProgress) > 0.0005) {
+    requestAnimationFrame(renderScatterFrame);
+  } else {
+    isScatterRafRunning = false;
+  }
 }
 
 let scrollRafPending = false;
@@ -18782,8 +19027,8 @@ function handleScroll() {
   scrollRafPending = false;
   const scrollY = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || 0;
   
-  // Real-time dynamic header letter scattering and reverse re-assembly
-  updateHeaderScatter(scrollY);
+  // Real-time 3D kinetic letter scattering and reverse re-assembly
+  onScrollScatter(scrollY);
   updateScrollProgress(scrollY);
 
   const scrollTopBtn = document.getElementById('scrollTopBtn');
