@@ -163,23 +163,37 @@ header {
   transform-style: preserve-3d;
 }
 
-.header-title .title-edc {
+.header-title .scatter-char {
+  display: inline-block;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+}
+
+.header-title .title-edc,
+.header-title .title-edc .scatter-char {
   color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
   text-shadow: 0 0 40px rgba(79, 70, 229, 0.22);
 }
 
-.header-title .title-catalyst {
+.header-title .title-catalyst,
+.header-title .title-catalyst .scatter-char {
   color: #1a1a1c;
+  -webkit-text-fill-color: #1a1a1c;
   transition: color 0.3s ease;
 }
 
-[data-theme="dark"] .header-title .title-edc {
+[data-theme="dark"] .header-title .title-edc,
+[data-theme="dark"] .header-title .title-edc .scatter-char {
   color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
   text-shadow: 0 0 45px rgba(129, 140, 248, 0.35);
 }
 
-[data-theme="dark"] .header-title .title-catalyst {
+[data-theme="dark"] .header-title .title-catalyst,
+[data-theme="dark"] .header-title .title-catalyst .scatter-char {
   color: #F1F5F9;
+  -webkit-text-fill-color: #F1F5F9;
   text-shadow: 0 0 35px rgba(255, 255, 255, 0.08);
 }
 
@@ -4228,11 +4242,11 @@ img, svg, picture, canvas {
   flex-wrap: wrap;
 }
 
-.title-edc {
+.footer-title .title-edc {
   color: #FFFFFF;
 }
 
-.title-catalyst {
+.footer-title .title-catalyst {
   color: #38BDF8;
   background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
   -webkit-background-clip: text;
@@ -18954,137 +18968,137 @@ let hasScatteredOnce = false;
 
 function generate3DScatterTrajectory() {
   return [
-    // 0: 'E' - High left vault with forward banking roll
+    // 0: 'E' - High left vault with forward banking roll and deep perspective
     { 
-      dx: -88 + (Math.random() * 20 - 10), 
-      dy: -145 - Math.random() * 35, 
-      dz: 95 + Math.random() * 30, 
-      rx: 34 + (Math.random() * 16 - 8), 
-      ry: -48 + (Math.random() * 16 - 8), 
-      rz: -28 + (Math.random() * 14 - 7), 
-      scale: 0.82, 
+      dx: -110 + (Math.random() * 24 - 12), 
+      dy: -175 - Math.random() * 40, 
+      dz: 130 + Math.random() * 35, 
+      rx: 38 + (Math.random() * 16 - 8), 
+      ry: -52 + (Math.random() * 16 - 8), 
+      rz: -32 + (Math.random() * 14 - 7), 
+      scale: 0.84, 
       stagger: 0.00,
-      glow: 'rgba(99, 102, 241, 0.75)'
+      glow: 'rgba(99, 102, 241, 0.85)'
     },
     // 1: 'D' - Skyward rocket, tilts backward facing up
     { 
-      dx: -24 + (Math.random() * 16 - 8), 
-      dy: -195 - Math.random() * 40, 
-      dz: 140 + Math.random() * 35, 
-      rx: 58 + (Math.random() * 16 - 8), 
-      ry: 16 + (Math.random() * 14 - 7), 
-      rz: 18 + (Math.random() * 12 - 6), 
-      scale: 0.88, 
-      stagger: 0.05,
-      glow: 'rgba(129, 140, 248, 0.85)'
+      dx: -30 + (Math.random() * 18 - 9), 
+      dy: -230 - Math.random() * 45, 
+      dz: 175 + Math.random() * 40, 
+      rx: 68 + (Math.random() * 16 - 8), 
+      ry: 18 + (Math.random() * 14 - 7), 
+      rz: 20 + (Math.random() * 12 - 6), 
+      scale: 0.90, 
+      stagger: 0.04,
+      glow: 'rgba(129, 140, 248, 0.95)'
     },
     // 2: 'C' - Flings up-right, soaring spiral
     { 
-      dx: 82 + (Math.random() * 22 - 11), 
-      dy: -160 - Math.random() * 35, 
-      dz: 85 + Math.random() * 25, 
-      rx: 28 + (Math.random() * 14 - 7), 
-      ry: 44 + (Math.random() * 16 - 8), 
-      rz: 38 + (Math.random() * 14 - 7), 
-      scale: 0.84, 
+      dx: 98 + (Math.random() * 24 - 12), 
+      dy: -190 - Math.random() * 40, 
+      dz: 120 + Math.random() * 30, 
+      rx: 32 + (Math.random() * 14 - 7), 
+      ry: 50 + (Math.random() * 16 - 8), 
+      rz: 42 + (Math.random() * 14 - 7), 
+      scale: 0.86, 
       stagger: 0.02,
-      glow: 'rgba(99, 102, 241, 0.75)'
+      glow: 'rgba(99, 102, 241, 0.85)'
     },
     // 3: 'C' (Catalyst) - Wide downward-left sweep with dramatic bank
     { 
-      dx: -130 + (Math.random() * 24 - 12), 
-      dy: -85 - Math.random() * 30, 
-      dz: 60 + Math.random() * 25, 
-      rx: -32 + (Math.random() * 14 - 7), 
-      ry: -42 + (Math.random() * 16 - 8), 
-      rz: -38 + (Math.random() * 14 - 7), 
-      scale: 0.78, 
-      stagger: 0.04,
-      glow: 'rgba(168, 85, 247, 0.75)'
+      dx: -175 + (Math.random() * 28 - 14), 
+      dy: -110 - Math.random() * 35, 
+      dz: 85 + Math.random() * 30, 
+      rx: -38 + (Math.random() * 16 - 8), 
+      ry: -48 + (Math.random() * 16 - 8), 
+      rz: -44 + (Math.random() * 16 - 8), 
+      scale: 0.80, 
+      stagger: 0.03,
+      glow: 'rgba(56, 189, 248, 0.85)'
     },
     // 4: 'a' - Deep background tumble, spinning into distance
     { 
-      dx: -78 + (Math.random() * 18 - 9), 
-      dy: -175 - Math.random() * 35, 
-      dz: -95 - Math.random() * 30, 
-      rx: 48 + (Math.random() * 18 - 9), 
-      ry: -28 + (Math.random() * 14 - 7), 
-      rz: 32 + (Math.random() * 14 - 7), 
-      scale: 0.72, 
-      stagger: 0.08,
-      glow: 'rgba(192, 132, 252, 0.7)'
+      dx: -115 + (Math.random() * 20 - 10), 
+      dy: -205 - Math.random() * 40, 
+      dz: -120 - Math.random() * 35, 
+      rx: 54 + (Math.random() * 18 - 9), 
+      ry: -34 + (Math.random() * 14 - 7), 
+      rz: 38 + (Math.random() * 14 - 7), 
+      scale: 0.74, 
+      stagger: 0.07,
+      glow: 'rgba(96, 165, 250, 0.8)'
     },
     // 5: 't' - Needle ascent directly upwards
     { 
-      dx: -36 + (Math.random() * 16 - 8), 
-      dy: -225 - Math.random() * 45, 
-      dz: 115 + Math.random() * 30, 
-      rx: 68 + (Math.random() * 16 - 8), 
-      ry: 12 + (Math.random() * 12 - 6), 
-      rz: -16 + (Math.random() * 12 - 6), 
-      scale: 0.86, 
-      stagger: 0.12,
-      glow: 'rgba(236, 72, 153, 0.75)'
+      dx: -50 + (Math.random() * 18 - 9), 
+      dy: -260 - Math.random() * 50, 
+      dz: 145 + Math.random() * 35, 
+      rx: 76 + (Math.random() * 16 - 8), 
+      ry: 14 + (Math.random() * 12 - 6), 
+      rz: -18 + (Math.random() * 12 - 6), 
+      scale: 0.88, 
+      stagger: 0.10,
+      glow: 'rgba(129, 140, 248, 0.85)'
     },
     // 6: 'a' - Center spiral roll forward
     { 
-      dx: 8 + (Math.random() * 16 - 8), 
-      dy: -135 - Math.random() * 30, 
-      dz: 55 + Math.random() * 25, 
-      rx: -42 + (Math.random() * 16 - 8), 
-      ry: 36 + (Math.random() * 14 - 7), 
-      rz: 24 + (Math.random() * 12 - 6), 
-      scale: 0.77, 
-      stagger: 0.09,
-      glow: 'rgba(168, 85, 247, 0.7)'
+      dx: 12 + (Math.random() * 18 - 9), 
+      dy: -160 - Math.random() * 35, 
+      dz: 75 + Math.random() * 30, 
+      rx: -48 + (Math.random() * 16 - 8), 
+      ry: 42 + (Math.random() * 14 - 7), 
+      rz: 28 + (Math.random() * 12 - 6), 
+      scale: 0.79, 
+      stagger: 0.08,
+      glow: 'rgba(56, 189, 248, 0.8)'
     },
     // 7: 'l' - Slender ascent floating into distant sky
     { 
-      dx: 48 + (Math.random() * 18 - 9), 
-      dy: -205 - Math.random() * 40, 
-      dz: -70 - Math.random() * 25, 
-      rx: 32 + (Math.random() * 14 - 7), 
-      ry: -34 + (Math.random() * 14 - 7), 
-      rz: -28 + (Math.random() * 12 - 6), 
-      scale: 0.74, 
-      stagger: 0.11,
-      glow: 'rgba(192, 132, 252, 0.7)'
+      dx: 68 + (Math.random() * 20 - 10), 
+      dy: -240 - Math.random() * 45, 
+      dz: -95 - Math.random() * 30, 
+      rx: 38 + (Math.random() * 14 - 7), 
+      ry: -38 + (Math.random() * 14 - 7), 
+      rz: -32 + (Math.random() * 12 - 6), 
+      scale: 0.76, 
+      stagger: 0.10,
+      glow: 'rgba(96, 165, 250, 0.8)'
     },
     // 8: 'y' - Wing sweep out to the right
     { 
-      dx: 98 + (Math.random() * 20 - 10), 
-      dy: -155 - Math.random() * 35, 
-      dz: 98 + Math.random() * 30, 
-      rx: -38 + (Math.random() * 16 - 8), 
-      ry: 52 + (Math.random() * 16 - 8), 
-      rz: 36 + (Math.random() * 14 - 7), 
-      scale: 0.82, 
-      stagger: 0.07,
-      glow: 'rgba(236, 72, 153, 0.75)'
+      dx: 130 + (Math.random() * 24 - 12), 
+      dy: -185 - Math.random() * 40, 
+      dz: 125 + Math.random() * 35, 
+      rx: -42 + (Math.random() * 16 - 8), 
+      ry: 58 + (Math.random() * 16 - 8), 
+      rz: 42 + (Math.random() * 14 - 7), 
+      scale: 0.84, 
+      stagger: 0.06,
+      glow: 'rgba(129, 140, 248, 0.85)'
     },
     // 9: 's' - S-curve serpentine drift outward
     { 
-      dx: 142 + (Math.random() * 24 - 12), 
-      dy: -115 - Math.random() * 30, 
-      dz: -45 - Math.random() * 20, 
-      rx: 44 + (Math.random() * 16 - 8), 
-      ry: -38 + (Math.random() * 14 - 7), 
-      rz: -45 + (Math.random() * 16 - 8), 
-      scale: 0.76, 
+      dx: 185 + (Math.random() * 28 - 14), 
+      dy: -140 - Math.random() * 35, 
+      dz: -65 - Math.random() * 25, 
+      rx: 50 + (Math.random() * 16 - 8), 
+      ry: -44 + (Math.random() * 14 - 7), 
+      rz: -52 + (Math.random() * 16 - 8), 
+      scale: 0.78, 
       stagger: 0.03,
-      glow: 'rgba(168, 85, 247, 0.75)'
+      glow: 'rgba(56, 189, 248, 0.85)'
     },
     // 10: 't' - Far-right explosive vault
     { 
-      dx: 185 + (Math.random() * 26 - 13), 
-      dy: -135 - Math.random() * 35, 
-      dz: 80 + Math.random() * 25, 
-      rx: 52 + (Math.random() * 18 - 9), 
-      ry: 54 + (Math.random() * 18 - 9), 
-      rz: 48 + (Math.random() * 16 - 8), 
-      scale: 0.80, 
+      dx: 235 + (Math.random() * 30 - 15), 
+      dy: -165 - Math.random() * 40, 
+      dz: 110 + Math.random() * 30, 
+      rx: 58 + (Math.random() * 18 - 9), 
+      ry: 60 + (Math.random() * 18 - 9), 
+      rz: 54 + (Math.random() * 16 - 8), 
+      scale: 0.82, 
       stagger: 0.01,
-      glow: 'rgba(99, 102, 241, 0.8)'
+      glow: 'rgba(99, 102, 241, 0.9)'
     }
   ];
 }
@@ -19227,12 +19241,12 @@ function renderScatterFrame() {
     return;
   }
 
-  // Smooth spring-damping interpolation (lerp factor = 0.14)
+  // Responsive spring-damping interpolation (lerp factor = 0.17 for dynamic physical tracking)
   const diff = targetScatterProgress - currentScatterProgress;
-  if (Math.abs(diff) < 0.001) {
+  if (Math.abs(diff) < 0.0008) {
     currentScatterProgress = targetScatterProgress;
   } else {
-    currentScatterProgress += diff * 0.14;
+    currentScatterProgress += diff * 0.17;
   }
 
   // When back to top completely, re-assemble crisply and randomize next flight path
@@ -19261,9 +19275,9 @@ function renderScatterFrame() {
 
     // Staggered shockwave progress curve
     const stagger = seed.stagger;
-    const rawP = Math.min(1, Math.max(0, (currentScatterProgress - stagger) / (1 - stagger)));
-    // Cubic ease-out explosion curve
-    const easeP = 1 - Math.pow(1 - rawP, 2.6);
+    const rawP = Math.min(1, Math.max(0, (currentScatterProgress - stagger) / (1 - stagger * 0.85)));
+    // Kinetic cubic-quintic ease-out explosion curve
+    const easeP = 1 - Math.pow(1 - rawP, 2.8);
 
     const curDx = (seed.dx * easeP).toFixed(1);
     const curDy = (seed.dy * easeP).toFixed(1);
@@ -19272,16 +19286,16 @@ function renderScatterFrame() {
     const curRy = (seed.ry * easeP).toFixed(1);
     const curRz = (seed.rz * easeP).toFixed(1);
     const curScale = (1 - (1 - seed.scale) * easeP).toFixed(3);
-    const curOpacity = Math.max(0.08, 1 - (easeP * 0.82)).toFixed(2);
-    const curBlur = (easeP * 3.8).toFixed(1);
+    const curOpacity = Math.max(0.04, 1 - (easeP * 0.88)).toFixed(2);
+    const curBlur = (easeP * 3.2).toFixed(1);
 
     el.style.transform = `translate3d(${curDx}px, ${curDy}px, ${curDz}px) rotateX(${curRx}deg) rotateY(${curRy}deg) rotateZ(${curRz}deg) scale(${curScale})`;
     el.style.opacity = curOpacity;
-    el.style.filter = easeP > 0.04 ? `blur(${curBlur}px)` : 'none';
-    el.style.textShadow = easeP > 0.05 ? `0 0 ${(easeP * 24).toFixed(1)}px ${seed.glow}` : 'none';
+    el.style.filter = easeP > 0.03 ? `blur(${curBlur}px)` : 'none';
+    el.style.textShadow = easeP > 0.04 ? `0 0 ${(easeP * 28).toFixed(1)}px ${seed.glow}` : 'none';
   });
 
-  if (Math.abs(targetScatterProgress - currentScatterProgress) > 0.0005) {
+  if (Math.abs(targetScatterProgress - currentScatterProgress) > 0.0004) {
     requestAnimationFrame(renderScatterFrame);
   } else {
     isScatterRafRunning = false;
