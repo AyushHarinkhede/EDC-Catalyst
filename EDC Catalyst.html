@@ -2498,19 +2498,19 @@ button {
     margin-bottom: 18px !important;
   }
 
-  /* 4. Search Bar - Tap-to-Expand Mobile Spring Physics */
+  /* 4. Search Bar - Dynamic Tap-to-Expand Mobile Console & Backdrop */
   .search-mobile-backdrop {
     display: block !important;
     position: fixed;
     inset: 0;
     z-index: 85;
-    background: rgba(11, 15, 25, 0.52);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(10, 14, 26, 0.62);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     opacity: 0;
     pointer-events: none;
     visibility: hidden;
-    transition: opacity 0.32s ease, visibility 0.32s ease;
+    transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s ease;
     -webkit-tap-highlight-color: transparent;
   }
   .search-mobile-backdrop.active {
@@ -2520,49 +2520,63 @@ button {
   }
 
   .search-wrap {
-    width: 82% !important;
-    max-width: 320px !important;
+    width: 86% !important;
+    max-width: 330px !important;
     margin: 0 auto 18px !important;
     position: relative;
     z-index: 90;
-    transition: width 0.54s cubic-bezier(0.34, 1.85, 0.64, 1),
-                max-width 0.54s cubic-bezier(0.34, 1.85, 0.64, 1),
-                transform 0.48s cubic-bezier(0.34, 1.85, 0.64, 1),
-                margin 0.35s ease !important;
+    transition: width 0.44s cubic-bezier(0.34, 1.6, 0.64, 1),
+                max-width 0.44s cubic-bezier(0.34, 1.6, 0.64, 1),
+                transform 0.4s cubic-bezier(0.34, 1.6, 0.64, 1),
+                margin 0.3s ease !important;
   }
 
+  .search-wrap.mobile-expanded,
   .search-wrap:focus-within,
   .search-wrap.focused {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 auto 22px !important;
     z-index: 100 !important;
-    transition: width 0.58s cubic-bezier(0.34, 2.05, 0.64, 1),
-                max-width 0.58s cubic-bezier(0.34, 2.05, 0.64, 1),
-                transform 0.52s cubic-bezier(0.34, 2.05, 0.64, 1),
-                margin 0.35s ease !important;
+    transform: translateY(-2px) !important;
   }
 
   .search-box-container {
     min-height: 48px !important;
     height: 48px;
-    border-radius: 100px !important;
+    border-radius: 999px !important;
     padding-right: 8px !important;
+    background: #FFFFFF !important;
+    border: 1.5px solid #E2E8F0 !important;
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04) !important;
-    transition: height 0.22s cubic-bezier(0.34, 1.35, 0.64, 1),
-                border-radius 0.22s ease,
-                border-color 0.32s ease,
-                box-shadow 0.45s ease,
-                transform 0.52s cubic-bezier(0.34, 1.85, 0.64, 1) !important;
+    cursor: pointer !important;
+    transition: min-height 0.28s cubic-bezier(0.34, 1.35, 0.64, 1),
+                height 0.28s cubic-bezier(0.34, 1.35, 0.64, 1),
+                border-radius 0.28s ease,
+                border-color 0.28s ease,
+                box-shadow 0.38s ease,
+                transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.25s ease !important;
   }
 
+  [data-theme="dark"] .search-box-container {
+    background: #131B2E !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+  }
+
+  .search-wrap:not(.mobile-expanded):not(.focused) .search-box-container:active {
+    transform: scale(0.96) !important;
+    transition: transform 0.12s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
+  }
+
+  .search-wrap.mobile-expanded .search-box-container,
   .search-wrap:focus-within .search-box-container,
   .search-wrap.focused .search-box-container {
     min-height: 52px !important;
     border-radius: 18px !important;
     border-color: var(--accent) !important;
-    box-shadow: 0 16px 42px rgba(79, 70, 229, 0.28), 0 0 0 3px rgba(79, 70, 229, 0.16) !important;
-    transform: translateY(-2px) scale(1.018) !important;
+    box-shadow: 0 16px 42px rgba(79, 70, 229, 0.25), 0 0 0 3px rgba(79, 70, 229, 0.16) !important;
+    transform: scale(1.012) !important;
   }
 
   .search-box-container.expanded {
@@ -2571,13 +2585,22 @@ button {
 
   .search-icon {
     left: 15px !important;
-    top: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
     width: 18px !important;
     height: 18px !important;
+    transition: color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.8, 0.64, 1) !important;
   }
   .search-icon svg {
     width: 18px !important;
     height: 18px !important;
+  }
+
+  .search-wrap.mobile-expanded .search-icon,
+  .search-wrap:focus-within .search-icon,
+  .search-wrap.focused .search-icon {
+    color: var(--accent) !important;
+    transform: translateY(-50%) scale(1.12) rotate(-6deg) !important;
   }
 
   .search-animated-text,
@@ -2587,21 +2610,61 @@ button {
     font-size: 15px !important;
     line-height: 22px !important;
   }
+  .search-wrap.mobile-expanded #searchInput,
   .search-wrap:focus-within #searchInput,
   .search-wrap.focused #searchInput,
+  .search-wrap.mobile-expanded .search-animated-text,
   .search-wrap:focus-within .search-animated-text,
   .search-wrap.focused .search-animated-text,
+  .search-wrap.mobile-expanded .search-placeholder,
   .search-wrap:focus-within .search-placeholder,
   .search-wrap.focused .search-placeholder {
     line-height: 22px !important;
     padding-right: 120px !important;
   }
 
+  /* Interactive Tap Hint Pill on Mobile Collapsed Capsule */
+  .search-mobile-hint-pill {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.16);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Fredoka', sans-serif;
+    padding: 4px 9px;
+    border-radius: 99px;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0.92;
+    transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  [data-theme="dark"] .search-mobile-hint-pill {
+    background: rgba(129, 140, 248, 0.12);
+    border-color: rgba(129, 140, 248, 0.25);
+    color: #A5B4FC;
+  }
+  .search-wrap.mobile-expanded .search-mobile-hint-pill,
+  .search-wrap:focus-within .search-mobile-hint-pill,
+  .search-wrap.focused .search-mobile-hint-pill {
+    opacity: 0 !important;
+    transform: translateY(-50%) scale(0.65) !important;
+    pointer-events: none !important;
+  }
+
   .search-clear {
-    top: 10px !important;
-    right: 70px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: 80px !important;
     font-size: 10.5px !important;
     padding: 5px 9px !important;
+    z-index: 5 !important;
   }
 
   .search-mobile-cancel {
@@ -2609,35 +2672,45 @@ button {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 10px;
-    top: 8px;
-    transform: scale(0.9);
-    background: transparent;
-    border: none;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.82);
+    background: rgba(79, 70, 229, 0.09);
+    border: 1px solid rgba(79, 70, 229, 0.22);
     color: var(--accent);
-    font-size: 13.5px;
+    font-size: 12.5px;
     font-weight: 700;
     font-family: 'Fredoka', sans-serif;
     letter-spacing: 0.3px;
     cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 8px;
-    z-index: 4;
+    padding: 6px 12px;
+    border-radius: 10px;
+    z-index: 6;
     opacity: 0;
-    transition: opacity 0.28s ease, transform 0.35s cubic-bezier(0.34, 1.8, 0.64, 1);
+    pointer-events: none;
+    transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.34, 1.8, 0.64, 1), background 0.2s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
+  [data-theme="dark"] .search-mobile-cancel {
+    background: rgba(129, 140, 248, 0.14);
+    border-color: rgba(129, 140, 248, 0.28);
+    color: #A5B4FC;
+  }
+
+  .search-wrap.mobile-expanded .search-mobile-cancel,
   .search-wrap:focus-within .search-mobile-cancel,
   .search-wrap.focused .search-mobile-cancel {
     display: flex !important;
     opacity: 1 !important;
-    transform: scale(1) !important;
+    pointer-events: auto !important;
+    transform: translateY(-50%) scale(1) !important;
   }
 
   .search-mobile-cancel:active {
     transform: translateY(-50%) scale(0.92) !important;
-    opacity: 0.8 !important;
+    background: var(--accent) !important;
+    color: #FFFFFF !important;
   }
 
   .search-mobile-quick-chips {
@@ -2648,16 +2721,17 @@ button {
     overflow: hidden;
     pointer-events: none;
     transform: translateY(-6px);
-    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transition: max-height 0.36s cubic-bezier(0.16, 1, 0.3, 1),
                 opacity 0.28s ease,
                 transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
                 margin-top 0.3s ease;
     margin-top: 0;
   }
 
+  .search-wrap.mobile-expanded .search-mobile-quick-chips,
   .search-wrap:focus-within .search-mobile-quick-chips,
   .search-wrap.focused .search-mobile-quick-chips {
-    max-height: 52px !important;
+    max-height: 56px !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: translateY(0) !important;
@@ -4761,7 +4835,7 @@ img, svg, picture, canvas {
   </header>
 
   <!-- ══ SEARCH ═══════════════════════════════════ -->
-  <div class="search-mobile-backdrop" id="searchMobileBackdrop" onclick="cancelMobileSearch(event)"></div>
+  <div class="search-mobile-backdrop" id="searchMobileBackdrop" onclick="cancelMobileSearch(event)" ontouchstart="cancelMobileSearch(event)"></div>
   <div class="search-wrap scroll-reveal">
     <div class="search-box-container" onclick="handleSearchContainerTap(event)">
       <span class="search-icon" id="searchIcon" aria-hidden="true">
@@ -4773,6 +4847,10 @@ img, svg, picture, canvas {
       <div class="search-placeholder" id="searchPlaceholder" aria-hidden="true"></div>
       <div class="search-animated-text" id="searchAnimatedText" aria-hidden="true"></div>
       <textarea id="searchInput" rows="1" placeholder="" autocomplete="off" spellcheck="false" aria-label="Search items"></textarea>
+      <div class="search-mobile-hint-pill" id="searchMobileHintPill" aria-hidden="true">
+        <span>Search</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
       <button class="search-clear" id="clearBtn" onclick="clearSearch(event)" aria-label="Clear search"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>clear</button>
       <button class="search-mobile-cancel" id="searchMobileCancel" onclick="cancelMobileSearch(event)" type="button" aria-label="Cancel search">Cancel</button>
     </div>
@@ -4781,11 +4859,13 @@ img, svg, picture, canvas {
       <div class="sm-chips-track">
         <span class="sm-chip-hint">Trending:</span>
         <button type="button" class="sm-chip" onclick="quickFillSearch('Apple')">Apple</button>
-        <button type="button" class="sm-chip" onclick="quickFillSearch('Watch')">Watch</button>
-        <button type="button" class="sm-chip" onclick="quickFillSearch('Audio')">Audio</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('Rolex')">Rolex</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('Marshall')">Marshall</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('LAMY')">LAMY</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('Flipper')">Flipper Zero</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('Watch')">Watches</button>
         <button type="button" class="sm-chip" onclick="quickFillSearch('Titanium')">Titanium</button>
-        <button type="button" class="sm-chip" onclick="quickFillSearch('Tactical')">Tactical</button>
-        <button type="button" class="sm-chip" onclick="quickFillSearch('EDC')">EDC Essentials</button>
+        <button type="button" class="sm-chip" onclick="quickFillSearch('EDC')">EDC Gear</button>
       </div>
     </div>
   </div>
@@ -18515,10 +18595,48 @@ function initAnimatedPlaceholder() {
   }, 180);
 }
 
-function handleSearchContainerTap(e) {
-  if (e.target.closest('#clearBtn') || e.target.closest('#searchMobileCancel')) return;
+let isMobileSearchOpen = false;
+
+function isMobileViewport() {
+  return window.innerWidth <= 768 || document.body.classList.contains('is-mobile-screen');
+}
+
+function openMobileSearch(e) {
+  if (e) {
+    if (e.target && (e.target.closest('#clearBtn') || e.target.closest('#searchMobileCancel'))) return;
+  }
+  
+  const wrap = document.querySelector(".search-wrap");
+  const box = document.querySelector(".search-box-container");
   const inp = document.getElementById("searchInput");
-  if (inp) inp.focus();
+  const backdrop = document.getElementById("searchMobileBackdrop");
+  
+  if (!wrap || !box || !inp) return;
+  
+  isMobileSearchOpen = true;
+  document.body.classList.add('mobile-search-active');
+  wrap.classList.add('focused', 'mobile-expanded');
+  box.classList.add('mobile-active');
+  
+  if (backdrop) {
+    backdrop.classList.add('active');
+  }
+
+  // Smooth scroll search bar into prominent focus view on small mobile viewports
+  if (isMobileViewport()) {
+    const wrapRect = wrap.getBoundingClientRect();
+    if (wrapRect.top < 40 || wrapRect.top > 240) {
+      const scrollTarget = (window.pageYOffset || window.scrollY || 0) + wrapRect.top - 70;
+      window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+    }
+  }
+
+  setTimeout(() => {
+    inp.focus();
+    autoResizeSearch();
+  }, 45);
+
+  triggerFeedback('search_open');
 }
 
 function cancelMobileSearch(e) {
@@ -18528,12 +18646,29 @@ function cancelMobileSearch(e) {
   }
   const inp = document.getElementById("searchInput");
   const wrap = document.querySelector(".search-wrap");
+  const box = document.querySelector(".search-box-container");
   const backdrop = document.getElementById("searchMobileBackdrop");
   
+  isMobileSearchOpen = false;
+  document.body.classList.remove('mobile-search-active');
+  
   if (inp) inp.blur();
-  if (wrap) wrap.classList.remove("focused");
-  if (backdrop) backdrop.classList.remove("active");
+  if (wrap) wrap.classList.remove('focused', 'mobile-expanded');
+  if (box) box.classList.remove('mobile-active');
+  if (backdrop) backdrop.classList.remove('active');
+  
+  autoResizeSearch();
   triggerFeedback('search_close');
+}
+
+function handleSearchContainerTap(e) {
+  if (e.target.closest('#clearBtn') || e.target.closest('#searchMobileCancel')) return;
+  if (isMobileViewport()) {
+    openMobileSearch(e);
+  } else {
+    const inp = document.getElementById("searchInput");
+    if (inp) inp.focus();
+  }
 }
 
 function quickFillSearch(keyword) {
@@ -18553,7 +18688,7 @@ function quickFillSearch(keyword) {
   if (container) container.scrollTop = inp.scrollTop;
   
   if (clr) clr.style.display = "block";
-  if (wrap) wrap.classList.add("searching", "focused");
+  if (wrap) wrap.classList.add("searching", "focused", "mobile-expanded");
   
   renderGrid();
   wrap.classList.toggle("has-results", getFiltered().length > 0);
@@ -18570,9 +18705,26 @@ function bindSearch() {
   if (boxContainer) {
     boxContainer.addEventListener("click", (e) => {
       if (e.target.closest('#clearBtn') || e.target.closest('#searchMobileCancel')) return;
-      inp.focus();
+      if (isMobileViewport()) {
+        openMobileSearch(e);
+      } else {
+        inp.focus();
+      }
     });
+
+    boxContainer.addEventListener("touchstart", (e) => {
+      if (e.target.closest('#clearBtn') || e.target.closest('#searchMobileCancel')) return;
+      if (isMobileViewport() && !isMobileSearchOpen) {
+        openMobileSearch(e);
+      }
+    }, { passive: true });
   }
+
+  inp.addEventListener("click", (e) => {
+    if (isMobileViewport() && !isMobileSearchOpen) {
+      openMobileSearch(e);
+    }
+  });
 
   inp.addEventListener("scroll", () => {
     if (container) {
@@ -18622,23 +18774,27 @@ function bindSearch() {
   
   inp.addEventListener("focus", () => {
     wrap.classList.add("focused");
-    const backdrop = document.getElementById("searchMobileBackdrop");
-    if (backdrop && window.innerWidth <= 768) {
-      backdrop.classList.add("active");
+    if (isMobileViewport()) {
+      openMobileSearch();
+    } else {
+      autoResizeSearch();
+      triggerFeedback('search_open');
     }
-    autoResizeSearch();
-    triggerFeedback('search_open');
   });
   
   inp.addEventListener("blur", () => {
     setTimeout(() => {
       if (document.activeElement === inp) return;
+      if (isMobileViewport() && isMobileSearchOpen) {
+        // Keep mobile search open when user taps chips or interacts with results
+        return;
+      }
       const backdrop = document.getElementById("searchMobileBackdrop");
       if (backdrop) backdrop.classList.remove("active");
-      wrap.classList.remove("focused");
+      wrap.classList.remove("focused", "mobile-expanded");
       autoResizeSearch();
       triggerFeedback('search_close');
-    }, 120);
+    }, 150);
   });
 
   window.addEventListener("resize", () => {
@@ -18646,10 +18802,17 @@ function bindSearch() {
   });
 
   document.addEventListener("pointerdown", e => {
-    if (wrap && wrap.classList.contains("focused") && !wrap.contains(e.target)) {
-      const backdrop = document.getElementById("searchMobileBackdrop");
-      if (backdrop) backdrop.classList.remove("active");
-      inp.blur();
+    if (wrap && (wrap.classList.contains("focused") || wrap.classList.contains("mobile-expanded"))) {
+      if (isMobileViewport() && isMobileSearchOpen) {
+        if (e.target.closest('#searchMobileBackdrop')) {
+          cancelMobileSearch(e);
+        }
+      } else if (!wrap.contains(e.target)) {
+        const backdrop = document.getElementById("searchMobileBackdrop");
+        if (backdrop) backdrop.classList.remove("active");
+        inp.blur();
+        wrap.classList.remove("focused", "mobile-expanded");
+      }
     }
   });
   
