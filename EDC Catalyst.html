@@ -3659,19 +3659,19 @@ img, svg, picture, canvas {
 .footer-wrapper {
   position: relative;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 56px;
   z-index: 10;
   background: transparent;
   display: block;
 }
 
-/* ─── LIVE WAVE DIVIDER (ZERO-SEAM CONTINUITY) ──────────────────────── */
+/* ─── LIVE WAVE DIVIDER (SYMMETRICAL MULTI-LAYER LIQUID HORIZON) ────── */
 .wave-divider {
   position: relative;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  margin-bottom: -6px; /* Deep overlap eliminates all sub-pixel anti-aliasing cracks */
+  margin-bottom: -3px; /* Flawless zero-gap continuity into footer gradient */
   pointer-events: none;
   z-index: 2;
   display: block;
@@ -3682,25 +3682,34 @@ img, svg, picture, canvas {
   display: block;
   width: calc(100% + 2px);
   margin-left: -1px;
-  height: 86px;
+  height: 98px;
   vertical-align: bottom;
 }
 
 @media (max-width: 768px) {
   .wave-divider svg {
-    height: 54px;
+    height: 64px;
   }
 }
 
-/* Background animated secondary ambient wave */
-.wave-divider .shape-fill-bg {
-  fill: rgba(79, 70, 229, 0.28);
-  animation: waveFloatBg 11s ease-in-out infinite alternate;
+/* Luminous Ambient Glow Wave */
+.wave-divider .shape-fill-glow {
+  fill: url(#waveGlowGrad);
+  opacity: 0.65;
+  animation: waveFloatGlow 14s ease-in-out infinite alternate;
   transform-origin: bottom center;
   transform-box: fill-box;
 }
 
-/* Main primary wave - pinned to bottom coordinates, gentle organic crest breathing */
+/* Mid-Depth Fluid Accent Wave */
+.wave-divider .shape-fill-bg {
+  fill: rgba(79, 70, 229, 0.28);
+  animation: waveFloatBg 10s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  transform-box: fill-box;
+}
+
+/* Primary Seamless Obsidian Crest Wave (Full-width balanced horizon) */
 .wave-divider .shape-fill {
   fill: var(--footer-bg-top);
   animation: waveFloatMain 8s ease-in-out infinite alternate;
@@ -3709,35 +3718,30 @@ img, svg, picture, canvas {
   transition: fill 0.3s ease;
 }
 
+@keyframes waveFloatGlow {
+  0% { transform: scaleY(0.94) scaleX(1); }
+  50% { transform: scaleY(1.08) scaleX(1.01); }
+  100% { transform: scaleY(0.96) scaleX(0.99); }
+}
+
 @keyframes waveFloatMain {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.05);
-  }
-  100% {
-    transform: scaleY(1);
-  }
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(1.04); }
+  100% { transform: scaleY(1); }
 }
 
 @keyframes waveFloatBg {
-  0% {
-    transform: scaleY(0.96) scaleX(1);
-  }
-  50% {
-    transform: scaleY(1.1) scaleX(1.02);
-  }
-  100% {
-    transform: scaleY(1) scaleX(0.99);
-  }
+  0% { transform: scaleY(0.96) scaleX(1); }
+  50% { transform: scaleY(1.1) scaleX(1.02); }
+  100% { transform: scaleY(1) scaleX(0.99); }
 }
 
-/* ─── FOOTER BODY ────────────────────────────── */
+/* ─── FOOTER BODY (EDGE-TO-EDGE EXPANDED ARCHITECTURE) ──────────────── */
 .footer-content {
+  width: 100%;
   background: linear-gradient(180deg, var(--footer-bg-top) 0%, var(--footer-bg-bottom) 100%);
   color: var(--footer-text);
-  padding: 48px 24px 38px;
+  padding: 56px clamp(20px, 4.5vw, 64px) max(36px, env(safe-area-inset-bottom, 36px));
   position: relative;
   box-shadow: none;
   border-top: none;
@@ -3747,28 +3751,47 @@ img, svg, picture, canvas {
 }
 
 .footer-inner {
-  max-width: 1400px;
+  max-width: 1560px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: 2.2fr 1.25fr 1.25fr 1.5fr;
-  gap: 40px;
+  gap: clamp(24px, 3.5vw, 48px);
   margin-bottom: 48px;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    gap: 32px;
+  }
+  .footer-col-stats {
+    grid-column: span 3;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 860px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .footer-col-brand,
+  .footer-col-stats {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 580px) {
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+  }
+  .footer-col-brand,
+  .footer-col-stats {
+    grid-column: span 1;
   }
 }
 
@@ -3781,29 +3804,27 @@ img, svg, picture, canvas {
 }
 
 .footer-brand-logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #4F46E5 0%, #4338CA 55%, #312E81 100%);
-  border: 1.5px solid rgba(129, 140, 248, 0.7);
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent) 0%, #4338CA 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.38), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(79, 70, 229, 0.38);
   cursor: pointer;
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
   flex-shrink: 0;
 }
 
 .footer-brand-logo:hover {
-  transform: translateY(-3px) scale(1.06);
-  box-shadow: 0 14px 32px rgba(79, 70, 229, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  transform: scale(1.08) rotate(-4deg);
 }
 
 .footer-brand-logo svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
 }
 
 .footer-title-text {
@@ -3812,22 +3833,22 @@ img, svg, picture, canvas {
 }
 
 .footer-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 2.3rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.5px;
-  user-select: none;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   margin: 0;
 }
 
-.footer-title .title-edc {
-  color: var(--accent);
+.title-edc {
+  color: #FFFFFF;
 }
 
-.footer-title .title-catalyst {
-  color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.12);
+.title-catalyst {
+  background: linear-gradient(135deg, #A5B4FC 0%, #818CF8 50%, #C084FC 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .footer-sub {
@@ -3848,203 +3869,204 @@ img, svg, picture, canvas {
   max-width: 440px;
 }
 
-/* Status pill */
 .footer-live-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  background: var(--footer-card-bg);
+  border: 1px solid var(--footer-card-border);
   padding: 6px 14px;
   border-radius: 100px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 11.5px;
+  color: var(--footer-text);
+  margin-bottom: 22px;
+}
+
+.footer-live-status-pill strong {
   color: #34D399;
-  font-size: 12px;
-  font-weight: 600;
-  width: fit-content;
-  margin-bottom: 16px;
 }
 
 .live-dot-pulse {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #10B981;
   box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  animation: liveDotPulse 2s infinite;
+  animation: pulseGreen 2s infinite;
   display: inline-block;
-  flex-shrink: 0;
 }
 
-@keyframes liveDotPulse {
+@keyframes pulseGreen {
   0% {
-    transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
   }
   70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
   }
   100% {
-    transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
 }
 
-/* ─── REAL-TIME CHRONOMETER CARD (DATE, MONTH, YEAR & LOWERCASE DAY) ─────────────────── */
+/* Real-Time Live Chrono Widget */
 .footer-live-chrono-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid var(--footer-card-border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  max-width: 380px;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.08);
-  max-width: 440px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.footer-live-chrono-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
 }
 
 .flc-chrono-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .flc-pulse-badge {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
+}
+
+.flc-pulse-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #A5B4FC;
+  font-weight: 600;
 }
 
 .flc-day-pill {
-  font-size: 11.5px;
-  font-weight: 700;
-  text-transform: lowercase; /* strictly small letters as requested */
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
   letter-spacing: 0.06em;
+  text-transform: lowercase;
   color: #38BDF8;
   background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.28);
   padding: 3px 10px;
   border-radius: 100px;
+  font-weight: 500;
 }
 
 .flc-chrono-main {
   display: flex;
   align-items: baseline;
   gap: 8px;
+  margin-bottom: 14px;
 }
 
 .flc-time-num {
-  font-family: 'JetBrains Mono', 'Fira Code', 'DM Mono', monospace;
-  font-size: 26px;
+  font-family: 'DM Mono', monospace;
+  font-size: 32px;
   font-weight: 700;
+  letter-spacing: -0.02em;
   color: #FFFFFF;
-  letter-spacing: 0.02em;
   line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .flc-ampm-pill {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
-  font-weight: 700;
-  text-transform: lowercase;
-  color: var(--accent);
+  font-weight: 600;
+  color: #818CF8;
   background: rgba(99, 102, 241, 0.18);
-  border: 1px solid rgba(129, 140, 248, 0.3);
+  border: 1px solid rgba(99, 102, 241, 0.3);
   padding: 2px 7px;
   border-radius: 6px;
+  text-transform: lowercase;
 }
 
 .flc-chrono-footer {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--footer-text-muted);
+  font-size: 12px;
 }
 
 .flc-calendar-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #A5B4FC;
-  flex-shrink: 0;
+  color: #818CF8;
 }
 
 .flc-date-string {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 0.02em;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  flex-wrap: wrap;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
 }
 
 .flc-date-day-small {
-  color: #38BDF8;
-  text-transform: lowercase; /* strictly small letters as requested */
-  font-weight: 700;
+  color: #E2E8F0;
+  font-weight: 600;
 }
 
 .flc-date-sep {
   color: rgba(255, 255, 255, 0.35);
+  margin: 0 4px;
 }
 
 .flc-date-num {
-  color: #FFFFFF;
-  font-weight: 700;
+  color: #F8FAFC;
+  font-weight: 600;
 }
 
 .flc-date-month {
   color: #E2E8F0;
-  text-transform: lowercase; /* strictly small letters as requested */
-  font-weight: 600;
 }
 
 .flc-date-year {
   color: #94A3B8;
-  font-weight: 600;
+  margin-left: 2px;
 }
 
-/* Column titles */
+/* Footer columns */
 .footer-col-title {
   font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: 1.5px;
   text-transform: uppercase;
+  letter-spacing: 1.5px;
   color: #FFFFFF;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
 .footer-col-title::after {
   content: '';
-  display: block;
-  width: 22px;
+  display: inline-block;
+  width: 16px;
   height: 2px;
   background: var(--accent);
   border-radius: 2px;
 }
 
-/* Links */
 .footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-links li a {
@@ -4062,28 +4084,27 @@ img, svg, picture, canvas {
 .footer-links li a:hover {
   color: #FFFFFF;
   transform: translateX(4px);
-  text-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
 .footer-link-icon {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
-  color: var(--accent);
-  transition: transform 0.2s ease, color 0.2s ease;
+  color: #818CF8;
+  transition: transform 0.2s ease;
 }
 
 .footer-links li a:hover .footer-link-icon {
-  color: #818CF8;
   transform: scale(1.15);
+  color: #A5B4FC;
 }
 
-/* Stats boxes in footer */
+/* Stats grid */
 .footer-stats-boxes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
 .footer-stat-item {
@@ -4102,11 +4123,11 @@ img, svg, picture, canvas {
 }
 
 .fstat-val {
-  font-family: 'DM Mono', monospace;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #FFFFFF;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-family: 'DM Mono', monospace;
 }
 
 .fstat-label {
@@ -4117,20 +4138,20 @@ img, svg, picture, canvas {
   letter-spacing: 0.5px;
 }
 
-/* Digital suite mini card in footer */
+/* Digital suite callout */
 .footer-digital-suite-callout {
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.12) 0%, rgba(99, 102, 241, 0.05) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 14px 16px;
 }
 
 .fdsc-label {
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: #A5B4FC;
+  font-size: 11px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #A5B4FC;
   margin-bottom: 4px;
 }
 
@@ -4158,15 +4179,17 @@ img, svg, picture, canvas {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
+  width: 100%;
 }
 
 .footer-copy {
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--footer-text-muted);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .footer-copy strong {
@@ -4176,22 +4199,33 @@ img, svg, picture, canvas {
 .footer-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  margin-right: 76px; /* Guaranteed margin offset so floating #scrollTopBtn NEVER collides */
+}
+
+@media (max-width: 860px) {
+  .footer-actions {
+    margin-right: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 .footer-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   background: var(--footer-card-bg);
   border: 1px solid var(--footer-card-border);
   color: var(--footer-text);
-  padding: 8px 16px;
+  padding: 9px 18px;
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.22s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .footer-action-btn:hover {
@@ -4200,6 +4234,26 @@ img, svg, picture, canvas {
   color: #FFFFFF;
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
+.footer-action-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.footer-btn-refresh:hover .footer-action-icon {
+  transform: rotate(-180deg);
+  transition: transform 0.4s ease;
+}
+
+.scroll-top-btn.docked-footer {
+  bottom: 96px !important; /* Lifts floating button gracefully above footer bottom strip */
+  box-shadow: 0 12px 32px rgba(79, 70, 229, 0.48), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+@media (max-width: 600px) {
+  .scroll-top-btn.docked-footer {
+    bottom: 86px !important;
+  }
 }
 
 /* ==========================================================================
@@ -4443,9 +4497,17 @@ img, svg, picture, canvas {
 <!-- ══ FOOTER SECTION WITH LIVE WAVE DIVIDER (SEAMLESS OBSIDIAN) ═══════════════ -->
 <div class="footer-wrapper">
   <div class="wave-divider">
-    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
-      <path d="M0,0 C150,60 350,0 500,40 C650,80 900,10 1200,50 L1200,160 L0,160 Z" class="shape-fill-bg"></path>
-      <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V160H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="waveGlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.35"/>
+          <stop offset="50%" stop-color="#818CF8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.35"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,32 C240,64 480,12 720,38 C960,64 1200,16 1440,32 L1440,120 L0,120 Z" class="shape-fill-glow"></path>
+      <path d="M0,45 C220,18 460,58 720,26 C980,-2 1220,52 1440,32 L1440,120 L0,120 Z" class="shape-fill-bg"></path>
+      <path d="M0,40 C180,18 380,54 580,32 C780,12 980,50 1180,24 C1320,10 1400,32 1440,34 L1440,120 L0,120 Z" class="shape-fill"></path>
     </svg>
   </div>
 
@@ -4480,7 +4542,7 @@ img, svg, picture, canvas {
                 <span class="live-dot-pulse"></span>
                 <span class="flc-pulse-label">Real-Time Chrono</span>
               </div>
-              <div class="flc-day-pill" id="footerLiveDay">wednesday</div>
+              <div class="flc-day-pill" id="footerLiveTz">live · utc+5:30</div>
             </div>
             <div class="flc-chrono-main">
               <div class="flc-time-num" id="footerLiveTime">12:00:00</div>
@@ -4718,11 +4780,11 @@ img, svg, picture, canvas {
           <h4 class="footer-col-title">Catalog Stats</h4>
           <div class="footer-stats-boxes">
             <div class="footer-stat-item">
-              <span class="fstat-val" id="footerTotalItems">212</span>
+              <span class="fstat-val" id="footerTotalItems">214</span>
               <span class="fstat-label">Curated Gear</span>
             </div>
             <div class="footer-stat-item">
-              <span class="fstat-val" id="footerTotalBrands">40+</span>
+              <span class="fstat-val" id="footerTotalBrands">60+</span>
               <span class="fstat-label">Elite Brands</span>
             </div>
             <div class="footer-stat-item">
@@ -4753,15 +4815,14 @@ img, svg, picture, canvas {
           <span id="footerCurrentYear">2026</span> <strong>EDC Catalyst</strong>. All rights reserved. Handcrafted with precision.
         </div>
         <div class="footer-actions">
-          <button class="footer-action-btn" onclick="resetAll(); scrollToCatalog();" title="Reset all catalog filters">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-              <path d="M3 3v5h5"></path>
+          <button class="footer-action-btn footer-btn-refresh" id="footerResetFiltersBtn" onclick="resetAll(); scrollToCatalog();" title="Refresh &amp; reset all catalog filters">
+            <svg class="footer-action-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
             </svg>
             <span>Reset Filters</span>
           </button>
-          <button class="footer-action-btn" onclick="scrollToTop()" title="Scroll to top">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <button class="footer-action-btn footer-btn-top" onclick="scrollToTop()" title="Scroll back to top">
+            <svg class="footer-action-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 19V5M5 12l7-7 7 7"></path>
             </svg>
             <span>Back to Top</span>
@@ -4770,7 +4831,6 @@ img, svg, picture, canvas {
       </div>
     </div>
   </footer>
-</div>
 </div>
 
 
@@ -18192,6 +18252,17 @@ function handleScroll() {
     scrollTopBtn.classList.add('hiding');
     triggerFeedback('bounce_exit');
   }
+
+  // Lift/dock floating scroll button when entering footer to prevent any overlap
+  const footerEl = document.querySelector('.footer-content');
+  if (footerEl) {
+    const footerRect = footerEl.getBoundingClientRect();
+    if (footerRect.top < window.innerHeight - 30) {
+      scrollTopBtn.classList.add('docked-footer');
+    } else {
+      scrollTopBtn.classList.remove('docked-footer');
+    }
+  }
 }
 
 function onScrollOptimized() {
@@ -18737,9 +18808,16 @@ function initFooterLiveClock() {
     const pad = (n) => String(n).padStart(2, '0');
     const timeStr = pad(hours12) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
 
-    // Update Day elements (strictly lowercase)
-    const dayEl = document.getElementById('footerLiveDay');
-    if (dayEl) dayEl.textContent = dayName;
+    // Update Timezone/Live badge (eliminates duplicate day name)
+    const tzEl = document.getElementById('footerLiveTz');
+    if (tzEl) {
+      const offsetMin = -now.getTimezoneOffset();
+      const sign = offsetMin >= 0 ? '+' : '-';
+      const offH = Math.floor(Math.abs(offsetMin) / 60);
+      const offM = Math.abs(offsetMin) % 60;
+      const offStr = offM > 0 ? `${sign}${offH}:${pad(offM)}` : `${sign}${offH}`;
+      tzEl.textContent = `live · utc${offStr}`;
+    }
     const daySmallEl = document.getElementById('footerLiveDaySmall');
     if (daySmallEl) daySmallEl.textContent = dayName;
 
