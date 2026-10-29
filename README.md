@@ -197,7 +197,8 @@ EDC-Catalyst/
 │   ├── samsung/                      # Studio cutouts for Samsung flagships
 │   ├── sony/                         # Audio, camera, and console assets
 │   ├── watches/                      # Authentic studio cutouts for luxury and horology timepieces
-│   └── ...                           # Tools, writing, vehicles, footwear, apps
+│   ├── apps/                         # Digital stack and ecosystem cutouts (Duolingo, iCloud)
+│   └── ...                           # Tools, writing, vehicles, footwear
 ├── EDC Catalyst.html                 # Complete standalone application, CSS, and engine
 ├── README.md                         # Comprehensive documentation and architecture
 └── LICENSE                           # MIT License
