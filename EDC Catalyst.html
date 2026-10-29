@@ -212,7 +212,7 @@ header {
 .scatter-char {
   display: inline-block;
   position: relative;
-  will-change: transform, opacity, filter, text-shadow;
+  will-change: transform, opacity;
   transform-style: preserve-3d;
   transform-origin: center center;
   cursor: pointer;
@@ -456,29 +456,26 @@ header {
 @keyframes charPopSpring {
   0% {
     opacity: 0;
-    transform: translateY(16px) scale(0.3) rotate(-6deg);
-    filter: blur(1.5px);
+    transform: translateY(14px) scale(0.3) rotate(-5deg);
     color: var(--accent);
   }
   50% {
     opacity: 1;
-    transform: translateY(-6.5px) scale(1.3) rotate(3deg);
-    filter: blur(0);
+    transform: translateY(-5px) scale(1.22) rotate(2deg);
     color: var(--accent);
-    text-shadow: 0 3px 14px rgba(99, 102, 241, 0.55);
+    text-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
   }
   75% {
-    transform: translateY(2px) scale(0.93) rotate(-1deg);
+    transform: translateY(2px) scale(0.95) rotate(-1deg);
     color: var(--accent);
   }
   90% {
-    transform: translateY(-1px) scale(1.03);
+    transform: translateY(-1px) scale(1.02);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1) rotate(0deg);
-    filter: blur(0);
-    color: var(--text);
+    color: inherit;
     text-shadow: none;
   }
 }
@@ -2339,6 +2336,7 @@ header {
 .card {
   opacity: 0;
   transform: translateY(14px);
+  will-change: transform, opacity;
   transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.25s ease,
@@ -2623,40 +2621,7 @@ button {
     padding-right: 120px !important;
   }
 
-  /* Interactive Tap Hint Pill on Mobile Collapsed Capsule */
-  .search-mobile-hint-pill {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 4px;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(79, 70, 229, 0.08);
-    border: 1px solid rgba(79, 70, 229, 0.16);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 700;
-    font-family: 'Fredoka', sans-serif;
-    padding: 4px 9px;
-    border-radius: 99px;
-    pointer-events: none;
-    z-index: 3;
-    opacity: 0.92;
-    transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.34, 1.4, 0.64, 1);
-  }
-  [data-theme="dark"] .search-mobile-hint-pill {
-    background: rgba(129, 140, 248, 0.12);
-    border-color: rgba(129, 140, 248, 0.25);
-    color: #A5B4FC;
-  }
-  .search-wrap.mobile-expanded .search-mobile-hint-pill,
-  .search-wrap:focus-within .search-mobile-hint-pill,
-  .search-wrap.focused .search-mobile-hint-pill {
-    opacity: 0 !important;
-    transform: translateY(-50%) scale(0.65) !important;
-    pointer-events: none !important;
-  }
+
 
   .search-clear {
     top: 50% !important;
@@ -3366,13 +3331,9 @@ button {
   100% { transform: scale(1.08); opacity: 0.95; }
 }
 
-/* Hide navigation, dots, and glow while loading */
-.panel-gallery-container.is-loading .gallery-nav-btn,
-.panel-gallery-container.is-loading .gallery-dots-bar,
-.panel-gallery-container.is-loading .gallery-glow,
+/* Hide unrendered image while loading, keep nav controls interactive */
 .panel-gallery-container.is-loading .gallery-cutout-img {
   opacity: 0 !important;
-  pointer-events: none !important;
 }
 
 /* Once Loaded: Loader disappears, UI controls & glow fade in */
@@ -3467,7 +3428,7 @@ body.is-offline .panel-gallery-container {
   position: absolute;
   top: 50%;
   transform: translateY(-50%) scale(1);
-  z-index: 5;
+  z-index: 10;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -3482,6 +3443,8 @@ body.is-offline .panel-gallery-container {
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   opacity: 0.85;
+  pointer-events: auto !important;
+  touch-action: manipulation;
   transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
               background 0.2s ease,
               opacity 0.2s ease,
@@ -3900,50 +3863,34 @@ html, body {
   cursor: var(--cursor-arrow) !important;
 }
 
-/* Comprehensive Pointing Finger Hand for Interactive Target Areas */
+/* Comprehensive Pointing Finger Hand for Interactive Target Areas (Inherited without universal child matching) */
 .card,
-.card *,
 .brand-btn,
-.brand-btn *,
 .cat-btn,
-.cat-btn *,
 button,
-button *,
 a,
-a *,
 .search-clear,
 .scroll-top-btn,
-.scroll-top-btn *,
 .panel-close,
-.panel-close *,
 .card-tap,
 .card-brand-stage,
-.card-brand-stage *,
 .card-brand-logo,
 .panel-brand-stage,
-.panel-brand-stage *,
 .panel-brand-catalog-chip,
 .spec-chip,
 .tag,
 .stat-pill,
 .theme-toggle,
-.theme-toggle *,
 .settings-btn,
-.settings-btn *,
 .modal-close,
 .modal-btn,
 .modal-backdrop,
 .card-ban-badge,
 .card-heritage-pill,
-.card-heritage-pill *,
 .gallery-nav-btn,
-.gallery-nav-btn *,
 .gallery-dot,
-.gallery-dot *,
 .chrono-gauge-wrap,
-.chrono-gauge-wrap *,
 .search-mobile-chip,
-.search-mobile-chip *,
 [role="button"],
 input[type="button"],
 input[type="submit"],
@@ -3953,15 +3900,10 @@ select {
 
 /* Tactile Active Press State When Interacting / Tapping an Area */
 .card:active,
-.card:active *,
 .brand-btn:active,
-.brand-btn:active *,
 .cat-btn:active,
-.cat-btn:active *,
 button:active,
-button:active *,
 a:active,
-a:active *,
 .panel-close:active,
 .theme-toggle:active,
 .settings-btn:active,
@@ -3971,14 +3913,12 @@ a:active *,
 }
 
 /* Product Gallery Interactive Touch & Drag Stages */
-.panel-gallery-stage,
-.panel-gallery-stage * {
+.panel-gallery-stage {
   cursor: var(--cursor-grab) !important;
 }
 
 .panel-gallery-stage:active,
-.panel-gallery-stage.is-dragging,
-.panel-gallery-stage.is-dragging * {
+.panel-gallery-stage.is-dragging {
   cursor: var(--cursor-grabbing) !important;
 }
 
@@ -4126,6 +4066,8 @@ img, svg, picture, canvas {
   line-height: 0;
   margin-bottom: -3px; /* Seamless zero-gap continuity into footer gradient */
   pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   z-index: 2;
   display: block;
   background: radial-gradient(ellipse 80% 120px at 50% 100%, rgba(56, 189, 248, 0.18), rgba(79, 70, 229, 0.12) 45%, transparent 75%);
@@ -4145,6 +4087,8 @@ img, svg, picture, canvas {
   height: 100%;
   display: flex;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .wave-divider .wave-track svg {
@@ -4847,10 +4791,7 @@ img, svg, picture, canvas {
       <div class="search-placeholder" id="searchPlaceholder" aria-hidden="true"></div>
       <div class="search-animated-text" id="searchAnimatedText" aria-hidden="true"></div>
       <textarea id="searchInput" rows="1" placeholder="" autocomplete="off" spellcheck="false" aria-label="Search items"></textarea>
-      <div class="search-mobile-hint-pill" id="searchMobileHintPill" aria-hidden="true">
-        <span>Search</span>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </div>
+
       <button class="search-clear" id="clearBtn" onclick="clearSearch(event)" aria-label="Clear search"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>clear</button>
       <button class="search-mobile-cancel" id="searchMobileCancel" onclick="cancelMobileSearch(event)" type="button" aria-label="Cancel search">Cancel</button>
     </div>
@@ -5717,10 +5658,10 @@ const PRODUCT_CUTOUTS = {
   "8": [
     "assets/apple/iphone-17-pro-duo.png",
     "assets/apple/iphone-17-pro-front.png",
-    "assets/apple/iphone-17-pro-natural-back.png",
     "assets/apple/iphone-17-pro-white-back.png",
-    "assets/apple/iphone-17-pro-black-back.png",
-    "assets/apple/iphone-17-pro-white-duo.png"
+    "assets/apple/iphone-17-pro-showcase.png",
+    "assets/apple/iphone-17-pro-natural-back.png",
+    "assets/apple/iphone-17-pro-black-back.png"
   ],
   "9": [
     "assets/apple/iphone-xs-max-gold-duo.png",
@@ -6383,7 +6324,7 @@ const PRODUCT_CUTOUTS = {
   "205": [
     "assets/apple/iphone-18-pro-white-duo.png",
     "assets/apple/iphone-18-pro-white.png",
-    "assets/apple/iphone-17-pro-front.png"
+    "assets/apple/iphone-18-pro-glacier-front.png"
   ],
   "206": [
     "assets/dji/dji-mic-2.png"
@@ -6511,23 +6452,25 @@ function renderProductGalleryHTML(item, cutouts, color, brandKey) {
 
         ${multiPhotos ? `
         <!-- Left / Right Nav Arrows (Click to swipe) -->
-        <button class="gallery-nav-btn prev" onclick="event.stopPropagation(); changeGallerySlide(-1);" aria-label="Previous photo" title="Previous photo">
+        <button type="button" class="gallery-nav-btn prev" onclick="event.stopPropagation(); changeGallerySlide(-1);" onpointerdown="event.stopPropagation();" ontouchstart="event.stopPropagation();" aria-label="Previous photo" title="Previous photo">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        <button class="gallery-nav-btn next" onclick="event.stopPropagation(); changeGallerySlide(1);" aria-label="Next photo" title="Next photo">
+        <button type="button" class="gallery-nav-btn next" onclick="event.stopPropagation(); changeGallerySlide(1);" onpointerdown="event.stopPropagation();" ontouchstart="event.stopPropagation();" aria-label="Next photo" title="Next photo">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
 
         <!-- Corner Dots Bar UI colored to brand theme -->
-        <div class="gallery-dots-bar" id="galleryDotsBar" style="--brand-dot-color: ${color || '#4f46e5'}; --brand-dot-glow: ${(color || '#4f46e5') + '88'};">
+        <div class="gallery-dots-bar" id="galleryDotsBar" onpointerdown="event.stopPropagation();" ontouchstart="event.stopPropagation();" style="--brand-dot-color: ${color || '#4f46e5'}; --brand-dot-glow: ${(color || '#4f46e5') + '88'};">
           <div class="gallery-dots-track" id="galleryDotsTrack">
             ${cutouts.map((_, i) => `
-              <button class="gallery-dot ${i === 0 ? 'active' : ''}" 
+              <button type="button" class="gallery-dot ${i === 0 ? 'active' : ''}" 
                       onclick="event.stopPropagation(); setGallerySlide(${i});"
+                      onpointerdown="event.stopPropagation();"
+                      ontouchstart="event.stopPropagation();"
                       aria-label="Photo ${i + 1}" 
                       title="Photo ${i + 1}">
                 <span class="dot-fill" style="${i === 0 ? `background: ${color || '#4f46e5'}; box-shadow: 0 0 10px ${(color || '#4f46e5') + '88'};`: ''}"></span>
@@ -6640,6 +6583,10 @@ function initGalleryTouch(stageEl) {
   // Modern Unified Pointer Events API (Chromium, Firefox, Safari 13+, iOS WebKit)
   if (typeof window !== 'undefined' && 'PointerEvent' in window) {
     stageEl.addEventListener('pointerdown', e => {
+      // Do not capture pointer or start swipe if tapping buttons or dots
+      if (e.target && e.target.closest && e.target.closest('.gallery-nav-btn, .gallery-dots-bar, .gallery-dot')) {
+        return;
+      }
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       try {
         if (stageEl.setPointerCapture) stageEl.setPointerCapture(e.pointerId);
@@ -6656,6 +6603,7 @@ function initGalleryTouch(stageEl) {
   } else {
     // Legacy Touch & Mouse Event fallback with auto-removing scoped listeners
     stageEl.addEventListener('touchstart', e => {
+      if (e.target && e.target.closest && e.target.closest('.gallery-nav-btn, .gallery-dots-bar, .gallery-dot')) return;
       if (e.touches && e.touches[0]) handleStart(e.touches[0].clientX, e.touches[0].clientY, null);
     }, { passive: true });
 
@@ -6674,6 +6622,7 @@ function initGalleryTouch(stageEl) {
     };
 
     stageEl.addEventListener('mousedown', e => {
+      if (e.target && e.target.closest && e.target.closest('.gallery-nav-btn, .gallery-dots-bar, .gallery-dot')) return;
       if (e.button === 0) {
         handleStart(e.clientX, e.clientY, null);
         window.addEventListener('mousemove', onLegacyMove);
@@ -6794,6 +6743,13 @@ function setGallerySlide(index, dir) {
   const oldOutgoings = wrapper.querySelectorAll('.gallery-outgoing-img');
   oldOutgoings.forEach(el => el.remove());
 
+  // Cancel any running animations on img to avoid forward-fill conflicts
+  if (img.getAnimations) {
+    try {
+      img.getAnimations().forEach(a => a.cancel());
+    } catch(err) {}
+  }
+
   // Simultaneous direction-aware cross-slide
   const hasCurrentImg = img.src && img.style.opacity !== '0' && img.complete;
   if (hasCurrentImg) {
@@ -6807,14 +6763,18 @@ function setGallerySlide(index, dir) {
     wrapper.appendChild(outgoing);
 
     const outOffset = direction > 0 ? -65 : 65;
-    outgoing.animate([
-      { transform: 'translateX(0px) scale(1)', opacity: 1 },
-      { transform: `translateX(${outOffset}px) scale(0.92)`, opacity: 0 }
-    ], {
-      duration: 250,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      fill: 'forwards'
-    }).onfinish = () => outgoing.remove();
+    if (outgoing.animate) {
+      outgoing.animate([
+        { transform: 'translateX(0px) scale(1)', opacity: 1 },
+        { transform: `translateX(${outOffset}px) scale(0.92)`, opacity: 0 }
+      ], {
+        duration: 250,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards'
+      }).onfinish = () => outgoing.remove();
+    } else {
+      outgoing.remove();
+    }
   }
 
   const inOffset = direction > 0 ? 65 : -65;
@@ -6827,24 +6787,36 @@ function setGallerySlide(index, dir) {
     container.classList.add('is-loaded');
     img.style.opacity = '1';
     img.style.transform = 'scale(1)';
-    img.animate([
-      { transform: `translateX(${inOffset}px) scale(0.92)`, opacity: 0 },
-      { transform: 'translateX(0px) scale(1)', opacity: 1 }
-    ], {
-      duration: 280,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      fill: 'forwards'
-    });
-  } else {
-    loadGalleryImage(nextSrc, img, container).then(() => {
+    if (img.animate) {
       img.animate([
         { transform: `translateX(${inOffset}px) scale(0.92)`, opacity: 0 },
         { transform: 'translateX(0px) scale(1)', opacity: 1 }
       ], {
         duration: 280,
-        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        fill: 'forwards'
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
       });
+    }
+  } else {
+    // Keep dots and buttons active; show subtle spinner if needed
+    const loader = document.getElementById('galleryLoader');
+    if (loader) {
+      loader.style.opacity = '1';
+      loader.style.visibility = 'visible';
+    }
+    loadGalleryImage(nextSrc, img, container).then(() => {
+      if (loader) {
+        loader.style.opacity = '0';
+        loader.style.visibility = 'hidden';
+      }
+      if (img.animate) {
+        img.animate([
+          { transform: `translateX(${inOffset}px) scale(0.92)`, opacity: 0 },
+          { transform: 'translateX(0px) scale(1)', opacity: 1 }
+        ], {
+          duration: 280,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+        });
+      }
     });
   }
 }
@@ -17587,6 +17559,7 @@ function renderGrid() {
   grid.style.display = "grid";
   noRes.classList.remove("show");
 
+  cachedDocHeight = 0;
   grid.innerHTML = filtered.map((item, idx) => {
     const floatClass = `fi-${(idx % 5) + 1}`;
     const tIcons = "";
@@ -17596,8 +17569,9 @@ function renderGrid() {
     const logo = (BRAND_LOGOS[brandKey] || BRAND_LOGOS[item.category]) || '';
     const color = BRAND_COLORS[brandKey] || BRAND_COLORS[item.category] || '#4f46e5';
     const heritage = BRAND_CLOTHING_HERITAGE[brandKey];
+    const isRevealed = idx < 12 ? ' revealed' : '';
     return `
-    <div class="card" 
+    <div class="card${isRevealed}" 
          onclick="openPanel(${item.id}, this)"
          data-id="${item.id}">
       <div class="card-brand-stage" onclick="event.stopPropagation(); selectBrandFilter('${brandKey}')" title="Explore ${brandLabel} Catalog">
@@ -18141,27 +18115,25 @@ function openPanel(id, clickedEl, isSwitch = false) {
   });
 
   // 2. Container expansion animation with physics-based spring curve
+  // 2. Container expansion animation with physics-based spring curve (Compositor GPU only)
   const panelAnim = panel.animate([
     {
       transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
-      borderRadius: "20px",
-      boxShadow: "0 4px 14px rgba(0, 0, 0, 0.05)",
+      opacity: 0.85,
       offset: 0
     },
     {
       transform: `translate(${dx * 0.04}px, -10px) scale(1.02, 1.02)`,
-      borderRadius: "28px",
-      boxShadow: "0 30px 70px -10px rgba(15, 23, 42, 0.22)",
+      opacity: 1,
       offset: 0.65
     },
     {
       transform: "translate(0px, 0px) scale(1, 1)",
-      borderRadius: "28px",
-      boxShadow: "0 25px 60px -10px rgba(15, 23, 42, 0.18), 0 10px 20px -5px rgba(15, 23, 42, 0.08)",
+      opacity: 1,
       offset: 1
     }
   ], {
-    duration: 400,
+    duration: 380,
     easing: "cubic-bezier(0.34, 1.56, 0.64, 1)"
   });
 
@@ -18234,18 +18206,16 @@ function closePanel() {
     const returnAnim = panel.animate([
       {
         transform: "translate(0px, 0px) scale(1, 1)",
-        borderRadius: "28px",
-        boxShadow: "0 25px 60px -10px rgba(15, 23, 42, 0.18)",
+        opacity: 1,
         offset: 0
       },
       {
         transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
-        borderRadius: "20px",
-        boxShadow: "0 4px 14px rgba(0, 0, 0, 0.05)",
+        opacity: 0,
         offset: 1
       }
     ], {
-      duration: 300,
+      duration: 280,
       easing: "cubic-bezier(0.25, 1, 0.5, 1)"
     });
 
@@ -18347,6 +18317,9 @@ function syncSearchAnimatedText(newText) {
 
   container.innerHTML = '';
   const tokens = newText.match(/\S+|\s+/g) || [];
+  let globalCharIndex = 0;
+  const isAppending = newText.startsWith(prevSearchValue) && newText.length > prevSearchValue.length;
+  const newCharsStartIndex = isAppending ? prevSearchValue.length : (newText.length === 1 ? 0 : -1);
 
   tokens.forEach(token => {
     if (/^\s+$/.test(token)) {
@@ -18359,6 +18332,7 @@ function syncSearchAnimatedText(newText) {
           spaceSpan.textContent = char;
           container.appendChild(spaceSpan);
         }
+        globalCharIndex++;
       }
     } else {
       const wordSpan = document.createElement('span');
@@ -18366,10 +18340,14 @@ function syncSearchAnimatedText(newText) {
       for (let i = 0; i < token.length; i++) {
         const char = token[i];
         const span = document.createElement('span');
-        span.className = 'char-span char-enter';
+        const shouldPop = (globalCharIndex >= newCharsStartIndex && newCharsStartIndex !== -1);
+        span.className = shouldPop ? 'char-span char-enter' : 'char-span';
         span.textContent = char;
-        span.style.setProperty('--type-speed', `${currentTypeSpeed}s`);
+        if (shouldPop) {
+          span.style.setProperty('--type-speed', `${currentTypeSpeed}s`);
+        }
         wordSpan.appendChild(span);
+        globalCharIndex++;
       }
       container.appendChild(wordSpan);
     }
@@ -18489,7 +18467,7 @@ function initAnimatedPlaceholder() {
     const offlineEnd = offlineStart >= 0 ? offlineStart + 7 : -1;
 
     function step() {
-      if (inputEl.value.trim().length > 0) {
+      if (inputEl.value.trim().length > 0 || document.activeElement === inputEl || isMobileSearchOpen) {
         placeholderEl.classList.add('hidden');
         isPlaceholderTyping = false;
         return;
@@ -18518,7 +18496,7 @@ function initAnimatedPlaceholder() {
 
   function startCycle() {
     clearTimeout(placeholderTimer);
-    if (inputEl.value.trim().length > 0) {
+    if (inputEl.value.trim().length > 0 || document.activeElement === inputEl || isMobileSearchOpen) {
       placeholderEl.classList.add('hidden');
       return;
     }
@@ -18749,7 +18727,6 @@ function bindSearch() {
     }
 
     syncSearchAnimatedText(value);
-    autoResizeSearch();
     if (container) {
       container.scrollTop = inp.scrollTop;
     }
@@ -19049,6 +19026,7 @@ function updateScrollProgress(scrollTop) {
 window.addEventListener('resize', () => { cachedDocHeight = 0; }, { passive: true });
 
 function setupScrollAnimations() {
+  cachedDocHeight = 0;
   if (!SETTINGS.scrollAnim) {
     document.querySelectorAll('.card, .scroll-reveal').forEach(el => el.classList.add('revealed'));
     return;
@@ -19063,14 +19041,6 @@ function setupScrollAnimations() {
     return;
   }
 
-  // Instantly reveal all elements in or near current viewport to eliminate blank flash on brand filter/search
-  const vh = window.innerHeight || 800;
-  document.querySelectorAll('.card:not(.revealed), .scroll-reveal:not(.revealed)').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < vh + 120) {
-      el.classList.add('revealed');
-    }
-  });
 
   scrollObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -19418,8 +19388,6 @@ function renderScatterFrame() {
     scatterLetters.forEach(el => {
       el.style.transform = '';
       el.style.opacity = '';
-      el.style.filter = '';
-      el.style.textShadow = '';
     });
     if (hasScatteredOnce) {
       scatterSeeds = generate3DScatterTrajectory();
@@ -19450,12 +19418,9 @@ function renderScatterFrame() {
     const curRz = (seed.rz * easeP).toFixed(1);
     const curScale = (1 - (1 - seed.scale) * easeP).toFixed(3);
     const curOpacity = Math.max(0.04, 1 - (easeP * 0.88)).toFixed(2);
-    const curBlur = (easeP * 3.2).toFixed(1);
 
     el.style.transform = `translate3d(${curDx}px, ${curDy}px, ${curDz}px) rotateX(${curRx}deg) rotateY(${curRy}deg) rotateZ(${curRz}deg) scale(${curScale})`;
     el.style.opacity = curOpacity;
-    el.style.filter = easeP > 0.03 ? `blur(${curBlur}px)` : 'none';
-    el.style.textShadow = easeP > 0.04 ? `0 0 ${(easeP * 28).toFixed(1)}px ${seed.glow}` : 'none';
   });
 
   if (Math.abs(targetScatterProgress - currentScatterProgress) > 0.0004) {
@@ -19491,16 +19456,7 @@ function handleScroll() {
     triggerFeedback('bounce_exit');
   }
 
-  // Lift/dock floating scroll button when entering footer to prevent any overlap
-  const footerEl = document.querySelector('.footer-content');
-  if (footerEl) {
-    const footerRect = footerEl.getBoundingClientRect();
-    if (footerRect.top < window.innerHeight - 30) {
-      scrollTopBtn.classList.add('docked-footer');
-    } else {
-      scrollTopBtn.classList.remove('docked-footer');
-    }
-  }
+  // Footer docking is monitored asynchronously via initFooterDockObserver()
 }
 
 function onScrollOptimized() {
@@ -19511,6 +19467,29 @@ function onScrollOptimized() {
 }
 
 window.addEventListener('scroll', onScrollOptimized, { passive: true });
+
+let footerDockObserver = null;
+function initFooterDockObserver() {
+  const footerEl = document.querySelector('.footer-content');
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  if (!footerEl || !scrollTopBtn || !('IntersectionObserver' in window)) return;
+
+  if (footerDockObserver) footerDockObserver.disconnect();
+  footerDockObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        scrollTopBtn.classList.add('docked-footer');
+      } else {
+        scrollTopBtn.classList.remove('docked-footer');
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -30px 0px',
+    threshold: 0
+  });
+  footerDockObserver.observe(footerEl);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    SMART ADAPTIVE SCREEN & MOBILE VIEWPORT CONTROLLER
@@ -20156,6 +20135,7 @@ initHeaderScatter();
 handleScroll();
 updateFooterStats();
 initFooterLiveClock();
+initFooterDockObserver();
 </script>
 
 <!-- ══════════════════════════════════════════════════════════ -->
