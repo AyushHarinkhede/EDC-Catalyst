@@ -405,11 +405,32 @@ header {
   transition: color 0.35s ease, transform 0.62s cubic-bezier(0.34, 2.2, 0.64, 1);
 }
 
-/* Animated Character Typography Layer (disabled to eliminate lag & enable native selection, copy, cut, and paste) */
+/* Animated Character Typography Layer */
 .search-animated-text {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px 88px 16px 52px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Fredoka', sans-serif;
+  letter-spacing: 0.2px;
+  line-height: 24px;
+  pointer-events: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  color: var(--text);
+  z-index: 2;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow-y: hidden;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .word-span {
@@ -429,29 +450,27 @@ header {
   vertical-align: baseline;
 }
 
-/* Character Pop-in Spring Animation (Lively elastic bounce on type) */
+/* Character Pop-in Spring Animation (Lively elastic bounce on type in blue/accent UI color) */
 .char-span.char-enter {
-  animation: charPopSpring var(--type-speed, 0.18s) cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  display: inline-block;
+  animation: charPopSpring 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes charPopSpring {
   0% {
     opacity: 0;
-    transform: translateY(14px) scale(0.3) rotate(-5deg);
+    transform: translateY(12px) scale(0.4) rotate(-4deg);
     color: var(--accent);
   }
   50% {
     opacity: 1;
-    transform: translateY(-5px) scale(1.22) rotate(2deg);
+    transform: translateY(-4px) scale(1.18) rotate(1.5deg);
     color: var(--accent);
-    text-shadow: 0 2px 10px rgba(99, 102, 241, 0.4);
+    text-shadow: 0 2px 8px rgba(99, 102, 241, 0.45);
   }
   75% {
-    transform: translateY(2px) scale(0.95) rotate(-1deg);
+    transform: translateY(1px) scale(0.97);
     color: var(--accent);
-  }
-  90% {
-    transform: translateY(-1px) scale(1.02);
   }
   100% {
     opacity: 1;
@@ -461,37 +480,37 @@ header {
   }
 }
 
-/* Character Exit / Delete Animation (Playful poof-up and dissolve on Backspace) */
+/* Character Exit / Delete Animation (Playful poof-up and dissolve in red on Backspace / Cut) */
 .char-span.char-exit {
-  animation: charPoofExit var(--char-exit-duration, 0.15s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  display: inline-block;
+  animation: charPoofExit 0.18s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
   pointer-events: none;
-  overflow: hidden;
 }
 
 @keyframes charPoofExit {
   0% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
-    max-width: 1.5ch;
+    color: #EF4444 !important;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
   }
   35% {
-    opacity: 0.9;
-    transform: translateY(-7px) scale(1.16);
-    color: #F87171;
-    filter: blur(0);
+    opacity: 1;
+    transform: translateY(-8px) scale(1.22) rotate(3deg);
+    color: #DC2626 !important;
+    text-shadow: 0 2px 10px rgba(239, 68, 68, 0.7);
   }
   100% {
     opacity: 0;
-    transform: translateY(8px) scale(0.3);
-    filter: blur(2.5px);
+    transform: translateY(-18px) scale(0.35) rotate(-5deg);
+    color: #DC2626 !important;
     max-width: 0;
     margin: 0;
     padding: 0;
   }
 }
 
-/* Native Input (0ms keystroke latency, native selection, copy, cut, and paste) */
+/* Native Input Layer (sits above animated text for click, focus, cursor, selection, copy, cut, and paste) */
 #searchInput {
   position: absolute;
   top: 0;
@@ -504,14 +523,14 @@ header {
   padding: 16px 88px 16px 52px;
   font-size: 16px;
   font-weight: 500;
-  color: var(--text) !important;
+  color: transparent !important; /* Transparent text allows glowing animated character layer to shine through */
   caret-color: var(--accent);
   font-family: 'Fredoka', sans-serif;
   letter-spacing: 0.2px;
   line-height: 24px;
   outline: none;
   resize: none;
-  z-index: 5;
+  z-index: 4;
   box-sizing: border-box;
   white-space: pre-wrap;
   word-break: break-word;
@@ -520,16 +539,17 @@ header {
   -webkit-user-select: text !important;
   user-select: text !important;
   pointer-events: auto !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 #searchInput::selection {
   background: rgba(99, 102, 241, 0.35) !important;
-  color: inherit !important;
+  color: transparent !important;
 }
 
 #searchInput::-moz-selection {
   background: rgba(99, 102, 241, 0.35) !important;
-  color: inherit !important;
+  color: transparent !important;
 }
 
 #searchInput::-webkit-scrollbar {
@@ -587,11 +607,9 @@ header {
   color: #64748B;
 }
 
-/* Slide UP & COMPLETELY HIDE when search input has text or is searching */
+/* Hide placeholder ONLY when search input has actual text (has-value) */
 .search-placeholder.hidden,
 .search-wrap.has-value .search-placeholder,
-.search-wrap.searching .search-placeholder,
-.search-wrap.has-text .search-placeholder,
 .search-box-container.has-value .search-placeholder {
   display: none !important;
   visibility: hidden !important;
@@ -2939,7 +2957,7 @@ button {
 }
 
 [data-theme="dark"] #searchInput {
-  color: #F8FAFC !important;
+  color: transparent !important;
   caret-color: var(--accent);
 }
 
@@ -18395,9 +18413,119 @@ function autoResizeSearch() {
 }
 
 function syncSearchAnimatedText(newText) {
-  // Ultra-fast zero-latency: native input renders directly with native selection, copy, cut, and paste
   const container = document.getElementById('searchAnimatedText');
-  if (container) container.innerHTML = '';
+  if (!container) return;
+
+  const oldText = prevSearchValue || '';
+  if (newText === oldText) return;
+
+  // Case 1: Search was completely emptied / cleared (all characters poof away in red)
+  if (newText.length === 0) {
+    const activeSpans = Array.from(container.querySelectorAll('.char-span:not(.char-exit)'));
+    activeSpans.forEach((span, i) => {
+      span.classList.remove('char-enter');
+      span.classList.add('char-exit');
+      span.style.animationDelay = `${i * 0.015}s`;
+      setTimeout(() => { span.remove(); }, 200 + i * 15);
+    });
+    prevSearchValue = '';
+    autoResizeSearch();
+    return;
+  }
+
+  // Case 2: User is typing (appending at the end - blue pop-in spring bounce)
+  if (newText.startsWith(oldText)) {
+    const addedChars = newText.slice(oldText.length);
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < addedChars.length; i++) {
+      const ch = addedChars[i];
+      if (ch === '\n') {
+        fragment.appendChild(document.createElement('br'));
+      } else {
+        const span = document.createElement('span');
+        span.className = 'char-span char-enter' + (ch === ' ' ? ' space-char' : '');
+        span.textContent = ch;
+        fragment.appendChild(span);
+      }
+    }
+    container.appendChild(fragment);
+    prevSearchValue = newText;
+    autoResizeSearch();
+    return;
+  }
+
+  // Case 3: User pressed Backspace / Delete (deleting at the end - red poof exit)
+  if (oldText.startsWith(newText)) {
+    const removeCount = oldText.length - newText.length;
+    const activeSpans = Array.from(container.querySelectorAll('.char-span:not(.char-exit)'));
+    const toRemove = activeSpans.slice(-removeCount);
+    toRemove.forEach((span, i) => {
+      span.classList.remove('char-enter');
+      span.classList.add('char-exit');
+      span.style.animationDelay = `${(toRemove.length - 1 - i) * 0.015}s`;
+      setTimeout(() => { span.remove(); }, 200);
+    });
+    prevSearchValue = newText;
+    autoResizeSearch();
+    return;
+  }
+
+  // Case 4: General edit (Cut, Paste, mid-text deletion or replacement)
+  let commonPrefix = 0;
+  while (
+    commonPrefix < oldText.length &&
+    commonPrefix < newText.length &&
+    oldText[commonPrefix] === newText[commonPrefix]
+  ) {
+    commonPrefix++;
+  }
+
+  let oldSuffixIndex = oldText.length - 1;
+  let newSuffixIndex = newText.length - 1;
+  while (
+    oldSuffixIndex >= commonPrefix &&
+    newSuffixIndex >= commonPrefix &&
+    oldText[oldSuffixIndex] === newText[newSuffixIndex]
+  ) {
+    oldSuffixIndex--;
+    newSuffixIndex--;
+  }
+
+  const activeSpans = Array.from(container.querySelectorAll('.char-span:not(.char-exit)'));
+
+  // Removed spans in the modified range: animate out with red poof
+  const removeStart = commonPrefix;
+  const removeEnd = oldSuffixIndex + 1;
+  const removedSpans = activeSpans.slice(removeStart, removeEnd);
+  removedSpans.forEach(span => {
+    span.classList.remove('char-enter');
+    span.classList.add('char-exit');
+    setTimeout(() => { span.remove(); }, 200);
+  });
+
+  // Added characters in the modified range: animate in with blue pop
+  const referenceNode = activeSpans[removeEnd] || null;
+  const addedChars = newText.slice(commonPrefix, newSuffixIndex + 1);
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < addedChars.length; i++) {
+    const ch = addedChars[i];
+    if (ch === '\n') {
+      fragment.appendChild(document.createElement('br'));
+    } else {
+      const span = document.createElement('span');
+      span.className = 'char-span char-enter' + (ch === ' ' ? ' space-char' : '');
+      span.textContent = ch;
+      fragment.appendChild(span);
+    }
+  }
+  if (referenceNode && referenceNode.parentNode === container) {
+    container.insertBefore(fragment, referenceNode);
+  } else {
+    container.appendChild(fragment);
+  }
+
+  prevSearchValue = newText;
+  autoResizeSearch();
 }
 
 const SEARCH_PROMPTS = [
@@ -18513,7 +18641,7 @@ function initAnimatedPlaceholder() {
   if (!placeholderEl || !inputEl) return;
 
   function typePrompt(text, onComplete) {
-    if (inputEl.value.length > 0) {
+    if (inputEl.value && inputEl.value.length > 0) {
       hideSearchPlaceholder();
       return;
     }
@@ -18526,7 +18654,6 @@ function initAnimatedPlaceholder() {
     isPlaceholderTyping = true;
     const charDelay = 22;
 
-    // Detect if text contains "online" or "offline" to highlight in green/red
     const lower = text.toLowerCase();
     const onlineStart = lower.indexOf('online');
     const onlineEnd = onlineStart >= 0 ? onlineStart + 6 : -1;
@@ -18534,7 +18661,7 @@ function initAnimatedPlaceholder() {
     const offlineEnd = offlineStart >= 0 ? offlineStart + 7 : -1;
 
     function step() {
-      if (inputEl.value.length > 0 || isMobileSearchOpen) {
+      if ((inputEl.value && inputEl.value.length > 0) || isMobileSearchOpen) {
         hideSearchPlaceholder();
         return;
       }
@@ -18560,16 +18687,15 @@ function initAnimatedPlaceholder() {
     step();
   }
 
-  function startCycle() {
+  window.startCycle = function() {
     clearTimeout(placeholderTimer);
-    if (inputEl.value.length > 0 || isMobileSearchOpen) {
+    if ((inputEl.value && inputEl.value.length > 0) || isMobileSearchOpen) {
       hideSearchPlaceholder();
       return;
     }
 
     showSearchPlaceholder();
 
-    // First entry on page visit: Tell the user if they are online or offline
     if (!hasShownInitialOnlinePrompt) {
       hasShownInitialOnlinePrompt = true;
       const initialPrompt = isSystemOnline
@@ -18579,18 +18705,18 @@ function initAnimatedPlaceholder() {
 
       typePrompt(initialPrompt, () => {
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.length > 0) {
+          if (inputEl.value && inputEl.value.length > 0) {
             hideSearchPlaceholder();
             return;
           }
           hideSearchPlaceholder();
           placeholderTimer = setTimeout(() => {
-            if (inputEl.value.length > 0) {
+            if (inputEl.value && inputEl.value.length > 0) {
               hideSearchPlaceholder();
               return;
             }
             showSearchPlaceholder();
-            startCycle(); // Continues to regular search prompts
+            window.startCycle();
           }, 320);
         }, 3800);
       });
@@ -18603,29 +18729,28 @@ function initAnimatedPlaceholder() {
     currentActivePromptRaw = prompt;
 
     typePrompt(prompt, () => {
-      // Stay visible for 4.2 seconds before cycling to next prompt with slide-up
       placeholderTimer = setTimeout(() => {
-        if (inputEl.value.length > 0) {
+        if (inputEl.value && inputEl.value.length > 0) {
           hideSearchPlaceholder();
           return;
         }
 
         hideSearchPlaceholder();
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.length > 0) {
+          if (inputEl.value && inputEl.value.length > 0) {
             hideSearchPlaceholder();
             return;
           }
           currentPromptIndex = (currentPromptIndex + 1) % promptList.length;
           showSearchPlaceholder();
-          startCycle();
+          window.startCycle();
         }, 320);
       }, 4200);
     });
-  }
+  };
 
   window.triggerSearchNetworkNotification = function(online) {
-    if (!placeholderEl || !inputEl || inputEl.value.length > 0) return;
+    if (!placeholderEl || !inputEl || (inputEl.value && inputEl.value.length > 0)) return;
     clearTimeout(placeholderTimer);
     showSearchPlaceholder();
     const netPrompt = online
@@ -18634,26 +18759,25 @@ function initAnimatedPlaceholder() {
     currentActivePromptRaw = netPrompt;
     typePrompt(netPrompt, () => {
       placeholderTimer = setTimeout(() => {
-        if (inputEl.value.length > 0) {
+        if (inputEl.value && inputEl.value.length > 0) {
           hideSearchPlaceholder();
           return;
         }
         hideSearchPlaceholder();
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.length > 0) {
+          if (inputEl.value && inputEl.value.length > 0) {
             hideSearchPlaceholder();
             return;
           }
           showSearchPlaceholder();
-          startCycle();
+          window.startCycle();
         }, 320);
       }, 3500);
     });
   };
 
-  // Initial trigger on site open or restart
   setTimeout(() => {
-    startCycle();
+    window.startCycle();
   }, 180);
 }
 
@@ -18792,6 +18916,7 @@ function bindSearch() {
   inp.addEventListener("scroll", () => {
     if (container) {
       container.scrollTop = inp.scrollTop;
+      container.scrollLeft = inp.scrollLeft;
     }
   });
   
@@ -18801,13 +18926,28 @@ function bindSearch() {
     const value = e.target.value;
     searchQuery = value;
     
-    // Smoothly slide out placeholder when user types, slide back in when empty
+    // Smoothly slide out placeholder when user types, slide back in & resume cycle when empty
     const placeholderEl = document.getElementById("searchPlaceholder");
-    if (placeholderEl) {
-      if (value.trim().length > 0) {
+    if (value.length > 0) {
+      if (placeholderEl) {
         placeholderEl.classList.add("hidden");
-      } else {
+        placeholderEl.style.display = "none";
+      }
+      if (wrap) wrap.classList.add("has-value", "searching");
+      if (boxContainer) boxContainer.classList.add("has-value");
+      if (clr) clr.style.display = "block";
+      clearTimeout(placeholderTimer);
+      isPlaceholderTyping = false;
+    } else {
+      if (placeholderEl) {
+        placeholderEl.style.display = "";
         placeholderEl.classList.remove("hidden");
+      }
+      if (wrap) wrap.classList.remove("has-value", "searching");
+      if (boxContainer) boxContainer.classList.remove("has-value");
+      if (clr) clr.style.display = "none";
+      if (typeof window.startCycle === "function") {
+        window.startCycle();
       }
     }
 
@@ -18815,6 +18955,7 @@ function bindSearch() {
     autoResizeSearch();
     if (container) {
       container.scrollTop = inp.scrollTop;
+      container.scrollLeft = inp.scrollLeft;
     }
 
     // Trigger physical keystroke spring pulse on search container without layout thrashing
@@ -18825,14 +18966,75 @@ function bindSearch() {
       });
     }
 
-    clr.style.display = searchQuery ? "block" : "none";
-    wrap.classList.toggle("searching", searchQuery.length > 0);
-    
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
       renderGrid();
-      wrap.classList.toggle("has-results", getFiltered().length > 0);
+      if (wrap) wrap.classList.toggle("has-results", getFiltered().length > 0);
     }, 150);
+  });
+
+  // Handle cut event explicitly for copy/paste/cut UX
+  inp.addEventListener("cut", () => {
+    setTimeout(() => {
+      const value = inp.value;
+      searchQuery = value;
+      syncSearchAnimatedText(value);
+      autoResizeSearch();
+      if (container) {
+        container.scrollTop = inp.scrollTop;
+        container.scrollLeft = inp.scrollLeft;
+      }
+      const placeholderEl = document.getElementById("searchPlaceholder");
+      if (value.length === 0) {
+        if (placeholderEl) {
+          placeholderEl.style.display = "";
+          placeholderEl.classList.remove("hidden");
+        }
+        if (wrap) wrap.classList.remove("has-value", "searching");
+        if (boxContainer) boxContainer.classList.remove("has-value");
+        if (clr) clr.style.display = "none";
+        renderGrid();
+        if (typeof window.startCycle === "function") {
+          window.startCycle();
+        }
+      } else {
+        if (placeholderEl) {
+          placeholderEl.classList.add("hidden");
+          placeholderEl.style.display = "none";
+        }
+        if (wrap) wrap.classList.add("has-value", "searching");
+        if (boxContainer) boxContainer.classList.add("has-value");
+        if (clr) clr.style.display = "block";
+        renderGrid();
+      }
+    }, 20);
+  });
+
+  // Handle paste event explicitly
+  inp.addEventListener("paste", () => {
+    setTimeout(() => {
+      const value = inp.value;
+      searchQuery = value;
+      syncSearchAnimatedText(value);
+      autoResizeSearch();
+      if (container) {
+        container.scrollTop = inp.scrollTop;
+        container.scrollLeft = inp.scrollLeft;
+      }
+      const placeholderEl = document.getElementById("searchPlaceholder");
+      if (value.length > 0) {
+        if (placeholderEl) {
+          placeholderEl.classList.add("hidden");
+          placeholderEl.style.display = "none";
+        }
+        if (wrap) wrap.classList.add("has-value", "searching");
+        if (boxContainer) boxContainer.classList.add("has-value");
+        if (clr) clr.style.display = "block";
+        clearTimeout(placeholderTimer);
+        isPlaceholderTyping = false;
+        renderGrid();
+      }
+    }, 20);
   });
   
   inp.addEventListener("focus", () => {
@@ -18840,6 +19042,13 @@ function bindSearch() {
     if (inp.value && inp.value.length > 0) {
       if (typeof hideSearchPlaceholder === 'function') {
         hideSearchPlaceholder();
+      }
+    } else {
+      if (typeof showSearchPlaceholder === 'function') {
+        showSearchPlaceholder();
+      }
+      if (typeof window.startCycle === 'function' && !isPlaceholderTyping) {
+        window.startCycle();
       }
     }
     if (isMobileViewport()) {
@@ -18860,6 +19069,18 @@ function bindSearch() {
       const backdrop = document.getElementById("searchMobileBackdrop");
       if (backdrop) backdrop.classList.remove("active");
       wrap.classList.remove("focused", "mobile-expanded");
+      if (!inp.value || inp.value.length === 0) {
+        const placeholderEl = document.getElementById("searchPlaceholder");
+        if (placeholderEl) {
+          placeholderEl.style.display = "";
+          placeholderEl.classList.remove("hidden");
+        }
+        if (wrap) wrap.classList.remove("has-value", "searching");
+        if (boxContainer) boxContainer.classList.remove("has-value");
+        if (typeof window.startCycle === "function" && !isPlaceholderTyping) {
+          window.startCycle();
+        }
+      }
       autoResizeSearch();
       triggerFeedback('search_close');
     }, 150);
@@ -18922,27 +19143,30 @@ function clearSearch() {
   const inp = document.getElementById("searchInput");
   const clr = document.getElementById("clearBtn");
   const wrap = document.querySelector(".search-wrap");
-  const container = document.getElementById('searchAnimatedText');
 
-  // Slide placeholder back in when search is cleared
+  if (inp) {
+    inp.value = "";
+    inp.focus();
+  }
+
+  // Animate all remaining characters poofing out in red
+  syncSearchAnimatedText("");
+
   const placeholderEl = document.getElementById("searchPlaceholder");
   if (placeholderEl) {
     placeholderEl.style.display = "";
     placeholderEl.classList.remove("hidden");
   }
 
-  if (container) container.innerHTML = "";
-  prevSearchValue = "";
-
-  if (inp) {
-    inp.value = "";
-    inp.focus();
-  }
   if (clr) clr.style.display = "none";
   if (wrap) wrap.classList.remove("searching", "has-results", "has-value");
   autoResizeSearch();
   renderGrid();
   triggerFeedback('tap');
+
+  if (typeof window.startCycle === 'function') {
+    window.startCycle();
+  }
 }
 
 function resetAll() {
