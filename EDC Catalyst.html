@@ -405,30 +405,11 @@ header {
   transition: color 0.35s ease, transform 0.62s cubic-bezier(0.34, 2.2, 0.64, 1);
 }
 
-/* Animated Character Typography Layer */
+/* Animated Character Typography Layer (disabled to eliminate lag & enable native selection, copy, cut, and paste) */
 .search-animated-text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding: 16px 88px 16px 52px;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: 'Fredoka', sans-serif;
-  letter-spacing: 0.2px;
-  line-height: 24px;
-  pointer-events: none;
-  overflow: hidden;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  color: var(--text);
-  z-index: 1;
-  box-sizing: border-box;
-  -webkit-user-select: none;
-  user-select: none;
-  overflow-y: hidden;
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 .word-span {
@@ -510,7 +491,7 @@ header {
   }
 }
 
-/* Native Input (transparent text so animated text layer renders characters) */
+/* Native Input (0ms keystroke latency, native selection, copy, cut, and paste) */
 #searchInput {
   position: absolute;
   top: 0;
@@ -523,19 +504,32 @@ header {
   padding: 16px 88px 16px 52px;
   font-size: 16px;
   font-weight: 500;
-  color: transparent;
+  color: var(--text) !important;
   caret-color: var(--accent);
   font-family: 'Fredoka', sans-serif;
   letter-spacing: 0.2px;
   line-height: 24px;
   outline: none;
   resize: none;
-  z-index: 2;
+  z-index: 5;
   box-sizing: border-box;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
   overflow-y: hidden;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  pointer-events: auto !important;
+}
+
+#searchInput::selection {
+  background: rgba(99, 102, 241, 0.35) !important;
+  color: inherit !important;
+}
+
+#searchInput::-moz-selection {
+  background: rgba(99, 102, 241, 0.35) !important;
+  color: inherit !important;
 }
 
 #searchInput::-webkit-scrollbar {
@@ -593,12 +587,18 @@ header {
   color: #64748B;
 }
 
-/* Slide UP & Disappear when search input has text */
-.search-placeholder.hidden {
-  transform: translateY(-16px) scale(0.96);
-  opacity: 0;
+/* Slide UP & COMPLETELY HIDE when search input has text or is searching */
+.search-placeholder.hidden,
+.search-wrap.has-value .search-placeholder,
+.search-wrap.searching .search-placeholder,
+.search-wrap.has-text .search-placeholder,
+.search-box-container.has-value .search-placeholder {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
   filter: blur(1.5px);
-  pointer-events: none;
+  pointer-events: none !important;
+  transform: translateY(-16px) scale(0.96) !important;
 }
 
 /* Character pop-in inside placeholder */
@@ -2418,7 +2418,8 @@ header {
 
 /* Enhanced search interactions */
 #searchInput {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* instant snappy text typing */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Search typing animation */
@@ -2938,7 +2939,7 @@ button {
 }
 
 [data-theme="dark"] #searchInput {
-  color: transparent;
+  color: #F8FAFC !important;
   caret-color: var(--accent);
 }
 
@@ -18354,7 +18355,6 @@ function updateTypingSpeed() {
 function autoResizeSearch() {
   const inp = document.getElementById("searchInput");
   const box = document.querySelector(".search-box-container");
-  const anim = document.getElementById("searchAnimatedText");
   if (!inp || !box) return;
 
   const isMobile = window.innerWidth <= 768;
@@ -18362,13 +18362,24 @@ function autoResizeSearch() {
   const minH = isMobile ? (isFocused ? 52 : 48) : 58;
   const maxH = isMobile ? 128 : 142;
 
+  // Optimized single-line query fast path: prevents forced layout reflow & typing lag
+  if (!inp.value || (!inp.value.includes('\n') && inp.value.length < 40)) {
+    if (box.style.height !== minH + 'px') {
+      box.style.height = minH + 'px';
+      inp.style.height = minH + 'px';
+      box.classList.remove('expanded');
+    }
+    inp.style.overflowY = 'hidden';
+    inp.scrollTop = 0;
+    return;
+  }
+
   inp.style.height = 'auto';
   const scrollH = inp.scrollHeight;
   const targetH = Math.min(Math.max(scrollH, minH), maxH);
 
   box.style.height = targetH + 'px';
   inp.style.height = targetH + 'px';
-  if (anim) anim.style.height = targetH + 'px';
 
   box.classList.toggle('expanded', targetH > minH + 4);
 
@@ -18377,56 +18388,13 @@ function autoResizeSearch() {
   } else {
     inp.style.overflowY = 'hidden';
     inp.scrollTop = 0;
-    if (anim) anim.scrollTop = 0;
   }
 }
 
 function syncSearchAnimatedText(newText) {
+  // Ultra-fast zero-latency: native input renders directly with native selection, copy, cut, and paste
   const container = document.getElementById('searchAnimatedText');
-  if (!container) return;
-
-  updateTypingSpeed();
-
-  container.innerHTML = '';
-  const tokens = newText.match(/\S+|\s+/g) || [];
-  let globalCharIndex = 0;
-  const isAppending = newText.startsWith(prevSearchValue) && newText.length > prevSearchValue.length;
-  const newCharsStartIndex = isAppending ? prevSearchValue.length : (newText.length === 1 ? 0 : -1);
-
-  tokens.forEach(token => {
-    if (/^\s+$/.test(token)) {
-      for (const char of token) {
-        if (char === '\n') {
-          container.appendChild(document.createElement('br'));
-        } else {
-          const spaceSpan = document.createElement('span');
-          spaceSpan.className = 'char-span space-char';
-          spaceSpan.textContent = char;
-          container.appendChild(spaceSpan);
-        }
-        globalCharIndex++;
-      }
-    } else {
-      const wordSpan = document.createElement('span');
-      wordSpan.className = 'word-span';
-      for (let i = 0; i < token.length; i++) {
-        const char = token[i];
-        const span = document.createElement('span');
-        const shouldPop = (globalCharIndex >= newCharsStartIndex && newCharsStartIndex !== -1);
-        span.className = shouldPop ? 'char-span char-enter' : 'char-span';
-        span.textContent = char;
-        if (shouldPop) {
-          span.style.setProperty('--type-speed', `${currentTypeSpeed}s`);
-        }
-        wordSpan.appendChild(span);
-        globalCharIndex++;
-      }
-      container.appendChild(wordSpan);
-    }
-  });
-
-  prevSearchValue = newText;
-  autoResizeSearch();
+  if (container) container.innerHTML = '';
 }
 
 const SEARCH_PROMPTS = [
@@ -18487,8 +18455,8 @@ function triggerSearchEasterEgg() {
   inp.value = wordToFill;
   searchQuery = wordToFill;
 
-  if (placeholderEl) {
-    placeholderEl.classList.add("hidden");
+  if (typeof hideSearchPlaceholder === 'function') {
+    hideSearchPlaceholder();
   }
 
   if (typeof syncSearchAnimatedText === 'function') {
@@ -18516,12 +18484,36 @@ function triggerSearchEasterEgg() {
 
 let hasShownInitialOnlinePrompt = false;
 
+function hideSearchPlaceholder() {
+  clearTimeout(placeholderTimer);
+  isPlaceholderTyping = false;
+  const placeholderEl = document.getElementById('searchPlaceholder');
+  if (placeholderEl) {
+    placeholderEl.classList.add('hidden');
+    placeholderEl.style.display = 'none';
+  }
+}
+
+function showSearchPlaceholder() {
+  const inputEl = document.getElementById('searchInput');
+  if (inputEl && inputEl.value && inputEl.value.length > 0) return;
+  const placeholderEl = document.getElementById('searchPlaceholder');
+  if (placeholderEl) {
+    placeholderEl.style.display = '';
+    placeholderEl.classList.remove('hidden');
+  }
+}
+
 function initAnimatedPlaceholder() {
   const placeholderEl = document.getElementById('searchPlaceholder');
   const inputEl = document.getElementById('searchInput');
   if (!placeholderEl || !inputEl) return;
 
   function typePrompt(text, onComplete) {
+    if (inputEl.value.length > 0) {
+      hideSearchPlaceholder();
+      return;
+    }
     placeholderEl.innerHTML = '';
     const cursor = document.createElement('span');
     cursor.className = 'placeholder-cursor';
@@ -18539,9 +18531,8 @@ function initAnimatedPlaceholder() {
     const offlineEnd = offlineStart >= 0 ? offlineStart + 7 : -1;
 
     function step() {
-      if (inputEl.value.trim().length > 0 || document.activeElement === inputEl || isMobileSearchOpen) {
-        placeholderEl.classList.add('hidden');
-        isPlaceholderTyping = false;
+      if (inputEl.value.length > 0 || isMobileSearchOpen) {
+        hideSearchPlaceholder();
         return;
       }
 
@@ -18568,12 +18559,12 @@ function initAnimatedPlaceholder() {
 
   function startCycle() {
     clearTimeout(placeholderTimer);
-    if (inputEl.value.trim().length > 0 || document.activeElement === inputEl || isMobileSearchOpen) {
-      placeholderEl.classList.add('hidden');
+    if (inputEl.value.length > 0 || isMobileSearchOpen) {
+      hideSearchPlaceholder();
       return;
     }
 
-    placeholderEl.classList.remove('hidden');
+    showSearchPlaceholder();
 
     // First entry on page visit: Tell the user if they are online or offline
     if (!hasShownInitialOnlinePrompt) {
@@ -18585,11 +18576,17 @@ function initAnimatedPlaceholder() {
 
       typePrompt(initialPrompt, () => {
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.trim().length > 0) return;
-          placeholderEl.classList.add('hidden');
+          if (inputEl.value.length > 0) {
+            hideSearchPlaceholder();
+            return;
+          }
+          hideSearchPlaceholder();
           placeholderTimer = setTimeout(() => {
-            if (inputEl.value.trim().length > 0) return;
-            placeholderEl.classList.remove('hidden');
+            if (inputEl.value.length > 0) {
+              hideSearchPlaceholder();
+              return;
+            }
+            showSearchPlaceholder();
             startCycle(); // Continues to regular search prompts
           }, 320);
         }, 3800);
@@ -18605,13 +18602,19 @@ function initAnimatedPlaceholder() {
     typePrompt(prompt, () => {
       // Stay visible for 4.2 seconds before cycling to next prompt with slide-up
       placeholderTimer = setTimeout(() => {
-        if (inputEl.value.trim().length > 0) return;
+        if (inputEl.value.length > 0) {
+          hideSearchPlaceholder();
+          return;
+        }
 
-        placeholderEl.classList.add('hidden');
+        hideSearchPlaceholder();
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.trim().length > 0) return;
+          if (inputEl.value.length > 0) {
+            hideSearchPlaceholder();
+            return;
+          }
           currentPromptIndex = (currentPromptIndex + 1) % promptList.length;
-          placeholderEl.classList.remove('hidden');
+          showSearchPlaceholder();
           startCycle();
         }, 320);
       }, 4200);
@@ -18619,20 +18622,26 @@ function initAnimatedPlaceholder() {
   }
 
   window.triggerSearchNetworkNotification = function(online) {
-    if (!placeholderEl || !inputEl || inputEl.value.trim().length > 0) return;
+    if (!placeholderEl || !inputEl || inputEl.value.length > 0) return;
     clearTimeout(placeholderTimer);
-    placeholderEl.classList.remove('hidden');
+    showSearchPlaceholder();
     const netPrompt = online
       ? "You are online to view product photos."
       : "You are offline to view product photos.";
     currentActivePromptRaw = netPrompt;
     typePrompt(netPrompt, () => {
       placeholderTimer = setTimeout(() => {
-        if (inputEl.value.trim().length > 0) return;
-        placeholderEl.classList.add('hidden');
+        if (inputEl.value.length > 0) {
+          hideSearchPlaceholder();
+          return;
+        }
+        hideSearchPlaceholder();
         placeholderTimer = setTimeout(() => {
-          if (inputEl.value.trim().length > 0) return;
-          placeholderEl.classList.remove('hidden');
+          if (inputEl.value.length > 0) {
+            hideSearchPlaceholder();
+            return;
+          }
+          showSearchPlaceholder();
           startCycle();
         }, 320);
       }, 3500);
@@ -18726,19 +18735,20 @@ function quickFillSearch(keyword) {
   const clr = document.getElementById("clearBtn");
   const wrap = document.querySelector(".search-wrap");
   const container = document.getElementById("searchAnimatedText");
-  const placeholderEl = document.getElementById("searchPlaceholder");
   
   if (!inp) return;
   inp.value = keyword;
   searchQuery = keyword;
   
-  if (placeholderEl) placeholderEl.classList.add("hidden");
+  if (typeof hideSearchPlaceholder === 'function') {
+    hideSearchPlaceholder();
+  }
   syncSearchAnimatedText(keyword);
   autoResizeSearch();
   if (container) container.scrollTop = inp.scrollTop;
   
   if (clr) clr.style.display = "block";
-  if (wrap) wrap.classList.add("searching", "focused", "mobile-expanded");
+  if (wrap) wrap.classList.add("searching", "focused", "mobile-expanded", "has-value");
   
   renderGrid();
   wrap.classList.toggle("has-results", getFiltered().length > 0);
@@ -18824,6 +18834,11 @@ function bindSearch() {
   
   inp.addEventListener("focus", () => {
     wrap.classList.add("focused");
+    if (inp.value && inp.value.length > 0) {
+      if (typeof hideSearchPlaceholder === 'function') {
+        hideSearchPlaceholder();
+      }
+    }
     if (isMobileViewport()) {
       openMobileSearch();
     } else {
@@ -18909,28 +18924,22 @@ function clearSearch() {
   // Slide placeholder back in when search is cleared
   const placeholderEl = document.getElementById("searchPlaceholder");
   if (placeholderEl) {
+    placeholderEl.style.display = "";
     placeholderEl.classList.remove("hidden");
   }
 
-  if (container) {
-    const toRemove = activeCharSpans.splice(0, activeCharSpans.length);
-    toRemove.forEach((span, i) => {
-      span.classList.remove('char-enter');
-      span.classList.add('char-exit');
-      span.style.setProperty('--char-exit-duration', '0.14s');
-      span.style.animationDelay = `${(toRemove.length - 1 - i) * 0.014}s`;
-      span.addEventListener('animationend', () => span.remove(), { once: true });
-      setTimeout(() => { if (span.parentNode) span.remove(); }, 300);
-    });
-  }
+  if (container) container.innerHTML = "";
   prevSearchValue = "";
 
-  inp.value = "";
-  clr.style.display = "none";
-  wrap.classList.remove("searching", "has-results");
+  if (inp) {
+    inp.value = "";
+    inp.focus();
+  }
+  if (clr) clr.style.display = "none";
+  if (wrap) wrap.classList.remove("searching", "has-results", "has-value");
   autoResizeSearch();
   renderGrid();
-  inp.focus();
+  triggerFeedback('tap');
 }
 
 function resetAll() {
@@ -19937,15 +19946,35 @@ function showSecurityToast(msg) {
   }, 2600);
 }
 
-// Disable Right-Click Context Menu
+// Disable Right-Click Context Menu (allow in search bar for copy/paste/cut convenience)
 document.addEventListener('contextmenu', e => {
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+  if (isSearchTarget) {
+    return true;
+  }
   e.preventDefault();
   showSecurityToast('Right click is disabled on this site');
   return false;
 });
 
-// Disable Copy
+// Disable Copy (allow inside search bar so user can copy words)
 document.addEventListener('copy', e => {
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+  if (isSearchTarget) {
+    return true; // Allow native copy in search bar!
+  }
   e.preventDefault();
   if (e.clipboardData) {
     e.clipboardData.setData('text/plain', 'Protected Content: Copying is disabled on EDC Catalyst.');
@@ -19954,32 +19983,63 @@ document.addEventListener('copy', e => {
   return false;
 });
 
-// Disable Cut
+// Disable Cut (allow inside search bar so user can cut words)
 document.addEventListener('cut', e => {
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+  if (isSearchTarget) {
+    return true; // Allow native cut in search bar!
+  }
   e.preventDefault();
   showSecurityToast('Cutting content is disabled');
   return false;
 });
 
-// Disable Paste (allow in search input for user convenience)
+// Disable Paste (allow inside search bar for user convenience)
 document.addEventListener('paste', e => {
-  if (e.target && (e.target.id === 'searchInput' || e.target.tagName === 'INPUT')) {
-    return;
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+  if (isSearchTarget) {
+    return true; // Allow native paste in search bar!
   }
   e.preventDefault();
   showSecurityToast('Paste action is disabled');
   return false;
 });
 
-// Disable Dragging of Images, Logos, and Cards
+// Disable Dragging of Images, Logos, and Cards (allow text dragging in search)
 document.addEventListener('dragstart', e => {
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container')
+  );
+  if (isSearchTarget) {
+    return true;
+  }
   e.preventDefault();
   return false;
 });
 
-// Disable Text / Element Selection
+// Disable Text / Element Selection (allow in search bar)
 document.addEventListener('selectstart', e => {
-  if (e.target && (e.target.id === 'searchInput' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+  if (isSearchTarget) {
     return true;
   }
   e.preventDefault();
@@ -20048,23 +20108,44 @@ document.addEventListener('keydown', e => {
     return false;
   }
 
-  // Block Ctrl+C (Copy)
+  const isSearchTarget = e.target && (
+    e.target.id === 'searchInput' || 
+    e.target.closest('.search-box-container') || 
+    e.target.closest('.search-wrap') || 
+    e.target.tagName === 'INPUT' || 
+    e.target.tagName === 'TEXTAREA'
+  );
+
+  // Allow Ctrl+C (Copy) in search input; block elsewhere
   if (isCtrl && (key === 'c' || key === 'C')) {
+    if (isSearchTarget) {
+      return true;
+    }
     e.preventDefault();
     showSecurityToast('Copy shortcut (Ctrl+C) is disabled');
     return false;
   }
 
-  // Block Ctrl+X (Cut)
+  // Allow Ctrl+X (Cut) in search input; block elsewhere
   if (isCtrl && (key === 'x' || key === 'X')) {
+    if (isSearchTarget) {
+      return true;
+    }
     e.preventDefault();
     showSecurityToast('Cut shortcut (Ctrl+X) is disabled');
     return false;
   }
 
-  // Block Ctrl+A (Select All outside search)
+  // Allow Ctrl+V (Paste) in search input
+  if (isCtrl && (key === 'v' || key === 'V')) {
+    if (isSearchTarget) {
+      return true;
+    }
+  }
+
+  // Allow Ctrl+A (Select All) in search input; block elsewhere
   if (isCtrl && (key === 'a' || key === 'A')) {
-    if (e.target && (e.target.id === 'searchInput' || e.target.tagName === 'INPUT')) {
+    if (isSearchTarget) {
       return true;
     }
     e.preventDefault();
